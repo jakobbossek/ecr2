@@ -1,0 +1,28 @@
+Package: ecr2
+Type: Package
+Title: Evolutionary Computing in R
+Description: Add description
+Version: 1.0
+Encoding: UTF-8
+Date: 2017-01-18
+Authors@R: c(person("Jakob", "Bossek", email = "j.bossek@gmail.com", role =
+    c("aut", "cre")))
+Maintainer: Jakob Bossek <j.bossek@gmail.com>
+License: BSD_2_clause + file LICENSE
+URL: https://github.com/jakobbossek/ecr2
+BugReports: https://github.com/jakobbossek/ecr2/issues
+Depends:
+    ParamHelpers (>= 1.8),
+    BBmisc (>= 1.6),
+    smoof (>= 1.4),
+    ggplot2 (>= 1.0.0)
+Imports:
+    checkmate (>= 1.1),
+    parallelMap (>= 1.1),
+    reshape2 (>= 1.4.1),
+    gridExtra (>= 0.9.1)
+Suggests:
+    testthat (>= 0.9.1)
+ByteCompile: yes
+LazyData: yes
+RoxygenNote: 5.0.1

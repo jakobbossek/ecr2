@@ -1,0 +1,22 @@
+# travis config
+
+language: r
+
+os:
+  - linux
+#  - osx
+
+r_github_packages:
+  - jimhester/covr
+  - berndbischl/ParamHelpers
+  - jakobbossek/smoof
+
+after_success:
+  - Rscript -e 'library(covr);coveralls(exclusions = c("src/avl.c", "src/r_ind.c", "src/hv.c"))'
+
+notifications:
+  email:
+    recipients:
+      - bossek@wi.uni-muenster.de
+    on_success: change
+    on_failure: always

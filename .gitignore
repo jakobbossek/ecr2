@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+ecr.Rcheck
+ecr.Rproj
+ecr_*.tar.gz
+playground.R
+test_specific.R
+Rplots.pdf
+*.o
+*.so

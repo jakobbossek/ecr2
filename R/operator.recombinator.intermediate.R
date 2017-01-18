@@ -15,8 +15,9 @@ setupIntermediateRecombinator = function(k = 2L) {
 
   force(k)
 
-  recombinator = function(inds, task, control) {
-    n = length(inds[[1]])
+  recombinator = function(inds) {
+    assertList(inds, len = k, any.missing = FALSE, all.missing = FALSE)
+    n = length(inds[[1L]])
     child = rep(0, n)
     for (i in 1:length(inds)) {
       child = child + inds[[i]]

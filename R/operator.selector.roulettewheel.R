@@ -32,7 +32,7 @@ setupRouletteWheelSelector = function(offset = 0.1) {
 
   force(offset)
 
-  selector = function(fitness, n.select, task, control, opt.state) {
+  selector = function(fitness, n.select) {
     fitness = as.numeric(fitness)
     # shift negative values
     if (any(fitness <= 0L)) {
@@ -48,7 +48,7 @@ setupRouletteWheelSelector = function(offset = 0.1) {
     selector = selector,
     name = "Roulette-Wheel selector",
     description = "Selects individuals in a fitness-proportional fashion.",
-    supported.objectives = c("single-objective"),
+    supported.objectives = "single-objective",
     supported.opt.direction = "maximize"
   )
 }

@@ -4,16 +4,15 @@
 #' @description
 #' Chooses two positions at random and swaps the genes.
 #'
-#' @return [\code{ecr_mutator}]
+#' @return [\code{ecr2_mutator}]
 #' @family mutators
 #' @export
 setupSwapMutator = function() {
-  mutator = function(ind, task, control) {
-    n.params = length(ind)
-    pos = sample(1:n.params, size = 2)
-    pos1 = pos[1]
-    pos2 = pos[2]
-    #catf("Positions: %i, %i", pos1, pos2)
+  mutator = function(ind) {
+    n = length(ind)
+    pos = sample(1:n, size = 2L)
+    pos1 = pos[1L]
+    pos2 = pos[2L]
     tmp = ind[pos1]
     ind[pos1] = ind[pos2]
     ind[pos2] = tmp

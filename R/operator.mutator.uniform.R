@@ -10,13 +10,13 @@
 #' hinder premature convergence. However, in later stages - when fine tuning is
 #' necessary, this feature is disadvantegous.
 #'
-#' @return [\code{ecr_mutator}]
+#' @return [\code{ecr2_mutator}]
 #' @family mutators
 #' @export
 setupUniformMutator = function() {
   mutator = function(ind, task, control) {
-    n.params = length(ind)
-    idx = sample(n.params, size = 1L)
+    n = length(ind)
+    idx = sample(n, size = 1L)
     ind[idx] = runif(1L, min = getLower(task$par.set)[idx], max = getUpper(task$par.set)[idx])
     return(ind)
   }

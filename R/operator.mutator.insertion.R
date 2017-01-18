@@ -5,14 +5,14 @@
 #' The Insertion mutation operator selects a position random and inserts it at
 #' a random position.
 #'
-#' @return [\code{ecr_mutator}]
+#' @return [\code{ecr2_mutator}]
 #' @family mutators
 #' @export
 setupInsertionMutator = function() {
-  mutator = function(ind, task, control) {
-    n.params = length(ind)
+  mutator = function(ind) {
+    n = length(ind)
     # select a random position and insert it at another random location
-    idx = sample(seq(n.params), size = 2L)
+    idx = sample(seq(n), size = 2L)
     # idx[1] is the selected position
     # idx[2] is the destination
     # equality is impossible, since replace = FALSE in sample above

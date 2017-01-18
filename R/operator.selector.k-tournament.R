@@ -17,7 +17,7 @@ setupTournamentSelector = function(k = 3L) {
 
   force(k)
 
-  selector = function(fitness, n.select, task, control, opt.state) {
+  selector = function(fitness, n.select) {
     fitness = as.numeric(fitness)
     pop.idx = seq_along(fitness)
     idx = integer(n.select)
@@ -33,6 +33,6 @@ setupTournamentSelector = function(k = 3L) {
     selector = selector,
     name = "k-Tournament selector",
     description = "Select k individuals at random, choose the best, repeat until mating pool is filled.",
-    supported.objectives = c("single-objective")
+    supported.objectives = "single-objective"
   )
 }

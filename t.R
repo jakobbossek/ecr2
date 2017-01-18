@@ -8,56 +8,6 @@ library(microbenchmark)
 
 load_all(".")
 
-
-initECRControl = function() {
-  BBmisc::makeS3Obj("ecr2_control")
-}
-
-registerECRObject = function(control, name, fun) {
-  assertClass(control, "ecr2_control")
-  assertString(name)
-  #assertFunction(fun)
-  #FIXME: check if name already exists
-  control[[name]] = fun
-  return(control)
-}
-
-registerGenerator = function(control, fun) {
-  assertClass(control, "ecr2_control")
-  assertClass(fun, "ecr2_generator")
-  registerECRObject(control, "generate", fun)
-}
-
-registerMutator = function(control, fun) {
-  assertClass(control, "ecr2_control")
-  assertClass(fun, "ecr2_mutator")
-  registerECRObject(control, "mutate", fun)
-}
-
-registerRecombinator = function(control, fun) {
-  assertClass(control, "ecr2_control")
-  assertClass(fun, "ecr2_recombinator")
-  registerECRObject(control, "recombine", fun)
-}
-
-registerSurvivalSelector = function(control, fun) {
-  assertClass(control, "ecr2_control")
-  assertClass(fun, "ecr2_selector")
-  registerECRObject(control, "selectForSurvival", fun)
-}
-
-registerObjectiveFunction = function(control, fun, n.objectives = NULL, minimize = NULL, objective.names = NULL) {
-  assertClass(control, "ecr2_control")
-  task = makeOptimizationTask(fun, n.objectives, minimize, objective.names)
-  registerECRObject(control, "task", task)
-}
-
-registerLogger = function(control, logger) {
-  assertClass(control, "ecr2_control")
-  assertClass(logger, "ecr2_monitor")
-  registerECRObject(control, "logger", logger)
-}
-
 n.dim = 30L
 fitness.fun = smoof::makeZDT1Function(dimensions = n.dim)
 par.set = getParamSet(fitness.fun)

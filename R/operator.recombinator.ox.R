@@ -8,19 +8,19 @@
 #' node indizes from the entire sequence of the second parent from the sescond
 #' cut point and b) fill the remaining gaps with this trimmed sequence.
 #'
-#' @return [\code{ecr_recombinator}]
+#' @return [\code{ecr2_recombinator}]
 #' @family recombinators
 #' @export
 setupOXRecombinator = function() {
-  recombinator = function(inds, task, control) {
-    p1 = inds[[1]]
-    p2 = inds[[2]]
+  recombinator = function(inds) {
+    p1 = inds[[1L]]
+    p2 = inds[[2L]]
     n = length(p1)
 
     # select two random positions and bring them in order
-    idx = sample(1:(n-1), 2L)
-    cut1 = idx[1]
-    cut2 = idx[2]
+    idx = sample(1:(n - 1), 2L)
+    cut1 = idx[1L]
+    cut2 = idx[2L]
     if (cut2 < cut1) {
       tmp = cut1
       cut1 = cut2

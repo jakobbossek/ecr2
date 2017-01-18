@@ -5,11 +5,16 @@
 #' Performs nondominated sorting and drops the individual from the last front
 #' with minimal hypervolume contribution.
 #'
-#' @return [\code{setOfIndividuals}]
+#' @param ref.point [\code{numeric}]\cr
+#'   Reference point for hypervolume computation.
+#' @return [\code{integer}] Vector of survivor indizes.
 #' @family selectors
 #' @export
-setupDominatedHypervolumeSelector = function() {
-  selector = function(fitness, n.select, task, control, opt.state) {
+setupDominatedHypervolumeSelector = function(ref.point) {
+  assertNumeric(ref.point)
+  force(ref.point)
+
+  selector = function(fitness, n.select) {
     all.idx = 1:ncol(fitness)
 
     # do non-dominated sorting
@@ -23,7 +28,7 @@ setupDominatedHypervolumeSelector = function() {
     }
 
     # compute exclusive hypervolume contributions and remove the one with the smallest
-    hvctrbs = computeHypervolumeContribution(fitness[, idx.max, drop = FALSE], ref.point = control$ref.point)
+    hvctrbs = computeHypervolumeContribution(fitness[, idx.max, drop = FALSE], ref.point = ref.point)
     die.idx = idx.max[getMinIndex(hvctrbs)]
 
     return(setdiff(all.idx, die.idx))

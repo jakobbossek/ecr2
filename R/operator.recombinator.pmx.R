@@ -11,15 +11,15 @@
 #' @family recombinators
 #' @export
 setupPMXRecombinator = function() {
-  recombinator = function(inds, task, control) {
-    p1 = inds[[1]]
-    p2 = inds[[2]]
+  recombinator = function(inds) {
+    p1 = inds[[1L]]
+    p2 = inds[[2L]]
     n = length(p1)
 
     # select two random positions and bring them in order
     idx = sample(n, 2L)
-    i1 = idx[1]
-    i2 = idx[2]
+    i1 = idx[1L]
+    i2 = idx[2L]
     if (i2 < i1) {
       tmp = i1
       i1 = i2

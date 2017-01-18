@@ -4,27 +4,32 @@
 #' @description
 #' This generator generates a population of permutations.
 #'
-#' @return [\code{ecr_operator}]
+#' @param len [\code{integer(1)}]\cr
+#'   Genotype length.
+#' @param set [\code{vector}]\cr
+#'   Permutations will be generated from this set.
+#'   Default is \code{1:len}.
+#' @return [\code{ecr2_operator}]
 #' @export
-setupPermutationGenerator = function() {
-  generatePermutationPopulation = function(size, task, control) {
-    par.set = task$par.set
-    if (getParamNr(par.set) > 1L) {
-      stopf("The Permutation Generator works only with one parameter(-vector).")
-    }
+setupPermutationGenerator = function(len, set = seq_len(len)) {
+  len = asInt(len, lower = 2L)
+  if (!testVector(set))
+    stopf("set needs to be a vector or list of atomic elements")
+  if (!length(set) == len)
+    stopf("Length needs to be equal to the set.")
+  force(len)
+  force(set)
 
-    n.params = sum(getParamLengths(par.set))
-    population = list()
-    for(i in seq(size)) {
-      population[[i]] = sample(1:n.params)
-    }
-    makePopulation(population)
+  generatePermutationPopulation = function(size) {
+    lapply(seq_len(size), function(i) {
+      unlist(sample(set))
+    })
   }
 
   makeGenerator(
     generator = generatePermutationPopulation,
     name = "Permutation generator",
     description = "Generates random permutations.",
-    supported = c("permutation")
+    supported = "permutation"
   )
 }

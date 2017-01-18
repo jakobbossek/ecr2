@@ -5,11 +5,11 @@
 #' This recombinator does not perform any recombination. It simply returns the
 #' first of the passed parents.
 #'
-#' @return [\code{ecr_recombinator}]
+#' @return [\code{ecr2_recombinator}]
 #' @family recombinators
 #' @export
 setupNullRecombinator = function() {
-  recombinator = function(inds, task, control) {
+  recombinator = function(inds) {
     return(inds[[1L]])
   }
 

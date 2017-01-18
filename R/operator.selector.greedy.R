@@ -9,7 +9,7 @@
 #' @family selectors
 #' @export
 setupGreedySelector = function() {
-  selector = function(fitness, n.select, task, control, opt.state) {
+  selector = function(fitness, n.select) {
     fitness = as.numeric(fitness)
     idx = order(fitness)[seq(n.select)]
     return(idx)
@@ -18,6 +18,6 @@ setupGreedySelector = function() {
     selector = selector,
     name = "Greedy selector",
     description = "Return the best individuals regarding the fitness value.",
-    supported.objectives = c("single-objective")
+    supported.objectives = "single-objective"
   )
 }

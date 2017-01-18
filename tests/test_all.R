@@ -1,3 +1,3 @@
 library(testthat)
-test_check("ecr")
+test_check("ecr2")
 

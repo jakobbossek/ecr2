@@ -21,18 +21,19 @@
 #'
 #' @example examples/ex_makeMonitor.R
 #' @export
-makeMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
-  if (!is.null(before)) assertFunction(before, args = c("opt.state", "..."))
-  if (!is.null(step)) assertFunction(step, args = c("opt.state", "..."))
-  if (!is.null(after)) assertFunction(after, args = c("opt.state", "..."))
-  dummy = function(opt.state, ...) {}
+makeECRMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
+  if (!is.null(before)) assertFunction(before, args = c("log", "population", "fitness", "gen", "..."))
+  if (!is.null(step)) assertFunction(step, args = c("log", "population", "fitness", "gen", "..."))
+  if (!is.null(after)) assertFunction(after, args = c("log", "population", "fitness", "gen", "..."))
+  dummy = function(population, fitness, gen, ...) {}
   structure(
     list(
       before = coalesce(before, dummy),
       step = coalesce(step, dummy),
-      after = coalesce(after, dummy)
+      after = coalesce(after, dummy),
+      env = new.env()
     ),
-    class = "ecr_monitor"
+    class = "ecr2_monitor"
   )
 }
 
@@ -44,8 +45,8 @@ makeMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
 # @param monitor [\code{ecr_monitor}]\cr
 #   Monitoring object.
 installMonitor = function(event.dispatcher, monitor) {
-  assertClass(event.dispatcher, "ecr_event_dispatcher")
-  assertClass(monitor, "ecr_monitor")
+  assertClass(event.dispatcher, "ecr2_event_dispatcher")
+  assertClass(monitor, "ecr2_monitor")
   event.dispatcher$registerAction("onEAInitialized", monitor$before)
   event.dispatcher$registerAction("onPopulationUpdated", monitor$step)
   event.dispatcher$registerAction("onEAFinished", monitor$after)

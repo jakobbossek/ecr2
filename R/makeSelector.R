@@ -29,12 +29,12 @@ makeSelector = function(
   supported = getAvailableRepresentations(),
   supported.objectives,
   supported.opt.direction = "minimize") {
-  assertFunction(selector, args = c("fitness", "n.select", "task", "control", "opt.state"), ordered = TRUE)
+  assertFunction(selector, args = c("fitness", "n.select"), ordered = TRUE)
   assertSubset(supported.objectives, c("single-objective", "multi-objective"))
   assertChoice(supported.opt.direction, choices = c("maximize", "minimize"))
   selector = makeOperator(selector, name, description, supported)
   selector = setAttribute(selector, "supported.objectives", supported.objectives)
   selector = setAttribute(selector, "supported.opt.direction", supported.opt.direction)
-  selector = addClasses(selector, c("ecr_selector"))
+  selector = addClasses(selector, c("ecr2_selector"))
   return(selector)
 }

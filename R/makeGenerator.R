@@ -25,8 +25,8 @@ makeGenerator = function(
   generator, name, description,
   supported = getAvailableRepresentations(),
   params = list()) {
-  assertFunction(generator, args = c("size", "task", "control"), ordered = TRUE)
+  assertFunction(generator, args = "size", ordered = TRUE)
   generator = makeOperator(generator, name, description, supported, params)
-  generator = addClasses(generator, c("ecr_generator"))
+  generator = addClasses(generator, c("ecr2_generator"))
   return(generator)
 }

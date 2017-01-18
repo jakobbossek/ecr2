@@ -35,7 +35,7 @@ makeRecombinator = function(
   params = list(),
   n.parents = 2L,
   n.children = NULL) {
-  assertFunction(recombinator, args = c("inds", "task", "control"), ordered = TRUE)
+  assertFunction(recombinator, args = "inds")
   assertInt(n.parents, lower = 2L)
   assertInt(n.children, lower = 1L)
 
@@ -43,7 +43,7 @@ makeRecombinator = function(
   attr(recombinator, "n.parents") = n.parents
   attr(recombinator, "n.children") = n.children
 
-  recombinator = addClasses(recombinator, c("ecr_recombinator"))
+  recombinator = addClasses(recombinator, c("ecr2_recombinator"))
 
   return(recombinator)
 }

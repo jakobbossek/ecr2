@@ -22,13 +22,13 @@ setupGaussMutator = function(p = 1L, sdev = 0.05) {
   force(p)
   force(sdev)
 
-  mutator = function(ind, task, control) {
-    n.params = length(ind)
-    idx = which(runif(n.params) < p)
-    mut = rnorm(length(idx), mean = 0, sd = sdev)
-    ind[idx] = ind[idx] + mut
+  mutator = function(ind) {
+    n = length(ind)
+    mut.idx = runif(n) < p
+    mut.noise = rnorm(sum(mut.idx), mean = 0, sd = sdev)
+    ind[mut.idx] = ind[mut.idx] + mut.noise
     # correct bounds
-    ind = pmin(pmax(getLower(task$par.set), ind), getUpper(task$par.set))
+    ind = pmin(pmax(rep(0, n), ind), rep(1, n))
     return(ind)
   }
 

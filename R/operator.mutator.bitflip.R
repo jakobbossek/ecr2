@@ -15,23 +15,12 @@
 #' @export
 setupBitFlipMutator = function(p = 0.1) {
   assertNumber(p, lower = 0, upper = 1)
-
   force(p)
 
-  mutator = function(ind, task, control) {
-    n.params = length(ind)
-    mutateGene = function(gene, prob) {
-      do.mutate = runif(length(gene)) < prob
-      gene[do.mutate] = 1 - gene[do.mutate]
-      gene
-    }
-
-    if (getParamNr(task$par.set) == 1L) {
-      ind = mutateGene(ind, p)
-    } else {
-      ind = lapply(ind, mutateGene, prob = p)
-    }
-
+  mutator = function(ind) {
+    n = length(ind)
+    mut.idx = runif(n) < p
+    ind[mut.idx] = 1 - ind[mut.idx]
     return(ind)
   }
 

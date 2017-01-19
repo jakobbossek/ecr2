@@ -36,15 +36,16 @@ st = system.time({
   init.solutions = control$generate(size = floor(MU / 2))
   population = initPopulation(mu = MU, init.solutions = init.solutions, control = control)
   population = control$generate(size = MU)
-fitness = do.call(cbind, lapply(population, control$task$fitness))
-
+  #fitness = do.call(cbind, lapply(population, control$task$fitness))
+  fitness = evaluateFitness(population, control)
 # init logger
 control$logger$before()
 
 for (gen in seq_len(MAX.GENS)) {
   # generate offspring
   offspring = lapply(population, control$mutate, lower = control$lower, upper = control$upper)
-  fitness.off = do.call(cbind, lapply(offspring, control$task$fitness))
+  #fitness.off = do.call(cbind, lapply(offspring, control$task$fitness))
+  fitness.off = evaluateFitness(offspring, control)
 
   # select next generation
   merged.pop = c(population, offspring)

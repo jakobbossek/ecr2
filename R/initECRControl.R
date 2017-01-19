@@ -137,3 +137,7 @@ extractFunctionParameters.smoof_function = function(fun) {
 extractFunctionParameters.function = function(fun) {
   return(list())
 }
+
+extractFunctionParameters.smoof_wrapped_function = function(fun) {
+  extractFunctionParameters(getWrappedFunction(fun))
+}

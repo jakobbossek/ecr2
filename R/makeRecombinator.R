@@ -52,7 +52,7 @@ generatesMultipleChildren = function(recombinator) {
   UseMethod("generatesMultipleChildren")
 }
 
-generatesMultipleChildren.ecr_recombinator = function(recombinator) {
+generatesMultipleChildren.ecr2_recombinator = function(recombinator) {
   return(attr(recombinator, "n.children") > 0L)
 }
 
@@ -60,7 +60,7 @@ getNumberOfParentsNeededForMating = function(recombinator) {
   UseMethod("getNumberOfParentsNeededForMating")
 }
 
-getNumberOfParentsNeededForMating.ecr_recombinator = function(recombinator) {
+getNumberOfParentsNeededForMating.ecr2_recombinator = function(recombinator) {
   return(attr(recombinator, "n.parents"))
 }
 
@@ -68,6 +68,6 @@ getNumberOfChildren = function(recombinator) {
   UseMethod("getNumberOfChildren")
 }
 
-getNumberOfChildren.ecr_recombinator = function(recombinator) {
+getNumberOfChildren.ecr2_recombinator = function(recombinator) {
   return(attr(recombinator, "n.children"))
 }

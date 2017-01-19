@@ -39,6 +39,11 @@ registerSurvivalSelector = function(control, fun) {
   registerECRObject(control, "selectForSurvival", fun)
 }
 
+registerMatingSelector = function(control, fun) {
+  assertClass(fun, "ecr2_selector")
+  registerECRObject(control, "selectForMating", fun)
+}
+
 registerObjectiveFunction = function(control, fun, n.objectives = NULL, minimize = NULL, objective.names = NULL) {
   task = makeOptimizationTask(fun, n.objectives, minimize, objective.names)
   registerECRObject(control, "task", task)

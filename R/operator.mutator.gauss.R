@@ -22,13 +22,14 @@ setupGaussMutator = function(p = 1L, sdev = 0.05) {
   force(p)
   force(sdev)
 
-  mutator = function(ind) {
+  mutator = function(ind, ...) {
+    args = list(...)
     n = length(ind)
     mut.idx = runif(n) < p
     mut.noise = rnorm(sum(mut.idx), mean = 0, sd = sdev)
     ind[mut.idx] = ind[mut.idx] + mut.noise
     # correct bounds
-    ind = pmin(pmax(rep(0, n), ind), rep(1, n))
+    ind = pmin(pmax(args$lower, ind), args$upper)
     return(ind)
   }
 

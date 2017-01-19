@@ -32,7 +32,7 @@ setupECRDefaultLogger = function(step = 1L, log.stats = list("min", "mean", "max
         n.log = nrow(log$env$stats)
         if (n.log < log$env$cur.line) {
           catf("increasing log size! Doubling size: %i -> %i", n.log, 3 * n.log)
-          log = rbind(log, makeDataFrame(ncol = length(stats) + 1L, nrow = n.log * 2, col.types = "numeric", col.names = names(env$log$stats)))
+          log$env$stats = rbind(log$env$stats, makeDataFrame(ncol = length(stats) + 1L, nrow = n.log * 2, col.types = "numeric", col.names = names(log$env$stats)))
         }
         log$env$stats[log$env$cur.line, ] = c(list(gen = gen), cur.stats)
         log$env$cur.line = log$env$cur.line + 1L

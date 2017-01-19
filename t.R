@@ -12,12 +12,18 @@ n.dim = 30L
 fitness.fun = smoof::makeZDT1Function(dimensions = n.dim)
 par.set = getParamSet(fitness.fun)
 
-control = initECRControl()
+# c1 = initECRControlFloat(smoof::makeSphereFunction(4L))
+# c2 = initECRControlFloat(function(x) c(sum(x), sum(exp(x)/7)), minimize = c(TRUE, FALSE), n.dim = 20, n.objectives = 2L, lower = -5, upper = 3)
+# c3 = initECRControlBinary(function(x) sum(x), n.objectives = 1L, n.bits = 100L)
+# c4 = initECRControlPermutation(function(x) sum(x), perm = 10, n.objectives = 3L)
+
+# stop(94)
+
+control = initECRControlFloat(fitness.fun)
 control = registerMutator(control, fun = setupGaussMutator(p = 0.3))#setupBitFlipMutator())
 control = registerRecombinator(control, fun = setupCrossoverRecombinator(p = 1))
 control = registerGenerator(control, fun = setupUniformGenerator(len = n.dim, lower = getLower(par.set), upper = getUpper(par.set)))#setupBinaryGenerator(len = n.dim))
 control = registerSurvivalSelector(control, fun = setupNondomSelector())
-control = registerObjectiveFunction(control, fun = fitness.fun, n.objectives = getNumberOfObjectives(fitness.fun))
 control = registerLogger(control, logger = setupECRDefaultLogger(
   log.stats = list("mean", "sd", "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
   log.pop = TRUE, init.size = 1000L)
@@ -27,6 +33,8 @@ MAX.GENS = 1000L
 MU = 100L
 LAMBDA = 100L
 st = system.time({
+  init.solutions = control$generate(size = floor(MU / 2))
+  population = initPopulation(mu = MU, init.solutions = init.solutions, control = control)
   population = control$generate(size = MU)
 fitness = do.call(cbind, lapply(population, control$task$fitness))
 
@@ -35,7 +43,7 @@ control$logger$before()
 
 for (gen in seq_len(MAX.GENS)) {
   # generate offspring
-  offspring = lapply(population, control$mutate)
+  offspring = lapply(population, control$mutate, lower = control$lower, upper = control$upper)
   fitness.off = do.call(cbind, lapply(offspring, control$task$fitness))
 
   # select next generation
@@ -46,16 +54,16 @@ for (gen in seq_len(MAX.GENS)) {
   fitness = merged.fit[, surv.idx, drop = FALSE]
 
   # do some logging
-  #control$logger$step(control$logger, population, fitness, gen)
+  control$logger$step(control$logger, population, fitness, gen)
 }
 })
-# log = control$logger$env$stats
+log = control$logger$env$stats
 
-# pl = ggplot(log, aes(x = gen, y = hv)) + geom_line()
-# ff = as.data.frame(t(fitness))
-# colnames(ff) = c("f1", "f2")
-# pl.front = ggplot(ff, aes(x = f1, y = f2)) + geom_point()
-# print(grid.arrange(pl, pl.front, nrow = 1L))
+pl = ggplot(log, aes(x = gen, y = hv)) + geom_line()
+ff = as.data.frame(t(fitness))
+colnames(ff) = c("f1", "f2")
+pl.front = ggplot(ff, aes(x = f1, y = f2)) + geom_point()
+print(grid.arrange(pl, pl.front, nrow = 1L))
 print(st)
 
 stop(123)

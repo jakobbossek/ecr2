@@ -10,12 +10,12 @@
 #' @export
 setupSimpleSelector = function() {
   selector = function(fitness, n.select) {
-    return(1:ncol(fitness))
+    return(sample(1:ncol(fitness), size = n.select, replace = TRUE))
   }
   makeSelector(
     selector = selector,
     name = "Simple selector",
-    description = "Simply returns the entire population.",
+    description = "Samples uniformly.",
     supported.objectives = c("single-objective", "multi-objective")
   )
 }

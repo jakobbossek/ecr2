@@ -48,7 +48,9 @@ initECRControl = function(fitness.fun, n.objectives = NULL, minimize = NULL) {
 initECRControlBinary = function(fitness.fun, n.bits = NULL, n.objectives = NULL, minimize = NULL) {
   control = initECRControl(fitness.fun, n.objectives = n.objectives, minimize = minimize)
   control$n.bits = asInt(n.bits, lower = 2L)
+  control$type = "binary"
   control = addClasses(control, "ecr2_control_binary")
+  control = initDefaultOperators(control, "binary", n.objectives)
   return(control)
 }
 
@@ -60,7 +62,9 @@ initECRControlPermutation = function(fitness.fun, perm = NULL, n.objectives = NU
     perm = 1:perm
   assertSetEqual(perm, unique(perm))
   control$perm = perm
+  control$type = "permutation"
   control = addClasses(control, "ecr2_control_permutation")
+  control = initDefaultOperators(control, "permutation", n.objectives)
   return(control)
 }
 
@@ -112,7 +116,9 @@ initECRControlFloat = function(fitness.fun, lower = NULL, upper = NULL,
   # but we need this a lot in real-valued optimization
   control$lower = unname(lower)
   control$upper = unname(upper)
+  control$type = "float"
   control = addClasses(control, "ecr2_control_float")
+  control = initDefaultOperators(control, "float", n.objectives)
   return(control)
 }
 
@@ -140,4 +146,146 @@ extractFunctionParameters.function = function(fun) {
 
 extractFunctionParameters.smoof_wrapped_function = function(fun) {
   extractFunctionParameters(getWrappedFunction(fun))
+}
+
+initDefaultOperators = function(control, type, n.objectives) {
+  n.objectives = asInt(n.objectives, lower = 1L)
+  assertChoice(type, c("float", "permutation", "binary", "custom"))
+  obj.type = if (n.objectives == 1L) "single" else "multi"
+  control = registerMatingSelector(control, getDefaultEvolutionaryOperators(type, "parent.selector", n.objectives, control))
+  control = registerSurvivalSelector(control, getDefaultEvolutionaryOperators(type, "survival.selector", n.objectives, control))
+  control = registerGenerator(control, getDefaultEvolutionaryOperators(type, "generator", n.objectives, control))
+  control = registerMutator(control, getDefaultEvolutionaryOperators(type, "mutator", n.objectives, control))
+  control = registerRecombinator(control, getDefaultEvolutionaryOperators(type, "recombinator", n.objectives, control))
+  return(control)
+}
+
+# @title
+# Check if given operator is of the specified type.
+#
+# @param operator [ecr_operator]
+#   Operator.
+# @param class [character(1)]
+#   Class.
+# @param type [character(1)]
+#   Type of the operator.
+# @return Nothing
+checkCorrectOperatorType = function(operator, class, type) {
+  if (!inherits(operator, class)) {
+    stopf("%s must be of class '%s', not '%s'.", type, class, collapse(attr(operator, "class"), sep = ", "))
+  }
+}
+
+# @title
+# Check whether an operator can handle a specific representation.
+#
+# @param operator [ecr_operator]
+#   Operator.
+# @param representation [character(1)]
+#   Representation, i.e., float, binary, permutation or custom.
+# @return [logical(1)]
+checkOperatorIsCompatible = function(operator, representation) {
+  if (!is.supported(operator, representation)) {
+    stopf("Operator '%s' is not compatible with representation '%s'",
+      getOperatorName(operator), representation
+    )
+  }
+}
+
+# @title
+# Helper function which returns the defaults evolutionary operators for the
+# standard representations.
+#
+# @param representation [\code{character(1)}]\cr
+#   Genotype representation of the parameters. Available are binary, real,
+#   permutation and custom.
+# @param type [\code{character(1)}]\cr
+#   Type of evolutionary operator. Possible are parent.selector, generator,
+#   mutator, recombinator and survival.selector.
+# @return [\code{ecr_operator}]
+getDefaultEvolutionaryOperators = function(representation, type, n.objectives, control) {
+  catf("Searching for %s for type %s", type, representation)
+  if (n.objectives == 1L) {
+    return(getSingleObjectiveDefaults(representation, type, control))
+  }
+  return(getMultiObjectiveDefaults(representation, type, control))
+}
+
+getSingleObjectiveDefaults = function(representation, type, control) {
+  defaults = list(
+    "float" = list(
+      "parent.selector" = setupTournamentSelector(k = 2L),
+      "generator" = try(setupUniformGenerator(len = control$n.dim, lower = control$lower, upper = control$upper)),
+      "mutator" = setupGaussMutator(),
+      "recombinator" = setupIntermediateRecombinator(),
+      "survival.selector" = setupGreedySelector()
+    ),
+    "binary" = list(
+      "parent.selector" = setupTournamentSelector(k = 2L),
+      "generator" = try(setupBinaryGenerator(len = control$n.bits)),
+      "mutator" = setupBitFlipMutator(),
+      "recombinator" = setupCrossoverRecombinator(),
+      "survival.selector" = setupGreedySelector()
+    ),
+    "permutation" = list(
+      "parent.selector" = setupTournamentSelector(k = 2L),
+      "generator" = try(setupPermutationGenerator(len = length(control$perm), perm = control$perm)),
+      "mutator" = setupSwapMutator(),
+      "recombinator" = setupPMXRecombinator(),
+      "survival.selector" = setupGreedySelector()
+    ),
+    "custom" = list(
+      "parent.selector" = setupTournamentSelector(k = 2L),
+      "generator" = NULL,
+      "mutator" = NULL,
+      "recombinator" = NULL,
+      "survival.selector" = setupGreedySelector()
+    )
+  )
+
+  if (representation %in% names(defaults)) {
+    return(defaults[[representation]][[type]])
+  }
+  stopf("No defaults availiable for custom representation. You need to specify all
+    operators by hand.")
+}
+
+getMultiObjectiveDefaults = function(representation, type, control) {
+  print(control)
+  defaults = list(
+    "float" = list(
+      "parent.selector" = setupSimpleSelector(),
+      "generator" = try(setupUniformGenerator(len = control$n.dim, lower = control$lower, upper = control$upper), silent = TRUE),
+      "mutator" = setupGaussMutator(),
+      "recombinator" = setupIntermediateRecombinator(),
+      "survival.selector" = setupNondomSelector()
+    ),
+    "binary" = list(
+      "parent.selector" = setupSimpleSelector(),
+      "generator" = try(setupBinaryGenerator(len = control$n.bits), silent = TRUE),
+      "mutator" = setupBitFlipMutator(),
+      "recombinator" = setupCrossoverRecombinator(),
+      "survival.selector" = setupNondomSelector()
+    ),
+    "permutation" = list(
+      "parent.selector" = setupSimpleSelector(),
+      "generator" = try(setupPermutationGenerator(len = length(control$perm), perm = control$perm), silent = TRUE),
+      "mutator" = setupSwapMutator(),
+      "recombinator" = setupPMXRecombinator(),
+      "survival.selector" = setupNondomSelector()
+    ),
+    "custom" = list(
+      "parent.selector" = setupSimpleSelector(),
+      "generator" = NULL,
+      "mutator" = NULL,
+      "recombinator" = NULL,
+      "survival.selector" = setupNondomSelector()
+    )
+  )
+
+  if (representation %in% names(defaults)) {
+    return(defaults[[representation]][[type]])
+  }
+  stopf("No defaults availiable for custom representation. You need to specify all
+    operators by hand.")
 }

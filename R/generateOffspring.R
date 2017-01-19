@@ -34,27 +34,35 @@ generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.
     stopf("At least a mutator or recombinator needs to be available.")
 
   # determine how many elements need to be chosen by parentSelector
-  n.children = getNumberOfChildren(recombinatorFun)
-  n.parents = getNumberOfParentsNeededForMating(recombinatorFun)
-
+  # if no recombinator exists we select simply lambda elements
+  n.mating = lambda
+  n.parents = 1L
+  if (!is.null(recombinatorFun)) {
+    n.children = getNumberOfChildren(recombinatorFun)
+    n.parents = getNumberOfParentsNeededForMating(recombinatorFun)
+    n.mating = floor(lambda * n.parents / n.children)
+  }
   # create mating pool. This a a matrix, where each row contains the indizes of
   # a set of >= 2 parents
-  mating.idx = matrix(selectorFun(fitness, n.select = floor(lambda * n.parents / n.children)), ncol = n.parents)
+  mating.idx = matrix(selectorFun(fitness, n.select = n.mating), ncol = n.parents)
 
   # now perform recombination
-  offspring = apply(mating.idx, 1L, function(parents.idx) {
-    parents = population[parents.idx]
-    children = if (runif(1L) < p.recomb & !is.null(recombinatorFun)) {
-      tmp = do.call(recombinatorFun, c(list(parents), recomb.pars))
-      if (hasAttributes(tmp, "multiple")) tmp else list(tmp)
-    } else {
-      parents
-    }
-    children
-  })
-
-  # unfortunately we need to "unwrap" one listing layer here
-  offspring = unlist(offspring, recursive = FALSE)
+  if (is.null(recombinatorFun)) {
+    offspring = population[as.integer(mating.idx)]
+  } else {
+    offspring = apply(mating.idx, 1L, function(parents.idx) {
+      parents = population[parents.idx]
+      children = if (runif(1L) < p.recomb & !is.null(recombinatorFun)) {
+        tmp = do.call(recombinatorFun, c(list(parents), recomb.pars))
+        if (hasAttributes(tmp, "multiple")) tmp else list(tmp)
+      } else {
+        parents
+      }
+      children
+    })
+    # unfortunately we need to "unwrap" one listing layer here
+    offspring = unlist(offspring, recursive = FALSE)
+  }
 
   # now eventually apply mutation
   if (!is.null(mutatorFun)) {

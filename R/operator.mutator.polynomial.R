@@ -18,11 +18,10 @@ setupPolynomialMutator = function(p = 0.2, eta = 10) {
   force(p)
   force(eta)
 
-  mutator = function(ind, task, control) {
-    par.set = task$par.set
-    lower = getLower(par.set)
-    upper = getUpper(par.set)
-    child = .Call("polynomialMutationC", ind, lower, upper, p, eta)
+  mutator = function(ind, ...) {
+    args = list(...)
+    child = .Call("polynomialMutationC", ind,
+      as.numeric(args$lower), as.numeric(args$upper), p, eta)
     return(child)
   }
 

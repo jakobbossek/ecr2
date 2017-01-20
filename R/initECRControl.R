@@ -47,8 +47,9 @@ initECRControl = function(fitness.fun, n.objectives = NULL, minimize = NULL) {
 #' @export
 initECRControlBinary = function(fitness.fun, n.bits = NULL, n.objectives = NULL, minimize = NULL) {
   control = initECRControl(fitness.fun, n.objectives = n.objectives, minimize = minimize)
-  control$n.bits = asInt(n.bits, lower = 2L)
+  n.bits = asInt(n.bits, lower = 2L)
   control$type = "binary"
+  control = initControlParams(control, n.bits = n.bits)
   control = addClasses(control, "ecr2_control_binary")
   control = initDefaultOperators(control, "binary", n.objectives)
   return(control)
@@ -61,7 +62,7 @@ initECRControlPermutation = function(fitness.fun, perm = NULL, n.objectives = NU
   if (length(perm) == 1L)
     perm = 1:perm
   assertSetEqual(perm, unique(perm))
-  control$perm = perm
+  control = initControlParams(control, perm = perm)
   control$type = "permutation"
   control = addClasses(control, "ecr2_control_permutation")
   control = initDefaultOperators(control, "permutation", n.objectives)
@@ -114,8 +115,8 @@ initECRControlFloat = function(fitness.fun, lower = NULL, upper = NULL,
   control$n.dim = n.dim
   # we unname here since named vectors cause pmin/pmax to be much slower!!!
   # but we need this a lot in real-valued optimization
-  control$lower = unname(lower)
-  control$upper = unname(upper)
+  control = initControlParams(control, n.dim = n.dim,
+    lower = unname(lower), upper = unname(upper))
   control$type = "float"
   control = addClasses(control, "ecr2_control_float")
   control = initDefaultOperators(control, "float", n.objectives)
@@ -146,6 +147,11 @@ extractFunctionParameters.function = function(fun) {
 
 extractFunctionParameters.smoof_wrapped_function = function(fun) {
   extractFunctionParameters(getWrappedFunction(fun))
+}
+
+initControlParams = function(control, ...) {
+  control$params = list(...)
+  return(control)
 }
 
 initDefaultOperators = function(control, type, n.objectives) {
@@ -215,21 +221,21 @@ getSingleObjectiveDefaults = function(representation, type, control) {
   defaults = list(
     "float" = list(
       "parent.selector" = setupTournamentSelector(k = 2L),
-      "generator" = try(setupUniformGenerator(len = control$n.dim, lower = control$lower, upper = control$upper)),
+      "generator" = try(setupUniformGenerator(len = control$params$n.dim, lower = control$params$lower, upper = control$params$upper), silent = TRUE),
       "mutator" = setupGaussMutator(),
       "recombinator" = setupIntermediateRecombinator(),
       "survival.selector" = setupGreedySelector()
     ),
     "binary" = list(
       "parent.selector" = setupTournamentSelector(k = 2L),
-      "generator" = try(setupBinaryGenerator(len = control$n.bits)),
+      "generator" = try(setupBinaryGenerator(len = control$params$n.bits), silent = TRUE),
       "mutator" = setupBitFlipMutator(),
       "recombinator" = setupCrossoverRecombinator(),
       "survival.selector" = setupGreedySelector()
     ),
     "permutation" = list(
       "parent.selector" = setupTournamentSelector(k = 2L),
-      "generator" = try(setupPermutationGenerator(len = length(control$perm), perm = control$perm)),
+      "generator" = try(setupPermutationGenerator(len = length(control$params$perm), perm = control$params$perm), silent = TRUE),
       "mutator" = setupSwapMutator(),
       "recombinator" = setupPMXRecombinator(),
       "survival.selector" = setupGreedySelector()
@@ -255,21 +261,21 @@ getMultiObjectiveDefaults = function(representation, type, control) {
   defaults = list(
     "float" = list(
       "parent.selector" = setupSimpleSelector(),
-      "generator" = try(setupUniformGenerator(len = control$n.dim, lower = control$lower, upper = control$upper), silent = TRUE),
+      "generator" = try(setupUniformGenerator(len = control$params$n.dim, lower = control$params$lower, upper = control$params$upper), silent = TRUE),
       "mutator" = setupGaussMutator(),
       "recombinator" = setupIntermediateRecombinator(),
       "survival.selector" = setupNondomSelector()
     ),
     "binary" = list(
       "parent.selector" = setupSimpleSelector(),
-      "generator" = try(setupBinaryGenerator(len = control$n.bits), silent = TRUE),
+      "generator" = try(setupBinaryGenerator(len = control$params$n.bits), silent = TRUE),
       "mutator" = setupBitFlipMutator(),
       "recombinator" = setupCrossoverRecombinator(),
       "survival.selector" = setupNondomSelector()
     ),
     "permutation" = list(
       "parent.selector" = setupSimpleSelector(),
-      "generator" = try(setupPermutationGenerator(len = length(control$perm), perm = control$perm), silent = TRUE),
+      "generator" = try(setupPermutationGenerator(len = length(control$params$perm), perm = control$params$perm), silent = TRUE),
       "mutator" = setupSwapMutator(),
       "recombinator" = setupPMXRecombinator(),
       "survival.selector" = setupNondomSelector()

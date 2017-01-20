@@ -13,7 +13,7 @@
 #' @return [\code{ecr_mutator}]
 #' @family mutators
 #' @export
-setupBitFlipMutator = function(p = 0.1) {
+setupBitflipMutator = function(p = 0.1) {
   assertNumber(p, lower = 0, upper = 1)
   force(p)
 

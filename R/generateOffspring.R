@@ -25,7 +25,7 @@
 #'   Default is the empty list.
 #' @return [\code{list}] Offspring.
 #' @export
-generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.7, p.mut = 0.1, recomb.pars = list(), mut.pars = list()) {
+generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.7, p.mut = 0.1) {
   selectorFun = coalesce(control$selectForMating, setupSimpleSelector())
   mutatorFun = control$mutate
   recombinatorFun = control$recombine
@@ -55,7 +55,7 @@ generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.
     offspring = apply(mating.idx, 1L, function(parents.idx) {
       parents = population[parents.idx]
       children = if (runif(1L) < p.recomb & !is.null(recombinatorFun)) {
-        tmp = do.call(recombinatorFun, c(list(parents), recomb.pars))
+        tmp = recombinatorFun(parents, control$params)
         if (hasAttributes(tmp, "multiple")) tmp else list(tmp)
       } else {
         parents
@@ -70,7 +70,7 @@ generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.
   if (!is.null(mutatorFun)) {
     offspring = lapply(offspring, function(child) {
       if (runif(1L) < p.mut)
-        return(do.call(mutatorFun, c(list(child), mut.pars)))
+        return(mutatorFun(child, control$params))
       return(child)
     })
   }

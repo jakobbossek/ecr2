@@ -53,6 +53,8 @@ setupECRDefaultLogger = function(step = 1L, log.stats = list("min", "mean", "max
 
 ensureNamedStats = function(stats) {
   no.names = names(stats) == ""
+  if (length(no.names) == 0L)
+    no.names = rep(TRUE, length(stats))
   # which funs are no characters?
   no.char = !sapply(stats, is.character)
   # if both is true, i.e. unnamed and no char, we cannot determine a name

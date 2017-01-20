@@ -9,7 +9,7 @@
 #' @family selectors
 #' @export
 setupGreedySelector = function() {
-  selector = function(fitness, n.select) {
+  selector = function(fitness, n.select, par.list = list()) {
     fitness = as.numeric(fitness)
     idx = order(fitness)[seq(n.select)]
     return(idx)

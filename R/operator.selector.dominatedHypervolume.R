@@ -14,7 +14,7 @@ setupDominatedHypervolumeSelector = function(ref.point) {
   assertNumeric(ref.point)
   force(ref.point)
 
-  selector = function(fitness, n.select) {
+  selector = function(fitness, n.select, par.list = list()) {
     all.idx = 1:ncol(fitness)
 
     # do non-dominated sorting

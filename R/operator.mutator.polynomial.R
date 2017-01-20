@@ -18,10 +18,9 @@ setupPolynomialMutator = function(p = 0.2, eta = 10) {
   force(p)
   force(eta)
 
-  mutator = function(ind, ...) {
-    args = list(...)
+  mutator = function(ind, par.list) {
     child = .Call("polynomialMutationC", ind,
-      as.numeric(args$lower), as.numeric(args$upper), p, eta)
+      as.numeric(par.list$lower), as.numeric(par.list$upper), p, eta)
     return(child)
   }
 

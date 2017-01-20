@@ -16,7 +16,7 @@
 #' @family recombinators
 #' @export
 setupCrossoverRecombinator = function() {
-  recombinator = function(inds) {
+  recombinator = function(inds, par.list) {
     n = length(inds[[1L]])
 
     # recombinate sub genes

@@ -10,7 +10,7 @@
 #' @family selectors
 #' @export
 setupNondomSelector = function() {
-  selector = function(fitness, n.select) {
+  selector = function(fitness, n.select, par.list = list()) {
     nondom.layers = doNondominatedSorting(fitness)
 
     # storage for indizes of selected individuals

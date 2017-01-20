@@ -32,8 +32,10 @@ setupRouletteWheelSelector = function(offset = 0.1) {
 
   force(offset)
 
-  selector = function(fitness, n.select) {
+  selector = function(fitness, n.select, par.list = list()) {
     fitness = as.numeric(fitness)
+    fitness = -fitness
+
     # shift negative values
     if (any(fitness <= 0L)) {
       fitness = fitness + abs(min(fitness)) + offset

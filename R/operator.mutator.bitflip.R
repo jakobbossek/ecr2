@@ -17,7 +17,7 @@ setupBitFlipMutator = function(p = 0.1) {
   assertNumber(p, lower = 0, upper = 1)
   force(p)
 
-  mutator = function(ind) {
+  mutator = function(ind, par.list) {
     n = length(ind)
     mut.idx = runif(n) < p
     ind[mut.idx] = 1 - ind[mut.idx]

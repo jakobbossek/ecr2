@@ -29,14 +29,12 @@ setupSBXRecombinator = function(eta = 5, p = 1.0) {
   force(eta)
   force(p)
 
-  recombinator = function(inds, ...) {
-    args = list(...)
-
+  recombinator = function(inds, par.list) {
     # convert parents to d x 2 matrix for C
     inds = do.call(cbind, inds)
 
     # SBX produces two children
-    children = .Call("simulatedBinaryCrossoverC", inds, as.numeric(args$lower), as.numeric(args$upper), p, eta)
+    children = .Call("simulatedBinaryCrossoverC", inds, as.numeric(par.list$lower), as.numeric(par.list$upper), p, eta)
 
     return(wrapChildren(children[, 1L], children[, 2L]))
   }

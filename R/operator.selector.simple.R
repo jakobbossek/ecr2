@@ -9,7 +9,7 @@
 #' @family selectors
 #' @export
 setupSimpleSelector = function() {
-  selector = function(fitness, n.select) {
+  selector = function(fitness, n.select, par.list = list()) {
     return(sample(1:ncol(fitness), size = n.select, replace = TRUE))
   }
   makeSelector(

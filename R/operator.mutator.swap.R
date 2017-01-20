@@ -8,7 +8,7 @@
 #' @family mutators
 #' @export
 setupSwapMutator = function() {
-  mutator = function(ind) {
+  mutator = function(ind, par.list) {
     n = length(ind)
     pos = sample(1:n, size = 2L)
     pos1 = pos[1L]

@@ -8,7 +8,7 @@
 #' @return [\code{ecr2_mutator}]
 #' @export
 setupInversionMutator = function() {
-  mutator = function(ind) {
+  mutator = function(ind, par.list) {
     n = length(ind)
     idx = sample(seq(n), size = 2L)
     ind[idx[1]:idx[2]] = ind[idx[2]:idx[1]]

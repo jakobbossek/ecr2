@@ -17,7 +17,7 @@ setupTournamentSelector = function(k = 3L) {
 
   force(k)
 
-  selector = function(fitness, n.select) {
+  selector = function(fitness, n.select, par.list = list()) {
     fitness = as.numeric(fitness)
     pop.idx = seq_along(fitness)
     idx = integer(n.select)

@@ -9,7 +9,7 @@
 #' @family mutators
 #' @export
 setupInsertionMutator = function() {
-  mutator = function(ind) {
+  mutator = function(ind, par.list) {
     n = length(ind)
     # select a random position and insert it at another random location
     idx = sample(seq(n), size = 2L)

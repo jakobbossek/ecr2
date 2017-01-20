@@ -14,10 +14,10 @@
 #' @family mutators
 #' @export
 setupUniformMutator = function() {
-  mutator = function(ind, task, control) {
+  mutator = function(ind, par.list) {
     n = length(ind)
     idx = sample(n, size = 1L)
-    ind[idx] = runif(1L, min = getLower(task$par.set)[idx], max = getUpper(task$par.set)[idx])
+    ind[idx] = runif(1L, min = par.list$lower[idx], max = par.list$upper[idx])
     return(ind)
   }
 

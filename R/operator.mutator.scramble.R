@@ -9,7 +9,7 @@
 #' @family mutators
 #' @export
 setupScrambleMutator = function() {
-  mutator = function(ind) {
+  mutator = function(ind, par.list) {
     n = length(ind)
     # here we select two distinct positions ...
     idx = sample(seq(n), size = 2L, replace = FALSE)

@@ -23,7 +23,7 @@ makeMutator = function(
   mutator, name, description,
   supported = getAvailableRepresentations(),
   params = list()) {
-  assertFunction(mutator, args = "ind")
+  assertFunction(mutator, args = c("ind", "par.list"), ordered = TRUE)
   mutator = makeOperator(mutator, name, description, supported, params)
   mutator = addClasses(mutator, c("ecr2_mutator"))
   return(mutator)

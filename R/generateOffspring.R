@@ -68,11 +68,10 @@ generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.
 
   # now eventually apply mutation
   if (!is.null(mutatorFun)) {
-    offspring = lapply(offspring, function(child) {
-      if (runif(1L) < p.mut)
-        return(mutatorFun(child, control$params))
-      return(child)
-    })
+    do.mutate = runif(length(offspring)) < p.mut
+    if (sum(do.mutate) > 0) {
+      offspring[do.mutate] = lapply(offspring[do.mutate], mutatorFun, control$params)
+    }
   }
 
   # if n.children is odd/even and lambda is even/odd we need to remove some children

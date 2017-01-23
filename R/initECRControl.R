@@ -17,8 +17,9 @@
 #'   Upper box constraints for each decision variable. Single values are assumed to
 #'   be valid for each dimension.
 #' @param n.dim [\code{integer(1)}]\cr
-#'   Integer specifying the number of bits used in binary representation and the input
-#'   dimension of real-valued representations.
+#'   Integer specifying  the input dimension of real-valued representations.
+#' @param n.bits [\code{integer(1)}]\cr
+#'   The number of bits used in binary representation.
 #' @param perm [\code{integer(1)} | \code{vector}]\cr
 #'   Either a single integer number. In this case the permutation is assumed to be \code{1:perm}.
 #'   Alternatively, a set, i.e., a vector of elements can be passed which should form each
@@ -229,13 +230,13 @@ getSingleObjectiveDefaults = function(representation, type, control) {
     "binary" = list(
       "parent.selector" = setupTournamentSelector(k = 2L),
       "generator" = try(setupBinaryGenerator(len = control$params$n.bits), silent = TRUE),
-      "mutator" = setupBitFlipMutator(),
+      "mutator" = setupBitflipMutator(),
       "recombinator" = setupCrossoverRecombinator(),
       "survival.selector" = setupGreedySelector()
     ),
     "permutation" = list(
       "parent.selector" = setupTournamentSelector(k = 2L),
-      "generator" = try(setupPermutationGenerator(len = length(control$params$perm), perm = control$params$perm), silent = TRUE),
+      "generator" = try(setupPermutationGenerator(len = length(control$params$perm), set = control$params$perm), silent = TRUE),
       "mutator" = setupSwapMutator(),
       "recombinator" = setupPMXRecombinator(),
       "survival.selector" = setupGreedySelector()
@@ -269,13 +270,13 @@ getMultiObjectiveDefaults = function(representation, type, control) {
     "binary" = list(
       "parent.selector" = setupSimpleSelector(),
       "generator" = try(setupBinaryGenerator(len = control$params$n.bits), silent = TRUE),
-      "mutator" = setupBitFlipMutator(),
+      "mutator" = setupBitflipMutator(),
       "recombinator" = setupCrossoverRecombinator(),
       "survival.selector" = setupNondomSelector()
     ),
     "permutation" = list(
       "parent.selector" = setupSimpleSelector(),
-      "generator" = try(setupPermutationGenerator(len = length(control$params$perm), perm = control$params$perm), silent = TRUE),
+      "generator" = try(setupPermutationGenerator(len = length(control$params$perm), set = control$params$perm), silent = TRUE),
       "mutator" = setupSwapMutator(),
       "recombinator" = setupPMXRecombinator(),
       "survival.selector" = setupNondomSelector()

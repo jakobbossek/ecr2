@@ -6,6 +6,14 @@
 #' within the bounds specified by the paramter set of the \pkg{smoof} objective
 #' function passed to the \code{\link{doTheEvolution}} function.
 #'
+#' @param len [\code{integer(1)}]\cr
+#'   Length of genotype.
+#' @param lower [\code{numeric}]\cr
+#'   Vector of lower box constraints for each dimension.
+#'   If a single value is passed this value is taken for each dimension.
+#' @param upper [\code{numeric}]\cr
+#'   Vector of lower box constraints for each dimension.
+#'   If a single value is passed this value is taken for each dimension.
 #' @return [\code{ecr_generator}]
 #' @export
 setupUniformGenerator = function(len, lower, upper) {

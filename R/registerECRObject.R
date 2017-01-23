@@ -5,9 +5,6 @@
 #'   Name to use when object is stored to control object.
 #' @param object [any]\cr
 #'   Object to store.
-#' @param object [\code{function}]\cr
-#'   Function to store.
-#' @param
 #' @return [\code{ecr2_control}]
 #'   Modified control object.
 #' @export

@@ -54,7 +54,7 @@ test_that("initPopulation helper works well", {
   len = 10L
   mu = 10L
   generateFun = setupBinaryGenerator(len)
-  control = initECRControl()
+  control = addClasses(list(type = "binary"), classes = "ecr2_control")
   control = registerGenerator(control, generateFun)
   # now first generate without initial solutions
   population = initPopulation(mu, control = control)

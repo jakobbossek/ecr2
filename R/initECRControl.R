@@ -79,7 +79,7 @@ initECRControlFloat = function(fitness.fun, lower = NULL, upper = NULL,
   upper = final.pars$upper
   if (length(upper) != n.dim) {
     if (length(upper) != 1L) {
-      stopf("Upper box constraings need to have length 1 or equal to n.dim.")
+      stopf("Upper box constraints need to have length 1 or equal to n.dim.")
     }
     upper = rep(upper, n.dim)
   }

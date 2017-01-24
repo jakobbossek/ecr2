@@ -119,7 +119,8 @@ ecr = function(
   n.iter = 1L
 
   repeat {
-    catf("Iteration %i of %i.", n.iter, max.iter)
+    if ((n.iter %% 10) == 0L)
+      catf("Iteration %i of %i.", n.iter, max.iter)
     if (n.iter >= max.iter) {
       break
     }
@@ -149,5 +150,12 @@ ecr = function(
     time.passed = Sys.time() - st
     n.iter = n.iter + 1L
   }
-  return(list(population = population, fitness = fitness))
+  return(makeECRResult(control, population, fitness))
+}
+
+makeECRResult = function(control, population, fitness, ...) {
+  n.objectives = control$task$n.objectives
+  if (n.objectives == 1L)
+    return(setupResult.ecr_single_objective(population, fitness, control, ...))
+  return(setupResult.ecr_multi_objective(population, fitness, control, ...))
 }

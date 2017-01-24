@@ -61,12 +61,12 @@ test_that("initPopulation helper works well", {
   expect_binary_population(population, mu, len)
   # now with initial solutions
   # generate some initial solutions
-  init.solutions = generateFun(mu / 2)
-  population = initPopulation(mu, control = control, init.solutions = init.solutions)
+  initial.solutions = generateFun(mu / 2)
+  population = initPopulation(mu, control = control, initial.solutions = initial.solutions)
   expect_binary_population(population, mu, len)
   # check that first mu/2 solutions of te generated population are indeed
   # the initial solutions passed
   for (i in 1:(mu / 2)) {
-    expect_equal(population[[i]], init.solutions[[i]])
+    expect_equal(population[[i]], initial.solutions[[i]])
   }
 })

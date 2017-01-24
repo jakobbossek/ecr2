@@ -13,17 +13,17 @@
 #'   Further parameters passed to population generator.
 #' @return [\code{ecr_population}]
 #' @export
-initPopulation = function(mu, control, init.solutions = NULL, ...) {
+initPopulation = function(mu, control, initial.solutions = NULL, ...) {
   n.to.generate = mu
   n.initial = 0L
-  if (!is.null(init.solutions)) {
-    assertList(init.solutions)
-    n.initial = length(init.solutions)
+  if (!is.null(initial.solutions)) {
+    assertList(initial.solutions)
+    n.initial = length(initial.solutions)
     if (n.initial > mu) {
       stopf("Size of initial population (=%i) exceeds the specified population size %i.",
         n.initial, mu)
     } else if (n.initial == mu) {
-      return(init.solutions)
+      return(initial.solutions)
     }
   }
   generateFun = control$generate
@@ -32,7 +32,7 @@ initPopulation = function(mu, control, init.solutions = NULL, ...) {
   the initial population is smaller than mu.")
   gen.solutions = generateFun(mu - n.initial, ...)
   if (n.initial > 0L) {
-    return(c(init.solutions, gen.solutions))
+    return(c(initial.solutions, gen.solutions))
   }
   return(gen.solutions)
 }

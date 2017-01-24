@@ -10,8 +10,7 @@
 #'
 #' @param inds [\code{list}]\cr
 #'   List of individuals.
-#' @param control [\code{ecr2_control}]\cr
-#'   Control object.
+#' @template arg_control
 #' @param ... [any]\cr
 #'   Optional parameters passed down to fitness function.
 #' @return [\code{matrix}].

@@ -11,12 +11,9 @@
 #'   Current population, i.e., list of individuals.
 #' @param fitness [\code{matrix}]\cr
 #'   Matrix of fitness values with one column per individual of \code{individuals}.
-#' @param lambda [\code{integer(1)}]\cr
-#'   Number of offspring individuals to generate.
-#' @param p.recomb [\code{numeric(1)}]\cr
-#'   Probability of two parents to perform crossover.
-#' @param p.mut [\code{numeric(1)}]\cr
-#'   Probability to apply mutation to a child.
+#' @template arg_lambda
+#' @template arg_p_recomb
+#' @template arg_p_mut
 #' @return [\code{list}] Offspring.
 #' @export
 generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.7, p.mut = 0.1) {

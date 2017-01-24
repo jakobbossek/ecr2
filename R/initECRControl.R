@@ -1,29 +1,13 @@
 #' Initialize control object.
 #'
-#' @param fitness.fun [\code{function} | \code{\link[smoof]{smoof_function}}]\cr
-#'   Fitness function. In case of calling \code{initECRControlFloat} with a \code{\link[smoof]{smoof_function}}
-#'   parameters \code{n.objectives}, \code{n.dim} and \code{minimize} are extracted
-#'   automatically and to not need to be passed by hand.
-#' @param n.objectives [\code{integer(1)}]\cr
-#'   Number of objectives of \code{fitness.fun}.
-#' @param minimize [\code{logical(n.objectives)}]\cr
-#'   Logical vector with ith entry \code{TRUE} if the ith objective of \code{fitness.fun}
-#'   shall be minimized. If a single logical is passed, it is assumed to be valid
-#'   for each objective.
-#' @param lower [\code{integer}]\cr
-#'   Lower box constraints for each decision variable. Single values are assumed to
-#'   be valid for each dimension.
-#' @param upper [\code{integer}]\cr
-#'   Upper box constraints for each decision variable. Single values are assumed to
-#'   be valid for each dimension.
-#' @param n.dim [\code{integer(1)}]\cr
-#'   Integer specifying  the input dimension of real-valued representations.
-#' @param n.bits [\code{integer(1)}]\cr
-#'   The number of bits used in binary representation.
-#' @param perm [\code{integer(1)} | \code{vector}]\cr
-#'   Either a single integer number. In this case the permutation is assumed to be \code{1:perm}.
-#'   Alternatively, a set, i.e., a vector of elements can be passed which should form each
-#'   individual.
+#' @template arg_fitness_fun
+#' @template arg_n_objectives
+#' @template arg_minimize
+#' @template arg_lower
+#' @template arg_upper
+#' @template arg_n_dim
+#' @template arg_n_bits
+#' @template arg_perm
 #' @return [\code{ecr2_control}]
 #' @name initECRControl
 #' @rdname initECRControl
@@ -32,17 +16,6 @@ initECRControl = function(fitness.fun, n.objectives = NULL, minimize = NULL) {
   task = makeOptimizationTask(fitness.fun, n.objectives = n.objectives, minimize = minimize)
   makeS3Obj("ecr2_control", task = task)
 }
-
-# guess type from params
-# lower, upper -> float
-# set = {0, 1} -> binary
-# set = set of unique values -> perm
-# everything missing -> custom
-# if smoof fitness fun is passed, extract all stuff from it
-# initControlFloat
-# initControlBinary
-# initControlPermutation
-# initControlCustom
 
 #' @rdname initECRControl
 #' @export

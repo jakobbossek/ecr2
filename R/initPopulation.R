@@ -6,13 +6,9 @@
 #' generator of the ecr control object. Optionally a set of initial solutions
 #' can be passed.
 #'
-#' @param mu [\code{integer(1)}]\cr
-#'   Population size.
+#' @template arg_mu
 #' @template arg_control
-#' @param init.solutions [\code{list} | \code{NULL}]\cr
-#'   Optional list of initial solutions. In case this is not \code{NULL}, these
-#'   solutions are placed in the initial population.
-#'   Default is \code{NULL}.
+#' @template arg_initial_solutions
 #' @param ... [any]\cr
 #'   Further parameters passed to population generator.
 #' @return [\code{ecr_population}]

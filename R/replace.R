@@ -13,9 +13,7 @@
 #'   Matrix of fitness values for the individuals from \code{population}.
 #' @param fitness.offspring [\code{matrix}]\cr
 #'   Matrix of fitness values for the individuals from \code{offspring}.
-#' @param n.elite [\code{integer(1)}]\cr
-#'   Number of elite/best individuals from \code{population}, which should be definitely
-#'   selected.
+#' @template arg_n_elite
 #' @return [\code{list}] List with selected population and corresponding fitness matrix.
 #' @rdname replace
 #' @name replace

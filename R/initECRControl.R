@@ -184,7 +184,6 @@ checkOperatorIsCompatible = function(operator, representation) {
 #   mutator, recombinator and survival.selector.
 # @return [\code{ecr_operator}]
 getDefaultEvolutionaryOperators = function(representation, type, n.objectives, control) {
-  catf("Searching for %s for type %s", type, representation)
   if (n.objectives == 1L) {
     return(getSingleObjectiveDefaults(representation, type, control))
   }
@@ -231,7 +230,6 @@ getSingleObjectiveDefaults = function(representation, type, control) {
 }
 
 getMultiObjectiveDefaults = function(representation, type, control) {
-  print(control)
   defaults = list(
     "float" = list(
       "parent.selector" = setupSimpleSelector(),

@@ -52,6 +52,8 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL, objec
     } else {
       minimize = rep(TRUE, n.objectives)
     }
+  } else if (length(minimize) == 1L) {
+    minimize = rep(minimize, n.objectives)
   }
   assertLogical(minimize, any.missing = FALSE)
   assertCharacter(objective.names, len = n.objectives, any.missing = FALSE, all.missing = FALSE)
@@ -72,7 +74,7 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL, objec
     n.objectives = n.objectives,
     minimize = minimize,
     objective.names = objective.names,
-    classes = c("ecr_optimization_task")
+    classes = c("ecr2_optimization_task")
   )
 
   if (isSmoofFunction(fun)) {

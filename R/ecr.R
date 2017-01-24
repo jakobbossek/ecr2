@@ -94,19 +94,20 @@ ecr = function(
       n.objectives = n.objectives, minimize = minimize)
   }
 
-  control = initDefaultOperators(control, representation, n.objectives)
+  n.objectives = control$task$n.objectives
 
-  control = registerRecombinator(control, recombinator)
-  control = registerGenerator(control, operator.fun = generator)
-  control = registerSurvivalSelector(control, operator.fun = survival.selector)
-  control = registerMatingSelector(control, operator.fun = parent.selector)
+  control = registerMutator(control, coalesce(mutator, getDefaultEvolutionaryOperators(representation, "mutator", n.objectives, control)))
+  control = registerRecombinator(control, coalesce(recombinator, getDefaultEvolutionaryOperators(representation, "recombinator", n.objectives, control)))
+  control = registerGenerator(control, coalesce(generator, getDefaultEvolutionaryOperators(representation, "generator", n.objectives, control)))
+  control = registerSurvivalSelector(control, coalesce(survival.selector, getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control)))
+  control = registerMatingSelector(control, coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
   control = registerLogger(control, logger = setupECRDefaultLogger(
     log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
     log.pop = TRUE, init.size = 10000L)
   )
 
   # simply pass stuff down to control object constructor
-  population = initPopulation(mu = mu, control = control, init.solutions = initial.solutions)
+  population = initPopulation(mu = mu, control = control, initial.solutions = initial.solutions)
   fitness = evaluateFitness(population, control)
 
   # init logger

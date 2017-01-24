@@ -9,10 +9,13 @@
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
+#' @param normalize [\code{logical(1)}]\cr
+#'   Should the front be normalized on basis of \code{B}?
+#'   Default is \code{FALSE}.
 #' @template arg_asemoa_dist_fun
 #' @return [\code{numeric(1)}] Average Hausdorff distance of sets \code{A} and \code{B}.
 #' @export
-computeAverageHausdorffDistance = function(A, B, p = 1, dist.fun = computeEuclideanDistance) {
+computeAverageHausdorffDistance = function(A, B, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance) {
   # sanity check imput
   assertMatrix(A, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertMatrix(B, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
@@ -20,10 +23,11 @@ computeAverageHausdorffDistance = function(A, B, p = 1, dist.fun = computeEuclid
     stopf("Sets A and B need to have the same dimensionality.")
   }
   assertNumber(p, lower = 0.0001, na.ok = FALSE)
+  assertFlag(normalize)
 
   # ac
-  GD = computeGenerationalDistance(A, B, p, dist.fun)
-  IGD = computeInvertedGenerationalDistance(A, B, p, dist.fun)
+  GD = computeGenerationalDistance(A, B, p, normalize, dist.fun)
+  IGD = computeInvertedGenerationalDistance(A, B, p, normalize, dist.fun)
   delta = max(GD, IGD)
   return(delta)
 }
@@ -108,11 +112,14 @@ normalizeFront = function(A, min.value = NULL, max.value = NULL) {
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
+#' @param normalize [\code{logical(1)}]\cr
+#'   Should the front be normalized on basis of \code{B}?
+#'   Default is \code{FALSE}.#
 #' @template arg_asemoa_dist_fun
 #' @return [\code{numeric(1)}]
 #' @export
-computeInvertedGenerationalDistance = function(A, B, p = 1, dist.fun = computeEuclideanDistance) {
-  return(computeGenerationalDistance(B, A, p, dist.fun))
+computeInvertedGenerationalDistance = function(A, B, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance) {
+  return(computeGenerationalDistance(B, A, p, normalize, dist.fun))
 }
 
 #' @title

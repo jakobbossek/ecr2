@@ -31,9 +31,12 @@ generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.
   if (!is.null(recombinatorFun)) {
     n.children = getNumberOfChildren(recombinatorFun)
     n.parents = getNumberOfParentsNeededForMating(recombinatorFun)
-    n.mating = floor(lambda * n.parents / n.children)
+    n.mating = ceiling(lambda * n.parents / n.children)
     if (n.mating == 1L)
       n.mating = n.parents
+    # if number of offspring is odd and number of mating
+    if (n.mating %% n.parents != 0L)
+      n.mating = n.mating + (n.mating %% n.parents)
   }
   # create mating pool. This a a matrix, where each row contains the indizes of
   # a set of >= 2 parents

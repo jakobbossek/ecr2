@@ -53,6 +53,9 @@ smsemoa = function(
   ...) {
 
   if (is.null(ref.point)) {
+    if (is.null(n.objectives)) {
+      stopf("Reference point default can only be generated if n.objectives is passed.")
+    }
     ref.point = rep(11, n.objectives)
   }
   assertNumeric(ref.point, len = n.objectives)

@@ -59,8 +59,8 @@
 #'  representation = "float", mu = 20L, lambda = 10L)
 #' @export
 ecr = function(
-  fitness.fun, minimize = rep(TRUE, n.objectives), n.objectives,
-  n.dim, lower = NULL, upper = NULL, n.bits,
+  fitness.fun, minimize = NULL, n.objectives = NULL,
+  n.dim = NULL, lower = NULL, upper = NULL, n.bits,
   representation, mu, lambda, perm = NULL,
   p.recomb = 0.7, p.mut = 0.3,
   survival.strategy = "plus", n.elite = 0L,
@@ -73,7 +73,11 @@ ecr = function(
   recombinator = NULL,
   terminators = list(stopOnIters(100L))) {
 
-  n.objectives = asInt(n.objectives, lower = 1L)
+  if (!isSmoofFunction(fitness.fun)) {
+    n.objectives = asInt(n.objectives, lower = 1L)
+    if (is.null(minimize))
+      minimize = rep(TRUE, n.objectives)
+  }
   assertChoice(representation, c("binary", "float", "permutation", "custom"))
   assertChoice(survival.strategy, c("comma", "plus"))
   assertNumber(p.recomb, lower = 0, upper = 1)

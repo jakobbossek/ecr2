@@ -55,10 +55,10 @@ List of stopping conditions of type \dQuote{ecr2_terminator}.
 Default is to stop after 100 iterations.}
 
 \item{...}{[any]\cr
-Further arguments passed to \code{\link{setupECRControl}}.}
+Further arguments passed down to fitness function.}
 }
 \value{
-[\code{ecr_multi_objective_result}]
+[\code{ecr2_multi_objective_result}]
 }
 \description{
 Pure R implementation of the SMS-EMOA. This algorithm belongs to the group
@@ -68,7 +68,7 @@ and finally selects the best subset of individuals among all subsets by maximizi
 the Hypervolume indicator.
 }
 \note{
-This helper function hides the regular \pkg{ecr} interface and offers a more
+This helper function hides the regular \pkg{ecr2} interface and offers a more
 R like interface of this state of the art EMOA.
 }
 \references{

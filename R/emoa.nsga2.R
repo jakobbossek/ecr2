@@ -11,7 +11,7 @@
 #'
 #' @note
 #' This is a pure R implementation of the NSGA-II algorithm. It hides the regular
-#' \pkg{ecr} interface and offers a more R like interface while still being quite
+#' \pkg{ecr2} interface and offers a more R like interface while still being quite
 #' adaptable.
 #'
 #' @references
@@ -38,8 +38,8 @@
 #' @template arg_recombinator
 #' @template arg_terminators
 #' @param ... [any]\cr
-#'   Further arguments passed to \code{\link{setupECRControl}}.
-#' @return [\code{ecr_nsga2_result, ecr_multi_objective_result}]
+#'   Further arguments passed down to fitness function.
+#' @return [\code{ecr2_multi_objective_result}]
 #' @export
 nsga2 = function(
   fitness.fun,

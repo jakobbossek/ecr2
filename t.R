@@ -8,6 +8,15 @@ library(microbenchmark)
 
 load_all(".")
 
+# res = smsemoa(
+#         fitness.fun = makeZDT1Function(20),
+#         n.population = 100,
+# #        n.offspring = 5L,
+#         ref.point = rep(11, 20),
+#         terminators = list(stopOnEvals(200))
+#       )
+# stop(4334)
+
 MAX.GENS = 1200L
 n.dim = 30L
 fitness.fun = addCountingWrapper(smoof::makeZDT1Function(dimensions = n.dim))

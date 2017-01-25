@@ -9,7 +9,7 @@
 #' the Hypervolume indicator.
 #'
 #' @note
-#' This helper function hides the regular \pkg{ecr} interface and offers a more
+#' This helper function hides the regular \pkg{ecr2} interface and offers a more
 #' R like interface of this state of the art EMOA.
 #'
 #' @keywords optimize
@@ -35,8 +35,8 @@
 #' @template arg_recombinator
 #' @template arg_terminators
 #' @param ... [any]\cr
-#'   Further arguments passed to \code{\link{setupECRControl}}.
-#' @return [\code{ecr_multi_objective_result}]
+#'   Further arguments passed down to fitness function.
+#' @return [\code{ecr2_multi_objective_result}]
 #' @export
 smsemoa = function(
   fitness.fun,

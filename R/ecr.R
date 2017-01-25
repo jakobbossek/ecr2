@@ -2,21 +2,13 @@
 #' Interface to \pkg{ecr} similar to the \code{\link[stats]{optim}} function.
 #'
 #' @description
-#' The most flexible way to setup evolutionary algorithms with \pkg{ecr} is by
-#' explicitely generating a task and a control object and passing both to
-#' \code{\link{doTheEvolution}}. Although this approach is highly flexible
-#' and very readable it requires quite a lot of code. However, in everyday
+#' The most flexible way to setup evolutionary algorithms with \pkg{ecr2} is by
+#' explicitely writing the evolutionary loop utilizing various ecr2 helper functions
+#' However, in everyday
 #' life R users frequently need to optimize a single-objective R function.
 #' The \code{ecr} function thus provides a more R like interface for single
 #' objective optimization similar to the interface of the \code{\link[stats]{optim}}
 #' function.
-#'
-#' @note
-#' This helper function is applicable for single-objective optimization based
-#' on default encodings, i.e., binary, float and permutation, only.
-#' If your function at hand has multiple objectives or you need special
-#' encodings and operators you need to work with \code{\link{doTheEvolution}}
-#' directly.
 #'
 #' @keywords optimize
 #'
@@ -64,7 +56,7 @@ ecr = function(
   representation, mu, lambda, perm = NULL,
   p.recomb = 0.7, p.mut = 0.3,
   survival.strategy = "plus", n.elite = 0L,
-  custom.constants = list(), logger = NULL, monitor = setupConsoleMonitor(),
+  custom.constants = list(), logger = NULL, monitor = NULL,
   more.args = list(), initial.solutions = NULL,
   parent.selector = NULL,
   survival.selector = NULL,

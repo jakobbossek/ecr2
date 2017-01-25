@@ -56,10 +56,10 @@ List of stopping conditions of type \dQuote{ecr2_terminator}.
 Default is to stop after 100 iterations.}
 
 \item{...}{[any]\cr
-Further arguments passed to \code{\link{setupECRControl}}.}
+Further arguments passed down to fitness function.}
 }
 \value{
-[\code{ecr_nsga2_result, ecr_multi_objective_result}]
+[\code{ecr2_multi_objective_result}]
 }
 \description{
 The NSGA-II merges the current population and the generated offspring and
@@ -71,7 +71,7 @@ individuals from the i-th front.
 }
 \note{
 This is a pure R implementation of the NSGA-II algorithm. It hides the regular
-\pkg{ecr} interface and offers a more R like interface while still being quite
+\pkg{ecr2} interface and offers a more R like interface while still being quite
 adaptable.
 }
 \references{

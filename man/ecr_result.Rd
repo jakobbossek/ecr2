@@ -4,7 +4,7 @@
 \alias{ecr_result}
 \title{Result object.}
 \description{
-S3 object returned by \code{\link{doTheEvolution}} containing the best found
+S3 object returned by \code{\link{ecr}} containing the best found
 parameter setting and value in the single-objective case and the Pareto-front/-set
 in case of a multi-objective optimization problem. Moreover a set of further
 information, e.g., reason of termination, the control object etc. are returned.
@@ -12,7 +12,6 @@ information, e.g., reason of termination, the control object etc. are returned.
 The single objective result object contains the following fields:
 \describe{
   \item{task}{The \code{ecr_optimization_task}.}
-  \item{control}{The \code{ecr_control} object passed to \code{\link{doTheEvolution}}.}
   \item{best.param}{Overall best parameter setting.}
   \item{best.value}{Overall best objective value.}
   \item{last.population}{Last population.}
@@ -23,7 +22,6 @@ In case of a solved multi-objective function the result object contains the
 following fields:
 \describe{
   \item{task}{The \code{ecr_optimization_task}.}
-  \item{control}{The \code{ecr_control} object passed to \code{\link{doTheEvolution}}.}
   \item{pareto.idx}{Indizes of the non-dominated solutions in the last population.}
   \item{pareto.front}{(n x d) matrix of the approximated non-dominated front where n
   is the number of non-dominated points and d is the number of objectives.}

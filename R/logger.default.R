@@ -18,24 +18,39 @@ setupECRDefaultLogger = function(step = 1L, log.stats = list("min", "mean", "max
       # nothing to do
     },
     step = function(log, population, fitness, n.evals, ...) {
-      # catf("gen: %i, step: %i\n", step)
-      # print(log)
       log$env$time.passed = Sys.time() - log$env$time.started
       log$env$n.gens = log$env$n.gens + 1L
       log$env$n.evals = log$env$n.evals + n.evals
 
+      # keep track of best individual
+      n.objectives = nrow(fitness)
+      if (n.objectives == 1L) {
+        #FIXME: maximization?
+        if (is.null(log$env$best.y)) {
+          log$env$best.x = NA
+          log$env$best.y = Inf
+        }
+        cur.best.idx = which.min(as.numeric(fitness))
+        cur.best.y = fitness[, cur.best.idx]
+        if (log$env$best.y > cur.best.y) {
+          log$env$best.y = cur.best.y
+          log$env$best.x = population[cur.best.idx]
+        }
+      }
+
       if ((log$env$n.gens %% step) == 0L) {
+        #catf("log size: %i, Gen: %i", nrow(log$env$stats), log$env$n.gens)
         # compute stats for current population
         cur.stats = lapply(stats, function(stat.fun) {
         if (is.list(stat.fun))
           return(do.call(stat.fun$fun, c(list(fitness), stat.fun$pars)))
         return(stat.fun(fitness))
         })
-        # evantually make log bigger (exponential growing)
+        # eventually make log bigger (exponential growing)
         #FIXME: make growing fun a parameter
         n.log = nrow(log$env$stats)
         if (n.log < log$env$cur.line) {
-          catf("increasing log size! Doubling size: %i -> %i", n.log, 3 * n.log)
+          catf("increasing log size! Doubling size: %i -> %i", n.log, 2 * n.log)
           log$env$stats = rbind(log$env$stats, makeDataFrame(ncol = length(stats) + 1L, nrow = n.log * 2, col.types = "numeric", col.names = names(log$env$stats)))
         }
         log$env$stats[log$env$cur.line, ] = c(list(gen = log$env$n.gens), cur.stats)

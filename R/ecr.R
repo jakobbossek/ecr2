@@ -102,7 +102,7 @@ ecr = function(
   control = registerMatingSelector(control, coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
   control = registerLogger(control, logger = setupECRDefaultLogger(
     log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
-    log.pop = TRUE, init.size = 10000L)
+    log.pop = TRUE, init.size = 1000L)
   )
 
   # simply pass stuff down to control object constructor

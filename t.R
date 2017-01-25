@@ -8,21 +8,33 @@ library(microbenchmark)
 
 load_all(".")
 
+MAX.GENS = 1200L
 n.dim = 30L
 fitness.fun = addCountingWrapper(smoof::makeZDT1Function(dimensions = n.dim))
 par.set = getParamSet(fitness.fun)
 
+fitness.fun = addCountingWrapper(smoof::makeAckleyFunction(dimensions = n.dim))
+par.set = getParamSet(fitness.fun)
+
 st = system.time({
   res = ecr(fitness.fun, lower = getLower(par.set), upper = getUpper(par.set), n.dim = n.dim,
-  mu = 100L, lambda = 1L, representation = "float", survival.strategy = "plus", n.objectives = 2L,
-  survival.selector = setupDominatedHypervolumeSelector(ref.point = getRefPoint(fitness.fun)),
-  recombinator = setupSBXRecombinator(eta = 15, p = 0.7),
-  mutator = setupPolynomialMutator(p = 0.3, eta = 25),
-  terminator = list(stopOnIters(10000L)))
+  mu = 100L, lambda = 100L, representation = "float", survival.strategy = "plus", n.objectives = getNumberOfObjectives(fitness.fun),
+  #survival.selector = setupDominatedHypervolumeSelector(ref.point = getRefPoint(fitness.fun)),
+  survival.selector = setupTournamentSelector(k = 2L),
+  recombinator = setupIntermediateRecombinator(),#setupSBXRecombinator(eta = 15, p = 0.7),
+  mutator = setupUniformMutator(),#setupPolynomialMutator(p = 0.3, eta = 25),
+  terminator = list(stopOnIters(MAX.GENS)))
 })
 
-#print(res)
-plot(res$pareto.front)
+print(res)
+#plot(res$pareto.front)
+
+log = res$log$env$stats
+log = log[1:MAX.GENS, ]
+library(reshape2)
+log2 = melt(log, "gen", value.name = "value", variable.name = "stat")
+pl = ggplot(log2, aes(x = gen, y = value, linetype = stat)) + geom_line()
+print(pl)
 
 # print(st)
 

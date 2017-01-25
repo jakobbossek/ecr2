@@ -50,11 +50,12 @@ setupResult = function(population, fitness, control) {
 
 #' @export
 setupResult.ecr_single_objective = function(population, fitness, control, stop.object) {
+  logger = control$logger
   makeS3Obj(
     task = control$task,
-    best.param = NA,
-    best.value = NA,
-    log = control$logger,
+    best.x = logger$env$best.x,
+    best.y = logger$env$best.y,
+    log = logger,
     last.population = population,
     last.fitness = as.numeric(fitness),
     message = stop.object$message,

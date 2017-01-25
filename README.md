@@ -4,7 +4,7 @@
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/ecr2)](http://cran.rstudio.com/web/packages/ecr2/index.html)
 [![Build Status](https://travis-ci.org/jakobbossek/ecr2.svg?branch=master)](https://travis-ci.org/jakobbossek/ecr2)
 [![Build status](https://ci.appveyor.com/api/projects/status/eu0nns2dsgocwntw/branch/master?svg=true)](https://ci.appveyor.com/project/jakobbossek/ecr2/branch/master)
-[![Coverage Status](https://coveralls.io/repos/jakobbossek/ecr2/badge.svg)](https://coveralls.io/r/jakobbossek/ecr2)
+[![Coverage Status](https://coveralls.io/repos/github/jakobbossek/ecr2/badge.svg?branch=master)](https://coveralls.io/github/jakobbossek/ecr2?branch=master)
 
 The **ecr2** package is the official follow-up package to my package [ecr](https://github.com/jakobbossek/ecr). I was unsatisfied with some design choices and thus decided to restructure and rewrite a lot. Changes are that manifold and fundamental, that I decided to set up a new package, since most of the ecr function are either deprecated, renamed or underlie substantial interface changes.
 

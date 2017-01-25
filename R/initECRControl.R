@@ -35,6 +35,9 @@ initECRControlPermutation = function(fitness.fun, perm = NULL, n.objectives = NU
   control = initECRControl(fitness.fun, n.objectives = n.objectives, minimize = minimize)
   if (length(perm) == 1L)
     perm = 1:perm
+  if (is.null(perm)) {
+    stopf("Parameter perm shall is mandatory for representation 'permutation'.")
+  }
   assertSetEqual(perm, unique(perm))
   control = initControlParams(control, perm = perm)
   control$type = "permutation"

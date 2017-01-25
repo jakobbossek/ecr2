@@ -59,7 +59,7 @@ setupResult.ecr_single_objective = function(population, fitness, control, stop.o
     last.population = population,
     last.fitness = as.numeric(fitness),
     message = stop.object$message,
-    classes = c("ecr_single_objective_result", "ecr_result")
+    classes = c("ecr2_single_objective_result", "ecr2_result")
   )
 }
 
@@ -92,7 +92,7 @@ setupResult.ecr_multi_objective = function(population, fitness, control, stop.ob
     pareto.set = population[pareto.idx],
     last.population = population,
     message = stop.object$message,
-    classes = c("ecr_multi_objective_result", "ecr_result")
+    classes = c("ecr2_multi_objective_result", "ecr2_result")
   )
 }
 

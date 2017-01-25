@@ -1,5 +1,14 @@
 set.seed(123)
 
+ONEMIN = function(x) {
+  sum(x)
+}
+
+ONEMAX = function(x) {
+  length(x) - sum(x)
+}
+
+
 makeOneMinFunction = function(dimensions) {
   assertInteger(dimensions, len = 1L, lower = 2L, upper = 100L)
   smoof::makeSingleObjectiveFunction(

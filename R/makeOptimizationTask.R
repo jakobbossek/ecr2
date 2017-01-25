@@ -88,7 +88,7 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL, objec
 }
 
 #' @export
-print.ecr_optimization_task = function(x, ...) {
+print.ecr2_optimization_task = function(x, ...) {
   catf("[ecr OPTIMIZATION TASK]")
   n.obj = "Single-objective"
   if (x$n.objectives == 2L) {

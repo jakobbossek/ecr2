@@ -30,7 +30,7 @@ evaluateFitness = function(inds, control, ...) {
       fitness = matrix(fitness, nrow = 1L)
     return(fitness)
   }
-  fitness = parallelMap(function(x) do.call(fitness.fun, c(x, ...)),
+  fitness = parallelMap(function(x) do.call(fitness.fun, c(list(x), list(...))),
     inds, level = "ecr2.evaluateFitness")
   # force fitness to be stored in a matrix (be consistent for single and
   # multi-objective fitness funs)

@@ -33,9 +33,7 @@
 #'   with the corresponding dimension.
 #' @template arg_mutator
 #' @template arg_recombinator
-#' @template arg_max_iter
-#' @template arg_max_evals
-#' @template arg_max_time
+#' @template arg_terminators
 #' @param ... [any]\cr
 #'   Further arguments passed to \code{\link{setupECRControl}}.
 #' @return [\code{ecr_multi_objective_result}]
@@ -51,9 +49,8 @@ smsemoa = function(
   ref.point = NULL,
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
   recombinator = setupSBXRecombinator(eta = 15, p = 0.7),
-  max.iter = NULL,
-  max.evals = NULL,
-  max.time = NULL, ...) {
+  terminators = list(stopOnIters(100L)),
+  ...) {
 
   if (is.null(ref.point)) {
     ref.point = rep(11, n.objectives)
@@ -63,11 +60,11 @@ smsemoa = function(
   res = ecr(fitness.fun = fitness.fun, n.objectives = n.objectives,
     n.dim = n.dim, minimize = minimize, lower = lower, upper = upper,
     mu = 100L, lambda = 1L, representation = "float", survival.strategy = "plus",
-    max.iter = max.iter, max.time = max.time, max.evals = max.evals,
     parent.selector = setupSimpleSelector(),
     mutator = mutator,
     recombinator = recombinator,
-    survival.selector = setupDominatedHypervolumeSelector(ref.point = ref.point))
+    survival.selector = setupDominatedHypervolumeSelector(ref.point = ref.point),
+    terminators = terminators)
 
   return(res)
 }

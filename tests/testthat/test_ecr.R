@@ -44,3 +44,42 @@ test_that("real-valued smoof function optimization works", {
     }
   }
 })
+
+
+test_that("permutation based problems work well", {
+  # defs
+  perm.len = 5L
+  max.iter = 50L
+
+  # objective
+  fitness.fun = function(x) {
+    CI = 0
+    for (i in seq(length(x) - 1L)) {
+      CI = CI + sum(x[1L] > x[-1L])
+      x = x[-1L]
+    }
+    return(CI)
+  }
+
+  # check it for a selection of mutators for permutations
+  for (mutatorGenerator in c(setupSwapMutator, setupInversionMutator, setupInsertionMutator)) {
+    for (recombinatorGenerator in c(setupPMXRecombinator, setupOXRecombinator)) {
+      mutator = mutatorGenerator()
+      recombinator = recombinatorGenerator()
+      res = ecr(fitness.fun = fitness.fun,
+        representation = "permutation", perm = perm.len,
+        n.objectives = 1L, minimize = TRUE,
+        mu = 5L, lambda = 5L, survival.strategy = "plus",
+        mutator = mutator, recombinator = recombinator)
+
+      # check results
+      expect_false(is.null(res))
+      expect_equal(res$best.y, 0,
+        info = sprintf("Did not find correct sorting with mutator '%s' and recombinator '%s'.",
+          getOperatorName(mutator),
+          getOperatorName(recombinator)
+        )
+      )
+    }
+  }
+})

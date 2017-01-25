@@ -49,14 +49,15 @@ setupResult = function(population, fitness, control) {
 }
 
 #' @export
-setupResult.ecr_single_objective = function(population, fitness, control) {
+setupResult.ecr_single_objective = function(population, fitness, control, stop.object) {
   makeS3Obj(
     task = control$task,
     best.param = NA,
     best.value = NA,
+    log = control$logger,
     last.population = population,
     last.fitness = as.numeric(fitness),
-    message = "term",
+    message = stop.object$message,
     classes = c("ecr_single_objective_result", "ecr_result")
   )
 }
@@ -78,17 +79,18 @@ print.ecr_single_objective_result = function(x, ...) {
 }
 
 #' @export
-setupResult.ecr_multi_objective = function(population, fitness, control) {
+setupResult.ecr_multi_objective = function(population, fitness, control, stop.object) {
   pareto.idx = which.nondominated(fitness)
   pareto.front = as.data.frame(t(fitness[, pareto.idx, drop = FALSE]))
   colnames(pareto.front) = control$task$objective.names
   makeS3Obj(
     task = control$task,
+    log = control$logger,
     pareto.idx = pareto.idx,
     pareto.front = pareto.front,
     pareto.set = population[pareto.idx],
     last.population = population,
-    message = "term",
+    message = stop.object$message,
     classes = c("ecr_multi_objective_result", "ecr_result")
   )
 }

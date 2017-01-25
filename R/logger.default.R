@@ -13,14 +13,18 @@ setupECRDefaultLogger = function(step = 1L, log.stats = list("min", "mean", "max
   force(init.size)
 
   monitor = makeECRMonitor(
-    before = function(log, population, fitness, gen, ...) {
+    before = function(log, population, fitness, n.evals, ...) {
       catf("Initializing logger!")
       # nothing to do
     },
-    step = function(log, population, fitness, gen, ...) {
-      # catf("gen: %i, step: %i\n", gen, step)
+    step = function(log, population, fitness, n.evals, ...) {
+      # catf("gen: %i, step: %i\n", step)
       # print(log)
-      if ((gen %% step) == 0L) {
+      log$env$time.passed = Sys.time() - log$env$time.started
+      log$env$n.gens = log$env$n.gens + 1L
+      log$env$n.evals = log$env$n.evals + n.evals
+
+      if ((log$env$n.gens %% step) == 0L) {
         # compute stats for current population
         cur.stats = lapply(stats, function(stat.fun) {
         if (is.list(stat.fun))
@@ -34,11 +38,11 @@ setupECRDefaultLogger = function(step = 1L, log.stats = list("min", "mean", "max
           catf("increasing log size! Doubling size: %i -> %i", n.log, 3 * n.log)
           log$env$stats = rbind(log$env$stats, makeDataFrame(ncol = length(stats) + 1L, nrow = n.log * 2, col.types = "numeric", col.names = names(log$env$stats)))
         }
-        log$env$stats[log$env$cur.line, ] = c(list(gen = gen), cur.stats)
+        log$env$stats[log$env$cur.line, ] = c(list(gen = log$env$n.gens), cur.stats)
         log$env$cur.line = log$env$cur.line + 1L
       }
     },
-    after = function(log, population, fitness, gen, ...) {
+    after = function(log, population, fitness, n.evals, ...) {
       # nothing to do here
       #FIXME: maybe delete empty, preallocated rows
     }
@@ -48,8 +52,13 @@ setupECRDefaultLogger = function(step = 1L, log.stats = list("min", "mean", "max
   monitor$env$stats = BBmisc::makeDataFrame(ncol = length(stats) + 1L, nrow = init.size,
     col.types = "numeric", col.names = c("gen", names(stats)))
   monitor$env$cur.line = 1L
+  monitor$env$time.started = Sys.time()
+  monitor$env$n.evals = 0L
+  monitor$env$n.gens = 0L
   return(monitor)
 }
+
+#shouldStop.ecr_monitor = function(monitor, stop.conds)
 
 ensureNamedStats = function(stats) {
   no.names = names(stats) == ""

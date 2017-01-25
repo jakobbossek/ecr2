@@ -12,50 +12,100 @@ n.dim = 30L
 fitness.fun = addCountingWrapper(smoof::makeZDT1Function(dimensions = n.dim))
 par.set = getParamSet(fitness.fun)
 
+st = system.time({
+  res = ecr(fitness.fun, lower = getLower(par.set), upper = getUpper(par.set), n.dim = n.dim,
+  mu = 100L, lambda = 1L, representation = "float", survival.strategy = "plus", n.objectives = 2L,
+  survival.selector = setupDominatedHypervolumeSelector(ref.point = getRefPoint(fitness.fun)),
+  recombinator = setupSBXRecombinator(eta = 15, p = 0.7),
+  mutator = setupPolynomialMutator(p = 0.3, eta = 25),
+  terminator = list(stopOnIters(10000L)))
+})
+
+#print(res)
+plot(res$pareto.front)
+
+# print(st)
+
+stop(123)
+
+# # c1 = initECRControlFloat(smoof::makeSphereFunction(4L))
+# # c2 = initECRControlFloat(function(x) c(sum(x), sum(exp(x)/7)), minimize = c(TRUE, FALSE), n.dim = 20, n.objectives = 2L, lower = -5, upper = 3)
+# # c3 = initECRControlBinary(function(x) sum(x), n.objectives = 1L, n.bits = 100L)
+# # c4 = initECRControlPermutation(function(x) sum(x), perm = 10, n.objectives = 3L)
+
+# control = initECRControlFloat(fitness.fun)
+# control = registerMutator(control, operator.fun = setupPolynomialMutator(p = 0.3, eta = 25))#setupBitFlipMutator())
+# control = registerRecombinator(control, setupSBXRecombinator(eta = 15, p = 0.7))#setupCrossoverRecombinator())
+# control = registerGenerator(control, operator.fun = setupUniformGenerator(len = n.dim, lower = getLower(par.set), upper = getUpper(par.set)))#setupBinaryGenerator(len = n.dim))
+# control = registerSurvivalSelector(control, operator.fun = setupDominatedHypervolumeSelector(ref.point = getRefPoint(fitness.fun)))
+# control = registerMatingSelector(control, operator.fun = setupSimpleSelector())
+# control = registerLogger(control, logger = setupECRDefaultLogger(
+#   log.stats = list("mean", "sd", "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
+#   log.pop = TRUE, init.size = 10000L)
+# )
+
+n.dim = 50L
+fitness.fun = smoof::makeAckleyFunction(dimensions = n.dim)
+par.set = getParamSet(fitness.fun)
+
 # c1 = initECRControlFloat(smoof::makeSphereFunction(4L))
 # c2 = initECRControlFloat(function(x) c(sum(x), sum(exp(x)/7)), minimize = c(TRUE, FALSE), n.dim = 20, n.objectives = 2L, lower = -5, upper = 3)
 # c3 = initECRControlBinary(function(x) sum(x), n.objectives = 1L, n.bits = 100L)
 # c4 = initECRControlPermutation(function(x) sum(x), perm = 10, n.objectives = 3L)
 
 control = initECRControlFloat(fitness.fun)
-control = registerMutator(control, fun = setupGaussMutator())#setupBitFlipMutator())
-control = registerRecombinator(control, fun = setupIntermediateRecombinator())
-control = registerGenerator(control, fun = setupUniformGenerator(len = n.dim, lower = getLower(par.set), upper = getUpper(par.set)))#setupBinaryGenerator(len = n.dim))
-control = registerSurvivalSelector(control, fun = setupNondomSelector())
-control = registerMatingSelector(control, fun = setupSimpleSelector())
+control = registerMutator(control, operator.fun = setupUniformMutator())#setupBitFlipMutator())
+control = registerRecombinator(control, setupIntermediateRecombinator())#())
+control = registerGenerator(control, operator.fun = setupUniformGenerator(len = n.dim, lower = getLower(par.set), upper = getUpper(par.set)))#setupBinaryGenerator(len = n.dim))
+control = registerSurvivalSelector(control, operator.fun = setupTournamentSelector(k = 2L))#setupSimpleSelector())
+control = registerMatingSelector(control, operator.fun = setupSimpleSelector())
 control = registerLogger(control, logger = setupECRDefaultLogger(
-  log.stats = list("mean", "sd", "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
-  log.pop = TRUE, init.size = 1000L)
+  log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
+  log.pop = TRUE, init.size = 10000L)
 )
 
-MAX.GENS = 100L
+MAX.GENS = 2000L
 MU = 100L
 LAMBDA = 100L
+n.evals = MU
 st = system.time({
-  init.solutions = control$generate(size = floor(MU / 2))
-  population = initPopulation(mu = MU, init.solutions = init.solutions, control = control)
-  population = control$generate(size = MU)
+  population = initPopulation(mu = MU, control = control)
   fitness = evaluateFitness(population, control)
   # init logger
   control$logger$before()
 
-  for (gen in seq_len(MAX.GENS)) {
+  repeat {
+  #for (gen in 1:MAX.GENS) {
     # generate offspring
-    offspring = generateOffspring(control, population, fitness, lambda = MU, p.recomb = 1, p.mut = 1, mut.pars = list(lower = control$lower, upper = control$upper))
-    #offspring = lapply(population, control$mutate, lower = control$lower, upper = control$upper)
-    fitness.off = evaluateFitness(offspring, control)
+    offspring = generateOffspring(control, population, fitness, lambda = LAMBDA, p.recomb = 0.7, p.mut = 0.3)
+    fitness.offspring = evaluateFitness(offspring, control)
 
-    # select next generation
-    merged.pop = c(population, offspring)
-    merged.fit = cbind(fitness, fitness.off)
-    surv.idx = control$selectForSurvival(merged.fit, n.select = MU)
-    population = merged.pop[surv.idx]
-    fitness = merged.fit[, surv.idx, drop = FALSE]
+    #sel = replaceMuPlusLambda(control, population, offspring, fitness, fitness.offspring)
+    sel = replaceMuCommaLambda(control, population, offspring, fitness, fitness.offspring, n.elite = 10L)
+
+    population = sel$population
+    fitness = sel$fitness
 
     # do some logging
-    control$logger$step(control$logger, population, fitness, gen)
+    control$logger$step(control$logger, population, fitness, n.evals = LAMBDA)
+    stop.obj = doTerminate(control$logger, stop.conds = list(
+      stopOnEvals(104092033),
+      stopOnIters(MAX.GENS)))
+    if (length(stop.obj) > 0L) {
+      break
+    }
   }
 })
+print(st)
+
+log = control$logger$env$stats
+log = log[1:MAX.GENS, ]
+library(reshape2)
+log2 = melt(log, "gen", value.name = "value", variable.name = "stat")
+pl = ggplot(log2, aes(x = gen, y = value, linetype = stat)) + geom_line()
+print(pl)
+
+stop(123)
 log = control$logger$env$stats
 
 pl = ggplot(log, aes(x = gen, y = hv)) + geom_line()

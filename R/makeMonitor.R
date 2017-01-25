@@ -22,9 +22,9 @@
 #' @example examples/ex_makeMonitor.R
 #' @export
 makeECRMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
-  if (!is.null(before)) assertFunction(before, args = c("log", "population", "fitness", "gen", "..."))
-  if (!is.null(step)) assertFunction(step, args = c("log", "population", "fitness", "gen", "..."))
-  if (!is.null(after)) assertFunction(after, args = c("log", "population", "fitness", "gen", "..."))
+  if (!is.null(before)) assertFunction(before, args = c("log", "population", "fitness", "n.evals", "..."))
+  if (!is.null(step)) assertFunction(step, args = c("log", "population", "fitness", "n.evals", "..."))
+  if (!is.null(after)) assertFunction(after, args = c("log", "population", "fitness", "n.evals", "..."))
   dummy = function(population, fitness, gen, ...) {}
   structure(
     list(

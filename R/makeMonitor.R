@@ -25,7 +25,7 @@ makeECRMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
   if (!is.null(before)) assertFunction(before, args = c("log", "population", "fitness", "n.evals", "..."))
   if (!is.null(step)) assertFunction(step, args = c("log", "population", "fitness", "n.evals", "..."))
   if (!is.null(after)) assertFunction(after, args = c("log", "population", "fitness", "n.evals", "..."))
-  dummy = function(population, fitness, gen, ...) {}
+  dummy = function(population, fitness, n.evals, ...) {}
   structure(
     list(
       before = coalesce(before, dummy),
@@ -35,19 +35,4 @@ makeECRMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
     ),
     class = "ecr2_monitor"
   )
-}
-
-# @title
-# Registers monitoring functions to events.
-#
-# @param event.dispatcher [\code{ecr_event_dispatcher}]\cr
-#   Event dispatcher.
-# @param monitor [\code{ecr_monitor}]\cr
-#   Monitoring object.
-installMonitor = function(event.dispatcher, monitor) {
-  assertClass(event.dispatcher, "ecr2_event_dispatcher")
-  assertClass(monitor, "ecr2_monitor")
-  event.dispatcher$registerAction("onEAInitialized", monitor$before)
-  event.dispatcher$registerAction("onPopulationUpdated", monitor$step)
-  event.dispatcher$registerAction("onEAFinished", monitor$after)
 }

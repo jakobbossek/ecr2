@@ -21,11 +21,11 @@ setupConsoleMonitor = function(show.info.stepsize = 5L, num.format = "%g") {
   force(show.info.stepsize)
   force(num.format)
 
-  makeMonitor(
-    before = function(opt.state, ...) {
+  makeECRMonitor(
+    before = function(population, fitness, n.evals, ...) {
       cat("Initialization finished! Starting optimization process ...\n")
     },
-    step = function(opt.state, ...) {
+    step = function(population, fitness, n.evals, ...) {
       fitness.fun = opt.state$task$fitness.fun
       max.iter = opt.state$control$max.iter
       fitness = opt.state$population$fitness
@@ -42,7 +42,7 @@ setupConsoleMonitor = function(show.info.stepsize = 5L, num.format = "%g") {
         }
       }
     },
-    after = function(opt.state, ...) {
+    after = function(population, fitness, n.evals, ...) {
       cat("Finished!\n")
     }
   )

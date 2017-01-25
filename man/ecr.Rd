@@ -4,7 +4,7 @@
 \alias{ecr}
 \title{Interface to \pkg{ecr} similar to the \code{\link[stats]{optim}} function.}
 \usage{
-ecr(fitness.fun, minimize = rep(TRUE, n.objectives), n.objectives, n.dim,
+ecr(fitness.fun, minimize = NULL, n.objectives = NULL, n.dim = NULL,
   lower = NULL, upper = NULL, n.bits, representation, mu, lambda,
   perm = NULL, p.recomb = 0.7, p.mut = 0.3, survival.strategy = "plus",
   n.elite = 0L, custom.constants = list(), logger = NULL,

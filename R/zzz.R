@@ -12,5 +12,5 @@
 NULL
 
 .onAttach = function(libname, pkgname) {
-  parallelRegisterLevels(package = "ecr2", levels = c("ecr2.evaluateFitness", "ecr2.generateOffspring"))
+  parallelRegisterLevels(package = "ecr2", levels = c("evaluateFitness", "generateOffspring"))
 }

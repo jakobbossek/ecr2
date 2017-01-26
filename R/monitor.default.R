@@ -1,18 +1,7 @@
-#' @title Default logger.
+#' @title Default monitor.
 #'
-#' @description The default logger of \pkg{ecr2} is responsable to keep track
-#' of the evolutionary process. It is a fundamental building block of the
-#' \code{ecr} function where it logs statistics on the population and its fitness
-#' values as well as the state of the optimization progress. It is passed to the
-#' internal stopping conditions in order to check whether the evolutionary process
-#' should terminate.
-#'
-#' @details
-#' Technically the logger is a S3 object, i.e., a
-#' list with an additional class attribute \code{ecr2_monitor} and three internal
-#' functions \code{before}, \code{step} and \code{after}, which are meant to be
-#' called before the evolutionary loop starts, right after each generation and
-#' once after the process terminated.
+#' @description Default monitor object that outputs messages to the console
+#' based on a default logger (see \code{initLogger}).
 #'
 #' @param step [\code{integer(1)}]\cr
 #'   Number of steps of the EA between monitoring.

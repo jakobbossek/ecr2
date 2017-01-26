@@ -19,7 +19,6 @@ Intermediate recombination computes the component-wise mean value of the
 }
 \seealso{
 Other recombinators: \code{\link{setupCrossoverRecombinator}},
-  \code{\link{setupNullRecombinator}},
   \code{\link{setupOXRecombinator}},
   \code{\link{setupPMXRecombinator}},
   \code{\link{setupSBXRecombinator}}

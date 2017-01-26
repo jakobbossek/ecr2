@@ -22,7 +22,6 @@ above is applied to each element of the list.
 }
 \seealso{
 Other recombinators: \code{\link{setupIntermediateRecombinator}},
-  \code{\link{setupNullRecombinator}},
   \code{\link{setupOXRecombinator}},
   \code{\link{setupPMXRecombinator}},
   \code{\link{setupSBXRecombinator}}

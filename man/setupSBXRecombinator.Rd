@@ -33,7 +33,6 @@ search space. Complex Systems 9(2), 115-148.
 \seealso{
 Other recombinators: \code{\link{setupCrossoverRecombinator}},
   \code{\link{setupIntermediateRecombinator}},
-  \code{\link{setupNullRecombinator}},
   \code{\link{setupOXRecombinator}},
   \code{\link{setupPMXRecombinator}}
 }

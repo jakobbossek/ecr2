@@ -18,7 +18,6 @@ positions while preserving the order and position of as many genes as possible.
 \seealso{
 Other recombinators: \code{\link{setupCrossoverRecombinator}},
   \code{\link{setupIntermediateRecombinator}},
-  \code{\link{setupNullRecombinator}},
   \code{\link{setupOXRecombinator}},
   \code{\link{setupSBXRecombinator}}
 }

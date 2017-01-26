@@ -19,7 +19,6 @@ cut point and b) fill the remaining gaps with this trimmed sequence.
 \seealso{
 Other recombinators: \code{\link{setupCrossoverRecombinator}},
   \code{\link{setupIntermediateRecombinator}},
-  \code{\link{setupNullRecombinator}},
   \code{\link{setupPMXRecombinator}},
   \code{\link{setupSBXRecombinator}}
 }

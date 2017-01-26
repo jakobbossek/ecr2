@@ -2,11 +2,11 @@
 #' Factory method for monitor objects.
 #'
 #' @description
-#' Monitor objects serve for monitoring the optimization process. Each monitor
-#' object expects the parameters \code{before}, \code{step} and \code{after},
-#' each being a function and expecting \code{opt.state} and \code{...} as the
-#' only parameters. This way one can access all the variables used within the
-#' evolutionary cycle.
+#' Monitor objects serve for monitoring the optimization process, e.g., printing
+#' some status messages to the console. Each monitor includes the functions
+#' \code{before}, \code{step} and \code{after}, each being a function and expecting
+#' a log \code{log} of type \code{ecr2_logger} and \code{...} as the only parameters.
+#' This way the logger has access to the entire log.
 #'
 #' @param before [\code{function}]\cr
 #'   Function called one time after initialization of the EA.
@@ -22,10 +22,10 @@
 #' @example examples/ex_makeMonitor.R
 #' @export
 makeECRMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
-  if (!is.null(before)) assertFunction(before, args = c("log", "population", "fitness", "n.evals", "..."))
-  if (!is.null(step)) assertFunction(step, args = c("log", "population", "fitness", "n.evals", "..."))
-  if (!is.null(after)) assertFunction(after, args = c("log", "population", "fitness", "n.evals", "..."))
-  dummy = function(population, fitness, n.evals, ...) {}
+  if (!is.null(before)) assertFunction(before, args = c("log", "..."))
+  if (!is.null(step)) assertFunction(step, args = c("log", "..."))
+  if (!is.null(after)) assertFunction(after, args = c("log", "..."))
+  dummy = function(log, ...) {}
   structure(
     list(
       before = coalesce(before, dummy),

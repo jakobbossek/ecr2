@@ -96,17 +96,20 @@ ecr = function(
   control = registerGenerator(control, coalesce(generator, getDefaultEvolutionaryOperators(representation, "generator", n.objectives, control)))
   control = registerSurvivalSelector(control, coalesce(survival.selector, getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control)))
   control = registerMatingSelector(control, coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
-  control = registerLogger(control, logger = setupECRDefaultLogger(
-    log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
+  # control = registerLogger(control, logger = setupECRDefaultLogger(
+  #   log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
+  #   log.pop = TRUE, init.size = 1000L)
+  # )
+
+  # init logger
+  #FIXME: logger params should be passable to ecr -> logger.pars
+  log = initLogger(log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
     log.pop = TRUE, init.size = 1000L)
-  )
 
   # simply pass stuff down to control object constructor
   population = initPopulation(mu = mu, control = control, initial.solutions = initial.solutions)
   fitness = evaluateFitness(population, control)
 
-  # init logger
-  control$logger$before()
   repeat {
     # generate offspring
     offspring = generateOffspring(control, population, fitness, lambda = lambda, p.recomb = p.recomb, p.mut = p.mut)
@@ -122,18 +125,18 @@ ecr = function(
     fitness = sel$fitness
 
     # do some logging
-    control$logger$step(control$logger, population, fitness, n.evals = lambda)
+    updateLogger(log, population, fitness, n.evals = lambda)
 
-    stop.object = doTerminate(control$logger, terminators)
+    stop.object = doTerminate(log, terminators)
     if (length(stop.object) > 0L)
       break
   }
-  return(makeECRResult(control, population, fitness, stop.object))
+  return(makeECRResult(control, log, population, fitness, stop.object))
 }
 
-makeECRResult = function(control, population, fitness, stop.object, ...) {
+makeECRResult = function(control, log, population, fitness, stop.object, ...) {
   n.objectives = control$task$n.objectives
   if (n.objectives == 1L)
-    return(setupResult.ecr_single_objective(population, fitness, control, stop.object, ...))
-  return(setupResult.ecr_multi_objective(population, fitness, control, stop.object, ...))
+    return(setupResult.ecr_single_objective(population, fitness, control, log, stop.object, ...))
+  return(setupResult.ecr_multi_objective(population, fitness, control, log, stop.object, ...))
 }

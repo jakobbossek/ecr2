@@ -54,3 +54,29 @@ stopOnIters = function(max.iter = NULL) {
       if (is.infinite(max.iter)) "Inf" else max.iter)
   )
 }
+
+stopOnOptY = function(opt.y, eps) {
+  assertNumber(eps, lower = 0)
+  assertNumber(opt.y)
+
+  force(opt.y)
+  force(eps)
+
+  condition.fun = function(log) {
+    stats = log$env$stats
+    cur.it = log$env$cur.line
+    if (!("min" %in% names(stats))) {
+      warningf("Terminator 'stopOnOptY' needs column 'min' in log. Not found!")
+      return(FALSE)
+    }
+    return(abs(stats[cur.it, "min"] - opt.y) < eps)
+  }
+
+
+  makeTerminator(
+    condition.fun,
+    name = "OptYApprox",
+    message = sprintf("Best function value close to optimum |f_opt - f_EA| < %.5f.",
+      eps)
+  )
+}

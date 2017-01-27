@@ -57,16 +57,15 @@ test_that("preimplemented EMOAs work well", {
   }
 
   # test Aspiration-Set EMOA (AS-EMOA)
-  # for (n.pop in c(10, 20)) {
-  #   task = makeOptimizationTask(makeZDT3Function(dimensions = 2L))
-  #   aspiration.set = matrix(
-  #     c(0.2, 0.25,
-  #       0.21, 0.2,
-  #       0.18, 0.4), ncol = 3L, byrow = FALSE
-  #   )
-  #   res = asemoa(task, n.population = n.pop, max.evals = max.evals,
-  #     aspiration.set = aspiration.set, monitor = NULL)
-  #   expect_is_pareto_approximation(res$pareto.front, 2L, "asemoa", "ZDT3",
-  #     list(n.pop = n.pop, n.archive = 3L))
-  # }
+  fitness.fun = makeZDT3Function(dimensions = 2L)
+  for (mu in c(10, 20)) {
+    aspiration.set = matrix(
+      c(0.2, 0.25,
+        0.21, 0.2,
+        0.18, 0.4), ncol = 3L, byrow = FALSE
+    )
+    res = asemoa(fitness.fun, mu = mu, aspiration.set = aspiration.set)
+    expect_is_pareto_approximation(res$pareto.front, 2L, "asemoa", "ZDT3",
+      list(mu = mu, n.archive = ncol(aspiration.set)))
+  }
 })

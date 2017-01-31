@@ -40,7 +40,10 @@
 #' @template arg_generator
 #' @template arg_mutator
 #' @template arg_recombinator
+#' @template arg_par_list
 #' @template arg_terminators
+#' @param ... [any]\cr
+#'   Further arguments passed down to \code{fitness.fun}.
 #' @return [\code{\link{ecr_result}}]
 #' @examples
 #' fn = function(x) {
@@ -63,7 +66,9 @@ ecr = function(
   generator = NULL,
   mutator = NULL,
   recombinator = NULL,
-  terminators = list(stopOnIters(100L))) {
+  par.list = list(),
+  terminators = list(stopOnIters(100L)),
+  ...) {
 
   if (!isSmoofFunction(fitness.fun)) {
     n.objectives = asInt(n.objectives, lower = 1L)
@@ -74,6 +79,7 @@ ecr = function(
   assertChoice(survival.strategy, c("comma", "plus"))
   assertNumber(p.recomb, lower = 0, upper = 1)
   assertNumber(p.mut, lower = 0, upper = 1)
+  assertList(par.list, names = "unique")
   assertList(terminators, any.missing = FALSE, all.missing = FALSE, types = "ecr2_terminator")
   mu = asInt(mu, lower = 1L)
   lambda.lower = if (survival.strategy == "plus") 1L else mu
@@ -87,6 +93,8 @@ ecr = function(
   } else if (representation == "permutation") {
     initECRControlPermutation(fitness.fun, perm = perm,
       n.objectives = n.objectives, minimize = minimize)
+  } else if (representation == "custom") {
+    initECRControlCustom(fitness.fun, n.objectives = n.objectives, minimize = minimize)
   }
 
   n.objectives = control$task$n.objectives
@@ -96,10 +104,7 @@ ecr = function(
   control = registerGenerator(control, coalesce(generator, getDefaultEvolutionaryOperators(representation, "generator", n.objectives, control)))
   control = registerSurvivalSelector(control, coalesce(survival.selector, getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control)))
   control = registerMatingSelector(control, coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
-  # control = registerLogger(control, logger = setupECRDefaultLogger(
-  #   log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
-  #   log.pop = TRUE, init.size = 1000L)
-  # )
+  control = do.call(registerECRParams, c(list(control), par.list))
 
   # init logger
   #FIXME: logger params should be passable to ecr -> logger.pars
@@ -108,12 +113,12 @@ ecr = function(
 
   # simply pass stuff down to control object constructor
   population = initPopulation(mu = mu, control = control, initial.solutions = initial.solutions)
-  fitness = evaluateFitness(population, control)
+  fitness = evaluateFitness(population, control, ...)
 
   repeat {
     # generate offspring
     offspring = generateOffspring(control, population, fitness, lambda = lambda, p.recomb = p.recomb, p.mut = p.mut)
-    fitness.offspring = evaluateFitness(offspring, control)
+    fitness.offspring = evaluateFitness(offspring, control, ...)
 
     sel = if (survival.strategy == "plus") {
       replaceMuPlusLambda(control, population, offspring, fitness, fitness.offspring)

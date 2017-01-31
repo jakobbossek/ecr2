@@ -10,8 +10,8 @@ ecr(fitness.fun, minimize = NULL, n.objectives = NULL, n.dim = NULL,
   n.elite = 0L, custom.constants = list(), logger = NULL,
   monitor = NULL, more.args = list(), initial.solutions = NULL,
   parent.selector = NULL, survival.selector = NULL, generator = NULL,
-  mutator = NULL, recombinator = NULL,
-  terminators = list(stopOnIters(100L)))
+  mutator = NULL, recombinator = NULL, par.list = list(),
+  terminators = list(stopOnIters(100L)), ...)
 }
 \arguments{
 \item{fitness.fun}{[\code{function}]\cr
@@ -117,9 +117,15 @@ Mutation operator of type \code{ecr_mutator}.}
 \item{recombinator}{[\code{ecr_recombinator}]\cr
 Recombination operator of type \code{ecr_recombinator}.}
 
+\item{par.list}{[\code{list}]\cr
+List of optional control parameters for the operator.}
+
 \item{terminators}{[\code{list}]\cr
 List of stopping conditions of type \dQuote{ecr2_terminator}.
 Default is to stop after 100 iterations.}
+
+\item{...}{[any]\cr
+Further arguments passed down to \code{fitness.fun}.}
 }
 \value{
 [\code{\link{ecr_result}}]

@@ -38,79 +38,27 @@
 #' mut.inds = mutate(mutator, inds, p.mut = 0.4)
 generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.mut = 0.1) {
 
-  selectorFun = coalesce(control$selectForMating, setupSimpleSelector())
-  mutatorFun = control$mutate
-  recombinatorFun = control$recombine
+  if (is.null(control$mutate) & is.null(control$recombinate))
+    stopf("generateOffspring: At least a mutator or recombinator needs to be available.")
 
-  if (is.null(mutatorFun) & is.null(recombinatorFun))
-    stopf("At least a mutator or recombinator needs to be available.")
-
-  # determine how many elements need to be chosen by parentSelector
-  # if no recombinator exists we select simply lambda elements
-  n.mating = lambda
-  n.parents = 1L
-  if (!is.null(recombinatorFun)) {
-    n.children = getNumberOfChildren(recombinatorFun)
-    n.parents = getNumberOfParentsNeededForMating(recombinatorFun)
-    n.mating = ceiling(lambda * n.parents / n.children)
-    if (n.mating == 1L)
-      n.mating = n.parents
-    # if number of offspring is odd and number of mating
-    if (n.mating %% n.parents != 0L)
-      n.mating = n.mating + (n.mating %% n.parents)
-  }
-  # create mating pool. This a a matrix, where each row contains the indizes of
-  # a set of >= 2 parents
-  mating.idx = matrix(selectorFun(fitness, n.select = n.mating), ncol = n.parents)
-
-  # now perform recombination
-  if (is.null(recombinatorFun)) {
-    offspring = inds[as.integer(mating.idx)]
-  } else {
-    offspring = apply(mating.idx, 1L, function(parents.idx) {
-      parents = inds[parents.idx]
-      children = if (runif(1L) < p.recomb & !is.null(recombinatorFun)) {
-        tmp = recombinatorFun(parents, control$params)
-        if (hasAttributes(tmp, "multiple")) tmp else list(tmp)
-      } else {
-        parents
-      }
-      children
-    })
-    # unfortunately we need to "unwrap" one listing layer here
-    offspring = unlist(offspring, recursive = FALSE)
-  }
-
-  # now eventually apply mutation
-  if (!is.null(mutatorFun)) {
-    do.mutate = runif(length(offspring)) < p.mut
-    if (sum(do.mutate) > 0) {
-      offspring[do.mutate] = lapply(offspring[do.mutate], mutatorFun, control$params)
-    }
-  }
-
-  # if n.children is odd/even and lambda is even/odd we need to remove some children
-  if (length(offspring) > lambda) {
-    offspring = offspring[-sample(1:length(offspring), length(offspring) - lambda)]
-  }
+  offspring = recombinate(control, inds, fitness, lambda, p.recomb = p.recomb)
+  offspring = mutate(control, offspring, p.mut = p.mut)
 
   return(offspring)
 }
 
 #' @rdname generateOffspring
 #' @export
-mutate = function(x, inds, p.mut, par.list = list(), ...) {
-  UseMethod("mutate")
-}
-
-#' @rdname generateOffspring
-#' @export
-mutate.ecr2_mutator = function(x, inds, p.mut, par.list = list(), ...) {
+mutate = function(x, inds, p.mut = 0.1, par.list = list(), ...) {
+  mutatorFun = if (inherits(x, "ecr2_control"))
+    x$mutate else x
+  assertClass(mutatorFun, "ecr2_mutator")
   assertNumber(p.mut, lower = 0, upper = 1)
   assertList(inds)
   assertList(par.list)
+  if (inherits(x, "ecr2_control"))
+    par.list = BBmisc::insert(x$params, par.list)
   par.list = BBmisc::insert(par.list, list(...))
-  mutatorFun = x
   do.mutate = runif(length(inds)) < p.mut
   if (any(do.mutate > 0)) {
     inds[do.mutate] = lapply(inds[do.mutate], mutatorFun, par.list)
@@ -120,27 +68,20 @@ mutate.ecr2_mutator = function(x, inds, p.mut, par.list = list(), ...) {
 
 #' @rdname generateOffspring
 #' @export
-mutate.ecr2_control = function(x, inds, p.mut = 0.3, par.list = list(), ...) {
-  if (!is.null(x$mutate)) {
-    par.list = BBmisc::insert(x$params, par.list)
-    return(mutate(x$mutate, inds, p.mut, par.list, ...))
-  }
-  return(inds)
-}
-
-#' @rdname generateOffspring
-#' @export
 recombinate = function(x, inds, fitness, lambda = length(inds), p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...) {
-  UseMethod("recombinate")
-}
+  recombinatorFun = if (inherits(x, "ecr2_control")) x$recombinate else x
+  if (!is.null(recombinatorFun))
+    assertClass(recombinatorFun, "ecr2_recombinator")
 
-#' @rdname generateOffspring
-#' @export
-recombinate.ecr2_recombinator = function(x, inds, fitness, lambda = length(inds), p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...) {
-  if (is.null(parent.selector))
-    stopf("recombinate: parent.selector needed!")
-  selectorFun = parent.selector
-  recombinatorFun = x
+  if (is.null(parent.selector) & (!inherits(x, "ecr2_control"))) {
+    if (is.null(x$selectForMating))
+      stopf("recombinate: parent.selector needed!")
+  }
+  selectorFun = coalesce(parent.selector, x$selectForMating)
+
+  if (inherits(x, "ecr2_control"))
+    par.list = BBmisc::insert(x$params, par.list)
+  par.list = BBmisc::insert(par.list, list(...))
 
   # determine how many elements need to be chosen by parentSelector
   # if no recombinator exists we select simply lambda elements
@@ -184,16 +125,4 @@ recombinate.ecr2_recombinator = function(x, inds, fitness, lambda = length(inds)
   }
 
   return(offspring)
-}
-
-#' @rdname generateOffspring
-#' @export
-recombinate.ecr2_control = function(x, inds, fitness, lambda = length(inds), p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...) {
-  parent.selector = coalesce(parent.selector, x$selectForMating)
-  if (!is.null(x$recombinate)) {
-    par.list = BBmisc::insert(x$params, par.list)
-    return(recombinate(x$recombinate, inds, fitness, lambda, p.recomb,
-      par.list, parent.selector = parent.selector, ...))
-  }
-  return(inds)
 }

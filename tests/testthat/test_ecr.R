@@ -22,7 +22,7 @@ test_that("ONE-MIN optimization works", {
 
 test_that("real-valued smoof function optimization works", {
   fitness.fun = smoof::makeSphereFunction(dimensions = 2L)
-  max.gens = 50L
+  max.gens = 100L
   for (mu in c(15, 30)) {
     for (lambda in c(15, 30)) {
       for (survival.strategy in c("plus", "comma")) {

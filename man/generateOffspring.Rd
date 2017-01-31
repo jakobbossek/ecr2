@@ -3,31 +3,16 @@
 \name{generateOffspring}
 \alias{generateOffspring}
 \alias{mutate}
-\alias{mutate.ecr2_control}
-\alias{mutate.ecr2_mutator}
 \alias{recombinate}
-\alias{recombinate.ecr2_control}
-\alias{recombinate.ecr2_recombinator}
 \title{Helper functions for offspring generation}
 \usage{
 generateOffspring(control, inds, fitness, lambda, p.recomb = 0.7,
   p.mut = 0.1)
 
-mutate(x, inds, p.mut, par.list = list(), ...)
-
-\method{mutate}{ecr2_mutator}(x, inds, p.mut, par.list = list(), ...)
-
-\method{mutate}{ecr2_control}(x, inds, p.mut = 0.3, par.list = list(), ...)
+mutate(x, inds, p.mut = 0.1, par.list = list(), ...)
 
 recombinate(x, inds, fitness, lambda = length(inds), p.recomb = 0.7,
   parent.selector = NULL, par.list = list(), ...)
-
-\method{recombinate}{ecr2_recombinator}(x, inds, fitness,
-  lambda = length(inds), p.recomb = 0.7, parent.selector = NULL,
-  par.list = list(), ...)
-
-\method{recombinate}{ecr2_control}(x, inds, fitness, lambda = length(inds),
-  p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...)
 }
 \arguments{
 \item{control}{[\code{ecr2_control}]\cr

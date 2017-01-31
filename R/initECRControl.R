@@ -48,6 +48,16 @@ initECRControlPermutation = function(fitness.fun, perm = NULL, n.objectives = NU
 
 #' @rdname initECRControl
 #' @export
+initECRControlCustom = function(fitness.fun, n.objectives = NULL, minimize = NULL) {
+  control = initECRControl(fitness.fun, n.objectives = n.objectives, minimize = minimize)
+  control$type = "custom"
+  control = addClasses(control, "ecr2_control_custom")
+  control = initDefaultOperators(control, "custom", n.objectives)
+  return(control)
+}
+
+#' @rdname initECRControl
+#' @export
 initECRControlFloat = function(fitness.fun, lower = NULL, upper = NULL,
   n.objectives = NULL, minimize = NULL, n.dim = NULL) {
   assertFunction(fitness.fun)

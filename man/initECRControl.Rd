@@ -3,6 +3,7 @@
 \name{initECRControl}
 \alias{initECRControl}
 \alias{initECRControlBinary}
+\alias{initECRControlCustom}
 \alias{initECRControlFloat}
 \alias{initECRControlPermutation}
 \title{Initialize control object.}
@@ -14,6 +15,8 @@ initECRControlBinary(fitness.fun, n.bits = NULL, n.objectives = NULL,
 
 initECRControlPermutation(fitness.fun, perm = NULL, n.objectives = NULL,
   minimize = NULL)
+
+initECRControlCustom(fitness.fun, n.objectives = NULL, minimize = NULL)
 
 initECRControlFloat(fitness.fun, lower = NULL, upper = NULL,
   n.objectives = NULL, minimize = NULL, n.dim = NULL)

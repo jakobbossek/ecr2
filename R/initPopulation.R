@@ -30,7 +30,7 @@ initPopulation = function(mu, control, initial.solutions = NULL, ...) {
   if (is.null(generateFun))
     stopf("You need to set a generator in case a) no initial population is provided or b)
   the initial population is smaller than mu.")
-  gen.solutions = generateFun(mu - n.initial, ...)
+  gen.solutions = generateFun(mu - n.initial, control$params)
   if (n.initial > 0L) {
     return(c(initial.solutions, gen.solutions))
   }

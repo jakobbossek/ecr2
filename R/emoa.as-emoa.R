@@ -223,7 +223,7 @@ asemoa = function(
   )
 
   asemoaGenerator = makeGenerator(
-    generator = function(size) {
+    generator = function(size, par.list) {
       uniformGenerator = setupUniformGenerator(n.dim, lower = lower, upper = upper)
       population = uniformGenerator(size)
       #NOTE: here we use the objective function to compute the fitness values

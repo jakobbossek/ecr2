@@ -16,6 +16,23 @@ registerECRObject = function(control, name, object) {
   return(control)
 }
 
+#' @title Register control parameters
+#'
+#' @description Add further parameters which are neccessary for an operator or
+#' several operators. These are passed down automatically to all operator calls
+#' when using, e.g., \code{generateOffspring}.
+#'
+#' @template arg_control
+#' @param ... [any]\cr
+#'    Further control parameters appended to the control object.
+#' @return [\code{ecr2_control}]
+#' @export
+registerECRParams = function(control, ...) {
+  passed.params = list(...)
+  control$params = BBmisc::insert(control$params, passed.params)
+  return(control)
+}
+
 # Helper function to set operator internally.
 #
 # @param control [ecr_control]

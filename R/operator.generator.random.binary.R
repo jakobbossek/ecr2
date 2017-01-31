@@ -12,7 +12,7 @@
 setupBinaryGenerator = function(len) {
   len = asInt(len)
   force(len)
-  generateBinaryPopulation = function(size) {
+  generateBinaryPopulation = function(size, par.list) {
     lapply(seq_len(size), function(i) {
       sample(c(0, 1), size = len, replace = TRUE)
     })

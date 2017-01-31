@@ -27,7 +27,7 @@ setupUniformGenerator = function(len, lower, upper) {
   force(lower)
   force(upper)
 
-  generateUniformPopulation = function(size) {
+  generateUniformPopulation = function(size, par.list) {
     lapply(seq_len(size), function(i) {
       ind = sapply(seq_len(len), function(j) {
         runif(1L, min = lower[j], max = upper[j])

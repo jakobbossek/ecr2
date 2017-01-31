@@ -20,7 +20,7 @@ setupPermutationGenerator = function(len, set = seq_len(len)) {
   force(len)
   force(set)
 
-  generatePermutationPopulation = function(size) {
+  generatePermutationPopulation = function(size, par.list) {
     lapply(seq_len(size), function(i) {
       unlist(sample(set))
     })

@@ -2,20 +2,42 @@
 % Please edit documentation in R/generateOffspring.R
 \name{generateOffspring}
 \alias{generateOffspring}
-\title{Creates list of offspring individuals}
+\alias{mutate}
+\alias{mutate.ecr2_control}
+\alias{mutate.ecr2_mutator}
+\alias{recombinate}
+\alias{recombinate.ecr2_control}
+\alias{recombinate.ecr2_recombinator}
+\title{Helper functions for offspring generation}
 \usage{
-generateOffspring(control, population, fitness, lambda, p.recomb = 0.7,
+generateOffspring(control, inds, fitness, lambda, p.recomb = 0.7,
   p.mut = 0.1)
+
+mutate(x, inds, p.mut, par.list = list(), ...)
+
+\method{mutate}{ecr2_mutator}(x, inds, p.mut, par.list = list(), ...)
+
+\method{mutate}{ecr2_control}(x, inds, p.mut = 0.3, par.list = list(), ...)
+
+recombinate(x, inds, fitness, lambda = length(inds), p.recomb = 0.7,
+  parent.selector = NULL, par.list = list(), ...)
+
+\method{recombinate}{ecr2_recombinator}(x, inds, fitness,
+  lambda = length(inds), p.recomb = 0.7, parent.selector = NULL,
+  par.list = list(), ...)
+
+\method{recombinate}{ecr2_control}(x, inds, fitness, lambda = length(inds),
+  p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...)
 }
 \arguments{
 \item{control}{[\code{ecr2_control}]\cr
 Control object.}
 
-\item{population}{[\code{list}]\cr
-Current population, i.e., list of individuals.}
+\item{inds}{[\code{list}]\cr
+List of individuals.}
 
 \item{fitness}{[\code{matrix}]\cr
-Matrix of fitness values with one column per individual of \code{individuals}.}
+Matrix of fitness values with one column per individual of \code{inds}.}
 
 \item{lambda}{[\code{integer(1)}]\cr
 Number of individuals generated in each generation.}
@@ -27,13 +49,40 @@ Default is 0.7.}
 \item{p.mut}{[\code{numeric(1)}]\cr
 Probability to apply mutation to a child.
 Default is 0.1.}
+
+\item{x}{[\code{ecr2_control} | \code{ecr2_recombinator} | \code{ecr2_mutator}]\cr
+Either the control object or a recombinator for \code{recombinate} and a
+mutator for \code{mutate} respectively.}
+
+\item{par.list}{[\code{list}]\cr
+List of optional control parameters for the operator.}
+
+\item{...}{[any]\cr
+Furhter arguments passed down to recombinator/mutator.
+There parameters will overwrite parameters in \code{par.list}.}
+
+\item{parent.selector}{[\code{ecr_selector}]\cr
+Selection operator which implements a procedure to copy individuals from a
+given population to the mating pool, i. e., allow them to become parents.}
 }
 \value{
-[\code{list}] Offspring.
+[\code{list}] List of individuals.
 }
 \description{
-Given and optimization state and a mating pool of individuals this function
-generates offspring individuals based on the parameters specified in the
-control object.
+Function \code{mutate} expects a list of individuals and a mutation operator.
+It then mutates each individual with a certain probability. Function \code{recombinate}
+expects a recombination operator, a list of individuals as well as their fitness
+matrix and creates \code{lambda} offspring individuals by recombining parents
+from \code{inds}. Which parents take place in the parent selection depends on
+the \code{parent.selector}.
+Finally, function \code{generateOffspring} is a wrapper for both \code{recombinate}
+and \code{mutate}. Both functions are applied subsequently to generate new individuals
+by variation and mutation.
+}
+\examples{
+# generate list of bistrings and apply mutation
+inds = replicate(5, sample(c(0, 1), 10, replace = TRUE), simplify = FALSE)
+mutator = setupBitflipMutator(p = 0.1)
+mut.inds = mutate(mutator, inds, p.mut = 0.4)
 }
 

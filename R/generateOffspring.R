@@ -1,22 +1,43 @@
-#' @title
-#' Creates list of offspring individuals
+#' @title Helper functions for offspring generation
 #'
 #' @description
-#' Given and optimization state and a mating pool of individuals this function
-#' generates offspring individuals based on the parameters specified in the
-#' control object.
+#' Function \code{mutate} expects a list of individuals and a mutation operator.
+#' It then mutates each individual with a certain probability. Function \code{recombinate}
+#' expects a recombination operator, a list of individuals as well as their fitness
+#' matrix and creates \code{lambda} offspring individuals by recombining parents
+#' from \code{inds}. Which parents take place in the parent selection depends on
+#' the \code{parent.selector}.
+#' Finally, function \code{generateOffspring} is a wrapper for both \code{recombinate}
+#' and \code{mutate}. Both functions are applied subsequently to generate new individuals
+#' by variation and mutation.
 #'
 #' @template arg_control
-#' @param population [\code{list}]\cr
-#'   Current population, i.e., list of individuals.
+#' @param inds [\code{list}]\cr
+#'   List of individuals.
+#' @param x [\code{ecr2_control} | \code{ecr2_recombinator} | \code{ecr2_mutator}]\cr
+#'   Either the control object or a recombinator for \code{recombinate} and a
+#'   mutator for \code{mutate} respectively.
 #' @param fitness [\code{matrix}]\cr
-#'   Matrix of fitness values with one column per individual of \code{individuals}.
+#'   Matrix of fitness values with one column per individual of \code{inds}.
 #' @template arg_lambda
 #' @template arg_p_recomb
 #' @template arg_p_mut
-#' @return [\code{list}] Offspring.
+#' @template arg_parent_selector
+#' @template arg_par_list
+#' @param ... [any]\cr
+#'   Furhter arguments passed down to recombinator/mutator.
+#'   There parameters will overwrite parameters in \code{par.list}.
+#' @return [\code{list}] List of individuals.
+#' @rdname generateOffspring
+#' @name generateOffspring
 #' @export
-generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.7, p.mut = 0.1) {
+#' @examples
+#' # generate list of bistrings and apply mutation
+#' inds = replicate(5, sample(c(0, 1), 10, replace = TRUE), simplify = FALSE)
+#' mutator = setupBitflipMutator(p = 0.1)
+#' mut.inds = mutate(mutator, inds, p.mut = 0.4)
+generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.mut = 0.1) {
+
   selectorFun = coalesce(control$selectForMating, setupSimpleSelector())
   mutatorFun = control$mutate
   recombinatorFun = control$recombine
@@ -44,10 +65,10 @@ generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.
 
   # now perform recombination
   if (is.null(recombinatorFun)) {
-    offspring = population[as.integer(mating.idx)]
+    offspring = inds[as.integer(mating.idx)]
   } else {
     offspring = apply(mating.idx, 1L, function(parents.idx) {
-      parents = population[parents.idx]
+      parents = inds[parents.idx]
       children = if (runif(1L) < p.recomb & !is.null(recombinatorFun)) {
         tmp = recombinatorFun(parents, control$params)
         if (hasAttributes(tmp, "multiple")) tmp else list(tmp)
@@ -76,36 +97,13 @@ generateOffspring = function(control, population, fitness, lambda, p.recomb = 0.
   return(offspring)
 }
 
-#' @title Mutate helper.
-#'
-#' @description Receives a list of individuals and a control object and applies
-#' the mutation operator stored in control to each individual with a certain
-#' probability.
-#'
-#' @param x [\code{ecr2_control} | \code{ecr2_mutator}]\cr
-#'   Either a mutator or a control object. If a control object is passed
-#'   the functions is internally called on the mutator in \code{control$mutate}.
-#'   In this case the \code{control$params} list is passed down via \code{par.list}.
-#' @param inds [\code{list}]\cr
-#'   List of individuals.
-#' @template arg_p_mut
-#' @param par.list [\code{list}]\cr
-#'   Named list of parameters passed down to mutator.
-#'   Default is the empty list.
-#' @param ... [any]\cr
-#'   Further parameters passed down to mutators.
-#'   There parameters will overwrite parameters in \code{par.list}.
-#' @return [\code{list}] Mutated \code{inds} list.
+#' @rdname generateOffspring
 #' @export
-#' @examples
-#' # generate list of bistrings and apply mutation
-#' inds = replicate(5, sample(c(0, 1), 10, replace = TRUE), simplify = FALSE)
-#' mutator = setupBitflipMutator(p = 0.1)
-#' mut.inds = mutate(mutator, inds, p.mut = 0.4)
 mutate = function(x, inds, p.mut, par.list = list(), ...) {
   UseMethod("mutate")
 }
 
+#' @rdname generateOffspring
 #' @export
 mutate.ecr2_mutator = function(x, inds, p.mut, par.list = list(), ...) {
   assertNumber(p.mut, lower = 0, upper = 1)
@@ -120,11 +118,82 @@ mutate.ecr2_mutator = function(x, inds, p.mut, par.list = list(), ...) {
   return(inds)
 }
 
+#' @rdname generateOffspring
 #' @export
 mutate.ecr2_control = function(x, inds, p.mut = 0.3, par.list = list(), ...) {
   if (!is.null(x$mutate)) {
     par.list = BBmisc::insert(x$params, par.list)
     return(mutate(x$mutate, inds, p.mut, par.list, ...))
+  }
+  return(inds)
+}
+
+#' @rdname generateOffspring
+#' @export
+recombinate = function(x, inds, fitness, lambda = length(inds), p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...) {
+  UseMethod("recombinate")
+}
+
+#' @rdname generateOffspring
+#' @export
+recombinate.ecr2_recombinator = function(x, inds, fitness, lambda = length(inds), p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...) {
+  if (is.null(parent.selector))
+    stopf("recombinate: parent.selector needed!")
+  selectorFun = parent.selector
+  recombinatorFun = x
+
+  # determine how many elements need to be chosen by parentSelector
+  # if no recombinator exists we select simply lambda elements
+  n.mating = lambda
+  n.parents = 1L
+  if (!is.null(recombinatorFun)) {
+    n.children = getNumberOfChildren(recombinatorFun)
+    n.parents = getNumberOfParentsNeededForMating(recombinatorFun)
+    n.mating = ceiling(lambda * n.parents / n.children)
+    if (n.mating == 1L)
+      n.mating = n.parents
+    # if number of offspring is odd and number of mating
+    if (n.mating %% n.parents != 0L)
+      n.mating = n.mating + (n.mating %% n.parents)
+  }
+  # create mating pool. This a a matrix, where each row contains the indizes of
+  # a set of >= 2 parents
+  mating.idx = matrix(selectorFun(fitness, n.select = n.mating), ncol = n.parents)
+
+  # now perform recombination
+  if (is.null(recombinatorFun)) {
+    offspring = inds[as.integer(mating.idx)]
+  } else {
+    offspring = apply(mating.idx, 1L, function(parents.idx) {
+      parents = inds[parents.idx]
+      children = if (runif(1L) < p.recomb & !is.null(recombinatorFun)) {
+        tmp = recombinatorFun(parents, par.list)
+        if (hasAttributes(tmp, "multiple")) tmp else list(tmp)
+      } else {
+        parents
+      }
+      children
+    })
+    # unfortunately we need to "unwrap" one listing layer here
+    offspring = unlist(offspring, recursive = FALSE)
+  }
+
+  # if n.children is odd/even and lambda is even/odd we need to remove some children
+  if (length(offspring) > lambda) {
+    offspring = offspring[-sample(1:length(offspring), length(offspring) - lambda)]
+  }
+
+  return(offspring)
+}
+
+#' @rdname generateOffspring
+#' @export
+recombinate.ecr2_control = function(x, inds, fitness, lambda = length(inds), p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...) {
+  parent.selector = coalesce(parent.selector, x$selectForMating)
+  if (!is.null(x$recombinate)) {
+    par.list = BBmisc::insert(x$params, par.list)
+    return(recombinate(x$recombinate, inds, fitness, lambda, p.recomb,
+      par.list, parent.selector = parent.selector, ...))
   }
   return(inds)
 }

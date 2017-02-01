@@ -69,6 +69,12 @@ mutate = function(x, inds, p.mut = 0.1, par.list = list(), ...) {
 #' @rdname generateOffspring
 #' @export
 recombinate = function(x, inds, fitness, lambda = length(inds), p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...) {
+  assertList(inds)
+  assertMatrix(fitness, ncol = length(inds), min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
+  lambda = asInt(lambda, lower = 1L)
+  assertNumber(p.recomb, lower = 0, upper = 1L)
+  assertList(par.list)
+
   recombinatorFun = if (inherits(x, "ecr2_control")) x$recombinate else x
   if (!is.null(recombinatorFun))
     assertClass(recombinatorFun, "ecr2_recombinator")

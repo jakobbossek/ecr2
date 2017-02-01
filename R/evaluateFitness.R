@@ -16,6 +16,8 @@
 #' @return [\code{matrix}].
 #' @export
 evaluateFitness = function(inds, control, ...) {
+  assertList(inds)
+  assertClass(control, "ecr2_control")
   fitness.fun = control$task$fitness
   if (is.null(fitness.fun))
     stopf("Fitness function not found in control object. Did you use initECRControl*

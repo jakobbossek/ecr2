@@ -14,6 +14,8 @@
 #' @return [\code{ecr_population}]
 #' @export
 initPopulation = function(mu, control, initial.solutions = NULL, ...) {
+  mu = asInt(mu, lower = 1L)
+  assertClass(control, "ecr2_control")
   n.to.generate = mu
   n.initial = 0L
   if (!is.null(initial.solutions)) {

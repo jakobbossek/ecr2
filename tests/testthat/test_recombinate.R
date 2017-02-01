@@ -6,9 +6,6 @@ test_that("recombinate helper works if recombinator is passed", {
   fitness = matrix(runif(mu), nrow = 1L)
   lambda = 5L
 
-  print(inds)
-  print(fitness)
-
   parentSelector = setupSimpleSelector()
   recombinator = setupCrossoverRecombinator()
 

@@ -106,6 +106,8 @@ ecr = function(
   control = registerMatingSelector(control, coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
   control = do.call(registerECRParams, c(list(control), par.list))
 
+  checkOperatorCompatibility(control)
+
   # init logger
   #FIXME: logger params should be passable to ecr -> logger.pars
   log = initLogger(control, log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
@@ -144,4 +146,31 @@ makeECRResult = function(control, log, population, fitness, stop.object, ...) {
   if (n.objectives == 1L)
     return(setupResult.ecr_single_objective(population, fitness, control, log, stop.object, ...))
   return(setupResult.ecr_multi_objective(population, fitness, control, log, stop.object, ...))
+}
+
+# @title
+# Check operators for compatibility with objectives and representation.
+#
+# @param control [ecr2_control]
+#   Control object.
+# @return Nothing
+checkOperatorCompatibility = function(control) {
+  task = control$task
+  selectors = list(control$selectForMating, control$selectForSurvival)
+  desired.obj = if (task$n.objectives == 1L) "single-objective" else "multi-objective"
+  lapply(selectors, function(selector) {
+    if (desired.obj %nin% attr(selector, "supported.objectives")) {
+      stopf("Selector '%s' cannot be applied to problem with %i objectives.",
+        getOperatorName(selector), task$n.objectives)
+    }
+  })
+
+  operators = list(control$mutate, control$recombine, control$generate)
+  operators = BBmisc::filterNull(operators)
+  lapply(operators, function(operator) {
+    if (!is.supported(operator, control$type)) {
+      stopf("Operator '%s' is not compatible with representation '%s'.",
+        getOperatorName(operator), control$type)
+    }
+  })
 }

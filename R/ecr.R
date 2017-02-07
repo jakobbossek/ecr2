@@ -108,7 +108,7 @@ ecr = function(
 
   # init logger
   #FIXME: logger params should be passable to ecr -> logger.pars
-  log = initLogger(log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
+  log = initLogger(control, log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
     log.pop = TRUE, init.size = 1000L)
 
   # simply pass stuff down to control object constructor

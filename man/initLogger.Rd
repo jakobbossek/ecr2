@@ -4,10 +4,13 @@
 \alias{initLogger}
 \title{Initialize a log object.}
 \usage{
-initLogger(log.stats = list("min", "mean", "max"), log.pop = FALSE,
+initLogger(control, log.stats = list("min", "mean", "max"), log.pop = FALSE,
   init.size = 1000L)
 }
 \arguments{
+\item{control}{[\code{ecr2_control}]\cr
+Control object.}
+
 \item{log.stats}{[\code{list}]\cr
 List of functions for statistics computation on the fitness values of each
 generation. Each entry should be the R function as a character string or a

@@ -30,7 +30,8 @@ replaceMuPlusLambda = function(control, population, offspring, fitness, fitness.
   merged.fit = cbind(fitness, fitness.offspring)
 
   # now select mu from mu + lambda idnividuals
-  surv.idx = control$selectForSurvival(merged.fit, n.select = mu)
+  surv.idx = selectForSurvival(control, merged.fit, n.select = mu)
+  #surv.idx = control$selectForSurvival(merged.fit, n.select = mu)
 
   return(list(
     population = merged.pop[surv.idx],
@@ -58,7 +59,8 @@ replaceMuCommaLambda = function(control, population, offspring, fitness, fitness
   }
   # now get the remaining individuals from offspring
   n.select = mu - n.elite
-  sel.idx = control$selectForSurvival(fitness.offspring, n.select = n.select)
+  sel.idx = selectForSurvival(control, fitness.offspring, n.select = n.select)
+  #sel.idx = control$selectForSurvival(fitness.offspring, n.select = n.select)
   surv[(n.elite + 1L):mu] = offspring[sel.idx]
   surv.fit[, (n.elite + 1L):mu] = fitness.offspring[, sel.idx, drop = FALSE]
 

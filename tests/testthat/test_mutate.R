@@ -1,16 +1,5 @@
 context("mutate helper")
 
-test_that("mutate helper works if mutator is passed", {
-  inds = replicate(5, sample(c(0, 1), 10, replace = TRUE), simplify = FALSE)
-  mutator = setupBitflipMutator(p = 0.1)
-  mut.inds = mutate(mutator, inds, p.mut = 0.4)
-  # equal length
-  expect_equal(length(inds), length(mut.inds))
-
-  # all genomes binary
-  expect_true(all(unlist(mut.inds) %in% c(0, 1)))
-})
-
 test_that("mutate helper works if control is passed", {
   # get test function
   fitness.fun = smoof::makeSphereFunction(3L)

@@ -1,23 +1,5 @@
 context("mutate helper")
 
-test_that("recombinate helper works if recombinator is passed", {
-  mu = 15L
-  inds = replicate(mu, sample(c(0, 1), 10L, replace = TRUE), simplify = FALSE)
-  fitness = matrix(runif(mu), nrow = 1L)
-  lambda = 5L
-
-  parentSelector = setupSimpleSelector()
-  recombinator = setupCrossoverRecombinator()
-
-  # no parent selector selected
-  expect_error(recombinate(recombinator, inds, fitness))
-
-  rec.inds = recombinate(recombinator, inds, fitness, lambda = lambda, p.recomb = 1L, parent.selector = parentSelector)
-  expect_length(rec.inds, lambda)
-  rec.inds = unlist(rec.inds)
-  expect_true(all(rec.inds %in% c(0, 1)))
-})
-
 test_that("recombinate helper works if control is passed", {
   # get test function
   fitness.fun = function(x) sum(x)

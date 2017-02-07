@@ -36,6 +36,7 @@ transformFitness = function(fitness, task, selector) {
   } else {
     diag(fn.scale)
   }
+
   # transform fitness
   return(fn.scale %*% fitness)
 }

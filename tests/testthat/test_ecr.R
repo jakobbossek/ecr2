@@ -45,7 +45,6 @@ test_that("real-valued smoof function optimization works", {
   }
 })
 
-
 test_that("permutation based problems work well", {
   # defs
   perm.len = 5L
@@ -82,4 +81,20 @@ test_that("permutation based problems work well", {
       )
     }
   }
+})
+
+test_that("ecr works for maximization", {
+  fitness.fun = makeSingleObjectiveFunction(
+    name = "maximize me",
+    fn = function(x) -sum(x^2),
+    par.set = makeNumericParamSet("x", len = 1L, lower = -10, upper = 10),
+    minimize = FALSE # we want to maximize here
+  )
+
+  res = ecr(fitness.fun = fitness.fun,
+    representation = "float",
+    mu = 10L, lambda = 10L, survival.strategy = "plus",
+    terminators = list(stopOnIters(100L)))
+
+  expect_true(abs(res$best.y - 0) < 0.05)
 })

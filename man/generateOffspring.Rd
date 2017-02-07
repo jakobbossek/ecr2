@@ -9,10 +9,10 @@
 generateOffspring(control, inds, fitness, lambda, p.recomb = 0.7,
   p.mut = 0.1)
 
-mutate(x, inds, p.mut = 0.1, par.list = list(), ...)
+mutate(control, inds, p.mut = 0.1, par.list = list(), ...)
 
-recombinate(x, inds, fitness, lambda = length(inds), p.recomb = 0.7,
-  parent.selector = NULL, par.list = list(), ...)
+recombinate(control, inds, fitness, lambda = length(inds), p.recomb = 0.7,
+  par.list = list(), ...)
 }
 \arguments{
 \item{control}{[\code{ecr2_control}]\cr
@@ -22,7 +22,8 @@ Control object.}
 List of individuals.}
 
 \item{fitness}{[\code{matrix}]\cr
-Matrix of fitness values with one column per individual of \code{inds}.}
+Matrix of fitness values (each column contains the fitness value(s) of one
+individual).}
 
 \item{lambda}{[\code{integer(1)}]\cr
 Number of individuals generated in each generation.}
@@ -35,20 +36,12 @@ Default is 0.7.}
 Probability to apply mutation to a child.
 Default is 0.1.}
 
-\item{x}{[\code{ecr2_control} | \code{ecr2_recombinator} | \code{ecr2_mutator}]\cr
-Either the control object or a recombinator for \code{recombinate} and a
-mutator for \code{mutate} respectively.}
-
 \item{par.list}{[\code{list}]\cr
 List of optional control parameters for the operator.}
 
 \item{...}{[any]\cr
 Furhter arguments passed down to recombinator/mutator.
 There parameters will overwrite parameters in \code{par.list}.}
-
-\item{parent.selector}{[\code{ecr_selector}]\cr
-Selection operator which implements a procedure to copy individuals from a
-given population to the mating pool, i. e., allow them to become parents.}
 }
 \value{
 [\code{list}] List of individuals.
@@ -63,11 +56,5 @@ the \code{parent.selector}.
 Finally, function \code{generateOffspring} is a wrapper for both \code{recombinate}
 and \code{mutate}. Both functions are applied subsequently to generate new individuals
 by variation and mutation.
-}
-\examples{
-# generate list of bistrings and apply mutation
-inds = replicate(5, sample(c(0, 1), 10, replace = TRUE), simplify = FALSE)
-mutator = setupBitflipMutator(p = 0.1)
-mut.inds = mutate(mutator, inds, p.mut = 0.4)
 }
 

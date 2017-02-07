@@ -14,15 +14,10 @@
 #' @template arg_control
 #' @param inds [\code{list}]\cr
 #'   List of individuals.
-#' @param x [\code{ecr2_control} | \code{ecr2_recombinator} | \code{ecr2_mutator}]\cr
-#'   Either the control object or a recombinator for \code{recombinate} and a
-#'   mutator for \code{mutate} respectively.
-#' @param fitness [\code{matrix}]\cr
-#'   Matrix of fitness values with one column per individual of \code{inds}.
+#' @template arg_fitness
 #' @template arg_lambda
 #' @template arg_p_recomb
 #' @template arg_p_mut
-#' @template arg_parent_selector
 #' @template arg_par_list
 #' @param ... [any]\cr
 #'   Furhter arguments passed down to recombinator/mutator.
@@ -31,11 +26,15 @@
 #' @rdname generateOffspring
 #' @name generateOffspring
 #' @export
-#' @examples
-#' # generate list of bistrings and apply mutation
-#' inds = replicate(5, sample(c(0, 1), 10, replace = TRUE), simplify = FALSE)
-#' mutator = setupBitflipMutator(p = 0.1)
-#' mut.inds = mutate(mutator, inds, p.mut = 0.4)
+# @examples
+# # init the control object and register mutation operator
+# fn = function(x) sum(x)
+# control = initECRControlBinary(fn, n.objectives = 1L, minimize = TRUE, n.bits = 10)
+# control = registerMutator(control, setupBitflipMutator(p = 0.1))
+# # generate list of bistrings/individuals by hand
+# inds = replicate(5, sample(c(0, 1), 10, replace = TRUE), simplify = FALSE)
+# # finally apply mutation
+# mut.inds = mutate(control, inds, p.mut = 0.4)
 generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.mut = 0.1) {
 
   if (is.null(control$mutate) & is.null(control$recombinate))
@@ -49,15 +48,15 @@ generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.m
 
 #' @rdname generateOffspring
 #' @export
-mutate = function(x, inds, p.mut = 0.1, par.list = list(), ...) {
-  mutatorFun = if (inherits(x, "ecr2_control"))
-    x$mutate else x
+mutate = function(control, inds, p.mut = 0.1, par.list = list(), ...) {
+  assertClass(control, "ecr2_control")
+  mutatorFun = control$mutate
   assertClass(mutatorFun, "ecr2_mutator")
   assertNumber(p.mut, lower = 0, upper = 1)
   assertList(inds)
   assertList(par.list)
-  if (inherits(x, "ecr2_control"))
-    par.list = BBmisc::insert(x$params, par.list)
+  # append parameters
+  par.list = BBmisc::insert(control$params, par.list)
   par.list = BBmisc::insert(par.list, list(...))
   do.mutate = runif(length(inds)) < p.mut
   if (any(do.mutate > 0)) {
@@ -68,25 +67,22 @@ mutate = function(x, inds, p.mut = 0.1, par.list = list(), ...) {
 
 #' @rdname generateOffspring
 #' @export
-recombinate = function(x, inds, fitness, lambda = length(inds), p.recomb = 0.7, parent.selector = NULL, par.list = list(), ...) {
+recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb = 0.7, par.list = list(), ...) {
+  assertClass(control, "ecr2_control")
   assertList(inds)
-  assertMatrix(fitness, ncol = length(inds), min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
+  assertMatrix(fitness, ncols = length(inds), min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
   lambda = asInt(lambda, lower = 1L)
   assertNumber(p.recomb, lower = 0, upper = 1L)
   assertList(par.list)
 
-  recombinatorFun = if (inherits(x, "ecr2_control")) x$recombinate else x
+  recombinatorFun = control$recombinate
   if (!is.null(recombinatorFun))
     assertClass(recombinatorFun, "ecr2_recombinator")
 
-  if (is.null(parent.selector) & (!inherits(x, "ecr2_control"))) {
-    if (is.null(x$selectForMating))
-      stopf("recombinate: parent.selector needed!")
-  }
-  selectorFun = coalesce(parent.selector, x$selectForMating)
+  assertClass(control$selectForMating, "ecr2_selector")
 
-  if (inherits(x, "ecr2_control"))
-    par.list = BBmisc::insert(x$params, par.list)
+  # append parameters
+  par.list = BBmisc::insert(control$params, par.list)
   par.list = BBmisc::insert(par.list, list(...))
 
   # determine how many elements need to be chosen by parentSelector
@@ -105,7 +101,7 @@ recombinate = function(x, inds, fitness, lambda = length(inds), p.recomb = 0.7, 
   }
   # create mating pool. This a a matrix, where each row contains the indizes of
   # a set of >= 2 parents
-  mating.idx = matrix(selectorFun(fitness, n.select = n.mating), ncol = n.parents)
+  mating.idx = matrix(selectForMating(control, fitness, n.select = n.mating), ncol = n.parents)
 
   # now perform recombination
   if (is.null(recombinatorFun)) {

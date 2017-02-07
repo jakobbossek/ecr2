@@ -11,6 +11,7 @@
 #' @note If rapid prototyping of EAs is the goal and \code{ecr} is not sufficient
 #' one is of cource not required to use this logger.
 #'
+#' @template arg_control
 #' @param log.stats [\code{list}]\cr
 #'   List of functions for statistics computation on the fitness values of each
 #'   generation. Each entry should be the R function as a character string or a
@@ -37,9 +38,11 @@
 #'   }
 #' @export
 initLogger = function(
+  control,
   log.stats = list("min", "mean", "max"),
   log.pop = FALSE, init.size = 1000L) {
 
+  assertClass(control, "ecr2_control")
   assertList(log.stats)
   assertFlag(log.pop)
   init.size = asInt(init.size, lower = 10L)
@@ -53,6 +56,7 @@ initLogger = function(
   env$time.started = Sys.time()
   env$n.evals = 0L
   env$n.gens = 0L
+  env$task = control$task
 
   makeS3Obj("ecr2_logger",
     log.stats = stats,
@@ -88,16 +92,24 @@ updateLogger = function(log, population, fitness, n.evals, ...) {
   # keep track of best individual
   n.objectives = nrow(fitness)
   if (n.objectives == 1L) {
-        #FIXME: maximization?
     if (is.null(log$env$best.y)) {
       log$env$best.x = NA
-      log$env$best.y = Inf
+      log$env$best.y = if (log$env$task$minimize) Inf else -Inf
     }
-    cur.best.idx = which.min(as.numeric(fitness))
-    cur.best.y = fitness[, cur.best.idx]
-    if (log$env$best.y > cur.best.y) {
-      log$env$best.y = cur.best.y
-      log$env$best.x = population[cur.best.idx]
+    if (log$env$task$minimize) {
+      cur.best.idx = which.min(as.numeric(fitness))
+      cur.best.y = fitness[, cur.best.idx]
+      if (log$env$best.y > cur.best.y) {
+        log$env$best.y = cur.best.y
+        log$env$best.x = population[cur.best.idx]
+      }
+    } else {
+      cur.best.idx = which.max(as.numeric(fitness))
+      cur.best.y = fitness[, cur.best.idx]
+      if (log$env$best.y < cur.best.y) {
+        log$env$best.y = cur.best.y
+        log$env$best.x = population[cur.best.idx]
+      }
     }
   }
 

@@ -53,4 +53,8 @@ important this logger is used internally by the \code{ecr} black-box function.
 If rapid prototyping of EAs is the goal and \code{ecr} is not sufficient
 one is of cource not required to use this logger.
 }
+\seealso{
+Other logging: \code{\link{getLoggedPopulations}},
+  \code{\link{getLoggedStats}}, \code{\link{updateLogger}}
+}
 

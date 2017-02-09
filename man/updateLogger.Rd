@@ -27,4 +27,8 @@ Furhter arguments. Not used at the moment.}
 This function modifies the log in-place, i.e., without making
 copies.
 }
+\seealso{
+Other logging: \code{\link{getLoggedPopulations}},
+  \code{\link{getLoggedStats}}, \code{\link{initLogger}}
+}
 

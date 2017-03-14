@@ -4,17 +4,18 @@
 \alias{initLogger}
 \title{Initialize a log object.}
 \usage{
-initLogger(control, log.stats = list("min", "mean", "max"), log.pop = FALSE,
-  init.size = 1000L)
+initLogger(control, log.stats = list(fitness = list("min", "mean", "max")),
+  log.pop = FALSE, init.size = 1000L)
 }
 \arguments{
 \item{control}{[\code{ecr2_control}]\cr
 Control object.}
 
 \item{log.stats}{[\code{list}]\cr
-List of functions for statistics computation on the fitness values of each
-generation. Each entry should be the R function as a character string or a
-list with elements \code{fun} for the function, and \code{pars} for additional
+List of lists for statistic computation on attributes of the individuals
+of the population. Each entry should be named by the attribute it should be
+based on, e.g., fitness, and should contain a list of R functions as a
+character string or a a list with elements \code{fun} for the function, and \code{pars} for additional
 parameters which shall be passed to the corresponding function.
 Each function is required to return a scalar numeric value.
 By default the minimum, mean and maximum of the fitness values is computed.}
@@ -52,6 +53,9 @@ important this logger is used internally by the \code{ecr} black-box function.
 \note{
 If rapid prototyping of EAs is the goal and \code{ecr} is not sufficient
 one is of cource not required to use this logger.
+}
+\examples{
+
 }
 \seealso{
 Other logging: \code{\link{getLoggedPopulations}},

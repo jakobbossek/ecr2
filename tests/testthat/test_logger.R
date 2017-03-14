@@ -7,7 +7,7 @@ test_that("logger keeps track the right way in single-objective case", {
 
   evals.per.iter = 10L
   n.iters = 20L
-  log.stats = c("min", "median", "ncol", "myRange" = function(x) max(x) - min(x))
+  log.stats = list(fitness = list("min", "median", "ncol", "myRange" = function(x) max(x) - min(x)))
 
   log = initLogger(control,
     log.stats = log.stats,
@@ -17,7 +17,10 @@ test_that("logger keeps track the right way in single-objective case", {
   for (i in seq.int(n.iters)) {
     population = replicate(sample(c(0, 1), 10L, replace = TRUE), n = evals.per.iter, simplify = FALSE)
     fitness = matrix(sapply(population, sum), nrow = 1L)
-    updateLogger(log, population, fitness, n.evals = evals.per.iter)
+    for (i in seq_along(population)) {
+      attr(population[[i]], "fitness") = fitness[, i]
+    }
+    updateLogger(log, population, n.evals = evals.per.iter)
   }
 
   # now check that stuff
@@ -25,11 +28,11 @@ test_that("logger keeps track the right way in single-objective case", {
   pops  = getLoggedPopulations(log)
 
   # check that stats is a data.frame
-  assertDataFrame(stats, nrows = n.iters, ncols = length(log.stats) + 1L,
+  assertDataFrame(stats, nrows = n.iters, ncols = 5L,
     any.missing = FALSE, all.missing = FALSE)
 
   # check for logged stats
-  expected.stats = c("gen", "min", "median", "ncol", "myRange")
+  expected.stats = c("gen", "fitness.min", "fitness.median", "fitness.ncol", "fitness.myRange")
   expect_set_equal(colnames(stats), expected.stats)
 
   # check that all are numeric

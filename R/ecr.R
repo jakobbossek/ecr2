@@ -110,17 +110,24 @@ ecr = function(
 
   # init logger
   #FIXME: logger params should be passable to ecr -> logger.pars
-  log = initLogger(control, log.stats = list("min", "max", "mean"),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
+  log = initLogger(control, log.stats = list(fitness = list("min", "max", "mean")),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
     log.pop = TRUE, init.size = 1000L)
 
   # simply pass stuff down to control object constructor
   population = initPopulation(mu = mu, control = control, initial.solutions = initial.solutions)
   fitness = evaluateFitness(population, control, ...)
 
+  for (i in seq_along(population)) {
+    attr(population[[i]], "fitness") = fitness[, i]
+  }
+
   repeat {
     # generate offspring
     offspring = generateOffspring(control, population, fitness, lambda = lambda, p.recomb = p.recomb, p.mut = p.mut)
     fitness.offspring = evaluateFitness(offspring, control, ...)
+    for (i in seq_along(offspring)) {
+      attr(offspring[[i]], "fitness") = fitness.offspring[, i]
+    }
 
     sel = if (survival.strategy == "plus") {
       replaceMuPlusLambda(control, population, offspring, fitness, fitness.offspring)

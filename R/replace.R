@@ -18,10 +18,14 @@
 #' @rdname replace
 #' @name replace
 #' @export
-replaceMuPlusLambda = function(control, population, offspring, fitness, fitness.offspring) {
+replaceMuPlusLambda = function(control, population, offspring, fitness = NULL, fitness.offspring = NULL) {
   assertList(population)
   assertList(offspring)
   mu = length(population)
+
+  fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
+  fitness.offspring = do.call(cbind, lapply(offspring, function(ind) attr(ind, "fitness")))
+
   assertMatrix(fitness, ncols = length(population))
   assertMatrix(fitness.offspring, ncols = length(offspring))
 
@@ -41,10 +45,14 @@ replaceMuPlusLambda = function(control, population, offspring, fitness, fitness.
 
 #' @rdname replace
 #' @export
-replaceMuCommaLambda = function(control, population, offspring, fitness, fitness.offspring, n.elite = base::max(ceiling(length(population * 0.1)), 1L)) {
+replaceMuCommaLambda = function(control, population, offspring, fitness = NULL, fitness.offspring = NULL, n.elite = base::max(ceiling(length(population * 0.1)), 1L)) {
   assertList(population)
   assertList(offspring)
   mu = length(population)
+
+  fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
+  fitness.offspring = do.call(cbind, lapply(offspring, function(ind) attr(ind, "fitness")))
+
   assertMatrix(fitness, ncols = length(population))
   assertMatrix(fitness.offspring, ncols = length(offspring))
   n.elite = asInt(n.elite, lower = 0)

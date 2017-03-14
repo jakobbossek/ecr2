@@ -4,7 +4,7 @@
 \alias{updateLogger}
 \title{Update the log.}
 \usage{
-updateLogger(log, population, fitness, n.evals, ...)
+updateLogger(log, population, fitness = NULL, n.evals, ...)
 }
 \arguments{
 \item{log}{[\code{ecr2_logger}]\cr

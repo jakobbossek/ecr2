@@ -6,10 +6,12 @@
 \alias{replaceMuPlusLambda}
 \title{(mu + lambda) selection}
 \usage{
-replaceMuPlusLambda(control, population, offspring, fitness, fitness.offspring)
+replaceMuPlusLambda(control, population, offspring, fitness = NULL,
+  fitness.offspring = NULL)
 
-replaceMuCommaLambda(control, population, offspring, fitness, fitness.offspring,
-  n.elite = base::max(ceiling(length(population * 0.1)), 1L))
+replaceMuCommaLambda(control, population, offspring, fitness = NULL,
+  fitness.offspring = NULL, n.elite = base::max(ceiling(length(population *
+  0.1)), 1L))
 }
 \arguments{
 \item{control}{[\code{ecr2_control}]\cr

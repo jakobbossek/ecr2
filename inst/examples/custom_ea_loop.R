@@ -28,6 +28,11 @@ population = initPopulation(mu, control)
 
 # evaluate fitness function
 fitness = evaluateFitness(population, control)
+for (i in seq_along(population)) {
+  attr(population[[i]], "fitness") = fitness[, i]
+}
+
+#print(population)
 
 # now start the evolutionary cycle
 st = system.time({
@@ -38,10 +43,15 @@ st = system.time({
       # then generate the offspring
       offspring = generateOffspring(control, population, fitness, lambda = lambda, p.mut = 0.2)
       fitness.o = evaluateFitness(offspring, control)
+      for (i in seq_along(offspring)) {
+        attr(offspring[[i]], "fitness") = fitness.o[, i]
+      }
+
+      #print(offspring)
 
       # apply the survival selection
       # Here we want a (mu + lambda) selection
-      sel = replaceMuPlusLambda(control, population, offspring, fitness, fitness.o)
+      sel = replaceMuPlusLambda(control, population, offspring)#, fitness, fitness.o)
 
       population = sel$population
       fitness = sel$fitness

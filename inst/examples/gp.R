@@ -1,4 +1,3 @@
-library(ecr)
 library(BBmisc)
 library(devtools)
 library(rpn)

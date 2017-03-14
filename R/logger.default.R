@@ -13,9 +13,10 @@
 #'
 #' @template arg_control
 #' @param log.stats [\code{list}]\cr
-#'   List of functions for statistics computation on the fitness values of each
-#'   generation. Each entry should be the R function as a character string or a
-#'   list with elements \code{fun} for the function, and \code{pars} for additional
+#'   List of lists for statistic computation on attributes of the individuals
+#'   of the population. Each entry should be named by the attribute it should be
+#'   based on, e.g., fitness, and should contain a list of R functions as a
+#'   character string or a a list with elements \code{fun} for the function, and \code{pars} for additional
 #'   parameters which shall be passed to the corresponding function.
 #'   Each function is required to return a scalar numeric value.
 #'   By default the minimum, mean and maximum of the fitness values is computed.
@@ -37,22 +38,92 @@
 #'     in-place modification is possible.}
 #'   }
 #' @family logging
+#' @example
+#'
+ # control = initECRControlBinary(function(x) sum(x), minimize = TRUE,
+ #   n.objectives = 1L, n.bits = 10L)
+
+ # log = initLogger(control,
+ #   log.stats = list(
+ #     fitness = list("mean", "myRange" = function(x) max(x) - min(x)),
+ #     age = list("min", "max")
+ #   ), log.pop = TRUE, init.size = 1000L)
+
+ #  # simply pass stuff down to control object constructor
+ # population = initPopulation(mu = 10L, control = control)
+ # fitness = evaluateFitness(population, control, ...)
+
+ # # append fitness to individuals and init age
+ # for (i in seq_along(population)) {
+ #   attr(population[[i]], "fitness") = fitness[, i]
+ #   attr(population[[i]], "age") = 1L
+ # }
+
+ # for (iter in seq_len(10)) {
+ #    # generate offspring
+ #    offspring = generateOffspring(control, population, fitness, lambda = 5)
+ #    fitness.offspring = evaluateFitness(offspring, control, ...)
+
+ #    # update age of population
+ #    for (i in seq_along(population)) {
+ #      attr(population[[i]], "age") = attr(population[[i]], "age") + 1L
+ #    }
+
+ #    # set offspring attributes
+ #    for (i in seq_along(offspring)) {
+ #      attr(offspring[[i]], "fitness") = fitness.offspring[, i]
+ #      # update age
+ #      attr(offspring[[i]], "age") = 1L
+ #    }
+
+ #    sel = replaceMuPlusLambda(control, population, offspring)
+
+ #    population = sel$population
+ #    fitness = sel$fitness
+
+ #    # do some logging
+ #    updateLogger(log, population, n.evals = lambda)
+ #  }
+ #  print(head(log$env$stats))
+
 #' @export
 initLogger = function(
   control,
-  log.stats = list("min", "mean", "max"),
+  log.stats = list(fitness = list("min", "mean", "max")),
   log.pop = FALSE, init.size = 1000L) {
 
   assertClass(control, "ecr2_control")
-  assertList(log.stats)
+  assertList(log.stats, names = "unique")
   assertFlag(log.pop)
   init.size = asInt(init.size, lower = 10L)
 
-  stats = ensureNamedStats(log.stats)
+  # init names
+  n.stat.cats = length(log.stats)
+  stat.cat.names = names(log.stats)
+
+  stats = lapply(1:length(log.stats), function(i) {
+    the.stats = log.stats[[i]]
+    nm = stat.cat.names[i]
+    tmp = ensureNamedStats(the.stats)
+    names(tmp) = paste(nm, names(tmp), sep = ".")
+    tmp
+  })
+  names(stats) = names(log.stats)
+
+  #print(stats)
+
+  #stop(98989)
+  n.stats = sum(sapply(stats, length))
+  #print(n.stats)
+
+  stat.names = unname(do.call(c, lapply(stats, names)))
+  #print(stat.names)
+
+
 
   env = new.env()
-  env$stats = BBmisc::makeDataFrame(ncol = length(stats) + 1L, nrow = init.size,
-    col.types = "numeric", col.names = c("gen", names(stats)))
+  env$stats = BBmisc::makeDataFrame(ncol = n.stats + 1L, nrow = init.size,
+    col.types = "numeric", col.names = c("gen", stat.names))
   env$cur.line = 1L
   env$time.started = Sys.time()
   env$n.evals = 0L
@@ -90,11 +161,13 @@ initLogger = function(
 #'   Furhter arguments. Not used at the moment.
 #' @family logging
 #' @export
-updateLogger = function(log, population, fitness, n.evals, ...) {
+updateLogger = function(log, population, fitness = NULL, n.evals, ...) {
   # basic stuff
   log$env$time.passed = Sys.time() - log$env$time.started
   log$env$n.gens = log$env$n.gens + 1L
   log$env$n.evals = log$env$n.evals + n.evals
+
+  fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
 
   # keep track of best individual
   n.objectives = nrow(fitness)
@@ -137,11 +210,29 @@ updateLogger = function(log, population, fitness, n.evals, ...) {
 
   #catf("log size: %i, Gen: %i", nrow(log$env$stats), log$env$n.gens)
   # compute stats for current population
-  cur.stats = lapply(log$log.stats, function(stat.fun) {
-    if (is.list(stat.fun))
-      return(do.call(stat.fun$fun, c(list(fitness), stat.fun$pars)))
-    return(stat.fun(fitness))
+  stat.types = names(log$log.stats)
+
+  cur.stats = lapply(stat.types, function(stat.type) {
+    stat.funs = log$log.stats[[stat.type]]
+    # get the corresponding information from the population
+    objs = do.call(cbind, lapply(population, function(ind) attr(ind, stat.type)))
+    #print(objs)
+    lapply(stat.funs, function(stat.fun) {
+      if (is.list(stat.fun))
+        return(do.call(stat.fun$fun, c(list(objs), stat.fun$pars)))
+      return(stat.fun(objs))
+    })
   })
+  cur.stats = unlist(cur.stats)
+
+  #print(cur.stats)
+  #stop("hooray!!")
+
+  # cur.stats = lapply(log$log.stats, function(stat.fun) {
+  #   if (is.list(stat.fun))
+  #     return(do.call(stat.fun$fun, c(list(fitness), stat.fun$pars)))
+  #   return(stat.fun(fitness))
+  # })
 
   log$env$stats[log$env$cur.line, ] = c(list(gen = log$env$n.gens), cur.stats)
 

@@ -65,11 +65,11 @@ stopOnOptY = function(opt.y, eps) {
   condition.fun = function(log) {
     stats = log$env$stats
     cur.it = log$env$cur.line
-    if (!("min" %in% names(stats))) {
+    if (!("fitness.min" %in% names(stats))) {
       warningf("Terminator 'stopOnOptY' needs column 'min' in log. Not found!")
       return(FALSE)
     }
-    return(abs(stats[cur.it, "min"] - opt.y) < eps)
+    return(abs(stats[cur.it, "fitness.min"] - opt.y) < eps)
   }
 
 

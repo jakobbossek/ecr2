@@ -9,8 +9,8 @@ ecr(fitness.fun, minimize = NULL, n.objectives = NULL, n.dim = NULL,
   perm = NULL, p.recomb = 0.7, p.mut = 0.3, survival.strategy = "plus",
   n.elite = 0L, custom.constants = list(), logger = NULL,
   monitor = NULL, more.args = list(), initial.solutions = NULL,
-  parent.selector = NULL, survival.selector = NULL, generator = NULL,
-  mutator = NULL, recombinator = NULL, par.list = list(),
+  parent.selector = NULL, survival.selector = NULL, mutator = NULL,
+  recombinator = NULL, par.list = list(),
   terminators = list(stopOnIters(100L)), ...)
 }
 \arguments{
@@ -106,10 +106,6 @@ given population to the mating pool, i. e., allow them to become parents.}
 \item{survival.selector}{[\code{ecr_selector}]\cr
 Selection operator which implements a procedurce to extract individuals from
 a given set, which should survive and set up the next generation.}
-
-\item{generator}{[\code{ecr_generator}]\cr
-Generator operator of type \code{ecr_generator} for the generation of the initial
-population.}
 
 \item{mutator}{[\code{ecr_mutator}]\cr
 Mutation operator of type \code{ecr_mutator}.}

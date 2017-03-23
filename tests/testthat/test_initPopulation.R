@@ -16,19 +16,17 @@ expect_binary_population = function(population, mu, len) {
 }
 
 test_that("binary generator works well", {
-  len = 10L
+  n.bits = 10L
   mu = 5L
-  generateFun = setupBinaryGenerator(len)
-  population = generateFun(mu)
-  expect_binary_population(population, mu, len)
+  population = genBin(mu, n.bits)
+  expect_binary_population(population, mu, n.bits)
 })
 
 test_that("uniform generator works well", {
   len = 10L
   mu = 5L
   lower = -10; upper = 3
-  generateFun = setupUniformGenerator(len, lower = lower, upper = upper)
-  population = generateFun(mu)
+  population = genReal(mu, len, lower, upper)
   expect_population(population, mu, len)
   # check that all individuals are numeric vectors
   expect_true(all(sapply(population, is.numeric)))
@@ -41,8 +39,7 @@ test_that("uniform generator works well", {
 test_that("permutation generator works well", {
   len = 10L
   mu = 5L
-  generateFun = setupPermutationGenerator(len)
-  population = generateFun(mu)
+  population = genPerm(mu, len)
   expect_population(population, mu, len)
   # check all elements are in fact permutation of 1:len
   expect_true(all(sapply(population, function(ind) {
@@ -51,19 +48,16 @@ test_that("permutation generator works well", {
 })
 
 test_that("initPopulation helper works well", {
-  len = 10L
+  n.bits = 10L
   mu = 10L
-  generateFun = setupBinaryGenerator(len)
-  control = addClasses(list(type = "binary"), classes = "ecr2_control")
-  control = registerGenerator(control, generateFun)
   # now first generate without initial solutions
-  population = initPopulation(mu, control = control)
-  expect_binary_population(population, mu, len)
+  population = initPopulation(mu, gen.fun = genBin, n.dim = n.bits)
+  expect_binary_population(population, mu, n.bits)
   # now with initial solutions
   # generate some initial solutions
-  initial.solutions = generateFun(mu / 2)
-  population = initPopulation(mu, control = control, initial.solutions = initial.solutions)
-  expect_binary_population(population, mu, len)
+  initial.solutions = genBin(mu / 2, n.dim = n.bits)
+  population = initPopulation(mu, gen.fun = genBin, initial.solutions = initial.solutions, n.dim = n.bits)
+  expect_binary_population(population, mu, n.bits)
   # check that first mu/2 solutions of te generated population are indeed
   # the initial solutions passed
   for (i in 1:(mu / 2)) {

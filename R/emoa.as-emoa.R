@@ -222,20 +222,10 @@ asemoa = function(
     description = "Selection takes place based on (modified) average Hausdorff metric"
   )
 
-  asemoaGenerator = makeGenerator(
-    generator = function(size, par.list) {
-      uniformGenerator = setupUniformGenerator(n.dim, lower = lower, upper = upper)
-      population = uniformGenerator(size)
-      #NOTE: here we use the objective function to compute the fitness values
-      fitness = do.call(cbind, lapply(population, fitness.fun))
-      # now filter out dominated solutions
-      nondom.idx = which.nondominated(fitness)
-      return(population[nondom.idx])
-    },
-    name = "AS-EMOA generator",
-    description = "Generates uniformaly and reduces to non-dominated set",
-    supported = "float"
-  )
+  initial.solutions = genReal(mu, n.dim, lower, upper)
+  fitness.ip = do.call(cbind, lapply(initial.solutions, fitness.fun))
+  nondom.idx = which.nondominated(fitness.ip)
+  initial.solutions = initial.solutions[nondom.idx]
 
   # AS-EMOA control object
   res = ecr(fitness.fun = fitness.fun,
@@ -243,8 +233,8 @@ asemoa = function(
     n.dim = n.dim, lower = lower, upper = upper,
     representation = "float",
     mu = mu, lambda = 1L,
+    initial.solutions = initial.solutions,
     terminators = terminators,
-    generator = asemoaGenerator,
     mutator = mutator,
     recombinator = recombinator,
     survival.selector = fastASEMOASelector)

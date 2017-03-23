@@ -37,7 +37,6 @@
 #' @template arg_initial_solutions
 #' @template arg_parent_selector
 #' @template arg_survival_selector
-#' @template arg_generator
 #' @template arg_mutator
 #' @template arg_recombinator
 #' @template arg_par_list
@@ -63,7 +62,6 @@ ecr = function(
   more.args = list(), initial.solutions = NULL,
   parent.selector = NULL,
   survival.selector = NULL,
-  generator = NULL,
   mutator = NULL,
   recombinator = NULL,
   par.list = list(),
@@ -75,6 +73,15 @@ ecr = function(
     if (is.null(minimize))
       minimize = rep(TRUE, n.objectives)
   }
+
+  if (isSmoofFunction(fitness.fun)) {
+    n.objectives = getNumberOfObjectives(fitness.fun)
+    n.dim = getNumberOfParameters(fitness.fun)
+    par.set = getParamSet(fitness.fun)
+    upper = getUpper(par.set)
+    lower = getLower(par.set)
+  }
+
   assertChoice(representation, c("binary", "float", "permutation", "custom"))
   assertChoice(survival.strategy, c("comma", "plus"))
   assertNumber(p.recomb, lower = 0, upper = 1)
@@ -101,7 +108,7 @@ ecr = function(
 
   control = registerMutator(control, coalesce(mutator, getDefaultEvolutionaryOperators(representation, "mutator", n.objectives, control)))
   control = registerRecombinator(control, coalesce(recombinator, getDefaultEvolutionaryOperators(representation, "recombinator", n.objectives, control)))
-  control = registerGenerator(control, coalesce(generator, getDefaultEvolutionaryOperators(representation, "generator", n.objectives, control)))
+  #control = registerGenerator(control, coalesce(generator, getDefaultEvolutionaryOperators(representation, "generator", n.objectives, control)))
   control = registerSurvivalSelector(control, coalesce(survival.selector, getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control)))
   control = registerMatingSelector(control, coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
   control = do.call(registerECRParams, c(list(control), par.list))
@@ -113,8 +120,28 @@ ecr = function(
   log = initLogger(control, log.stats = list(fitness = list("min", "max", "mean")),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
     log.pop = TRUE, init.size = 1000L)
 
-  # simply pass stuff down to control object constructor
-  population = initPopulation(mu = mu, control = control, initial.solutions = initial.solutions)
+  # generate population (depends on representation)
+  gen.fun = NULL
+  gen.pars = list()
+  if (representation == "binary") {
+    gen.fun = genBin; gen.pars = list(n.dim = n.bits)
+  } else if (representation == "float") {
+    gen.fun = genReal; gen.pars = list(n.dim = n.dim, lower = lower, upper = upper)
+  } else if (representation == "permutation") {
+    gen.fun = genPerm; gen.pars = list(n.dim = perm)
+  } else {
+    if (!is.null(initial.solutions)) {
+      if (length(initial.solutions) != mu) {
+        stopf("For custom representations the number of initial solutions need to be equal to mu.")
+      }
+    } else {
+      stopf("For custom representations intial solutions need to be passed.")
+    }
+  }
+
+  population = initial.solutions
+  if (representation != "custom")
+    population = do.call(initPopulation, c(list(mu = mu, gen.fun = gen.fun, initial.solutions = initial.solutions), gen.pars))
   fitness = evaluateFitness(population, control, ...)
 
   for (i in seq_along(population)) {

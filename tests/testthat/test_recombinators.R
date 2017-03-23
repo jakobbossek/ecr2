@@ -8,20 +8,19 @@ test_that("recombinators for permutations work as expected", {
   n.dim = 10L
   lower = rep(-1, 10)
   upper = rep(0, 10)
-  perm.set = LETTERS[1:10] # sequence we expect offspring to be a permutation of
+  perm.set = 10L # sequence we expect offspring to be a permutation of
   params = list(lower = lower, upper = upper) # needed for some recombinators
 
   getBinaryParents = function(n.parents = 2L) {
-    replicate(n.parents, sample(c(0, 1), n.bits, TRUE), simplify = FALSE)
+    genBin(n.parents, n.bits)
   }
 
   getPermutationParents = function(n.parents = 2L) {
-    replicate(n.parents, sample(perm.set), simplify = FALSE)
+    genPerm(n.parents, perm.set)
   }
 
   getRealValuedParents = function(n.parents = 2L) {
-    fn = setupUniformGenerator(n.dim, lower, upper)
-    fn(n.parents)
+    genReal(n.parents, n.dim, lower, upper)
   }
 
   parent.mapper = list("binary" = getBinaryParents, "permutation" = getPermutationParents,
@@ -63,7 +62,7 @@ test_that("recombinators for permutations work as expected", {
             collapse(children[[j]]),
             getOperatorName(recombine)))
           } else if (representation == "permutation") {
-            expect_true(setequal(perm.set, children[[j]]), info = sprintf(
+            expect_true(setequal(seq_len(perm.set), children[[j]]), info = sprintf(
             "%i-th offspring ('%s') is not a permutation of sequence (%s) for operator '%s'",
             j,
             collapse(children[[j]]),

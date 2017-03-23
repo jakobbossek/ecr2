@@ -147,7 +147,6 @@ initDefaultOperators = function(control, type, n.objectives) {
   obj.type = if (n.objectives == 1L) "single" else "multi"
   control = registerMatingSelector(control, getDefaultEvolutionaryOperators(type, "parent.selector", n.objectives, control))
   control = registerSurvivalSelector(control, getDefaultEvolutionaryOperators(type, "survival.selector", n.objectives, control))
-  control = registerGenerator(control, getDefaultEvolutionaryOperators(type, "generator", n.objectives, control))
   control = registerMutator(control, getDefaultEvolutionaryOperators(type, "mutator", n.objectives, control))
   control = registerRecombinator(control, getDefaultEvolutionaryOperators(type, "recombinator", n.objectives, control))
   return(control)
@@ -207,28 +206,24 @@ getSingleObjectiveDefaults = function(representation, type, control) {
   defaults = list(
     "float" = list(
       "parent.selector" = setupTournamentSelector(k = 2L),
-      "generator" = try(setupUniformGenerator(len = control$params$n.dim, lower = control$params$lower, upper = control$params$upper), silent = TRUE),
       "mutator" = setupGaussMutator(),
       "recombinator" = setupIntermediateRecombinator(),
       "survival.selector" = setupGreedySelector()
     ),
     "binary" = list(
       "parent.selector" = setupTournamentSelector(k = 2L),
-      "generator" = try(setupBinaryGenerator(len = control$params$n.bits), silent = TRUE),
       "mutator" = setupBitflipMutator(),
       "recombinator" = setupCrossoverRecombinator(),
       "survival.selector" = setupGreedySelector()
     ),
     "permutation" = list(
       "parent.selector" = setupTournamentSelector(k = 2L),
-      "generator" = try(setupPermutationGenerator(len = length(control$params$perm), set = control$params$perm), silent = TRUE),
       "mutator" = setupSwapMutator(),
       "recombinator" = setupPMXRecombinator(),
       "survival.selector" = setupGreedySelector()
     ),
     "custom" = list(
       "parent.selector" = setupTournamentSelector(k = 2L),
-      "generator" = NULL,
       "mutator" = NULL,
       "recombinator" = NULL,
       "survival.selector" = setupGreedySelector()
@@ -246,28 +241,24 @@ getMultiObjectiveDefaults = function(representation, type, control) {
   defaults = list(
     "float" = list(
       "parent.selector" = setupSimpleSelector(),
-      "generator" = try(setupUniformGenerator(len = control$params$n.dim, lower = control$params$lower, upper = control$params$upper), silent = TRUE),
       "mutator" = setupGaussMutator(),
       "recombinator" = setupIntermediateRecombinator(),
       "survival.selector" = setupNondomSelector()
     ),
     "binary" = list(
       "parent.selector" = setupSimpleSelector(),
-      "generator" = try(setupBinaryGenerator(len = control$params$n.bits), silent = TRUE),
       "mutator" = setupBitflipMutator(),
       "recombinator" = setupCrossoverRecombinator(),
       "survival.selector" = setupNondomSelector()
     ),
     "permutation" = list(
       "parent.selector" = setupSimpleSelector(),
-      "generator" = try(setupPermutationGenerator(len = length(control$params$perm), set = control$params$perm), silent = TRUE),
       "mutator" = setupSwapMutator(),
       "recombinator" = setupPMXRecombinator(),
       "survival.selector" = setupNondomSelector()
     ),
     "custom" = list(
       "parent.selector" = setupSimpleSelector(),
-      "generator" = NULL,
       "mutator" = NULL,
       "recombinator" = NULL,
       "survival.selector" = setupNondomSelector()

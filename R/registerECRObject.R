@@ -1,18 +1,29 @@
-#' Register object to control object.
+#' Helper function to set operator internally.
 #'
-#' @template arg_control
-#' @param name [\code{character(1)}]\cr
-#'   Name to use when object is stored to control object.
-#' @param object [any]\cr
-#'   Object to store.
-#' @return [\code{ecr2_control}]
-#'   Modified control object.
-#' @export
-registerECRObject = function(control, name, object) {
+#' @param control [\code{ecr_control}]\cr
+#'   ECR control object.
+#' @param slot [\code{character(1)}]\cr
+#'   Name of the field in the control object where to store the operator.
+#' @param fun [\code{function}]\cr
+#'   Actual operator. In order to use the various helper functions of ecr one needs
+#'   to stick to a simple convention: The first argument of \code{function} should
+#'   be the individual to mutate, a list of individuals for recombination or a matrix
+#'   of fitness values for recombination. If one does not want to use the corresponding
+#'   helpers, e.g., \code{mutate}, the signature of the function does not matter. However,
+#'   in this case you are responsable to pass arguments correctly.
+#' @param ... [any]\cr
+#'   Further arguments for \code{fun}. These arguments are stored in the control object
+#'   and passed on to \code{fun}.
+#' @return [\code{ecr_control}]
+registerECROperator = function(control, slot, fun, ...) {
   assertClass(control, "ecr2_control")
-  assertString(name)
-  #FIXME: check if name already exists
-  control[[name]] = object
+  assertString(slot)
+  assertFunction(fun)
+  fun.pars = list(...)
+  if (!is.null(control[[slot]]))
+    stopf("Operator '%s' already present.", slot)
+  control[[paste0(slot, ".pars")]] = fun.pars
+  control[[slot]] = fun
   return(control)
 }
 
@@ -33,64 +44,12 @@ registerECRParams = function(control, ...) {
   return(control)
 }
 
-# Helper function to set operator internally.
-#
-# @param control [ecr_control]
-#   ECR control object.
-# @param operator [ecr_operator]
-#   The corresponding operator to set.
-# @param type [character(1)]
-#   The expected type of the operator.
-# @param description [character(1)]
-#   Short string description of the operator.
-# @param field [character(1)]
-#   Name of the field in the control object where to store the operator.
-# @return [ecr_control]
-registerECROperator = function(control, operator, type, description, field) {
-  assertClass(control, "ecr2_control")
-  assertClass(operator, "ecr_operator")
-  # if (control$type != "custom" & !is.null(operator)) {
-  #   checkCorrectOperatorType(operator, type, description)
-  #   checkOperatorIsCompatible(operator, control$type)
-  # }
-  control[[field]] = operator
-  return(control)
-}
+# registerObjectiveFunction = function(control, fun, n.objectives = NULL, minimize = NULL, objective.names = NULL) {
+#   task = makeOptimizationTask(fun, n.objectives, minimize, objective.names)
+#   registerECRObject(control, "task", task)
+# }
 
-registerGenerator = function(control, operator.fun) {
-  if (!is.null(operator.fun))
-    assertClass(operator.fun, "ecr2_generator")
-  registerECROperator(control, operator.fun, "ecr2_generator", "Generator", "generate")
-}
-
-registerMutator = function(control, operator.fun) {
-  if (!is.null(operator.fun))
-    assertClass(operator.fun, "ecr2_mutator")
-  registerECROperator(control, operator.fun, "ecr2_mutator", "Mutator", "mutate")
-}
-
-registerRecombinator = function(control, operator.fun) {
-  if (!is.null(operator.fun))
-    assertClass(operator.fun, "ecr2_recombinator")
-  registerECROperator(control, operator.fun, "ecr2_recombinator", "Recombinator", "recombine")
-}
-
-registerSurvivalSelector = function(control, operator.fun) {
-  assertClass(operator.fun, "ecr2_selector")
-  registerECROperator(control, operator.fun, "ecr2_selector", "Survival selector", "selectForSurvival")
-}
-
-registerMatingSelector = function(control, operator.fun) {
-  assertClass(operator.fun, "ecr2_selector")
-  registerECROperator(control, operator.fun, "ecr2_selector", "Parent selector", "selectForMating")
-}
-
-registerObjectiveFunction = function(control, fun, n.objectives = NULL, minimize = NULL, objective.names = NULL) {
-  task = makeOptimizationTask(fun, n.objectives, minimize, objective.names)
-  registerECRObject(control, "task", task)
-}
-
-registerLogger = function(control, logger) {
-  assertClass(logger, "ecr2_monitor")
-  registerECRObject(control, "logger", logger)
-}
+# registerLogger = function(control, logger) {
+#   assertClass(logger, "ecr2_monitor")
+#   registerECRObject(control, "logger", logger)
+# }

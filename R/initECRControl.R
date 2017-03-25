@@ -140,10 +140,10 @@ initDefaultOperators = function(control, type, n.objectives) {
   n.objectives = asInt(n.objectives, lower = 1L)
   assertChoice(type, c("float", "permutation", "binary", "custom"))
   obj.type = if (n.objectives == 1L) "single" else "multi"
-  control = registerMatingSelector(control, getDefaultEvolutionaryOperators(type, "parent.selector", n.objectives, control))
-  control = registerSurvivalSelector(control, getDefaultEvolutionaryOperators(type, "survival.selector", n.objectives, control))
-  control = registerMutator(control, getDefaultEvolutionaryOperators(type, "mutator", n.objectives, control))
-  control = registerRecombinator(control, getDefaultEvolutionaryOperators(type, "recombinator", n.objectives, control))
+  control = registerECROperator(control, "selectForMating", getDefaultEvolutionaryOperators(type, "parent.selector", n.objectives, control))
+  control = registerECROperator(control, "selectForSurvival", getDefaultEvolutionaryOperators(type, "survival.selector", n.objectives, control))
+  control = registerECROperator(control, "mutate", getDefaultEvolutionaryOperators(type, "mutator", n.objectives, control))
+  control = registerECROperator(control, "recombine", getDefaultEvolutionaryOperators(type, "recombinator", n.objectives, control))
   return(control)
 }
 

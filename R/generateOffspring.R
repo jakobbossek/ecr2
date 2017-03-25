@@ -37,10 +37,15 @@
 # mut.inds = mutate(control, inds, p.mut = 0.4)
 generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.mut = 0.1) {
 
+  #FIXME: maybe better drop this function!
   if (is.null(control$mutate) & is.null(control$recombinate))
     stopf("generateOffspring: At least a mutator or recombinator needs to be available.")
 
-  offspring = recombinate(control, inds, fitness, lambda, p.recomb = p.recomb)
+  offspring = if (!is.null(control$recombine)) {
+    recombinate(control, inds, fitness, lambda, p.recomb = p.recomb)
+  } else {
+    inds
+  }
   offspring = mutate(control, offspring, p.mut = p.mut)
 
   return(offspring)
@@ -51,12 +56,18 @@ generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.m
 mutate = function(control, inds, p.mut = 0.1, par.list = list(), ...) {
   assertClass(control, "ecr2_control")
   mutatorFun = control$mutate
+  mutator.pars = control[["mutate.pars"]]
+  if (is.null(mutatorFun) | is.null(mutator.pars))
+    stopf("mutate: no mutation operator or mutation parameters missing. Did you register a
+      mutator via registerECROperator?")
   assertClass(mutatorFun, "ecr2_mutator")
+  assertList(mutator.pars)
   assertNumber(p.mut, lower = 0, upper = 1)
   assertList(inds)
   assertList(par.list)
   # append parameters
   par.list = BBmisc::insert(control$params, par.list)
+  par.list = BBmisc::insert(par.list, mutator.pars)
   par.list = BBmisc::insert(par.list, list(...))
   do.mutate = runif(length(inds)) < p.mut
   if (any(do.mutate > 0)) {
@@ -75,16 +86,24 @@ recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb =
   assertNumber(p.recomb, lower = 0, upper = 1L)
   assertList(par.list)
 
-  recombinatorFun = control$recombinate
-  if (!is.null(recombinatorFun))
-    assertClass(recombinatorFun, "ecr2_recombinator")
+  recombinatorFun = control$recombine
+  recombinator.pars = control[["recombine.pars"]]
+  if (is.null(recombinatorFun) | is.null(recombinator.pars))
+    stopf("recombinate: no recombination operator or recombination parameters missing. Did you register a
+      recombinator via registerECROperator?")
+
+  assertClass(recombinatorFun, "ecr2_recombinator")
+  assertList(recombinator.pars)
 
   assertClass(control$selectForMating, "ecr2_selector")
 
   # append parameters
   par.list = BBmisc::insert(control$params, par.list)
+  par.list = BBmisc::insert(par.list, recombinator.pars)
   par.list = BBmisc::insert(par.list, list(...))
 
+  #FIXME: eventually drop this in order to come up with a simpler interface
+  #FIXME: why all the recombinator checks? If none is passed we cannot recombine!
   # determine how many elements need to be chosen by parentSelector
   # if no recombinator exists we select simply lambda elements
   n.mating = lambda

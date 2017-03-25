@@ -1,4 +1,4 @@
-context("mutate helper")
+context("recombinate helper")
 
 test_that("recombinate helper works if control is passed", {
   # get test function
@@ -8,7 +8,8 @@ test_that("recombinate helper works if control is passed", {
 
   # setup control
   control = initECRControl(fitness.fun = fitness.fun, n.objectives = 1L)
-  control = registerMatingSelector(control, setupTournamentSelector(k = 2L))
+  control = registerECROperator(control, "selectForMating", setupTournamentSelector(k = 2L))
+  control = registerECROperator(control, "recombine", setupCrossoverRecombinator())
 
   inds = genBin(mu, n.bits)
   fitness = matrix(sapply(inds, fitness.fun), nrow = 1L)

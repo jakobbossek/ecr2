@@ -25,11 +25,12 @@ fitness.fun = function(tour) {
 
 res = ecr(fitness.fun = fitness.fun,
   n.objectives = 1L,
+  minimize = TRUE,
   representation = "permutation", perm = n.nodes,
   mu = 50L, lambda = 50L,
-  survival.strategy = "comma", n.elite = 25L,
-  survival.selector = setupSimpleSelector(),
-  recombinator = NULL,
+  survival.strategy = "plus", n.elite = 25L,
+  survival.selector = setupGreedySelector(),
+  recombinator = setupPMXRecombinator(),
   terminators = list(stopOnIters(1000L)))
 print(res)
 

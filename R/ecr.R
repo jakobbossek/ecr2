@@ -110,18 +110,18 @@ ecr = function(
 
   n.objectives = control$task$n.objectives
 
-  control = registerMutator(control, coalesce(mutator, getDefaultEvolutionaryOperators(representation, "mutator", n.objectives, control)))
-  control = registerRecombinator(control, coalesce(recombinator, getDefaultEvolutionaryOperators(representation, "recombinator", n.objectives, control)))
-  #control = registerGenerator(control, coalesce(generator, getDefaultEvolutionaryOperators(representation, "generator", n.objectives, control)))
-  control = registerSurvivalSelector(control, coalesce(survival.selector, getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control)))
-  control = registerMatingSelector(control, coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
+  control = registerECROperator(control, "mutate", coalesce(mutator, getDefaultEvolutionaryOperators(representation, "mutator", n.objectives, control)))
+  control = registerECROperator(control, "recombine", coalesce(recombinator, getDefaultEvolutionaryOperators(representation, "recombinator", n.objectives, control)))
+  control = registerECROperator(control, "selectForSurvival", getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control))
+  control = registerECROperator(control, "selectForMating", coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
   control = do.call(registerECRParams, c(list(control), par.list))
 
-  #checkOperatorCompatibility(control)
 
   # init logger
   #FIXME: logger params should be passable to ecr -> logger.pars
-  log = initLogger(control, log.stats = list(fitness = list("min", "max", "mean")),#, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
+  log = initLogger(control,
+    log.stats = list(fitness = list("min", "max", "mean")),
+    #, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
     log.pop = TRUE, init.size = 1000L)
 
   # generate population (depends on representation)
@@ -147,7 +147,6 @@ ecr = function(
   if (representation != "custom")
     population = do.call(initPopulation, c(list(mu = mu, gen.fun = gen.fun, initial.solutions = initial.solutions), gen.pars))
   fitness = evaluateFitness(population, control, ...)
-  #print(fitness)
 
   for (i in seq_along(population)) {
     attr(population[[i]], "fitness") = fitness[, i]
@@ -157,7 +156,6 @@ ecr = function(
     # generate offspring
     offspring = generateOffspring(control, population, fitness, lambda = lambda, p.recomb = p.recomb, p.mut = p.mut)
     fitness.offspring = evaluateFitness(offspring, control, ...)
-    #print(fitness.offspring)
     for (i in seq_along(offspring)) {
       attr(offspring[[i]], "fitness") = fitness.offspring[, i]
     }

@@ -49,7 +49,8 @@ fitness.fun = makeRastriginFunction(dimensions = 2L)
 res = ecr(fitness.fun = fitness.fun,
   representation = "float",
   mu = 100L, lambda = 10L,
-  mutator = setupGaussMutator(p = 1, sdev = 0.15),
+  mutator = setupGaussMutator(p = 1, sdev = 0.15,
+    lower = getLowerBoxConstraints(fitness.fun), upper = getUpperBoxConstraints(fitness.fun)),
   terminators = list(stopOnIters(100L)))
 
 print(res$best.y)

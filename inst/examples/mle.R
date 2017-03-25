@@ -16,6 +16,7 @@ fitness.fun = function(lambda) {
 res = ecr(fitness.fun = fitness.fun, representation = "float",
   n.objectives = 1L, n.dim = 1L, lower = 0.0001, upper = 10,
   mu = 10L, lambda = 10L,
+  mutator = setupGaussMutator(lower = 0.0001, upper = 10),
   survival.strategy = "comma", n.elite = 4L,
   terminators = list(stopOnIters(100L)))
 

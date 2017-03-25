@@ -47,10 +47,11 @@
 #' @examples
 #' fn = function(x) {
 #'    sum(x^2)
-#'  }
-#'
-#' res = ecr(fn, n.dim = 2L, n.objectives = 1L, lower = c(-5, -5), upper = c(5, 5),
-#'  representation = "float", mu = 20L, lambda = 10L)
+#' }
+#' lower = c(-5, -5); upper = c(5, 5)
+#' res = ecr(fn, n.dim = 2L, n.objectives = 1L, lower = lower, upper = lower,
+#'  representation = "float", mu = 20L, lambda = 10L,
+#'   mutator = setupGaussMutator(lower = lower, upper = upper))
 #' @export
 ecr = function(
   fitness.fun, minimize = NULL, n.objectives = NULL,
@@ -92,17 +93,20 @@ ecr = function(
   lambda.lower = if (survival.strategy == "plus") 1L else mu
   lambda = asInt(lambda, lower = lambda.lower)
 
-  control = if (representation == "binary") {
-    initECRControlBinary(fitness.fun, n.bits = n.bits, n.objectives = n.objectives, minimize = minimize)
-  } else if (representation == "float") {
-    initECRControlFloat(fitness.fun, lower = lower, upper = upper, n.dim = n.dim,
-      n.objectives = n.objectives, minimize = minimize)
-  } else if (representation == "permutation") {
-    initECRControlPermutation(fitness.fun, perm = perm,
-      n.objectives = n.objectives, minimize = minimize)
-  } else if (representation == "custom") {
-    initECRControlCustom(fitness.fun, n.objectives = n.objectives, minimize = minimize)
-  }
+  control = initECRControl(fitness.fun, n.objectives = n.objectives, minimize = minimize)
+  #FIXME: ugly! get rid of the following line
+  control$type = representation
+  # control = if (representation == "binary") {
+  #   initECRControlBinary(fitness.fun, n.bits = n.bits, n.objectives = n.objectives, minimize = minimize)
+  # } else if (representation == "float") {
+  #   initECRControlFloat(fitness.fun, lower = lower, upper = upper, n.dim = n.dim,
+  #     n.objectives = n.objectives, minimize = minimize)
+  # } else if (representation == "permutation") {
+  #   initECRControlPermutation(fitness.fun, perm = perm,
+  #     n.objectives = n.objectives, minimize = minimize)
+  # } else if (representation == "custom") {
+  #   initECRControlCustom(fitness.fun, n.objectives = n.objectives, minimize = minimize)
+  # }
 
   n.objectives = control$task$n.objectives
 
@@ -113,7 +117,7 @@ ecr = function(
   control = registerMatingSelector(control, coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
   control = do.call(registerECRParams, c(list(control), par.list))
 
-  checkOperatorCompatibility(control)
+  #checkOperatorCompatibility(control)
 
   # init logger
   #FIXME: logger params should be passable to ecr -> logger.pars
@@ -143,6 +147,7 @@ ecr = function(
   if (representation != "custom")
     population = do.call(initPopulation, c(list(mu = mu, gen.fun = gen.fun, initial.solutions = initial.solutions), gen.pars))
   fitness = evaluateFitness(population, control, ...)
+  #print(fitness)
 
   for (i in seq_along(population)) {
     attr(population[[i]], "fitness") = fitness[, i]
@@ -152,6 +157,7 @@ ecr = function(
     # generate offspring
     offspring = generateOffspring(control, population, fitness, lambda = lambda, p.recomb = p.recomb, p.mut = p.mut)
     fitness.offspring = evaluateFitness(offspring, control, ...)
+    #print(fitness.offspring)
     for (i in seq_along(offspring)) {
       attr(offspring[[i]], "fitness") = fitness.offspring[, i]
     }

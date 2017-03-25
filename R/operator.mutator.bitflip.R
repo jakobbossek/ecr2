@@ -32,3 +32,12 @@ setupBitflipMutator = function(p = 0.1) {
     params = list(p = p)
   )
 }
+
+
+mutBitflip = function(ind, p = 0.1) {
+  n = length(ind)
+  mut.idx = runif(n) < p
+  if (length(mut.idx) > 0L)
+    ind[mut.idx] = 1 - ind[mut.idx]
+  return(ind)
+}

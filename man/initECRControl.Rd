@@ -2,24 +2,9 @@
 % Please edit documentation in R/initECRControl.R
 \name{initECRControl}
 \alias{initECRControl}
-\alias{initECRControlBinary}
-\alias{initECRControlCustom}
-\alias{initECRControlFloat}
-\alias{initECRControlPermutation}
 \title{Initialize control object.}
 \usage{
 initECRControl(fitness.fun, n.objectives = NULL, minimize = NULL)
-
-initECRControlBinary(fitness.fun, n.bits = NULL, n.objectives = NULL,
-  minimize = NULL)
-
-initECRControlPermutation(fitness.fun, perm = NULL, n.objectives = NULL,
-  minimize = NULL)
-
-initECRControlCustom(fitness.fun, n.objectives = NULL, minimize = NULL)
-
-initECRControlFloat(fitness.fun, lower = NULL, upper = NULL,
-  n.objectives = NULL, minimize = NULL, n.dim = NULL)
 }
 \arguments{
 \item{fitness.fun}{[\code{function}]\cr
@@ -33,27 +18,6 @@ Optional if \code{obj.fun} is a benchmark function from package \pkg{smoof}.}
 Logical vector with ith entry \code{TRUE} if the ith objective of \code{fitness.fun}
 shall be minimized. If a single logical is passed, it is assumed to be valid
 for each objective.}
-
-\item{n.bits}{[\code{integer(1)}]\cr
-Number of bits to use for binary representation.}
-
-\item{perm}{[\code{integer(1)} | \code{vector}]\cr
-Either a single integer number. In this case the set is assumed to be \code{1:perm}.
-Alternatively, a set, i.e., a vector of elements can be passed which should form each
-individual.}
-
-\item{lower}{[\code{numeric}]\cr
-Vector of minimal values for each parameter of the decision space in case
-of float or permutation encoding.
-Optional if \code{obj.fun} is a benchmark function from package \pkg{smoof}.}
-
-\item{upper}{[\code{numeric}]\cr
-Vector of maximal values for each parameter of the decision space in case
-of float or permutation encoding.
-Optional if \code{obj.fun} is a benchmark function from package \pkg{smoof}.}
-
-\item{n.dim}{[\code{integer(1)}]\cr
-Dimension of the decision space.}
 }
 \value{
 [\code{ecr2_control}]

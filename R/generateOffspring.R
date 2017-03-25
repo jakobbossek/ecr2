@@ -102,6 +102,11 @@ recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb =
   # create mating pool. This a a matrix, where each row contains the indizes of
   # a set of >= 2 parents
   mating.idx = matrix(selectForMating(control, fitness, n.select = n.mating), ncol = n.parents)
+  # catf("n.fitness: %i", ncol(fitness))
+  # catf("n.individuals: %i", length(inds))
+  # catf("max.idx: %i", max(mating.idx))
+  # catf("n.mating: %i", n.mating)
+  # catf("n.parents: %i", n.parents)
 
   # now perform recombination
   if (is.null(recombinatorFun)) {

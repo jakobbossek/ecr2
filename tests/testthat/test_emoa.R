@@ -32,6 +32,8 @@ test_that("preimplemented EMOAs work well", {
         fitness.fun = fns[[fn]],
         n.population = mu,
         n.offspring = 5L,
+        lower = getLowerBoxConstraints(fns[[fn]]),
+        upper = getUpperBoxConstraints(fns[[fn]]),
         terminators = list(stopOnEvals(max.evals))
       )
       expect_is_pareto_approximation(res$pareto.front, getNumberOfObjectives(fns[[fn]]), "nsga2", fn,
@@ -48,6 +50,8 @@ test_that("preimplemented EMOAs work well", {
         n.population = mu,
         n.offspring = 5L,
         ref.point = rep(11, getNumberOfObjectives(fns[[fn]])),
+        lower = getLowerBoxConstraints(fns[[fn]]),
+        upper = getUpperBoxConstraints(fns[[fn]]),
         terminators = list(stopOnEvals(max.evals))
       )
       expect_is_pareto_approximation(res$pareto.front, getNumberOfObjectives(fns[[fn]]), "smsemoa", fn,
@@ -64,7 +68,8 @@ test_that("preimplemented EMOAs work well", {
         0.21, 0.2,
         0.18, 0.4), ncol = 3L, byrow = FALSE
     )
-    res = asemoa(fitness.fun, mu = mu, aspiration.set = aspiration.set)
+    res = asemoa(fitness.fun, mu = mu, aspiration.set = aspiration.set,
+      lower = getLowerBoxConstraints(fitness.fun), upper = getUpperBoxConstraints(fitness.fun))
     expect_is_pareto_approximation(res$pareto.front, 2L, "asemoa", "ZDT3",
       list(mu = mu, n.archive = ncol(aspiration.set)))
   }

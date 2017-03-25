@@ -31,12 +31,11 @@ test_that("mutation operators working on real-numbered representation create val
   # defs
   n.reps = 5L
 
-  available.mutators = c(setupUniformMutator, setupGaussMutator)
+  available.mutators = c(setupGaussMutator, setupUniformMutator)
 
   for (mutatorGenerator in available.mutators) {
-    mutate = mutatorGenerator()
+    mutate = mutatorGenerator(lower = rep(0, 5), upper = rep(1, 5))
     test.ind = runif(5L)
-    params = list(lower = rep(0, 5), upper = rep(1, 5))
     for (i in seq(n.reps)) {
       child = mutate(test.ind, params)
       expect_true(all(child >= 0 && child <= 1), info = sprintf("Mutator '%s' did not stick to the

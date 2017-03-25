@@ -2,8 +2,7 @@ context("test logger")
 
 test_that("logger keeps track the right way in single-objective case", {
   # dummy control
-  control = initECRControlBinary(function(x) sum(x), minimize = TRUE, n.objectives = 1L,
-    n.bits = 10L)
+  control = initECRControl(function(x) sum(x), minimize = TRUE, n.objectives = 1L)
 
   evals.per.iter = 10L
   n.iters = 20L
@@ -15,7 +14,8 @@ test_that("logger keeps track the right way in single-objective case", {
     init.size = 10L)
 
   for (i in seq.int(n.iters)) {
-    population = replicate(sample(c(0, 1), 10L, replace = TRUE), n = evals.per.iter, simplify = FALSE)
+    population = genBin(10L, evals.per.iter)
+    #population = replicate(sample(c(0, 1), 10L, replace = TRUE), n = evals.per.iter, simplify = FALSE)
     fitness = matrix(sapply(population, sum), nrow = 1L)
     for (i in seq_along(population)) {
       attr(population[[i]], "fitness") = fitness[, i]

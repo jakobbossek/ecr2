@@ -138,10 +138,11 @@ function.
 \examples{
 fn = function(x) {
    sum(x^2)
- }
-
-res = ecr(fn, n.dim = 2L, n.objectives = 1L, lower = c(-5, -5), upper = c(5, 5),
- representation = "float", mu = 20L, lambda = 10L)
+}
+lower = c(-5, -5); upper = c(5, 5)
+res = ecr(fn, n.dim = 2L, n.objectives = 1L, lower = lower, upper = lower,
+ representation = "float", mu = 20L, lambda = 10L,
+  mutator = setupGaussMutator(lower = lower, upper = upper))
 }
 \seealso{
 \code{\link{initECRControl}} for building the control object,

@@ -48,10 +48,11 @@ registerECRParams = function(control, ...) {
 # @return [ecr_control]
 registerECROperator = function(control, operator, type, description, field) {
   assertClass(control, "ecr2_control")
-  if (control$type != "custom" & !is.null(operator)) {
-    checkCorrectOperatorType(operator, type, description)
-    checkOperatorIsCompatible(operator, control$type)
-  }
+  assertClass(operator, "ecr_operator")
+  # if (control$type != "custom" & !is.null(operator)) {
+  #   checkCorrectOperatorType(operator, type, description)
+  #   checkOperatorIsCompatible(operator, control$type)
+  # }
   control[[field]] = operator
   return(control)
 }

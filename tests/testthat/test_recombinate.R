@@ -4,11 +4,13 @@ test_that("recombinate helper works if control is passed", {
   # get test function
   fitness.fun = function(x) sum(x)
   mu = 30L
-  b.bits = 20L
+  n.bits = 20L
 
   # setup control
-  control = initECRControlBinary(fitness.fun = fitness.fun, n.bits = b.bits, n.objectives = 1L)
-  inds = replicate(mu, sample(c(0, 1), 10, replace = TRUE), simplify = FALSE)
+  control = initECRControl(fitness.fun = fitness.fun, n.objectives = 1L)
+  control = registerMatingSelector(control, setupTournamentSelector(k = 2L))
+
+  inds = genBin(mu, n.bits)
   fitness = matrix(sapply(inds, fitness.fun), nrow = 1L)
 
   # now recombinate with prob 1 and pass additional arguments

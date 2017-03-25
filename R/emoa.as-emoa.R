@@ -68,8 +68,8 @@ asemoa = function(
   dist.fun = ecr:::computeEuclideanDistance,
   p = 1,
   parent.selector = setupSimpleSelector(),
-  mutator = setupPolynomialMutator(eta = 25, p = 0.2),
-  recombinator = setupSBXRecombinator(eta = 15, p = 0.7),
+  mutator = setupPolynomialMutator(eta = 25, p = 0.2, lower = lower, upper = upper),
+  recombinator = setupSBXRecombinator(eta = 15, p = 0.7, lower = lower, upper = upper),
   terminators = list(stopOnIters(100L))) {
 
   if (isSmoofFunction(fitness.fun)) {

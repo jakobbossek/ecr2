@@ -19,22 +19,33 @@
 #'   Parameter eta, i.e., the distance parameters of the crossover distribution.
 #' @param p [\code{numeric(1)}]\cr
 #'   Crossover probability for each gene. Default is \code{1.0}.
+#' @param lower [\code{numeric}]\cr
+#'   Vector of minimal values for each parameter of the decision space.
+#' @param upper [\code{numeric}]\cr
+#'   Vector of maximal values for each parameter of the decision space.
 #' @return [\code{ecr_recombinator}]
 #' @family recombinators
 #' @export
-setupSBXRecombinator = function(eta = 5, p = 1.0) {
+setupSBXRecombinator = function(eta = 5, p = 1.0, lower, upper) {
   assertNumber(eta, lower = 1, na.ok = FALSE)
   assertNumber(p, lower = 0, upper = 1, na.ok = FALSE)
+  assertNumeric(lower, any.missing = FALSE, all.missing = FALSE)
+  assertNumeric(lower, any.missing = FALSE, all.missing = FALSE)
+  if (length(lower) != length(upper)) {
+    stopf("Polynomial mutator: length of lower and upper bounds need to be equal!")
+  }
 
   force(eta)
   force(p)
+  force(lower)
+  force(upper)
 
   recombinator = function(inds, par.list) {
     # convert parents to d x 2 matrix for C
     inds = do.call(cbind, inds)
 
     # SBX produces two children
-    children = .Call("simulatedBinaryCrossoverC", inds, as.numeric(par.list$lower), as.numeric(par.list$upper), p, eta)
+    children = .Call("simulatedBinaryCrossoverC", inds, lower, upper, p, eta)
 
     return(wrapChildren(children[, 1L], children[, 2L]))
   }

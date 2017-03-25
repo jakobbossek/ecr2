@@ -4,7 +4,7 @@
 \alias{setupSBXRecombinator}
 \title{Generator of the Simulated Binary Crossover (SBX) recombinator.}
 \usage{
-setupSBXRecombinator(eta = 5, p = 1)
+setupSBXRecombinator(eta = 5, p = 1, lower, upper)
 }
 \arguments{
 \item{eta}{[\code{numeric(1)}]\cr
@@ -12,6 +12,12 @@ Parameter eta, i.e., the distance parameters of the crossover distribution.}
 
 \item{p}{[\code{numeric(1)}]\cr
 Crossover probability for each gene. Default is \code{1.0}.}
+
+\item{lower}{[\code{numeric}]\cr
+Vector of minimal values for each parameter of the decision space.}
+
+\item{upper}{[\code{numeric}]\cr
+Vector of maximal values for each parameter of the decision space.}
 }
 \value{
 [\code{ecr_recombinator}]

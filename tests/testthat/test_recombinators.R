@@ -28,7 +28,7 @@ test_that("recombinators for permutations work as expected", {
 
   # check validity of produced output for each permutation-based recombinator
   available.recombinators = c(setupPMXRecombinator, setupOXRecombinator,
-    setupCrossoverRecombinator, setupSBXRecombinator, setupIntermediateRecombinator)
+    setupCrossoverRecombinator, setupIntermediateRecombinator) # setupSBXRecombinator
 
   for (recombinatorGenerator in available.recombinators) {
     recombine = recombinatorGenerator()

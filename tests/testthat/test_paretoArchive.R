@@ -3,7 +3,7 @@ context("Pareto Archive")
 test_that("Pareto archive works well", {
   # dummy init setup
   fun = smoof::makeDTLZ1Function(dimensions = 2L, n.objectives = 2L)
-  control = initECRControlFloat(fun)
+  control = initECRControl(fun)
 
   # init archive
   max.size = 10L

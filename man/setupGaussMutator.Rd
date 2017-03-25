@@ -4,7 +4,7 @@
 \alias{setupGaussMutator}
 \title{Generator of the Gaussian mutation operator.}
 \usage{
-setupGaussMutator(p = 1L, sdev = 0.05)
+setupGaussMutator(p = 1L, sdev = 0.05, lower, upper)
 }
 \arguments{
 \item{p}{[\code{numeric(1)}]\cr
@@ -12,6 +12,12 @@ Probability of mutation for the gauss mutation operator.}
 
 \item{sdev}{[\code{numeric(1)}\cr
 Standard deviance of the Gauss mutation, i. e., the mutation strength.}
+
+\item{lower}{[\code{numeric}]\cr
+Vector of minimal values for each parameter of the decision space.}
+
+\item{upper}{[\code{numeric}]\cr
+Vector of maximal values for each parameter of the decision space.}
 }
 \value{
 [\code{ecr_mutator}]

@@ -4,7 +4,7 @@
 \alias{setupPolynomialMutator}
 \title{Generator of the polynomial mutation operator.}
 \usage{
-setupPolynomialMutator(p = 0.2, eta = 10)
+setupPolynomialMutator(p = 0.2, eta = 10, lower, upper)
 }
 \arguments{
 \item{p}{[\code{numeric(1)}]\cr
@@ -12,6 +12,12 @@ Probability of mutation of each gene.}
 
 \item{eta}{[\code{numeric(1)}\cr
 Distance parameter of the mutation distribution.}
+
+\item{lower}{[\code{numeric}]\cr
+Vector of minimal values for each parameter of the decision space.}
+
+\item{upper}{[\code{numeric}]\cr
+Vector of maximal values for each parameter of the decision space.}
 }
 \value{
 [\code{ecr_mutator}]

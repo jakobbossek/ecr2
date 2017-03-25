@@ -4,7 +4,14 @@
 \alias{setupUniformMutator}
 \title{Generator of the Uniform mutation operator.}
 \usage{
-setupUniformMutator()
+setupUniformMutator(lower, upper)
+}
+\arguments{
+\item{lower}{[\code{numeric}]\cr
+Vector of minimal values for each parameter of the decision space.}
+
+\item{upper}{[\code{numeric}]\cr
+Vector of maximal values for each parameter of the decision space.}
 }
 \value{
 [\code{ecr2_mutator}]

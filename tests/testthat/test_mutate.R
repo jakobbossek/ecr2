@@ -6,8 +6,10 @@ test_that("mutate helper works if control is passed", {
   par.set = getParamSet(fitness.fun)
 
   # setup control
-  control = initECRControlFloat(fitness.fun = fitness.fun)
-  inds = replicate(10L, runif(10L, -5, 5), simplify = FALSE)
+  control = initECRControl(fitness.fun)
+  control = registerMutator(control, setupGaussMutator(lower = rep(-1, 10L),
+    upper = rep(1, 10L)))
+  inds = genReal(10L, 10L, -1, 1)
 
   # now mutate with prob 1 and pass additional arguments
   mut.inds = mutate(control, inds, p.mut = 1, lower = rep(-1, 10L), upper = rep(1, 10L))

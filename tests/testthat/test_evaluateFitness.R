@@ -7,7 +7,7 @@ test_that("evaluation works for single-objective functions", {
     smoof::makeZDT1Function(5L)
   )
   for (fitness.fun in funs) {
-    control = initECRControlFloat(fitness.fun)
+    control = initECRControl(fitness.fun)
     population = replicate(5L, runif(5L), simplify = FALSE)
     fitness = evaluateFitness(population, control)
     expect_matrix(fitness, mode = "numeric", nrows = getNumberOfObjectives(fitness.fun),
@@ -18,7 +18,7 @@ test_that("evaluation works for single-objective functions", {
 
 test_that("evaluation works for single-objective vectorized functions", {
   fitness.fun = smoof::makeBBOBFunction(iid = 1L, fid = 1L, dimension = 5L)
-  control = initECRControlFloat(fitness.fun)
+  control = initECRControl(fitness.fun)
   population = replicate(5L, runif(5L), simplify = FALSE)
   fitness = evaluateFitness(population, control)
   expect_matrix(fitness, mode = "numeric", nrows = 1L, ncols = 5L,

@@ -58,7 +58,7 @@ generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.m
 
 #' @rdname generateOffspring
 #' @export
-mutate = function(control, inds, p.mut = 0.1, slot = "mutate", par.list = list(), ...) {
+mutate = function(control, inds, p.mut = 0.1, slot = "mutate", ...) {
   assertClass(control, "ecr2_control")
   assertString(slot)
   mutatorFun = control[[slot]]
@@ -70,28 +70,30 @@ mutate = function(control, inds, p.mut = 0.1, slot = "mutate", par.list = list()
   assertList(mutator.pars)
   assertNumber(p.mut, lower = 0, upper = 1)
   assertList(inds)
-  assertList(par.list)
   # append parameters
-  par.list = BBmisc::insert(control$params, par.list)
-  par.list = BBmisc::insert(par.list, mutator.pars)
+  par.list = BBmisc::insert(control$params, mutator.pars)
   par.list = BBmisc::insert(par.list, list(...))
+
   do.mutate = runif(length(inds)) < p.mut
+  # print("Mutating: %i", sum(do.mutate))
+  # print(do.mutate)
   if (any(do.mutate > 0)) {
-    inds[do.mutate] = lapply(inds[do.mutate], mutatorFun, par.list)
+    inds[do.mutate] = lapply(inds[do.mutate], function(x) {
+      do.call(mutatorFun, c(list(x), par.list))
+    })
   }
   return(inds)
 }
 
 #' @rdname generateOffspring
 #' @export
-recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb = 0.7, slot = "recombine", par.list = list(), ...) {
+recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb = 0.7, slot = "recombine", ...) {
   assertClass(control, "ecr2_control")
   assertString(slot)
   assertList(inds)
   assertMatrix(fitness, ncols = length(inds), min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
   lambda = asInt(lambda, lower = 1L)
   assertNumber(p.recomb, lower = 0, upper = 1L)
-  assertList(par.list)
 
   recombinatorFun = control[[slot]]
   recombinator.pars = control[[paste0(slot, ".pars")]]
@@ -105,8 +107,7 @@ recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb =
   assertFunction(control$selectForMating)
 
   # append parameters
-  par.list = BBmisc::insert(control$params, par.list)
-  par.list = BBmisc::insert(par.list, recombinator.pars)
+  par.list = BBmisc::insert(control$params, recombinator.pars)
   par.list = BBmisc::insert(par.list, list(...))
 
   #FIXME: eventually drop this in order to come up with a simpler interface
@@ -141,7 +142,7 @@ recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb =
     offspring = apply(mating.idx, 1L, function(parents.idx) {
       parents = inds[parents.idx]
       children = if (runif(1L) < p.recomb & !is.null(recombinatorFun)) {
-        tmp = recombinatorFun(parents, par.list)
+        tmp = do.call(recombinatorFun, c(list(parents), par.list))
         if (hasAttributes(tmp, "multiple")) tmp else list(tmp)
       } else {
         parents

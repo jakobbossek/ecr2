@@ -39,7 +39,6 @@
 #' @template arg_survival_selector
 #' @template arg_mutator
 #' @template arg_recombinator
-#' @template arg_par_list
 #' @template arg_terminators
 #' @param ... [any]\cr
 #'   Further arguments passed down to \code{fitness.fun}.
@@ -65,7 +64,6 @@ ecr = function(
   survival.selector = NULL,
   mutator = NULL,
   recombinator = NULL,
-  par.list = list(),
   terminators = list(stopOnIters(100L)),
   ...) {
 
@@ -87,7 +85,6 @@ ecr = function(
   assertChoice(survival.strategy, c("comma", "plus"))
   assertNumber(p.recomb, lower = 0, upper = 1)
   assertNumber(p.mut, lower = 0, upper = 1)
-  assertList(par.list, names = "unique")
   assertList(terminators, any.missing = FALSE, all.missing = FALSE, types = "ecr2_terminator")
   mu = asInt(mu, lower = 1L)
   lambda.lower = if (survival.strategy == "plus") 1L else mu
@@ -96,17 +93,6 @@ ecr = function(
   control = initECRControl(fitness.fun, n.objectives = n.objectives, minimize = minimize)
   #FIXME: ugly! get rid of the following line
   control$type = representation
-  # control = if (representation == "binary") {
-  #   initECRControlBinary(fitness.fun, n.bits = n.bits, n.objectives = n.objectives, minimize = minimize)
-  # } else if (representation == "float") {
-  #   initECRControlFloat(fitness.fun, lower = lower, upper = upper, n.dim = n.dim,
-  #     n.objectives = n.objectives, minimize = minimize)
-  # } else if (representation == "permutation") {
-  #   initECRControlPermutation(fitness.fun, perm = perm,
-  #     n.objectives = n.objectives, minimize = minimize)
-  # } else if (representation == "custom") {
-  #   initECRControlCustom(fitness.fun, n.objectives = n.objectives, minimize = minimize)
-  # }
 
   n.objectives = control$task$n.objectives
 
@@ -114,8 +100,6 @@ ecr = function(
   control = registerECROperator(control, "recombine", coalesce(recombinator, getDefaultEvolutionaryOperators(representation, "recombinator", n.objectives, control)))
   control = registerECROperator(control, "selectForSurvival", getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control))
   control = registerECROperator(control, "selectForMating", coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
-  control = do.call(registerECRParams, c(list(control), par.list))
-
 
   # init logger
   #FIXME: logger params should be passable to ecr -> logger.pars

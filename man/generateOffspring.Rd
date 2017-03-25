@@ -9,11 +9,10 @@
 generateOffspring(control, inds, fitness, lambda, p.recomb = 0.7,
   p.mut = 0.1)
 
-mutate(control, inds, p.mut = 0.1, slot = "mutate", par.list = list(),
-  ...)
+mutate(control, inds, p.mut = 0.1, slot = "mutate", ...)
 
 recombinate(control, inds, fitness, lambda = length(inds), p.recomb = 0.7,
-  slot = "recombine", par.list = list(), ...)
+  slot = "recombine", ...)
 }
 \arguments{
 \item{control}{[\code{ecr2_control}]\cr
@@ -43,12 +42,12 @@ Default is \dQuote{mutate} for \code{mutate} and \dQuote{recombine} for \code{re
 In most cases there is no need to change this. However, it might be useful if you make use
 of different mutation operators registerted, e.g., in the slots \dQuote{mutate1} and \dQuote{mutate2}.}
 
-\item{par.list}{[\code{list}]\cr
-List of optional control parameters for the operator.}
-
 \item{...}{[any]\cr
 Furhter arguments passed down to recombinator/mutator.
 There parameters will overwrite parameters in \code{par.list}.}
+
+\item{par.list}{[\code{list}]\cr
+List of optional control parameters for the operator.}
 }
 \value{
 [\code{list}] List of individuals.

@@ -9,10 +9,11 @@
 generateOffspring(control, inds, fitness, lambda, p.recomb = 0.7,
   p.mut = 0.1)
 
-mutate(control, inds, p.mut = 0.1, par.list = list(), ...)
+mutate(control, inds, p.mut = 0.1, slot = "mutate", par.list = list(),
+  ...)
 
 recombinate(control, inds, fitness, lambda = length(inds), p.recomb = 0.7,
-  par.list = list(), ...)
+  slot = "recombine", par.list = list(), ...)
 }
 \arguments{
 \item{control}{[\code{ecr2_control}]\cr
@@ -35,6 +36,12 @@ Default is 0.7.}
 \item{p.mut}{[\code{numeric(1)}]\cr
 Probability to apply mutation to a child.
 Default is 0.1.}
+
+\item{slot}{[\code{character(1)}]\cr
+The slot of the control object which contains the registered operator to use.
+Default is \dQuote{mutate} for \code{mutate} and \dQuote{recombine} for \code{recombinate}.
+In most cases there is no need to change this. However, it might be useful if you make use
+of different mutation operators registerted, e.g., in the slots \dQuote{mutate1} and \dQuote{mutate2}.}
 
 \item{par.list}{[\code{list}]\cr
 List of optional control parameters for the operator.}

@@ -18,6 +18,11 @@
 #' @template arg_lambda
 #' @template arg_p_recomb
 #' @template arg_p_mut
+#' @param slot [\code{character(1)}]\cr
+#'   The slot of the control object which contains the registered operator to use.
+#'   Default is \dQuote{mutate} for \code{mutate} and \dQuote{recombine} for \code{recombinate}.
+#'   In most cases there is no need to change this. However, it might be useful if you make use
+#'   of different mutation operators registerted, e.g., in the slots \dQuote{mutate1} and \dQuote{mutate2}.
 #' @template arg_par_list
 #' @param ... [any]\cr
 #'   Furhter arguments passed down to recombinator/mutator.
@@ -53,14 +58,15 @@ generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.m
 
 #' @rdname generateOffspring
 #' @export
-mutate = function(control, inds, p.mut = 0.1, par.list = list(), ...) {
+mutate = function(control, inds, p.mut = 0.1, slot = "mutate", par.list = list(), ...) {
   assertClass(control, "ecr2_control")
-  mutatorFun = control$mutate
-  mutator.pars = control[["mutate.pars"]]
+  assertString(slot)
+  mutatorFun = control[[slot]]
+  mutator.pars = control[[paste0(slot, ".pars")]]
   if (is.null(mutatorFun) | is.null(mutator.pars))
-    stopf("mutate: no mutation operator or mutation parameters missing. Did you register a
-      mutator via registerECROperator?")
-  assertClass(mutatorFun, "ecr2_mutator")
+    stopf("mutate: no mutation found in control slot '%s' or mutation parameters missing. Did you register a
+      mutator via registerECROperator?", slot)
+  assertFunction(mutatorFun)
   assertList(mutator.pars)
   assertNumber(p.mut, lower = 0, upper = 1)
   assertList(inds)
@@ -78,24 +84,25 @@ mutate = function(control, inds, p.mut = 0.1, par.list = list(), ...) {
 
 #' @rdname generateOffspring
 #' @export
-recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb = 0.7, par.list = list(), ...) {
+recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb = 0.7, slot = "recombine", par.list = list(), ...) {
   assertClass(control, "ecr2_control")
+  assertString(slot)
   assertList(inds)
   assertMatrix(fitness, ncols = length(inds), min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
   lambda = asInt(lambda, lower = 1L)
   assertNumber(p.recomb, lower = 0, upper = 1L)
   assertList(par.list)
 
-  recombinatorFun = control$recombine
-  recombinator.pars = control[["recombine.pars"]]
+  recombinatorFun = control[[slot]]
+  recombinator.pars = control[[paste0(slot, ".pars")]]
   if (is.null(recombinatorFun) | is.null(recombinator.pars))
-    stopf("recombinate: no recombination operator or recombination parameters missing. Did you register a
-      recombinator via registerECROperator?")
+    stopf("recombinate: no recombination found in control slot '%s' or recombination parameters missing.
+      Did you register a recombinator via registerECROperator?", slot)
 
-  assertClass(recombinatorFun, "ecr2_recombinator")
+  assertFunction(recombinatorFun)
   assertList(recombinator.pars)
 
-  assertClass(control$selectForMating, "ecr2_selector")
+  assertFunction(control$selectForMating)
 
   # append parameters
   par.list = BBmisc::insert(control$params, par.list)

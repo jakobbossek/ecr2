@@ -4,7 +4,9 @@
 #' @description
 #' Check if a vector dominates another (\code{dominates}) or is
 #' dominated by another (\code{isDominated}). There are corresponding infix
-#' operators \code{dominates} and \code{isDominatedBy}.
+#' operators \code{dominates} and \code{isDominatedBy}. Moreover, function
+#' \code{isMaximallyDominated} checks, whether a point is located in the last
+#' layer of nondominated sorting algorithm.
 #'
 #' @keywords optimize
 #'
@@ -70,9 +72,11 @@ nondominated = function(x) {
 #' Determine which points of a set are (non)dominated.
 #'
 #' @description
-#' Simple wrapper functions around \code{\link{dominated}}. Given a matrix with one
-#' point per column \code{which.dominated} returns the row numbers of the dominated
-#' points and \code{which.nondominated} the column numbers of the nondominated points.
+#' Given a matrix with one point per column \code{which.dominated} returns the
+#' row numbers of the dominated points and \code{which.nondominated} the column
+#' numbers of the nondominated points. Function \code{isMaximallyDominated} returns
+#' a logical vector with \code{TRUE} for each point which does not dominate any
+#' other point.
 #'
 #' @keywords optimize
 #'
@@ -97,6 +101,14 @@ which.dominated = function(x) {
 #' @export
 which.nondominated = function(x) {
   return(which(!dominated(x)))
+}
+
+#' @rdname which.dominated
+#' @export
+isMaximallyDominated = function(x) {
+  assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE)
+  ranks = doNondominatedSorting(x)$ranks
+  return(ranks == max(ranks))
 }
 
 #' @title

@@ -1,6 +1,6 @@
 context("dominates and isDominated")
 
-test_that("dominates and isDominated works as expected", {
+test_that("dominates, isDominated, isMaximallyDominated works as expected", {
   expect_true(dominates(c(1, 2), c(2, 3)))
   expect_true(isDominated(c(2, 3), c(1, 2)))
   expect_true(dominates(c(1, 2), c(1, 3)))
@@ -12,6 +12,7 @@ test_that("dominates and isDominated works as expected", {
   expect_equal(isDominated(c(3, 2), c(2, 2)), c(3, 2) %isDominatedBy% c(2, 2))
   expect_false(isDominated(c(1, 2), c(2, 1)))
   expect_false(dominates(c(843.3, 2313.3), c(42.2, 654.3324)))
+  expect_equal(isMaximallyDominated(matrix(c(2, 1, 1, 2, 5, 5), ncol = 3L)), c(FALSE, FALSE, TRUE))
 })
 
 test_that("[which.{non}]dominated works well on matrices", {

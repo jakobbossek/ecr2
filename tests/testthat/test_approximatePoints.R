@@ -26,4 +26,3 @@ test_that("approximate nadir or ideal point if missing", {
   expect_true(all(ip == c(1, 1)))
   expect_true(all(np == c(3, 5)))
 })
-

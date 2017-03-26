@@ -98,10 +98,10 @@ ecr = function(
 
   control = registerECROperator(control, "mutate", coalesce(mutator, getDefaultEvolutionaryOperators(representation, "mutator", n.objectives, control)))
   control = registerECROperator(control, "recombine", coalesce(recombinator, getDefaultEvolutionaryOperators(representation, "recombinator", n.objectives, control)))
-  control = registerECROperator(control, "selectForSurvival", getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control))
+  control = registerECROperator(control, "selectForSurvival", coalesce(getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control)))
   control = registerECROperator(control, "selectForMating", coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
 
-  # init logger
+  # # init logger
   #FIXME: logger params should be passable to ecr -> logger.pars
   log = initLogger(control,
     log.stats = list(fitness = list("min", "max", "mean")),

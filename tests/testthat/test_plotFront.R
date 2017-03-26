@@ -20,4 +20,11 @@ test_that("plotFront works as expected", {
   expect_string(pl$labels$y, pattern = "max")
   expect_data_frame(pl$data, ncols = 2L, nrows = 3L) # there should be 3 nondominated
 
+  # check fitness matrix plotter
+  df = t(as.matrix(df))
+  mat = makeFitnessMatrix(df, list(task = list(minimize = c(TRUE, FALSE))))
+
+  pl = plotFront(mat)
+  # check for class
+  expect_class(pl, "ggplot")
 })

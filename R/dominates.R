@@ -137,6 +137,11 @@ plotFront.matrix = function(x, obj.names = NULL, minimize = TRUE) {
 }
 
 #' @export
+plotFront.ecr2_fitness_matrix = function(x, obj.names = NULL, minimize = attr(x, "minimize")) {
+  plotFront.matrix(x, obj.names, minimize = minimize)
+}
+
+#' @export
 plotFront.data.frame = function(x, obj.names = NULL, minimize = TRUE) {
   if (ncol(x) != 2L)
     stopf("plotFront: only biobjective spaces supported.")

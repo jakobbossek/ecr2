@@ -23,8 +23,10 @@ replaceMuPlusLambda = function(control, population, offspring, fitness = NULL, f
   assertList(offspring)
   mu = length(population)
 
-  fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
-  fitness.offspring = do.call(cbind, lapply(offspring, function(ind) attr(ind, "fitness")))
+  if (is.null(fitness))
+    fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
+  if (is.null(fitness.offspring))
+    fitness.offspring = do.call(cbind, lapply(offspring, function(ind) attr(ind, "fitness")))
 
   assertMatrix(fitness, ncols = length(population))
   assertMatrix(fitness.offspring, ncols = length(offspring))
@@ -50,8 +52,10 @@ replaceMuCommaLambda = function(control, population, offspring, fitness = NULL, 
   assertList(offspring)
   mu = length(population)
 
-  fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
-  fitness.offspring = do.call(cbind, lapply(offspring, function(ind) attr(ind, "fitness")))
+  if (is.null(fitness))
+    fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
+  if (is.null(fitness.offspring))
+    fitness.offspring = do.call(cbind, lapply(offspring, function(ind) attr(ind, "fitness")))
 
   assertMatrix(fitness, ncols = length(population))
   assertMatrix(fitness.offspring, ncols = length(offspring))

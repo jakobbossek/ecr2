@@ -35,8 +35,6 @@ setupDominatedHypervolumeSelector = function(ref.point) {
   }
   makeSelector(
     selector = selector,
-    name = "Hypervolume contribution selector",
-    description = "description",
     supported.objectives = "multi-objective"
   )
 }

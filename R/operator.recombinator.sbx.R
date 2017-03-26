@@ -52,11 +52,8 @@ setupSBXRecombinator = function(eta = 5, p = 1.0, lower, upper) {
 
   makeRecombinator(
     recombinator = recombinator,
-    name = "Simulated Binary Crossover (SBX) recombinator",
-    description = "Performs simulated binary crossover.",
     n.parents = 2L,
-    supported = c("float"),
-    params = list(p = p, eta = eta),
+    supported = "float",
     n.children = 2L
   )
 }

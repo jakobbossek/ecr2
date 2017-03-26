@@ -17,7 +17,7 @@ test_that("mutation operators working on permutation genes create valid offsprin
   for (mutatorGenerator in available.mutators) {
     mutate = mutatorGenerator() # no mutation control parameters to check here
     expect_true(isEcrOperator(mutate))
-    expect_output(print(mutate), regexp = "Name")
+    expect_output(print(mutate), regexp = "ECR2 OPERATOR")
     for (i in seq(n.reps)) {
       child = mutate(test.ind, NULL)
       expect_true(setequal(test.ind, child), info = sprintf("Mutator '%s' did not produce a valid

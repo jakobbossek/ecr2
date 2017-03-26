@@ -38,7 +38,7 @@ test_that("recombinators for permutations work as expected", {
     expect_true(isEcrOperator(recombine))
 
     # check output
-    expect_output(print(recombine), regexp = "Name")
+    expect_output(print(recombine), regexp = "ECR2 OPERATOR")
 
     for (representation in representations) {
       parentMaker = parent.mapper[[representation]]
@@ -51,23 +51,20 @@ test_that("recombinators for permutations work as expected", {
         for (j in seq(length(children))) {
           if (representation == "float") {
             expect_true(all(children[[j]] >= lower & children[[j]] <= upper), info = sprintf(
-            "%i-th offspring ('%s') is not in bounds for operator '%s'.",
+            "%i-th offspring ('%s') is not in bounds for operator.",
             j,
-            collapse(children[[j]]),
-            getOperatorName(recombine)))
+            collapse(children[[j]])))
           } else if (representation == "binary") {
             expect_true(setequal(c(0, 1), children[[j]]), info = sprintf(
-            "%i-th offspring ('%s') is not a {0,1}* sequence for operator '%s'",
+            "%i-th offspring ('%s') is not a {0,1}* sequence for operator.",
             j,
-            collapse(children[[j]]),
-            getOperatorName(recombine)))
+            collapse(children[[j]])))
           } else if (representation == "permutation") {
             expect_true(setequal(seq_len(perm.set), children[[j]]), info = sprintf(
-            "%i-th offspring ('%s') is not a permutation of sequence (%s) for operator '%s'",
+            "%i-th offspring ('%s') is not a permutation of sequence (%s) for operator.",
             j,
             collapse(children[[j]]),
-            collapse(perm.set),
-            getOperatorName(recombine)))
+            collapse(perm.set)))
           }
         }
       }

@@ -26,9 +26,6 @@ setupInsertionMutator = function() {
 
   makeMutator(
     mutator = mutator,
-    name = "Insertion mutator",
-    description = "Selects two positions at random, places the first position to
-    the second and shift the other elements accordingly.",
     supported = "permutation"
   )
 }

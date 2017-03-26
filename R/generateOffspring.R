@@ -23,7 +23,7 @@
 #'   Default is \dQuote{mutate} for \code{mutate} and \dQuote{recombine} for \code{recombinate}.
 #'   In most cases there is no need to change this. However, it might be useful if you make use
 #'   of different mutation operators registerted, e.g., in the slots \dQuote{mutate1} and \dQuote{mutate2}.
-#' @template arg_par_list
+# @template arg_par_list
 #' @param ... [any]\cr
 #'   Furhter arguments passed down to recombinator/mutator.
 #'   There parameters will overwrite parameters in \code{par.list}.
@@ -76,9 +76,12 @@ mutate = function(control, inds, p.mut = 0.1, slot = "mutate", ...) {
 
   do.mutate = runif(length(inds)) < p.mut
   # print("Mutating: %i", sum(do.mutate))
-  # print(do.mutate)
+  # print(match.call())
   if (any(do.mutate > 0)) {
     inds[do.mutate] = lapply(inds[do.mutate], function(x) {
+  # print(do.mutate)
+  # print(c(list(x), par.list))
+
       do.call(mutatorFun, c(list(x), par.list))
     })
   }

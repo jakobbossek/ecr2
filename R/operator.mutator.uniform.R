@@ -35,8 +35,6 @@ setupUniformMutator = function(lower, upper) {
 
   makeMutator(
     mutator = mutator,
-    name = "Uniform mutator",
-    description = "Replaces a randomly chosen parameter with a random value within the bounds",
     supported = "float"
   )
 }

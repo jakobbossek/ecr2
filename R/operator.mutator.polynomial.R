@@ -36,9 +36,6 @@ setupPolynomialMutator = function(p = 0.2, eta = 10, lower, upper) {
 
   makeMutator(
     mutator = mutator,
-    name = "Polynomial mutation operator",
-    description = "Apply polynomial mutation to an individual.",
-    supported = "float",
-    params = list(p = p, eta = eta)
+    supported = "float"
   )
 }

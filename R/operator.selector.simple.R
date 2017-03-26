@@ -14,8 +14,6 @@ setupSimpleSelector = function() {
   }
   makeSelector(
     selector = selector,
-    name = "Simple selector",
-    description = "Samples uniformly.",
     supported.objectives = c("single-objective", "multi-objective")
   )
 }

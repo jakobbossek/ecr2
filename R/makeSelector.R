@@ -7,10 +7,6 @@
 #'
 #' @param selector [\code{function}]\cr
 #'   Actual selection operator.
-#' @param name [\code{character(1)}]\cr
-#'   Name of the selector.
-#' @param description [\code{character(1)}]\cr
-#'   Short description of how the selector works.
 #' @param supported [\code{character}]\cr
 #'   Vector of strings/names of supported parameter representations. For example
 #'   'permutation', 'float', 'binary'.
@@ -25,14 +21,13 @@
 #' @export
 makeSelector = function(
   selector,
-  name, description,
   supported = getAvailableRepresentations(),
   supported.objectives,
   supported.opt.direction = "minimize") {
   assertFunction(selector, args = c("fitness", "n.select", "par.list"), ordered = TRUE)
   assertSubset(supported.objectives, c("single-objective", "multi-objective"))
   assertChoice(supported.opt.direction, choices = c("maximize", "minimize"))
-  selector = makeOperator(selector, name, description, supported)
+  selector = makeOperator(selector, supported)
   selector = setAttribute(selector, "supported.objectives", supported.objectives)
   selector = setAttribute(selector, "supported.opt.direction", supported.opt.direction)
   selector = addClasses(selector, c("ecr2_selector"))

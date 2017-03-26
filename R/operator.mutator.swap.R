@@ -21,8 +21,6 @@ setupSwapMutator = function() {
 
   makeMutator(
     mutator = mutator,
-    name = "Swap mutator",
-    description = "Swaps two alleles",
     supported = "permutation"
   )
 }

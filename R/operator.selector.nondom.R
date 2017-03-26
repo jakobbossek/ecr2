@@ -52,8 +52,6 @@ setupNondomSelector = function() {
 
   makeSelector(
     selector = selector,
-    name = "NSGA-II survival selector",
-    description = "nondominated sorting with potential crowding distance.",
     supported.objectives = "multi-objective"
   )
 }

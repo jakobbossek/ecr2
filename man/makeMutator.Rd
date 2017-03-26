@@ -4,26 +4,15 @@
 \alias{makeMutator}
 \title{Construct a mutation operator.}
 \usage{
-makeMutator(mutator, name, description,
-  supported = getAvailableRepresentations(), params = list())
+makeMutator(mutator, supported = getAvailableRepresentations())
 }
 \arguments{
 \item{mutator}{[\code{function}]\cr
 Actual mutation operator.}
 
-\item{name}{[\code{character(1)}]\cr
-Name of the mutator.}
-
-\item{description}{[\code{character(1)}]\cr
-Short description of how the mutator works.}
-
 \item{supported}{[\code{character}]\cr
 Vector of strings/names of supported parameter representations. For example
 'permutation', 'float', 'binary'.}
-
-\item{params}{[\code{list}]\cr
-Named list of the parameters the operator has been initialized with.
-Default is the empty list.}
 }
 \value{
 [\code{ecr_mutator}]

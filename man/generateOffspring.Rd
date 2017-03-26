@@ -45,9 +45,6 @@ of different mutation operators registerted, e.g., in the slots \dQuote{mutate1}
 \item{...}{[any]\cr
 Furhter arguments passed down to recombinator/mutator.
 There parameters will overwrite parameters in \code{par.list}.}
-
-\item{par.list}{[\code{list}]\cr
-List of optional control parameters for the operator.}
 }
 \value{
 [\code{list}] List of individuals.

@@ -4,27 +4,16 @@
 \alias{makeRecombinator}
 \title{Construct a recombination operator.}
 \usage{
-makeRecombinator(recombinator, name, description,
-  supported = getAvailableRepresentations(), params = list(),
+makeRecombinator(recombinator, supported = getAvailableRepresentations(),
   n.parents = 2L, n.children = NULL)
 }
 \arguments{
 \item{recombinator}{[\code{function}]\cr
 Actual mutation operator.}
 
-\item{name}{[\code{character(1)}]\cr
-Name of the recombinator.}
-
-\item{description}{[\code{character(1)}]\cr
-Short description of how the recombinator works.}
-
 \item{supported}{[\code{character}]\cr
 Vector of strings/names of supported parameter representations. For example
 'permutation', 'float', 'binary'.}
-
-\item{params}{[\code{list}]\cr
-Named list of the parameters the operator has been initialized with.
-Default is the empty list.}
 
 \item{n.parents}{[\code{integer(1)}]\cr
 Number of parents supported.}

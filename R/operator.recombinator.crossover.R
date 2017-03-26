@@ -36,8 +36,6 @@ setupCrossoverRecombinator = function() {
 
   makeRecombinator(
     recombinator = recombinator,
-    name = "Crossover recombinator",
-    description = "Performs classical one-point crossover.",
     n.parents = 2L,
     supported = c("float", "binary"),
     n.children = 2L

@@ -21,8 +21,6 @@ setupScrambleMutator = function() {
 
   makeMutator(
     mutator = mutator,
-    name = "Scramble mutator",
-    description = "Selects two positions at random and intermixes the subsequence.",
     supported = "permutation"
   )
 }

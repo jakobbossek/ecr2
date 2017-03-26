@@ -26,13 +26,9 @@ setupBitflipMutator = function(p = 0.1) {
 
   makeMutator(
     mutator = mutator,
-    name = "Bitflip mutator",
-    description = "Flips each bit of the allele with a specific probability.",
-    supported = "binary",
-    params = list(p = p)
+    supported = "binary"
   )
 }
-
 
 mutBitflip = function(ind, p = 0.1) {
   n = length(ind)

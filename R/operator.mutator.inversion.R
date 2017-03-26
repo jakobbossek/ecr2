@@ -17,8 +17,6 @@ setupInversionMutator = function() {
 
   makeMutator(
     mutator = mutator,
-    name = "Inversion mutator",
-    description = "Selects two positions at random and inverts.",
     supported = "permutation"
   )
 }

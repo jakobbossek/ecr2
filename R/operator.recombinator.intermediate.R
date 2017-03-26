@@ -27,11 +27,8 @@ setupIntermediateRecombinator = function(k = 2L) {
 
   makeRecombinator(
     recombinator = recombinator,
-    name = "Intermediate recombinator",
-    description = "Performs intermediate recombination.",
     supported = "float",
     n.parents = k,
-    n.children = 1L,
-    params = list(k = k)
+    n.children = 1L
   )
 }

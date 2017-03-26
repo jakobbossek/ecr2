@@ -45,9 +45,6 @@ setupGaussMutator = function(p = 1L, sdev = 0.05, lower, upper) {
 
   makeMutator(
     mutator = mutator,
-    name = "Gauss mutator",
-    description = "Adds gaussian noise to each gene",
-    supported = "float",
-    params = list(p = p, sdev = sdev)
+    supported = "float"
   )
 }

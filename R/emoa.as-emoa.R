@@ -169,9 +169,7 @@ asemoa = function(
       }
       return(nondom.idx[-astar.idx])
     },
-    supported.objectives = "multi-objective",
-    name = "Fast AS-EMOA selector",
-    description = "Uses sped up delta-p update."
+    supported.objectives = "multi-objective"
   )
 
   # Implementation of surival selection operator of the AS-EMOA algorithm.
@@ -217,9 +215,7 @@ asemoa = function(
 
       return(setdiff(pop.idx, astar))
     },
-    supported.objectives = "multi-objective",
-    name = "AS-EMOA selector",
-    description = "Selection takes place based on (modified) average Hausdorff metric"
+    supported.objectives = "multi-objective"
   )
 
   initial.solutions = genReal(mu, n.dim, lower, upper)

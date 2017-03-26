@@ -48,8 +48,6 @@ setupRouletteWheelSelector = function(offset = 0.1) {
   }
   makeSelector(
     selector = selector,
-    name = "Roulette-Wheel selector",
-    description = "Selects individuals in a fitness-proportional fashion.",
     supported.objectives = "single-objective",
     supported.opt.direction = "maximize"
   )

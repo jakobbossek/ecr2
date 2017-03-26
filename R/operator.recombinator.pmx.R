@@ -59,8 +59,6 @@ setupPMXRecombinator = function() {
 
   makeRecombinator(
     recombinator = recombinator,
-    name = "PMX recombinator",
-    description = "Performs partially mapped crossover on permutations.",
     supported = "permutation",
     n.parents = 2L,
     n.children = 2L

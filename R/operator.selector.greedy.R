@@ -16,8 +16,6 @@ setupGreedySelector = function() {
   }
   makeSelector(
     selector = selector,
-    name = "Greedy selector",
-    description = "Return the best individuals regarding the fitness value.",
     supported.objectives = "single-objective"
   )
 }

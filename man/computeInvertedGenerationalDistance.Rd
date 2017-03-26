@@ -20,7 +20,7 @@ for details.}
 
 \item{normalize}{[\code{logical(1)}]\cr
 Should the front be normalized on basis of \code{B}?
-Default is \code{FALSE}.#}
+Default is \code{FALSE}.}
 
 \item{dist.fun}{[\code{matrix}]\cr
 Distance function to compute distance between points x and y. Expects a single

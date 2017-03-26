@@ -1,7 +1,7 @@
 Package: ecr2
 Type: Package
 Title: Evolutionary Computing in R
-Description: The package provides a customizable framework for evolutionary/genetic optimization of both single- and multi-objective continuous and combinatorial optimization problems. A set of predefined evolutionary building blocks and operators is included. Moreover, the user can easily set up own operators, building blocks and representations sticking to just a few conventions. The package offers both a black-box approach for standard task (plug-and-play style) and a white-box approach where the evolutionary cycle is written by hand.
+Description: Customizable framework for building evolutionary/genetic optimization algorithms for both single- and multi-objective continuous or combinatorial optimization problems in R. A set of predefined evolutionary building blocks and operators is included. Moreover, the user can easily set up own objective function, operators, building blocks and representations sticking to just a few conventions. The package allows both a black-box approach for standard tasks (plug-and-play style) and a much more flexible white-box approach where the evolutionary cycle is written by hand.
 Version: 1.0
 Encoding: UTF-8
 Date: 2017-03-27

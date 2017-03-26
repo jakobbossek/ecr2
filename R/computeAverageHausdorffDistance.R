@@ -42,15 +42,7 @@ computeEuclideanDistance = function(x) {
 #' @description
 #' Helper to compute the Generational Distance (GD) between two sets of points.
 #'
-#' @template arg_pointset_A
-#' @template arg_pointset_B
-#' @param p [\code{numeric(1)}]\cr
-#'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
-#'   for details.
-#' @param normalize [\code{logical(1)}]\cr
-#'   Should the front be normalized on basis of \code{B}?
-#'   Default is \code{FALSE}.
-#' @template arg_asemoa_dist_fun
+#' @inheritParams computeAverageHausdorffDistance
 #' @return [\code{numeric(1)}]
 #' @export
 computeGenerationalDistance = function(A, B, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance) {
@@ -76,6 +68,20 @@ computeGenerationalDistance = function(A, B, p = 1, normalize = FALSE, dist.fun 
 }
 
 #' @title
+#' Computes Inverted Generational Distance.
+#'
+#' @description
+#' Helper to compute the Inverted Generational Distance (IGD) between two sets
+#' of points.
+#'
+#' @inheritParams computeAverageHausdorffDistance
+#' @return [\code{numeric(1)}]
+#' @export
+computeInvertedGenerationalDistance = function(A, B, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance) {
+  return(computeGenerationalDistance(B, A, p, normalize, dist.fun))
+}
+
+#' @title
 #' Normalize points of a set.
 #'
 #' @description
@@ -98,28 +104,6 @@ normalizeFront = function(A, min.value = NULL, max.value = NULL) {
   if (is.null(max.value))
     max.value = apply(A, 1L, max)
   return((A - min.value) / (max.value - min.value))
-}
-
-#' @title
-#' Computes Inverted Generational Distance.
-#'
-#' @description
-#' Helper to compute the Inverted Generational Distance (IGD) between two sets
-#' of points.
-#'
-#' @template arg_pointset_A
-#' @template arg_pointset_B
-#' @param p [\code{numeric(1)}]\cr
-#'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
-#'   for details.
-#' @param normalize [\code{logical(1)}]\cr
-#'   Should the front be normalized on basis of \code{B}?
-#'   Default is \code{FALSE}.#
-#' @template arg_asemoa_dist_fun
-#' @return [\code{numeric(1)}]
-#' @export
-computeInvertedGenerationalDistance = function(A, B, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance) {
-  return(computeGenerationalDistance(B, A, p, normalize, dist.fun))
 }
 
 #' @title

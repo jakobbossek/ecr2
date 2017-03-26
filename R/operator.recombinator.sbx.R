@@ -45,7 +45,7 @@ setupSBXRecombinator = function(eta = 5, p = 1.0, lower, upper) {
     inds = do.call(cbind, inds)
 
     # SBX produces two children
-    children = .Call("simulatedBinaryCrossoverC", inds, lower, upper, p, eta)
+    children = .Call("simulatedBinaryCrossoverC", inds, lower, upper, p, eta, PACKAGE = "ecr2")
 
     return(wrapChildren(children[, 1L], children[, 2L]))
   }

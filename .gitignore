@@ -9,3 +9,4 @@ test_specific.R
 Rplots.pdf
 *.o
 *.so
+inst/doc

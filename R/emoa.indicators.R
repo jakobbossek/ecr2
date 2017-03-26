@@ -41,7 +41,7 @@ computeEpsilonIndicator = function(points, ref.points) {
   assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertSameDimensions(points, ref.points)
 
-  return(.Call("computeEpsilonIndicatorC", points, ref.points))
+  return(.Call("computeEpsilonIndicatorC", points, ref.points, PACKAGE = "ecr2"))
 }
 
 #' @rdname emoa_indicators
@@ -126,8 +126,8 @@ computeRIndicator = function(
   }
   lambda = convertInteger(lambda)
 
-  ind.points = .Call("computeRIndicatorC", points, ideal.point, nadir.point, lambda, utility)
-  ind.ref.points = .Call("computeRIndicatorC", ref.points, ideal.point, nadir.point, lambda, utility)
+  ind.points = .Call("computeRIndicatorC", points, ideal.point, nadir.point, lambda, utility, PACKAGE = "ecr2")
+  ind.ref.points = .Call("computeRIndicatorC", ref.points, ideal.point, nadir.point, lambda, utility, PACKAGE = "ecr2")
 
   ind = aggregator(ind.points, ind.ref.points)
 

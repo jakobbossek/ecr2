@@ -39,9 +39,12 @@ replaceMuPlusLambda = function(control, population, offspring, fitness = NULL, f
   surv.idx = selectForSurvival(control, merged.fit, n.select = mu)
   #surv.idx = control$selectForSurvival(merged.fit, n.select = mu)
 
+  fitness = merged.fit[, surv.idx, drop = FALSE]
+  fitness = makeFitnessMatrix(fitness, control)
+
   return(list(
     population = merged.pop[surv.idx],
-    fitness = merged.fit[, surv.idx, drop = FALSE]
+    fitness = fitness
   ))
 }
 
@@ -78,6 +81,6 @@ replaceMuCommaLambda = function(control, population, offspring, fitness = NULL, 
 
   return(list(
     population = surv,
-    fitness = surv.fit
+    fitness = makeFitnessMatrix(surv.fit, control = control)
   ))
 }

@@ -30,6 +30,7 @@ evaluateFitness = function(inds, control, ...) {
     }
     if (!is.matrix(fitness))
       fitness = matrix(fitness, nrow = 1L)
+    fitness = makeFitnessMatrix(fitness, control)
     return(fitness)
   }
   fitness = parallelMap(function(x) do.call(fitness.fun, c(list(x), list(...))),
@@ -37,5 +38,6 @@ evaluateFitness = function(inds, control, ...) {
   # force fitness to be stored in a matrix (be consistent for single and
   # multi-objective fitness funs)
   fitness = do.call(cbind, fitness)
+  fitness = makeFitnessMatrix(fitness, control)
   return(fitness)
 }

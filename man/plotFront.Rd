@@ -4,7 +4,7 @@
 \alias{plotFront}
 \title{Plot Pareto-front.}
 \usage{
-plotFront(x, obj.names = NULL)
+plotFront(x, obj.names = NULL, minimize = TRUE)
 }
 \arguments{
 \item{x}{[\code{matrix} | \code{data.frame}]\cr
@@ -12,6 +12,10 @@ Object which contains the non-dominated points.}
 
 \item{obj.names}{[\code{character}]\cr
 Optional objectives names.}
+
+\item{minimize}{[\code{logical}]\cr
+Logical vector with ith entry \code{TRUE} if the ith objective shall be minimized.
+If a single logical is passed, it is assumed to be valid for each objective.}
 }
 \value{
 [\code{ggplot}] \pkg{ggplot} object.

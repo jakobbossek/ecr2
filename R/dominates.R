@@ -116,29 +116,43 @@ which.nondominated = function(x) {
 #'   Object which contains the non-dominated points.
 #' @param obj.names [\code{character}]\cr
 #'   Optional objectives names.
+#' @param minimize [\code{logical}]\cr
+#'   Logical vector with ith entry \code{TRUE} if the ith objective shall be minimized.
+#'   If a single logical is passed, it is assumed to be valid for each objective.
 #' @return [\code{ggplot}] \pkg{ggplot} object.
 #' @examples
 #' matrix
 #' @export
-plotFront = function(x, obj.names = NULL) {
+plotFront = function(x, obj.names = NULL, minimize = TRUE) {
   UseMethod("plotFront")
 }
 
 #' @export
-plotFront.matrix = function(x, obj.names = NULL) {
+plotFront.matrix = function(x, obj.names = NULL, minimize = TRUE) {
   if (nrow(x) != 2L)
     stopf("plotFront: only biobjective spaces supported.")
   df = as.data.frame(t(x))
   names(df) = NULL
-  plotFront(df, obj.names = obj.names)
+  plotFront(df, obj.names = obj.names, minimize = minimize)
 }
 
 #' @export
-plotFront.data.frame = function(x, obj.names = NULL) {
+plotFront.data.frame = function(x, obj.names = NULL, minimize = TRUE) {
   if (ncol(x) != 2L)
     stopf("plotFront: only biobjective spaces supported.")
   n = nrow(x)
-  idx.nondominated = nondominated(t(as.matrix(x)))
+  if (length(minimize) == 1L)
+    minimize = rep(minimize, 2L)
+
+  # filter non-dominated points
+  # we need to transform here (back) to a matrix and scale the matrix if not all
+  # objectives are to be minimized
+  xmat = t(as.matrix(x))
+  fn.scale = ifelse(xor(minimize, c(TRUE, TRUE)), -1, 1)
+  fn.scale = diag(fn.scale)
+  xmat = fn.scale %*% xmat
+  idx.nondominated = nondominated(xmat)
+
   n.nondominated = sum(idx.nondominated)
   x = x[idx.nondominated, , drop = FALSE]
   assertCharacter(obj.names, len = ncol(x), any.missing = FALSE, all.missing = FALSE, null.ok = TRUE)
@@ -147,8 +161,11 @@ plotFront.data.frame = function(x, obj.names = NULL) {
     names(x) = obj.names
   }
   ns = names(x)
+  dirs = ifelse(minimize, "min", "max")
   BBmisc::requirePackages("ggplot2", why = "ecr2::plotFront")
   pl = ggplot(x, aes_string(x = ns[1L], y = ns[2L])) + geom_point()
+  pl = pl + xlab(sprintf("%s (-> %s)", ns[1L], dirs[1L]))
+  pl = pl + ylab(sprintf("%s (-> %s)", ns[2L], dirs[2L]))
   pl = pl + ggtitle(sprintf("Fraction of nondominated points: %.2f", n.nondominated / n))
   return(pl)
 }

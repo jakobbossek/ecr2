@@ -4,14 +4,14 @@
 \alias{evaluateFitness}
 \title{Computes the fitness value(s) for each individual of a given set.}
 \usage{
-evaluateFitness(inds, control, ...)
+evaluateFitness(control, inds, ...)
 }
 \arguments{
-\item{inds}{[\code{list}]\cr
-List of individuals.}
-
 \item{control}{[\code{ecr2_control}]\cr
 Control object.}
+
+\item{inds}{[\code{list}]\cr
+List of individuals.}
 
 \item{...}{[any]\cr
 Optional parameters passed down to fitness function.}

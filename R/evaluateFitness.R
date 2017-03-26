@@ -8,14 +8,14 @@
 #' This function makes use of \code{\link[parallelMap]{parallelMap}} to
 #' parallelize the fitness evaluation.
 #'
+#' @template arg_control
 #' @param inds [\code{list}]\cr
 #'   List of individuals.
-#' @template arg_control
 #' @param ... [any]\cr
 #'   Optional parameters passed down to fitness function.
 #' @return [\code{matrix}].
 #' @export
-evaluateFitness = function(inds, control, ...) {
+evaluateFitness = function(control, inds, ...) {
   assertList(inds)
   assertClass(control, "ecr2_control")
   fitness.fun = control$task$fitness

@@ -50,7 +50,7 @@
 
 #  # simply pass stuff down to control object constructor
 # population = initPopulation(mu = 10L, control = control)
-# fitness = evaluateFitness(population, control, ...)
+# fitness = evaluateFitness(control, population, ...)
 
 # # append fitness to individuals and init age
 # for (i in seq_along(population)) {
@@ -61,7 +61,7 @@
 # for (iter in seq_len(10)) {
 #    # generate offspring
 #    offspring = generateOffspring(control, population, fitness, lambda = 5)
-#    fitness.offspring = evaluateFitness(offspring, control, ...)
+#    fitness.offspring = evaluateFitness(control, offspring, ...)
 
 #    # update age of population
 #    for (i in seq_along(population)) {

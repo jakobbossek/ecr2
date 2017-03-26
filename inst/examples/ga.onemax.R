@@ -33,11 +33,10 @@ fitness = evaluateFitness(population, control)
 # now do the evolutionary loop
 for (i in seq_len(MAX.ITER)) {
   # generate offspring by mutation only.
-  #offspring = mutate(control, population, p.mut = 1)
-  offspring = generateOffspring(control, population, fitness, lambda = LAMBDA, p.recomb = 0, p.mut = 1L)
+  offspring = mutate(control, population, p.mut = 1)
 
   # calculate costs of new schedules
-  fitness.o = evaluateFitness(offspring, control)
+  fitness.o = evaluateFitness(control, offspring)
 
   # apply (MU + MU) selection
   sel = replaceMuPlusLambda(control, population, offspring, fitness, fitness.o)

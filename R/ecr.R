@@ -130,7 +130,7 @@ ecr = function(
   population = initial.solutions
   if (representation != "custom")
     population = do.call(initPopulation, c(list(mu = mu, gen.fun = gen.fun, initial.solutions = initial.solutions), gen.pars))
-  fitness = evaluateFitness(population, control, ...)
+  fitness = evaluateFitness(control, population, ...)
 
   for (i in seq_along(population)) {
     attr(population[[i]], "fitness") = fitness[, i]
@@ -139,7 +139,7 @@ ecr = function(
   repeat {
     # generate offspring
     offspring = generateOffspring(control, population, fitness, lambda = lambda, p.recomb = p.recomb, p.mut = p.mut)
-    fitness.offspring = evaluateFitness(offspring, control, ...)
+    fitness.offspring = evaluateFitness(control, offspring, ...)
     for (i in seq_along(offspring)) {
       attr(offspring[[i]], "fitness") = fitness.offspring[, i]
     }

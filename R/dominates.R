@@ -98,3 +98,57 @@ which.dominated = function(x) {
 which.nondominated = function(x) {
   return(which(!dominated(x)))
 }
+
+#' @title
+#' Plot Pareto-front.
+#'
+#' @description Plots a scatterplot of non-dominated points in the objective space
+#' utilizing the \pkg{ggplot2} package. The function returns a \code{ggplot} object
+#' which can be furhter modified via additional ggplot layers.
+#' If the passed object is a \code{data.frame}, each line is considered to contain
+#' the fitness values of one individual. Contrary, if a matrix is passed, it is
+#' considered to be passed in ecr2 format, i.e., each column corresponds to one
+#' individual. The matrix is then transposed and converted to a \code{data.frame}.
+#'
+#' @note At the moment only two-dimensional objective spaces are supported.
+#'
+#' @param x [\code{matrix} | \code{data.frame}]\cr
+#'   Object which contains the non-dominated points.
+#' @param obj.names [\code{character}]\cr
+#'   Optional objectives names.
+#' @return [\code{ggplot}] \pkg{ggplot} object.
+#' @examples
+#' matrix
+#' @export
+plotFront = function(x, obj.names = NULL) {
+  UseMethod("plotFront")
+}
+
+#' @export
+plotFront.matrix = function(x, obj.names = NULL) {
+  if (nrow(x) != 2L)
+    stopf("plotFront: only biobjective spaces supported.")
+  df = as.data.frame(t(x))
+  names(df) = NULL
+  plotFront(df, obj.names = obj.names)
+}
+
+#' @export
+plotFront.data.frame = function(x, obj.names = NULL) {
+  if (ncol(x) != 2L)
+    stopf("plotFront: only biobjective spaces supported.")
+  n = nrow(x)
+  idx.nondominated = nondominated(t(as.matrix(x)))
+  n.nondominated = sum(idx.nondominated)
+  x = x[idx.nondominated, , drop = FALSE]
+  assertCharacter(obj.names, len = ncol(x), any.missing = FALSE, all.missing = FALSE, null.ok = TRUE)
+  if (is.null(names(x))) {
+    obj.names = if (!is.null(obj.names)) obj.names else paste0("f", BBmisc::seq_col(x))
+    names(x) = obj.names
+  }
+  ns = names(x)
+  BBmisc::requirePackages("ggplot2", why = "ecr2::plotFront")
+  pl = ggplot(x, aes_string(x = ns[1L], y = ns[2L])) + geom_point()
+  pl = pl + ggtitle(sprintf("Fraction of nondominated points: %.2f", n.nondominated / n))
+  return(pl)
+}

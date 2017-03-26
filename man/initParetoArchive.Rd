@@ -34,6 +34,7 @@ non-dominated points stored during a run of an multi-objective evolutionary
 algorithm.
 }
 \seealso{
-Other ParetoArchive: \code{\link{updateParetoArchive}}
+Other ParetoArchive: \code{\link{getIndividuals}},
+  \code{\link{getSize}}, \code{\link{updateParetoArchive}}
 }
 

@@ -38,54 +38,52 @@
 #'     in-place modification is possible.}
 #'   }
 #' @family logging
-#' @example
-#'
- # control = initECRControlBinary(function(x) sum(x), minimize = TRUE,
- #   n.objectives = 1L, n.bits = 10L)
+# @example
+# control = initECRControlBinary(function(x) sum(x), minimize = TRUE,
+#   n.objectives = 1L, n.bits = 10L)
 
- # log = initLogger(control,
- #   log.stats = list(
- #     fitness = list("mean", "myRange" = function(x) max(x) - min(x)),
- #     age = list("min", "max")
- #   ), log.pop = TRUE, init.size = 1000L)
+# log = initLogger(control,
+#   log.stats = list(
+#     fitness = list("mean", "myRange" = function(x) max(x) - min(x)),
+#     age = list("min", "max")
+#   ), log.pop = TRUE, init.size = 1000L)
 
- #  # simply pass stuff down to control object constructor
- # population = initPopulation(mu = 10L, control = control)
- # fitness = evaluateFitness(population, control, ...)
+#  # simply pass stuff down to control object constructor
+# population = initPopulation(mu = 10L, control = control)
+# fitness = evaluateFitness(population, control, ...)
 
- # # append fitness to individuals and init age
- # for (i in seq_along(population)) {
- #   attr(population[[i]], "fitness") = fitness[, i]
- #   attr(population[[i]], "age") = 1L
- # }
+# # append fitness to individuals and init age
+# for (i in seq_along(population)) {
+#   attr(population[[i]], "fitness") = fitness[, i]
+#   attr(population[[i]], "age") = 1L
+# }
 
- # for (iter in seq_len(10)) {
- #    # generate offspring
- #    offspring = generateOffspring(control, population, fitness, lambda = 5)
- #    fitness.offspring = evaluateFitness(offspring, control, ...)
+# for (iter in seq_len(10)) {
+#    # generate offspring
+#    offspring = generateOffspring(control, population, fitness, lambda = 5)
+#    fitness.offspring = evaluateFitness(offspring, control, ...)
 
- #    # update age of population
- #    for (i in seq_along(population)) {
- #      attr(population[[i]], "age") = attr(population[[i]], "age") + 1L
- #    }
+#    # update age of population
+#    for (i in seq_along(population)) {
+#      attr(population[[i]], "age") = attr(population[[i]], "age") + 1L
+#    }
 
- #    # set offspring attributes
- #    for (i in seq_along(offspring)) {
- #      attr(offspring[[i]], "fitness") = fitness.offspring[, i]
- #      # update age
- #      attr(offspring[[i]], "age") = 1L
- #    }
+#    # set offspring attributes
+#    for (i in seq_along(offspring)) {
+#      attr(offspring[[i]], "fitness") = fitness.offspring[, i]
+#      # update age
+#      attr(offspring[[i]], "age") = 1L
+#    }
 
- #    sel = replaceMuPlusLambda(control, population, offspring)
+#    sel = replaceMuPlusLambda(control, population, offspring)
 
- #    population = sel$population
- #    fitness = sel$fitness
+#    population = sel$population
+#    fitness = sel$fitness
 
- #    # do some logging
- #    updateLogger(log, population, n.evals = lambda)
- #  }
- #  print(head(log$env$stats))
-
+#    # do some logging
+#    updateLogger(log, population, n.evals = lambda)
+#  }
+#  print(head(log$env$stats))
 #' @export
 initLogger = function(
   control,

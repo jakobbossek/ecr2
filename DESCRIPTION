@@ -1,10 +1,10 @@
 Package: ecr2
 Type: Package
 Title: Evolutionary Computing in R
-Description: Description is coming soon. Very soon.
+Description: The package provides a customizable framework for evolutionary/genetic optimization of both single- and multi-objective continuous and combinatorial optimization problems. A set of predefined evolutionary building blocks and operators is included. Moreover, the user can easily set up own operators, building blocks and representations sticking to just a few conventions. The package offers both a black-box approach for standard task (plug-and-play style) and a white-box approach where the evolutionary cycle is written by hand.
 Version: 1.0
 Encoding: UTF-8
-Date: 2017-01-18
+Date: 2017-03-27
 Authors@R: c(person("Jakob", "Bossek", email = "j.bossek@gmail.com", role =
     c("aut", "cre")))
 Maintainer: Jakob Bossek <j.bossek@gmail.com>
@@ -12,15 +12,14 @@ License: BSD_2_clause + file LICENSE
 URL: https://github.com/jakobbossek/ecr2
 BugReports: https://github.com/jakobbossek/ecr2/issues
 Depends:
-    ParamHelpers (>= 1.8),
     BBmisc (>= 1.6),
     smoof (>= 1.4),
-    ggplot2 (>= 1.0.0)
+    ParamHelpers (>= 1.1)
 Imports:
     checkmate (>= 1.1),
-    parallelMap (>= 1.1),
+    parallelMap (>= 1.3),
     reshape2 (>= 1.4.1),
-    gridExtra (>= 0.9.1)
+    ggplot2 (>= 1.0.0)
 Suggests:
     testthat (>= 0.9.1)
 ByteCompile: yes

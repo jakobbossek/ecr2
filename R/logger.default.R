@@ -166,7 +166,8 @@ updateLogger = function(log, population, fitness = NULL, n.evals, ...) {
   log$env$n.gens = log$env$n.gens + 1L
   log$env$n.evals = log$env$n.evals + n.evals
 
-  fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
+  if (is.null(fitness))
+    fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
 
   # keep track of best individual
   n.objectives = nrow(fitness)
@@ -214,7 +215,8 @@ updateLogger = function(log, population, fitness = NULL, n.evals, ...) {
   cur.stats = lapply(stat.types, function(stat.type) {
     stat.funs = log$log.stats[[stat.type]]
     # get the corresponding information from the population
-    objs = do.call(cbind, lapply(population, function(ind) attr(ind, stat.type)))
+    objs = if (stat.type == "fitness") fitness else
+      do.call(cbind, lapply(population, function(ind) attr(ind, stat.type)))
     #print(objs)
     lapply(stat.funs, function(stat.fun) {
       if (is.list(stat.fun))

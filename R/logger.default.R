@@ -124,6 +124,7 @@ initLogger = function(
   env = new.env()
   env$stats = BBmisc::makeDataFrame(ncol = n.stats + 1L, nrow = init.size,
     col.types = "numeric", col.names = c("gen", stat.names))
+  env$stats = addClasses(env$stats, "ecr2_statistics")
   env$cur.line = 1L
   env$time.started = Sys.time()
   env$n.evals = 0L
@@ -274,7 +275,7 @@ ensureNamedStats = function(stats) {
 #' @return [\code{data.frame}] Logged statistics.
 #' @family logging
 #' @export
-getLoggedStats = function(log, trim = TRUE) {
+getStatistics = function(log, trim = TRUE) {
   assertClass(log, "ecr2_logger")
   assertFlag(trim)
   stats = log$env$stats
@@ -300,7 +301,7 @@ getLoggedStats = function(log, trim = TRUE) {
 #' @return [\code{list}] List of populations.
 #' @family logging
 #' @export
-getLoggedPopulations = function(log, trim = TRUE) {
+getPopulations = function(log, trim = TRUE) {
   assertClass(log, "ecr2_logger")
   assertFlag(trim)
   if (!log$log.pop)
@@ -314,4 +315,64 @@ getLoggedPopulations = function(log, trim = TRUE) {
     pops = pops[seq.int(log$env$cur.line - 1L)]
   }
   return(pops)
+}
+
+#' @title Transform to long format.
+#'
+#' @description Transform the data.frame of logged statistics from wide to
+#' \pkg{ggplot2}-friendly long format.
+#'
+#' @param x [\code{ecr2_statistics} | \code{ecr2_logger}]\cr
+#'   Logger object or statistics data frame from logger object.
+#' @param drop.stats [\code{character}]\cr
+#'   Names of logged statistics to be dropped.
+#'   Default is the empty character, i.e., not to drop any stats.
+#' @return [\code{data.frame}]
+#' @export
+toGG = function(x, drop.stats = character(0L)) {
+  UseMethod("toGG")
+}
+
+#' @export
+toGG.ecr2_statistics = function(x, drop.stats = character(0L)) {
+  assertCharacter(drop.stats)
+  stat.names = colnames(x)
+  if ("gen" %in% drop.stats)
+    stopf("Name 'gen' cannot be deleted from stats.")
+  if (length(drop.stats) > 0L)
+    x = x[, -which(stat.names %in% drop.stats)]
+
+  BBmisc::requirePackages("reshape2", why = "ecr2::toGG")
+  melt(x, "gen", value.name = "value", variable.name = "stat")
+}
+
+#' @export
+toGG.ecr2_logger = function(x, drop.stats = character(0L)) {
+  toGG(getStatistics(x), drop.stats = drop.stats)
+}
+
+#' @title Generate line plot of logged statistics.
+#'
+#' @description Expects a data frame of logged statistics, e.g., extracted from
+#' a logger object by calling \code{\link{getStatistics}}, and generates a basic
+#' line plot. The plot is generated with the \pkg{ggplot2} package and the ggplot
+#' object is returned.
+#'
+#' @inheritParams toGG
+#' @export
+plotStatistics = function(x, drop.stats = character(0L)) {
+  UseMethod("plotStatistics")
+}
+
+#' @export
+plotStatistics.ecr2_statistics = function(x, drop.stats = character(0L)) {
+  stats = toGG(x, drop.stats = drop.stats)
+  requirePackages("ggplot2", why = "ecr2::plotStatistics")
+  pl = ggplot(stats, aes_string(x = "gen", y = "value", linetype = "stat")) + geom_line()
+  return(pl)
+}
+
+#' @export
+plotStatistics.ecr2_logger = function(x, drop.stats = character(0L)) {
+  return(plotStatistics(getStatistics(x), drop.stats = drop.stats))
 }

@@ -58,7 +58,7 @@ one is of cource not required to use this logger.
 
 }
 \seealso{
-Other logging: \code{\link{getLoggedPopulations}},
-  \code{\link{getLoggedStats}}, \code{\link{updateLogger}}
+Other logging: \code{\link{getPopulations}},
+  \code{\link{getStatistics}}, \code{\link{updateLogger}}
 }
 

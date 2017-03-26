@@ -24,8 +24,7 @@ test_that("logger keeps track the right way in single-objective case", {
   }
 
   # now check that stuff
-  stats = getLoggedStats(log)
-  pops  = getLoggedPopulations(log)
+  stats = getStatistics(log)
 
   # check that stats is a data.frame
   assertDataFrame(stats, nrows = n.iters, ncols = 5L,
@@ -35,12 +34,30 @@ test_that("logger keeps track the right way in single-objective case", {
   expected.stats = c("gen", "fitness.min", "fitness.median", "fitness.ncol", "fitness.myRange")
   expect_set_equal(colnames(stats), expected.stats)
 
+  # check stats df to ggplot-friendly df helpers
+  stats.gg = toGG(stats)
+  expect_set_equal(colnames(stats.gg), c("gen", "stat", "value"))
+  expect_set_equal(unique(stats.gg$stat), expected.stats[-1L])
+
+  # check plotting
+  pl = plotStatistics(stats)
+  expect_class(pl, "ggplot")
+  pl = plotStatistics(log)
+  expect_class(pl, "ggplot")
+
+  # now with dropping of stats
+  stats.gg = toGG(log, drop.stats = c("fitness.ncol", "fitness.myRange"))
+  expect_set_equal(colnames(stats.gg), c("gen", "stat", "value"))
+  expect_set_equal(unique(stats.gg$stat), expected.stats[2:3])
+
   # check that all are numeric
   for (stat in expected.stats) {
     expect_numeric(stats[[stat]], info = sprintf("Doh! Stat %s is not numeric: %s",
       stat, collapse(stats[[stat]])))
   }
 
+  # check logged populations
+  pops  = getPopulations(log)
   expect_length(pops, n.iters)
   expect_true(!all(sapply(pops, is.null)))
 })

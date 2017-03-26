@@ -19,7 +19,7 @@
 #' @return [\code{ecr_monitor}]
 #'   Monitor object.
 #'
-#' @example examples/ex_makeMonitor.R
+# @example examples/ex_makeMonitor.R
 #' @export
 makeECRMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
   if (!is.null(before)) assertFunction(before, args = c("log", "..."))

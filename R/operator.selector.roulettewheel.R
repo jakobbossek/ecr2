@@ -34,12 +34,12 @@ setupRouletteWheelSelector = function(offset = 0.1) {
 
   selector = function(fitness, n.select, par.list = list()) {
     fitness = as.numeric(fitness)
-    fitness = -fitness
 
     # shift negative values
     if (any(fitness <= 0L)) {
       fitness = fitness + abs(min(fitness)) + offset
     }
+
     #FIXME: this selector supports maximization only at the moment
     #fitness = 1 / fitness
     prob = fitness / sum(fitness)

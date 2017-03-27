@@ -23,17 +23,28 @@ MAX.ITER = 100L
 # initialize toolbox
 control = initECRControl(fitness.fun, n.objectives = 1L, minimize = FALSE)
 control = registerECROperator(control, "mutate", setupBitflipMutator(p = 1 / n.bits))
+control = registerECROperator(control, "recombine", setupCrossoverRecombinator())
 control = registerECROperator(control, "selectForMating", setupTournamentSelector(k = 2L))
 control = registerECROperator(control, "selectForSurvival", setupGreedySelector())
 
 # initialize population of MU random bitstring
 population = genBin(MU, n.bits)
-fitness = evaluateFitness(population, control)
+fitness = evaluateFitness(control, population)
 
 # now do the evolutionary loop
 for (i in seq_len(MAX.ITER)) {
   # generate offspring by mutation only.
-  offspring = mutate(control, population, p.mut = 1)
+  offspring = generateOffspring(control, population, fitness, lambda = LAMBDA, p.recomb = 0.7, p.mut = 0.3)
+
+  # alternatively
+  offspring = recombinate(control, population, fitness, lambda = LAMBDA, p.recomb = 0.7)
+  offspring = mutate(control, offspring, p.mut = 0.3)
+
+  # even more fine-grained
+  idx.mut = runif(length(offspring)) < 0.3
+  if (sum(idx.mut) > 0)
+    offspring[idx.mut] = lapply(offspring[idx.mut], control$mutate, list())
+
 
   # calculate costs of new schedules
   fitness.o = evaluateFitness(control, offspring)
@@ -57,8 +68,7 @@ res = ecr(fitness.fun = fitness.fun, n.objectives = 1L, minimize = FALSE,
   representation = "binary", n.bits = n.bits,
   mu = MU, lambda = LAMBDA, survival.strategy = "plus",
   mutator = setupBitflipMutator(p = 1 / n.bits),
-  survival.selector = setupGreedySelector(),
-  p.mut = 1L, p.recomb = 0L, terminators = list(stopOnIters(MAX.ITER)))
+  p.mut = 0.7, p.recomb = 0.3, terminators = list(stopOnIters(MAX.ITER)))
 
 print(res$best.y)
 print(res$best.x)

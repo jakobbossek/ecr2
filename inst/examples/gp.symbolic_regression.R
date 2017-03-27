@@ -2,14 +2,17 @@ library(BBmisc)
 library(devtools)
 library(rpn)
 
-load_all()
+load_all(".")
 
+# SYMBOLIC REGRESSION BY GENETIC PROGRAMMING
+# ==========================================
+
+# reproducability
 set.seed(123)
 
 # polynomial we aim to approximate
 target.fun = function(x) {
-  #x^4 - x^3 + 2 * x^2 + 5
-  x^4 + x^3 - 2 * x^2 + x + 10
+  x^4 + x^3 - 2 * x^2 + x
 }
 
 lower = -5
@@ -52,16 +55,6 @@ makeRandomExpression = function(depth = 1L) {
   return(ex)
 }
 
-# Initializes a population by generating random reverse polish notation expressions.
-generator = makeGenerator(
-  generator = function(size, par.list) {
-    lapply(1:size, function(x) makeRandomExpression())
-  },
-  name = "RPN creator",
-  description = "Randomly generates RPN expressions.",
-  supported = "custom"
-)
-
 # Generates a mutator, which randomly selects non-terminal elements and replaces
 # them with random reverse polish notation expressions.
 mutator = makeMutator(
@@ -99,18 +92,17 @@ mutator = makeMutator(
     }
     return(ind)
   },
-  supported = "custom",
-  name = "Expression Mutation",
-  description = "Randomly replace "
+  supported = "custom"
 )
 
 # run the GP
 set.seed(123)
 res = ecr(fitness.fun = obj.fun, n.objectives = 1L,
+  initial.solutions = lapply(1:25, function(x) makeRandomExpression()),
   representation = "custom",
   mu = 25L, lambda = 25L,
   survival.strategy = "comma", n.elite = 1L,
-  mutator = mutator, generator = generator,
+  mutator = mutator,
   survival.selector = setupGreedySelector(),
   terminators = list(stopOnIters(500L)),
   lower.bounds = lower, upper.bounds = upper, design = design
@@ -124,7 +116,7 @@ approx.fun = function(x) {
 }
 
 # visualize true function and approximation
-pdf("symbolic_regression.pdf", width = 8, height = 5)
+#pdf("symbolic_regression.pdf", width = 8, height = 5)
 curve(target.fun(x), lower, upper, ylim = c(-100, 1000))
 curve(approx.fun(x), lower, upper, add = TRUE, col = "blue")
 points(design$x, design$y, col = "black")
@@ -132,5 +124,4 @@ legend(x = -4.8, y = 1000,
   legend = c(expression(f(x)), expression(hat(f)(x))),
   col = c("black", "blue"), lty = c(1, 1)
 )
-dev.off()
-
+#dev.off()

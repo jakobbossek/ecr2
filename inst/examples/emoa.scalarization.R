@@ -1,9 +1,3 @@
-# In this example we aim to approximate the Pareto-optimal front/set of the ZDT1
-# test function. Since ecr does not support 'real' Multi-Objective Evolutionary
-# algorithms, we solve a sequence of scalarized single-objective functions. I. e.
-# we solve the single objective function f(x) = w1 f1(x) + w2 f2(x) with w1 + w2 = 1
-# consecutively for different weights w1, w2.
-
 library(methods)
 library(testthat)
 library(devtools)
@@ -11,14 +5,26 @@ library(smoof)
 library(ggplot2)
 library(BBmisc)
 
-load_all(".", reset = TRUE)
+load_all(".")
 
+# reproducability
 set.seed(1)
+
+# APPROXIMATION OF PARETO-OPTIMAL FRONT BY SCALARIZATION
+# ======================================================
+# In this example we aim to approximate the Pareto-optimal front/set of the ZDT1
+# test function. Since ecr does not support 'real' Multi-Objective Evolutionary
+# algorithms, we solve a sequence of scalarized single-objective functions. I. e.
+# we solve the single objective function f(x) = w1 f1(x) + w2 f2(x) with w1 + w2 = 1
+# consecutively for different weights w1, w2.
 
 # generate test function
 # We aim to approximate the Pareto-front of this one
 # with a scalarization approach.
 obj.fun = makeZDT1Function(dimensions = 2L)
+lower = getLowerBoxConstraints(obj.fun)
+upper = getUpperBoxConstraints(obj.fun)
+
 
 # define a 'grid of weights'
 weights = seq(0, 1, by = 0.05)
@@ -40,7 +46,7 @@ for (i in seq_len(n.reps)) {
   fitness.fun = function(x) {
     force(w)
     res = obj.fun(x)
-    sum(res * w)
+    sum(res %*% w)
   }
   # assure that fitness.fun is smoof function as well
   attributes(fitness.fun) = attributes(obj.fun)
@@ -49,10 +55,10 @@ for (i in seq_len(n.reps)) {
 
   # do the evolutionary magic
   res = ecr(fitness.fun = fitness.fun,
-    representation = "float",
-    mu = 50L, lambda = 10L,
+    representation = "float", n.dim = getNumberOfParameters(fitness.fun),
+    mu = 50L, lambda = 10L, lower = lower, upper = upper,
     terminators = list(stopOnIters(100L)),
-    mutator = setupGaussMutator(sdev = 0.05))
+    mutator = setupGaussMutator(sdev = 0.05, lower = lower, upper = upper))
 
   # save new non-inferior point
   pareto.set[i, ] = as.numeric(res$best.x[[1L]])
@@ -61,6 +67,7 @@ for (i in seq_len(n.reps)) {
 
 pareto.front = as.data.frame(t(apply(pareto.set, 1L, obj.fun)))
 colnames(pareto.front) = c("f1", "f2")
+print(pareto.front)
 
 # visualize pareto front and the computed approximation
 pl = smoof::visualizeParetoOptimalFront(obj.fun)

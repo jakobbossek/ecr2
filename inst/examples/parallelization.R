@@ -5,20 +5,25 @@ library(devtools)
 
 load_all(".")
 
+# PARALLELIZATION
+# ===============
 # In the following we perform a simple benchmark on an artificially slowed down
 # objective function to show the effect of parallel function evaluation.
-fitness.fun = makeSingleObjectiveFunction(
-  fn = function(x) {
-    Sys.sleep(runif(1, min = 0.03, max = 0.1)) # delay execution a bit
-    return(sum(x^2))
-  },
-  par.set = makeNumericParamSet("x", len = 2L, lower = -5, upper = 5)
-)
+fitness.fun = function(x) {
+  Sys.sleep(runif(1, min = 0.03, max = 0.1)) # delay execution a bit
+  return(sum(x^2))
+}
+
+lower = c(-5, -5)
+upper = c(5, 5)
 
 runEA = function() {
-  ecr(fitness.fun = fitness.fun, representation = "float",
-  mu = 10L, lambda = 10L,
-  terminators = list(stopOnIters(30L)))
+  ecr(fitness.fun = fitness.fun, n.objectives = 1L,
+    representation = "float", n.dim = 2L,
+    lower = lower, upper = upper,
+    mu = 10L, lambda = 10L,
+    mutator = setupGaussMutator(lower = lower, upper = upper),
+    terminators = list(stopOnIters(30L)))
 }
 
 # wrapper for sequential evaluation

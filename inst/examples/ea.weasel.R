@@ -1,9 +1,8 @@
-library(ecr)
 library(BBmisc)
 library(devtools)
 library(rpn)
 
-load_all()
+load_all(".")
 
 # Simple EA for R. Dawkin’s "METHINKS IT IS LIKE A WEASEL“ problem.
 # See http://rosettacode.org/wiki/Evolutionary_algorithm for details.
@@ -29,10 +28,7 @@ fitness.fun = function(string, target) {
 setupStringMutator = function(p) {
   force(p)
   makeMutator(
-    name = "String mutator",
     mutator = function(ind, par.list) {
-      # get char.set
-      char.set = par.list$char.set
       # determine which genes to mutate
       idx = which(runif(length(ind)) < p)
       n.mut = length(idx)
@@ -41,7 +37,6 @@ setupStringMutator = function(p) {
         ind[idx] = sample(char.set, n.mut, replace = TRUE)
       return(ind)
     },
-    description = "",
     supported = "custom" # non-standard representation
   )
 }
@@ -49,13 +44,10 @@ setupStringMutator = function(p) {
 # here we generate the initial population by hand (no generator object)
 initial.solutions = list(sample(char.set, length(target), replace = TRUE))
 
-res = ecr(fitness.fun, n.objectives = 1L,
+res = ecr(fitness.fun, n.objectives = 1L, minimize = TRUE,
   representation = "custom",
   mu = 1L, lambda = 100L,
   mutator = setupStringMutator(p = 0.05),
-  recombinator = NULL,
-  # variables needed by some of the operators
-  par.list = list(char.set = char.set),
   initial.solutions = initial.solutions,
   terminators = list(stopOnIters(200L)),
   # further params for the fitness function

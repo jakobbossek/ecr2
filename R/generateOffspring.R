@@ -49,7 +49,9 @@ generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.m
   offspring = if (!is.null(control$recombine)) {
     recombinate(control, inds, fitness, lambda, p.recomb = p.recomb)
   } else {
-    inds
+    # otherwise simply select individuals without recombination
+    mating.idx = getMatingPool(control, inds, fitness, lambda = lambda)
+    offspring = inds[as.integer(mating.idx)]
   }
   offspring = mutate(control, offspring, p.mut = p.mut)
 
@@ -107,11 +109,57 @@ recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb =
   assertFunction(recombinatorFun)
   assertList(recombinator.pars)
 
-  assertFunction(control$selectForMating)
-
   # append parameters
   par.list = BBmisc::insert(control$params, recombinator.pars)
   par.list = BBmisc::insert(par.list, list(...))
+
+  mating.idx = getMatingPool(control, inds, fitness, lambda = lambda, slot = slot)
+
+  # now perform recombination
+  offspring = apply(mating.idx, 1L, function(parents.idx) {
+    parents = inds[parents.idx]
+    children = if (runif(1L) < p.recomb & !is.null(recombinatorFun)) {
+      tmp = do.call(recombinatorFun, c(list(parents), par.list))
+      if (hasAttributes(tmp, "multiple")) tmp else list(tmp)
+    } else {
+      parents
+    }
+    children
+  })
+  # unfortunately we need to "unwrap" one listing layer here
+  offspring = unlist(offspring, recursive = FALSE)
+
+  # if n.children is odd/even and lambda is even/odd we need to remove some children
+  if (length(offspring) > lambda) {
+    offspring = offspring[-sample(1:length(offspring), length(offspring) - lambda)]
+  }
+
+  return(offspring)
+}
+
+
+# @title
+# Generate mating pool.
+#
+# @description Determine how many individuals are needed to create lambda offspring
+# and produce a (k x lambda) matrix with k being the number of individuals needed for
+# potential recombination.
+#
+# @param control [ecr2_control]
+#   Control object.
+# @param fitness [matrix]
+#   Matrix of fitness values.
+# @param lambda [integer(1)]
+#   Number of offspring to generate.
+# @param slot [character(1)]
+#   Slot in control for recombinator.
+# @return [matrix]
+# @param
+#FIXME: actually this is not the mating pool, but the matrix of individuals for mating.
+#FIXME: export
+getMatingPool = function(control, inds, fitness, lambda = length(inds), slot = "recombine") {
+  assertFunction(control$selectForMating)
+  recombinatorFun = control[[slot]]
 
   #FIXME: eventually drop this in order to come up with a simpler interface
   #FIXME: why all the recombinator checks? If none is passed we cannot recombine!
@@ -132,34 +180,5 @@ recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb =
   # create mating pool. This a a matrix, where each row contains the indizes of
   # a set of >= 2 parents
   mating.idx = matrix(selectForMating(control, fitness, n.select = n.mating), ncol = n.parents)
-  # catf("n.fitness: %i", ncol(fitness))
-  # catf("n.individuals: %i", length(inds))
-  # catf("max.idx: %i", max(mating.idx))
-  # catf("n.mating: %i", n.mating)
-  # catf("n.parents: %i", n.parents)
-
-  # now perform recombination
-  if (is.null(recombinatorFun)) {
-    offspring = inds[as.integer(mating.idx)]
-  } else {
-    offspring = apply(mating.idx, 1L, function(parents.idx) {
-      parents = inds[parents.idx]
-      children = if (runif(1L) < p.recomb & !is.null(recombinatorFun)) {
-        tmp = do.call(recombinatorFun, c(list(parents), par.list))
-        if (hasAttributes(tmp, "multiple")) tmp else list(tmp)
-      } else {
-        parents
-      }
-      children
-    })
-    # unfortunately we need to "unwrap" one listing layer here
-    offspring = unlist(offspring, recursive = FALSE)
-  }
-
-  # if n.children is odd/even and lambda is even/odd we need to remove some children
-  if (length(offspring) > lambda) {
-    offspring = offspring[-sample(1:length(offspring), length(offspring) - lambda)]
-  }
-
-  return(offspring)
+  return(mating.idx)
 }

@@ -4,7 +4,7 @@
 #' \code{gen} expects an R expression and a number n in order to create a list
 #' of n individuals based on the given expression. Functions \code{genBin},
 #' \code{genPerm} and \code{genReal} are shortcuts for initializing populations
-#' of binary strings, permutations or real-valued vectors respeotively.
+#' of binary strings, permutations or real-valued vectors respectively.
 #'
 #' @param expr [R expression]\cr
 #'   Expression to generate a single individual.

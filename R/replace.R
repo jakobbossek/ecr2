@@ -68,7 +68,7 @@ replaceMuCommaLambda = function(control, population, offspring, fitness = NULL, 
   surv = vector("list", mu)
   surv.fit = fitness
   if (n.elite > 0) {
-    elite.idx = order(as.numeric(fitness))[1:n.elite]
+    elite.idx = order(as.numeric(fitness), decreasing = !control$task$minimize)[1:n.elite]
     surv[1:n.elite] = population[elite.idx]
     surv.fit[, 1:n.elite] = fitness[, elite.idx, drop = FALSE]
   }

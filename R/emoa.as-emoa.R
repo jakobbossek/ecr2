@@ -65,7 +65,7 @@ asemoa = function(
   mu = 10L,
   aspiration.set = NULL,
   normalize.fun = NULL,
-  dist.fun = ecr:::computeEuclideanDistance,
+  dist.fun = ecr2:::computeEuclideanDistance,
   p = 1,
   parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2, lower = lower, upper = upper),

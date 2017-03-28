@@ -7,8 +7,8 @@
 #' @template arg_pointset_A
 #' @template arg_pointset_B
 #' @param p [\code{numeric(1)}]\cr
-#'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
-#'   for details.
+#'   Parameter p of the average Hausdoff metric.
+#'   Default is 1.
 #' @param normalize [\code{logical(1)}]\cr
 #'   Should the front be normalized on basis of \code{B}?
 #'   Default is \code{FALSE}.

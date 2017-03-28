@@ -1,8 +1,6 @@
-#' @title
-#' Result object.
+#' @title Result object.
 #'
-#' @description
-#' S3 object returned by \code{\link{ecr}} containing the best found
+#' @description S3 object returned by \code{\link{ecr}} containing the best found
 #' parameter setting and value in the single-objective case and the Pareto-front/-set
 #' in case of a multi-objective optimization problem. Moreover a set of further
 #' information, e.g., reason of termination, the control object etc. are returned.
@@ -10,16 +8,19 @@
 #' The single objective result object contains the following fields:
 #' \describe{
 #'   \item{task}{The \code{ecr_optimization_task}.}
-#'   \item{best.param}{Overall best parameter setting.}
-#'   \item{best.value}{Overall best objective value.}
+#'   \item{best.x}{Overall best parameter setting.}
+#'   \item{best.y}{Overall best objective value.}
+#'   \item{log}{Logger object.}
 #'   \item{last.population}{Last population.}
+#'   \item{last.fitness}{Numeric vector of fitness values of the last population.}
 #'   \item{message}{Character string describing the reason of termination.}
 #' }
 #'
 #' In case of a solved multi-objective function the result object contains the
 #' following fields:
 #' \describe{
-#'   \item{task}{The \code{ecr_optimization_task}.}
+#'   \item{task}{The \code{ecr2_optimization_task}.}
+#'   \item{log}{Logger object.}
 #'   \item{pareto.idx}{Indizes of the non-dominated solutions in the last population.}
 #'   \item{pareto.front}{(n x d) matrix of the approximated non-dominated front where n
 #'   is the number of non-dominated points and d is the number of objectives.}
@@ -64,16 +65,15 @@ setupResult.ecr_single_objective = function(population, fitness, control, log, s
 print.ecr_single_objective_result = function(x, ...) {
   minmax = ifelse(x$task$minimize, "minimization", "maximization")
   catf("EA applied to solve single-objective %s problem.", minmax)
-  catf("Best found value: %.6f", x$best.value)
+  catf("Best found value: %.6f", x$best.y)
   if (isSmoofFunction(x$task$fitness.fun)) {
-    n = length(x$best.param)
+    n = length(x$best.x)
     l = min(n, 1L)
-    pars = collapse(x$best.param[seq(l)], sep = ", ")
+    pars = collapse(x$best.x[seq(l)], sep = ", ")
     if (l < n)
       pars = paste(pars, ", ...")
     catf("Best found parameters: %s", pars)
   }
-  printAdditionalInformation(x)
 }
 
 #' @export
@@ -99,11 +99,5 @@ print.ecr_multi_objective_result = function(x, ...) {
   catf("EA applied to solve %s problem.", obj)
   catf("Number of nondominanted points: %i", nrow(x$pareto.front))
   print(BBmisc::printHead(x$pareto.front))
-}
-
-printAdditionalInformation = function(x) {
-  catf(x$message)
-  catf("Generations: %i", x$final.opt.state$iter)
-  catf("Evaluations: %i", x$final.opt.state$n.evals)
 }
 

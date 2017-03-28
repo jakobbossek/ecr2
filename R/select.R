@@ -1,6 +1,6 @@
 #' @title Select individuals.
 #'
-#' @description This helper functions expect a control object, a matrix of
+#' @description This utility functions expect a control object, a matrix of
 #' fitness values - each column containing the fitness value(s) of one individual -
 #' and the number of individuals to select.
 #' The corresponding selector, i.e., mating selector for \code{selectForMating}
@@ -9,7 +9,7 @@
 #'
 #' @details Both functions check the optimization directions stored in the task
 #' inside the control object, i.e., whether to minimize or maximize each objective,
-#' and transparently prepares the \code{fitness} matrix for the selector.
+#' and transparently prepare/transform the \code{fitness} matrix for the selector.
 #'
 #' @template arg_control
 #' @template arg_fitness

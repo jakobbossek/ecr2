@@ -12,8 +12,8 @@ makeRecombinator(recombinator, supported = getAvailableRepresentations(),
 Actual mutation operator.}
 
 \item{supported}{[\code{character}]\cr
-Vector of strings/names of supported parameter representations. For example
-'permutation', 'float', 'binary'.}
+Vector of strings/names of supported parameter representations. Possible choices:
+\dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}.}
 
 \item{n.parents}{[\code{integer(1)}]\cr
 Number of parents supported.}

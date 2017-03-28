@@ -5,12 +5,12 @@
 #' Helper functions to compute nadir or ideal point from sets of
 #' points, e.g., multiple approximation sets.
 #'
-#' @param ... [any]\cr
+#' @param ... [\code{matrix}]\cr
 #'   Arbirary number of matrizes.
 #' @param sets [\code{list}]\cr
-#'   List of sets. This is an alternative way of passing the sets. Can be used
+#'   List of matrizes. This is an alternative way of passing the sets. Can be used
 #'   exclusively or combined with \code{...}.
-#' @return [numeric] Reference point.
+#' @return [\code{numeric}] Reference point.
 #' @rdname reference_point_approximation
 #' @export
 approximateNadirPoint = function(..., sets = NULL) {

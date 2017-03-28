@@ -19,7 +19,7 @@
 #' @param ref.points [\code{matrix}]\cr
 #'   Set of reference points.
 #' @param ref.point [\code{numeric}]\cr
-#'   A single reference point used e.g. for the computation of the hypervolume
+#'   A single reference point used, e.g., for the computation of the hypervolume
 #'   indicator via \code{computeHypervolumeIndicator}. If \code{NULL} the
 #'   nadir point of the union of the \code{points} and \code{ref.points} is used.
 #' @param ideal.point [\code{numeric}]\cr

@@ -2,14 +2,10 @@
 #'
 #' @description Logging is a central aspect of each EA. Besides the final solution(s)
 #' especially in research often we need to keep track of different aspects of the
-#' evolutionary process, e.g., fitness statistics. The logger of \pkg{ecr} keeps
+#' evolutionary process, e.g., fitness statistics. The logger of \pkg{ecr2} keeps
 #' track of different user-defined statistics and the population.
-#' It is also used for monitoring by the default console-monitor (see {makeECRConsoleMonitor})
-#' and passed down to stopping conditions (see \code{makeECRTerminator}). Most
-#' important this logger is used internally by the \code{ecr} black-box function.
-#'
-#' @note If rapid prototyping of EAs is the goal and \code{ecr} is not sufficient
-#' one is of cource not required to use this logger.
+#' It may also be used to check stopping conditions (see \code{makeECRTerminator}). Most
+#' important this logger is used internally by the \code{\link{ecr}} black-box interface.
 #'
 #' @template arg_control
 #' @param log.stats [\code{list}]\cr
@@ -20,12 +16,14 @@
 #'   parameters which shall be passed to the corresponding function.
 #'   Each function is required to return a scalar numeric value.
 #'   By default the minimum, mean and maximum of the fitness values is computed.
+#'   Since fitness statistics are the most important ones these do not have to
+#'   be stored as attributes, but can be passed as a matrix to the update function.
 #' @param log.pop [\code{logical(1)}]\cr
 #'   Shall the entire population be saved?
 #'   Default is \code{FALSE}.
 #' @param init.size [\code{integer(1)}]\cr
-#'   Initial number of rows of the stats slot of the logger, where the fitness
-#'   statistics are stored. The size of the statistics log doubled each time an
+#'   Initial number of rows of the slot of the logger, where the fitness
+#'   statistics are stored. The size of the statistics log is doubled each time an
 #'   overflow occurs.
 #'   Default is 1000.
 #' @return [\code{ecr2_logger}]
@@ -38,52 +36,55 @@
 #'     in-place modification is possible.}
 #'   }
 #' @family logging
-# @example
-# control = initECRControlBinary(function(x) sum(x), minimize = TRUE,
-#   n.objectives = 1L, n.bits = 10L)
-
-# log = initLogger(control,
-#   log.stats = list(
-#     fitness = list("mean", "myRange" = function(x) max(x) - min(x)),
-#     age = list("min", "max")
-#   ), log.pop = TRUE, init.size = 1000L)
-
-#  # simply pass stuff down to control object constructor
-# population = initPopulation(mu = 10L, control = control)
-# fitness = evaluateFitness(control, population, ...)
-
-# # append fitness to individuals and init age
-# for (i in seq_along(population)) {
-#   attr(population[[i]], "fitness") = fitness[, i]
-#   attr(population[[i]], "age") = 1L
-# }
-
-# for (iter in seq_len(10)) {
-#    # generate offspring
-#    offspring = generateOffspring(control, population, fitness, lambda = 5)
-#    fitness.offspring = evaluateFitness(control, offspring, ...)
-
-#    # update age of population
-#    for (i in seq_along(population)) {
-#      attr(population[[i]], "age") = attr(population[[i]], "age") + 1L
-#    }
-
-#    # set offspring attributes
-#    for (i in seq_along(offspring)) {
-#      attr(offspring[[i]], "fitness") = fitness.offspring[, i]
-#      # update age
-#      attr(offspring[[i]], "age") = 1L
-#    }
-
-#    sel = replaceMuPlusLambda(control, population, offspring)
-
-#    population = sel$population
-#    fitness = sel$fitness
-
-#    # do some logging
-#    updateLogger(log, population, n.evals = lambda)
-#  }
-#  print(head(log$env$stats))
+#' @examples
+#' control = initECRControl(function(x) sum(x), minimize = TRUE,
+#'   n.objectives = 1L)
+#' control = registerECROperator(control, "mutate", setupBitflipMutator(0.1))
+#' control = registerECROperator(control, "selectForMating", setupTournamentSelector())
+#' control = registerECROperator(control, "selectForSurvival", setupGreedySelector())
+#'
+#' log = initLogger(control,
+#'   log.stats = list(
+#'     fitness = list("mean", "myRange" = function(x) max(x) - min(x)),
+#'     age = list("min", "max")
+#'   ), log.pop = TRUE, init.size = 1000L)
+#'
+#'  # simply pass stuff down to control object constructor
+#' population = initPopulation(mu = 10L, genBin, n.dim = 10L)
+#' fitness = evaluateFitness(control, population)
+#'
+#' # append fitness to individuals and init age
+#' for (i in seq_along(population)) {
+#'   attr(population[[i]], "fitness") = fitness[, i]
+#'   attr(population[[i]], "age") = 1L
+#' }
+#'
+#' for (iter in seq_len(10)) {
+#'   # generate offspring
+#'   offspring = generateOffspring(control, population, fitness, lambda = 5)
+#'   fitness.offspring = evaluateFitness(control, offspring)
+#'
+#'   # update age of population
+#'   for (i in seq_along(population)) {
+#'     attr(population[[i]], "age") = attr(population[[i]], "age") + 1L
+#'   }
+#'
+#'   # set offspring attributes
+#'   for (i in seq_along(offspring)) {
+#'     attr(offspring[[i]], "fitness") = fitness.offspring[, i]
+#'     # update age
+#'     attr(offspring[[i]], "age") = 1L
+#'   }
+#'
+#'   sel = replaceMuPlusLambda(control, population, offspring)
+#'
+#'   population = sel$population
+#'   fitness = sel$fitness
+#'
+#'   # do some logging
+#'   updateLogger(log, population, n.evals = 5)
+#' }
+#' head(getStatistics(log))
 #' @export
 initLogger = function(
   control,
@@ -117,8 +118,6 @@ initLogger = function(
   stat.names = unname(do.call(c, lapply(stats, names)))
   #print(stat.names)
 
-
-
   env = new.env()
   env$stats = BBmisc::makeDataFrame(ncol = n.stats + 1L, nrow = init.size,
     col.types = "numeric", col.names = c("gen", stat.names))
@@ -138,8 +137,7 @@ initLogger = function(
     log.stats = stats,
     log.pop = log.pop,
     init.size = init.size,
-    env = env
-  )
+    env = env)
 }
 
 #' @title Update the log.
@@ -152,8 +150,9 @@ initLogger = function(
 #' @param population [\code{list}]\cr
 #'   List of individuals.
 #' @param fitness [\code{matrix}]\cr
-#'   Matrix of fitness values (each column contains the fitness value(s) for
-#'   one individual) of \code{population}.
+#'   Optional matrix of fitness values (each column contains the fitness value(s) for
+#'   one individual) of \code{population}. If no matrix is passed and the log shall
+#'   store information of the fitness, each individual needs to have an attribute fitness.
 #' @param n.evals [\code{integer(1)}]\cr
 #'   Number of fitness function evaluations performed in the last generation.
 #' @param ... [any]\cr
@@ -262,7 +261,7 @@ ensureNamedStats = function(stats) {
   return(stats)
 }
 
-#' @title Access to logged stats.
+#' @title Access the logged statistics.
 #'
 #' @description Simple getter for the logged fitness statistics.
 #'
@@ -353,7 +352,7 @@ toGG.ecr2_logger = function(x, drop.stats = character(0L)) {
 
 #' @title Generate line plot of logged statistics.
 #'
-#' @description Expects a data frame of logged statistics, e.g., extracted from
+#' @description Expects a data.frame of logged statistics, e.g., extracted from
 #' a logger object by calling \code{\link{getStatistics}}, and generates a basic
 #' line plot. The plot is generated with the \pkg{ggplot2} package and the ggplot
 #' object is returned.

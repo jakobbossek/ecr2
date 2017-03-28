@@ -7,8 +7,8 @@
 #' @param mutator [\code{function}]\cr
 #'   Actual mutation operator.
 #' @param supported [\code{character}]\cr
-#'   Vector of strings/names of supported parameter representations. For example
-#'   'permutation', 'float', 'binary'.
+#'   Vector of strings/names of supported parameter representations. Possible choices:
+#'   \dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}.
 #' @return [\code{ecr_mutator}]
 #'   Mutator object.
 #' @export

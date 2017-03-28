@@ -124,9 +124,8 @@ Further arguments passed down to \code{fitness.fun}.}
 }
 \description{
 The most flexible way to setup evolutionary algorithms with \pkg{ecr2} is by
-explicitely writing the evolutionary loop utilizing various ecr2 helper functions
-However, in everyday
-life R users frequently need to optimize a single-objective R function.
+explicitely writing the evolutionary loop utilizing various ecr2 utlity functions.
+However, in everyday life R users frequently need to optimize a single-objective R function.
 The \code{ecr} function thus provides a more R like interface for single
 objective optimization similar to the interface of the \code{\link[stats]{optim}}
 function.
@@ -139,10 +138,6 @@ lower = c(-5, -5); upper = c(5, 5)
 res = ecr(fn, n.dim = 2L, n.objectives = 1L, lower = lower, upper = lower,
  representation = "float", mu = 20L, lambda = 10L,
   mutator = setupGaussMutator(lower = lower, upper = upper))
-}
-\seealso{
-\code{\link{initECRControl}} for building the control object,
-\code{\link{makeOptimizationTask}} to define an optimization task.
 }
 \keyword{optimize}
 

@@ -10,15 +10,15 @@ approximateNadirPoint(..., sets = NULL)
 approximateIdealPoint(..., sets = NULL)
 }
 \arguments{
-\item{...}{[any]\cr
+\item{...}{[\code{matrix}]\cr
 Arbirary number of matrizes.}
 
 \item{sets}{[\code{list}]\cr
-List of sets. This is an alternative way of passing the sets. Can be used
+List of matrizes. This is an alternative way of passing the sets. Can be used
 exclusively or combined with \code{...}.}
 }
 \value{
-[numeric] Reference point.
+[\code{numeric}] Reference point.
 }
 \description{
 Helper functions to compute nadir or ideal point from sets of

@@ -4,9 +4,7 @@
 #' @description
 #' Check if a vector dominates another (\code{dominates}) or is
 #' dominated by another (\code{isDominated}). There are corresponding infix
-#' operators \code{dominates} and \code{isDominatedBy}. Moreover, function
-#' \code{isMaximallyDominated} checks, whether a point is located in the last
-#' layer of nondominated sorting algorithm.
+#' operators \code{dominates} and \code{isDominatedBy}.
 #'
 #' @keywords optimize
 #'
@@ -44,8 +42,8 @@ isDominated = function(x, y) {
 #' Check for pareto dominance.
 #'
 #' @description
-#' This functions takes a numeric matrix \code{x} where each column corresponds to
-#' a point and returns a logical vector. The i-th position of the latter is
+#' These functions take a numeric matrix \code{x} where each column corresponds to
+#' a point and return a logical vector. The i-th position of the latter is
 #' \code{TRUE} if the i-th point is dominated by at least one other point for
 #' \code{dominated} and \code{FALSE} for \code{nonDominated}.
 #'
@@ -73,7 +71,7 @@ nondominated = function(x) {
 #'
 #' @description
 #' Given a matrix with one point per column \code{which.dominated} returns the
-#' row numbers of the dominated points and \code{which.nondominated} the column
+#' column numbers of the dominated points and \code{which.nondominated} the column
 #' numbers of the nondominated points. Function \code{isMaximallyDominated} returns
 #' a logical vector with \code{TRUE} for each point which does not dominate any
 #' other point.
@@ -120,7 +118,7 @@ isMaximallyDominated = function(x) {
 #' If the passed object is a \code{data.frame}, each line is considered to contain
 #' the fitness values of one individual. Contrary, if a matrix is passed, it is
 #' considered to be passed in ecr2 format, i.e., each column corresponds to one
-#' individual. The matrix is then transposed and converted to a \code{data.frame}.
+#' point. The matrix is then transposed and converted to a \code{data.frame}.
 #'
 #' @note At the moment only two-dimensional objective spaces are supported.
 #'
@@ -128,9 +126,13 @@ isMaximallyDominated = function(x) {
 #'   Object which contains the non-dominated points.
 #' @param obj.names [\code{character}]\cr
 #'   Optional objectives names.
+#'   Default is \code{c("f1", "f2")}.
 #' @param minimize [\code{logical}]\cr
 #'   Logical vector with ith entry \code{TRUE} if the ith objective shall be minimized.
 #'   If a single logical is passed, it is assumed to be valid for each objective.
+#'   If the matrix is of type \code{ecr2_fitness_matrix} (this is the case if it is
+#'   produced by one of ecr2's utility functions, e.g. \code{\link{evaluateFitness}}),
+#'   the appended \code{minimize} attribute is the default.
 #' @return [\code{ggplot}] \pkg{ggplot} object.
 #' @examples
 #' matrix

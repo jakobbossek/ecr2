@@ -24,10 +24,14 @@ Current set of individuals.}
 Another set of individuals.}
 
 \item{fitness}{[\code{matrix}]\cr
-Matrix of fitness values for the individuals from \code{population}.}
+Matrix of fitness values for the individuals from \code{population}.
+This is only optional in the case that each individual in \code{population} has
+an attribute \dQuote{fitness}.}
 
 \item{fitness.offspring}{[\code{matrix}]\cr
-Matrix of fitness values for the individuals from \code{offspring}.}
+Matrix of fitness values for the individuals from \code{offspring}.
+This is only optional in the case that each individual in \code{offspring} has
+an attribute \dQuote{fitness}.}
 
 \item{n.elite}{[\code{integer(1)}]\cr
 Number of fittest individuals of the current generation that shall be copied to the

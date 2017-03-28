@@ -2,13 +2,13 @@
 % Please edit documentation in R/registerECRObject.R
 \name{registerECROperator}
 \alias{registerECROperator}
-\title{Helper function to set operator internally.}
+\title{Register operators to control object.}
 \usage{
 registerECROperator(control, slot, fun, ...)
 }
 \arguments{
-\item{control}{[\code{ecr_control}]\cr
-ECR control object.}
+\item{control}{[\code{ecr2_control}]\cr
+Control object.}
 
 \item{slot}{[\code{character(1)}]\cr
 Name of the field in the control object where to store the operator.}
@@ -29,6 +29,8 @@ and passed on to \code{fun}.}
 [\code{ecr_control}]
 }
 \description{
-Helper function to set operator internally.
+In \pkg{ecr2} the control object stores information on the fitness
+function and serves as a storage for evolutionary components used by your evluationary
+algorithm. This function handles the registration process.
 }
 

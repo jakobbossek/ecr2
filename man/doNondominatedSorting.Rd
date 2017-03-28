@@ -8,7 +8,7 @@ doNondominatedSorting(x)
 }
 \arguments{
 \item{x}{[\code{matrix}]\cr
-Numeric matrix of points. Each column contains one objective vector.}
+Numeric matrix of points. Each column contains one point.}
 }
 \value{
 [\code{list}]
@@ -22,8 +22,8 @@ Numeric matrix of points. Each column contains one objective vector.}
   }
 }
 \description{
-Pure R implementation of the fast non-dominated sorting algorithm
-proposed by Deb. Non-dominated sorting expects a set of points and returns a
+Fast non-dominated sorting algorithm proposed by Deb. Non-dominated sorting
+expects a set of points and returns a
 set of non-dominated fronts. In short words this is done as follows: the
 non-dominated points of the entire set are determined and assigned rank 1.
 Afterwards all points with the current rank are removed, the rank is increased

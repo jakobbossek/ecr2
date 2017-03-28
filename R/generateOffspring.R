@@ -1,12 +1,14 @@
-#' @title Helper functions for offspring generation
+#' @title
+#' Helper functions for offspring generation
 #'
 #' @description
-#' Function \code{mutate} expects a list of individuals and a mutation operator.
-#' It then mutates each individual with a certain probability. Function \code{recombinate}
-#' expects a recombination operator, a list of individuals as well as their fitness
-#' matrix and creates \code{lambda} offspring individuals by recombining parents
+#' Function \code{mutate} expects a control object, a list of individuals, and a mutation
+#' probability. The mutation operator registered in the control object is then applied
+#' with the given probability to each individual.
+#' Function \code{recombinate} expects a control object, a list of individuals as well as
+#' their fitness matrix and creates \code{lambda} offspring individuals by recombining parents
 #' from \code{inds}. Which parents take place in the parent selection depends on
-#' the \code{parent.selector}.
+#' the \code{parent.selector} registered in the control object.
 #' Finally, function \code{generateOffspring} is a wrapper for both \code{recombinate}
 #' and \code{mutate}. Both functions are applied subsequently to generate new individuals
 #' by variation and mutation.
@@ -23,7 +25,6 @@
 #'   Default is \dQuote{mutate} for \code{mutate} and \dQuote{recombine} for \code{recombinate}.
 #'   In most cases there is no need to change this. However, it might be useful if you make use
 #'   of different mutation operators registerted, e.g., in the slots \dQuote{mutate1} and \dQuote{mutate2}.
-# @template arg_par_list
 #' @param ... [any]\cr
 #'   Furhter arguments passed down to recombinator/mutator.
 #'   There parameters will overwrite parameters in \code{par.list}.
@@ -34,7 +35,7 @@
 # @examples
 # # init the control object and register mutation operator
 # fn = function(x) sum(x)
-# control = initECRControlBinary(fn, n.objectives = 1L, minimize = TRUE, n.bits = 10)
+# control = initECRControl(fn, n.objectives = 1L, minimize = TRUE)
 # control = registerMutator(control, setupBitflipMutator(p = 0.1))
 # # generate list of bistrings/individuals by hand
 # inds = replicate(5, sample(c(0, 1), 10, replace = TRUE), simplify = FALSE)

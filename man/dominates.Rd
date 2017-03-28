@@ -28,9 +28,7 @@ Second vector.}
 \description{
 Check if a vector dominates another (\code{dominates}) or is
 dominated by another (\code{isDominated}). There are corresponding infix
-operators \code{dominates} and \code{isDominatedBy}. Moreover, function
-\code{isMaximallyDominated} checks, whether a point is located in the last
-layer of nondominated sorting algorithm.
+operators \code{dominates} and \code{isDominatedBy}.
 }
 \keyword{optimize}
 

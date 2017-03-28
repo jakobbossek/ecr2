@@ -1,6 +1,6 @@
-#' @title Population generator
+#' @title Population generators
 #'
-#' @description Helper functions to build a set of individuals. The function
+#' @description Utility functions to build a set of individuals. The function
 #' \code{gen} expects an R expression and a number n in order to create a list
 #' of n individuals based on the given expression. Functions \code{genBin},
 #' \code{genPerm} and \code{genReal} are shortcuts for initializing populations

@@ -4,16 +4,15 @@
 #' @description
 #' Helper function which constructs a recombinator, i. e., a recombination operator.
 #'
-#' @note
-#' If a recombinator returns more than one child, the \code{multiple.children}
+#' @note If a recombinator returns more than one child, the \code{multiple.children}
 #' parameter needs to be \code{TRUE}, which is the default. In case of multiple
 #' children produced these have to be placed within a list.
 #'
 #' @param recombinator [\code{function}]\cr
 #'   Actual mutation operator.
 #' @param supported [\code{character}]\cr
-#'   Vector of strings/names of supported parameter representations. For example
-#'   'permutation', 'float', 'binary'.
+#'   Vector of strings/names of supported parameter representations. Possible choices:
+#'   \dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}.
 #' @param n.parents [\code{integer(1)}]\cr
 #'   Number of parents supported.
 #' @param n.children [\code{integer(1)}]\cr

@@ -15,7 +15,7 @@ Names of logged statistics to be dropped.
 Default is the empty character, i.e., not to drop any stats.}
 }
 \description{
-Expects a data frame of logged statistics, e.g., extracted from
+Expects a data.frame of logged statistics, e.g., extracted from
 a logger object by calling \code{\link{getStatistics}}, and generates a basic
 line plot. The plot is generated with the \pkg{ggplot2} package and the ggplot
 object is returned.

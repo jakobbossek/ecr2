@@ -10,7 +10,7 @@ For maximal flexibility this is realized by means of the \pkg{parallelMap} packa
 (see the \href{https://github.com/berndbischl/parallelMap}{official
 GitHub page} for instructions on how to set up parallelization).
 The different levels of parallelization can be specified in the
-\code{parallelStart*} function. At them moment only the levels
+\code{parallelStart*} function. At them moment only the level
 \dQuote{ecr.evaluateFitness} is supported.
 
 Keep in mind that parallelization comes along with some overhead. Thus activating

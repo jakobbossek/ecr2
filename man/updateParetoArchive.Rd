@@ -22,9 +22,9 @@ Furhter arguments passed down to \code{trunc.fun} (set via \code{\link{initParet
 }
 \description{
 This function updates a Pareto archive, i.e., an archive of non-dominated
-points in place. It expects the archive, a set of individuals, a matrix of fitness values
+points. It expects the archive, a set of individuals, a matrix of fitness values
 (each column corresponds to the fitness vector of one individual) and updates
-the archive. If the archive has unlimited capacity all non-dominated points of
+the archive \dQuote{in-place}. If the archive has unlimited capacity all non-dominated points of
 the union of archive and passed individuals are stored. Otherwise, i.e., in case
 the archive is limited in capacity (argument \code{max.size} of
 \code{\link{initParetoArchive}} was set to an integer value greater zero), the

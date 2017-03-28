@@ -18,15 +18,17 @@ based on, e.g., fitness, and should contain a list of R functions as a
 character string or a a list with elements \code{fun} for the function, and \code{pars} for additional
 parameters which shall be passed to the corresponding function.
 Each function is required to return a scalar numeric value.
-By default the minimum, mean and maximum of the fitness values is computed.}
+By default the minimum, mean and maximum of the fitness values is computed.
+Since fitness statistics are the most important ones these do not have to
+be stored as attributes, but can be passed as a matrix to the update function.}
 
 \item{log.pop}{[\code{logical(1)}]\cr
 Shall the entire population be saved?
 Default is \code{FALSE}.}
 
 \item{init.size}{[\code{integer(1)}]\cr
-Initial number of rows of the stats slot of the logger, where the fitness
-statistics are stored. The size of the statistics log doubled each time an
+Initial number of rows of the slot of the logger, where the fitness
+statistics are stored. The size of the statistics log is doubled each time an
 overflow occurs.
 Default is 1000.}
 }
@@ -44,15 +46,60 @@ Default is 1000.}
 \description{
 Logging is a central aspect of each EA. Besides the final solution(s)
 especially in research often we need to keep track of different aspects of the
-evolutionary process, e.g., fitness statistics. The logger of \pkg{ecr} keeps
+evolutionary process, e.g., fitness statistics. The logger of \pkg{ecr2} keeps
 track of different user-defined statistics and the population.
-It is also used for monitoring by the default console-monitor (see {makeECRConsoleMonitor})
-and passed down to stopping conditions (see \code{makeECRTerminator}). Most
-important this logger is used internally by the \code{ecr} black-box function.
+It may also be used to check stopping conditions (see \code{makeECRTerminator}). Most
+important this logger is used internally by the \code{\link{ecr}} black-box interface.
 }
-\note{
-If rapid prototyping of EAs is the goal and \code{ecr} is not sufficient
-one is of cource not required to use this logger.
+\examples{
+control = initECRControl(function(x) sum(x), minimize = TRUE,
+  n.objectives = 1L)
+control = registerECROperator(control, "mutate", setupBitflipMutator(0.1))
+control = registerECROperator(control, "selectForMating", setupTournamentSelector())
+control = registerECROperator(control, "selectForSurvival", setupGreedySelector())
+
+log = initLogger(control,
+  log.stats = list(
+    fitness = list("mean", "myRange" = function(x) max(x) - min(x)),
+    age = list("min", "max")
+  ), log.pop = TRUE, init.size = 1000L)
+
+ # simply pass stuff down to control object constructor
+population = initPopulation(mu = 10L, genBin, n.dim = 10L)
+fitness = evaluateFitness(control, population)
+
+# append fitness to individuals and init age
+for (i in seq_along(population)) {
+  attr(population[[i]], "fitness") = fitness[, i]
+  attr(population[[i]], "age") = 1L
+}
+
+for (iter in seq_len(10)) {
+  # generate offspring
+  offspring = generateOffspring(control, population, fitness, lambda = 5)
+  fitness.offspring = evaluateFitness(control, offspring)
+
+  # update age of population
+  for (i in seq_along(population)) {
+    attr(population[[i]], "age") = attr(population[[i]], "age") + 1L
+  }
+
+  # set offspring attributes
+  for (i in seq_along(offspring)) {
+    attr(offspring[[i]], "fitness") = fitness.offspring[, i]
+    # update age
+    attr(offspring[[i]], "age") = 1L
+  }
+
+  sel = replaceMuPlusLambda(control, population, offspring)
+
+  population = sel$population
+  fitness = sel$fitness
+
+  # do some logging
+  updateLogger(log, population, n.evals = 5)
+}
+head(getStatistics(log))
 }
 \seealso{
 Other logging: \code{\link{getPopulations}},

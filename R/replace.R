@@ -11,8 +11,12 @@
 #'   Another set of individuals.
 #' @param fitness [\code{matrix}]\cr
 #'   Matrix of fitness values for the individuals from \code{population}.
+#'   This is only optional in the case that each individual in \code{population} has
+#'   an attribute \dQuote{fitness}.
 #' @param fitness.offspring [\code{matrix}]\cr
 #'   Matrix of fitness values for the individuals from \code{offspring}.
+#'   This is only optional in the case that each individual in \code{offspring} has
+#'   an attribute \dQuote{fitness}.
 #' @template arg_n_elite
 #' @return [\code{list}] List with selected population and corresponding fitness matrix.
 #' @rdname replace

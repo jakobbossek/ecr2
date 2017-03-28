@@ -2,7 +2,7 @@
 % Please edit documentation in R/initECRControl.R
 \name{initECRControl}
 \alias{initECRControl}
-\title{Initialize control object.}
+\title{Control object generator.}
 \usage{
 initECRControl(fitness.fun, n.objectives = NULL, minimize = NULL)
 }
@@ -23,6 +23,7 @@ for each objective.}
 [\code{ecr2_control}]
 }
 \description{
-Initialize control object.
+The control object keeps information on the objective function and a set of
+evolutionary components, i.e., operators.
 }
 

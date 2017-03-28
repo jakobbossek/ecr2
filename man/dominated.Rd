@@ -18,8 +18,8 @@ number of points.}
 [\code{logical}]
 }
 \description{
-This functions takes a numeric matrix \code{x} where each column corresponds to
-a point and returns a logical vector. The i-th position of the latter is
+These functions take a numeric matrix \code{x} where each column corresponds to
+a point and return a logical vector. The i-th position of the latter is
 \code{TRUE} if the i-th point is dominated by at least one other point for
 \code{dominated} and \code{FALSE} for \code{nonDominated}.
 }

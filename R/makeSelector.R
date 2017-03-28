@@ -8,8 +8,8 @@
 #' @param selector [\code{function}]\cr
 #'   Actual selection operator.
 #' @param supported [\code{character}]\cr
-#'   Vector of strings/names of supported parameter representations. For example
-#'   'permutation', 'float', 'binary'.
+#'   Vector of strings/names of supported parameter representations. Possible choices:
+#'   \dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}.
 #' @param supported.objectives [\code{character}]\cr
 #'   At least one of \dQuote{single-objective} or \dQuote{multi-objective}.
 #' @param supported.opt.direction [\code{character(1-2)}]\cr

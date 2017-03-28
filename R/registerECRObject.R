@@ -1,7 +1,11 @@
-#' Helper function to set operator internally.
+#' @title Register operators to control object.
 #'
-#' @param control [\code{ecr_control}]\cr
-#'   ECR control object.
+#' @description In \pkg{ecr2} the control object stores information on the fitness
+#' function and serves as a storage for evolutionary components used by your evluationary
+#' algorithm. This function handles the registration process.
+#'
+#' @param control [\code{ecr2_control}]\cr
+#'   Control object.
 #' @param slot [\code{character(1)}]\cr
 #'   Name of the field in the control object where to store the operator.
 #' @param fun [\code{function}]\cr
@@ -15,6 +19,7 @@
 #'   Further arguments for \code{fun}. These arguments are stored in the control object
 #'   and passed on to \code{fun}.
 #' @return [\code{ecr_control}]
+#' @export
 registerECROperator = function(control, slot, fun, ...) {
   assertClass(control, "ecr2_control")
   assertString(slot)
@@ -43,13 +48,3 @@ registerECRParams = function(control, ...) {
   control$params = BBmisc::insert(control$params, passed.params)
   return(control)
 }
-
-# registerObjectiveFunction = function(control, fun, n.objectives = NULL, minimize = NULL, objective.names = NULL) {
-#   task = makeOptimizationTask(fun, n.objectives, minimize, objective.names)
-#   registerECRObject(control, "task", task)
-# }
-
-# registerLogger = function(control, logger) {
-#   assertClass(logger, "ecr2_monitor")
-#   registerECRObject(control, "logger", logger)
-# }

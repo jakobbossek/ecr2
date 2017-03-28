@@ -12,8 +12,8 @@ makeSelector(selector, supported = getAvailableRepresentations(),
 Actual selection operator.}
 
 \item{supported}{[\code{character}]\cr
-Vector of strings/names of supported parameter representations. For example
-'permutation', 'float', 'binary'.}
+Vector of strings/names of supported parameter representations. Possible choices:
+\dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}.}
 
 \item{supported.objectives}{[\code{character}]\cr
 At least one of \dQuote{single-objective} or \dQuote{multi-objective}.}

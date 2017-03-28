@@ -50,12 +50,13 @@ There parameters will overwrite parameters in \code{par.list}.}
 [\code{list}] List of individuals.
 }
 \description{
-Function \code{mutate} expects a list of individuals and a mutation operator.
-It then mutates each individual with a certain probability. Function \code{recombinate}
-expects a recombination operator, a list of individuals as well as their fitness
-matrix and creates \code{lambda} offspring individuals by recombining parents
+Function \code{mutate} expects a control object, a list of individuals, and a mutation
+probability. The mutation operator registered in the control object is then applied
+with the given probability to each individual.
+Function \code{recombinate} expects a control object, a list of individuals as well as
+their fitness matrix and creates \code{lambda} offspring individuals by recombining parents
 from \code{inds}. Which parents take place in the parent selection depends on
-the \code{parent.selector}.
+the \code{parent.selector} registered in the control object.
 Finally, function \code{generateOffspring} is a wrapper for both \code{recombinate}
 and \code{mutate}. Both functions are applied subsequently to generate new individuals
 by variation and mutation.

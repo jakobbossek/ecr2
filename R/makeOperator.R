@@ -9,7 +9,7 @@
 #' deriviatives like \code{\link{makeMutator}} or \code{\link{makeSelector}}.
 #'
 #' @param operator [\code{function}]\cr
-#'   Actual mutation operator.
+#'   Actual operator.
 #' @param supported [\code{character}]\cr
 #'   Vector of names of supported parameter representations. Possible choices:
 #'   \dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}.

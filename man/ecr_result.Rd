@@ -12,16 +12,19 @@ information, e.g., reason of termination, the control object etc. are returned.
 The single objective result object contains the following fields:
 \describe{
   \item{task}{The \code{ecr_optimization_task}.}
-  \item{best.param}{Overall best parameter setting.}
-  \item{best.value}{Overall best objective value.}
+  \item{best.x}{Overall best parameter setting.}
+  \item{best.y}{Overall best objective value.}
+  \item{log}{Logger object.}
   \item{last.population}{Last population.}
+  \item{last.fitness}{Numeric vector of fitness values of the last population.}
   \item{message}{Character string describing the reason of termination.}
 }
 
 In case of a solved multi-objective function the result object contains the
 following fields:
 \describe{
-  \item{task}{The \code{ecr_optimization_task}.}
+  \item{task}{The \code{ecr2_optimization_task}.}
+  \item{log}{Logger object.}
   \item{pareto.idx}{Indizes of the non-dominated solutions in the last population.}
   \item{pareto.front}{(n x d) matrix of the approximated non-dominated front where n
   is the number of non-dominated points and d is the number of objectives.}

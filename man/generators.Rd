@@ -6,7 +6,7 @@
 \alias{genPerm}
 \alias{genReal}
 \alias{generators}
-\title{Population generator}
+\title{Population generators}
 \usage{
 gen(expr, n)
 
@@ -38,10 +38,10 @@ of float encoding.}
 [\code{list}]
 }
 \description{
-Helper functions to build a set of individuals. The function
+Utility functions to build a set of individuals. The function
 \code{gen} expects an R expression and a number n in order to create a list
 of n individuals based on the given expression. Functions \code{genBin},
 \code{genPerm} and \code{genReal} are shortcuts for initializing populations
-of binary strings, permutations or real-valued vectors respeotively.
+of binary strings, permutations or real-valued vectors respectively.
 }
 

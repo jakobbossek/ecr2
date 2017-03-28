@@ -19,7 +19,7 @@ unbounded capacity.}
 In case the archive is limited in capacity, i.e., \code{max.size} is not infinite,
 this function is called internally if an archive overflow occurs. This function
 expects the \code{archive}, a list of individuals \code{inds}, a matrix of fitness
-values (each column contains the fitness values of one individual) \code{fitness}
+values (each column contains the fitness value(s) of one individual) \code{fitness}
 and further optional arguments \code{...} which may be used by the internals
 of \code{trunc.fun}. The function must return a list with components \dQuote{fitness}
 and \dQuote{inds} which shall be the subsets of \code{fitness} and \code{inds}

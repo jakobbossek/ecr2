@@ -8,7 +8,7 @@ makeOperator(operator, supported = getAvailableRepresentations())
 }
 \arguments{
 \item{operator}{[\code{function}]\cr
-Actual mutation operator.}
+Actual operator.}
 
 \item{supported}{[\code{character}]\cr
 Vector of names of supported parameter representations. Possible choices:

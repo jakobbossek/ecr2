@@ -21,7 +21,10 @@ Imports:
     reshape2 (>= 1.4.1),
     ggplot2 (>= 1.0.0)
 Suggests:
-    testthat (>= 0.9.1)
+    testthat (>= 0.9.1),
+    knitr,
+    rmarkdown
 ByteCompile: yes
 LazyData: yes
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr

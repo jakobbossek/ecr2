@@ -25,13 +25,13 @@ The **ecr2** package, *Evolutionary Computation in R (2nd version)*, is conceive
 * Powerful logging mechanism.
 * Possibility to use custom representations/genotypes.
 * Possibility to define custom EA operators, i.e., mutation, variation and selection operators.
-* Easy parallelization via [parallelMap](https://cran.r-project.org/web/packages/parallelMap/index.html)
+* Easy parallelization via [parallelMap](https://cran.r-project.org/package=parallelMap)
 * Black-box approach for standard tasks.
 * Single- and multi-objective optimization.
 * Implementations of some popular performance indicators in Evolutionary Multi-Objective Optimization (EMOA), e.g., hyper-volume-indicator, epsilon indicator as well as R1, R2 and R3 indicator.
 * Predefined state-of-the-art EMOA algorithms NSGA-II, SMS-EMOA and AS-EMOA.
 
-The best way to illustrate the process of algorithm design in **ecr2** is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package [smoof](https://cran.r-project.org/web/packages/smoof/index.html) and may be initialized as follows:
+The best way to illustrate the process of algorithm design in **ecr2** is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package [smoof](https://cran.r-project.org/package=smoof) and may be initialized as follows:
 ```{r, fig.cap = "One-dimensional Ackley test function.", fig.width = 6, fig.height = 4}
 library(ecr2)
 library(ggplot2)

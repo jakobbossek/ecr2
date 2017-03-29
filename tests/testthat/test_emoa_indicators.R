@@ -138,6 +138,6 @@ test_that("HyperVolume indicator is computed correctly", {
     theoretical = pi * (rpf^2 - rpfa^2) / 4
     expect_true(hvi >= 0)
     expect_true(abs(hvi - theoretical) < 0.01)
-    expect_true(comupteEpsilonIndicator(pf, pfa))
+    expect_true(computeEpsilonIndicator(pfa, pf) > 0)
   }
 })

@@ -1,4 +1,4 @@
-# ecr2: Evolutionary Compution in R (2nd version)
+# ecr2: Evolutionary Computation in R (2nd version)
 
 [![CRAN Status Badge](http://www.r-pkg.org/badges/version/ecr2)](http://cran.r-project.org/web/packages/ecr2)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/ecr2)](http://cran.rstudio.com/web/packages/ecr2/index.html)
@@ -6,13 +6,24 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/eu0nns2dsgocwntw/branch/master?svg=true)](https://ci.appveyor.com/project/jakobbossek/ecr2/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/jakobbossek/ecr2/badge.svg?branch=master)](https://coveralls.io/github/jakobbossek/ecr2?branch=master)
 
-**NOTE:** The **ecr2** package is the official follow-up package to my package [ecr](https://github.com/jakobbossek/ecr). I was unsatisfied with some design choices and thus decided to restructure and rewrite a lot. Changes are that manifold and fundamental, that I decided to set up a new package, since most of the ecr function are either deprecated, renamed or underlie substantial interface changes.
+**NOTE:** The **ecr2** package is the official follow-up package to my package [ecr](https://github.com/jakobbossek/ecr). I was unsatisfied with some design choices and thus decided to restructure and rewrite a lot. Changes are that manifold and fundamental, that I decided to set up a new package, since most of the **ecr** functions are either deprecated, renamed, deleted or underlie substantial interface changes.
 
 ## A gentle introduction
 
-The **ecr2** package is is shortcut for *Evolutionary Computation in R (2nd version)*. It is conceived as a "white-box" framework strongly inspired by the awesome Evolutionary Computation framework DEAP for the Python programming language. In contrast to black-box frameworks, which usually try to hide as lot of internal complexity (e.g., data structures) in opaque high-level EC components, **ecr2** makes the development of evolutionary algorithms - as DEAP does - transparent: the evolutionary loop is written by hand sticking to few conventions and controlling everything. The best way to illustrate the process of algorithm design in **ecr2** is by example.
+The **ecr2** package, *Evolutionary Computation in R (2nd version)*, is conceived as a "white-box" framework for single- and multi-objective optimization strongly inspired by the awesome [Evolutionary Computation (EC) framework DEAP](https://github.com/DEAP/deap) for the Python programming language. In contrast to black-box frameworks, which usually try to hide as much of internal complexity (e.g., data structures) in opaque high-level EC components, **ecr2** makes the development of evolutionary algorithms (EA) - as DEAP does - transparent: the evolutionary loop is written by hand sticking to few conventions, utilizing few simple utility functions and controlling everything. We believe, that this is the most flexible way in evolutionary algorithm design. On top **ecr2** ships with a black-box for *standard tasks*, e.g., optimization of a continuous function, as well. The core features of ecr are the following
 
-Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package [smoof](https://cran.r-project.org/web/packages/smoof/index.html) and may be initialized as follows:
+* Flexible *white-box* approach to EA design and implementation.
+* A lot of predefined EA operators for standard representations, i.e., permutations, binary strings and real-values vectors.
+* Powerful logging mechanism.
+* Possibility to use custom representations/genotypes.
+* Possibility to define custom EA operators, i.e., mutation, variation and selection operators.
+* Easy parallelization via [parallelMap](https://cran.r-project.org/web/packages/parallelMap/index.html)
+* Black-box approach for standard tasks.
+* Single- and multi-objective optimization.
+* Implementations of some popular performance indicators in Evolutionary Multi-Objective Optimization (EMOA), e.g., hyper-volume-indicator, epsilon indicator as well as R1, R2 and R3 indicator.
+* Predefined state-of-the-art EMOA algorithms NSGA-II, SMS-EMOA and AS-EMOA.
+
+The best way to illustrate the process of algorithm design in **ecr2** is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package [smoof](https://cran.r-project.org/web/packages/smoof/index.html) and may be initialized as follows:
 ```splus
 library(ecr2)
 library(ggplot2)

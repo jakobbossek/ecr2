@@ -79,11 +79,7 @@ test_that("permutation based problems work well", {
       # check results
       expect_false(is.null(res))
       expect_equal(res$best.y, 0,
-        info = sprintf("Did not find correct sorting with mutator '%s' and recombinator '%s'.",
-          getOperatorName(mutator),
-          getOperatorName(recombinator)
-        )
-      )
+        info = sprintf("Did not find correct sorting with mutator."))
     }
   }
 })

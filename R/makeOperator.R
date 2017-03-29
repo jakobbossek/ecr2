@@ -27,26 +27,6 @@ makeOperator = function(
 }
 
 #' @title
-#' Get name of a operator.
-#'
-#' @description
-#' Returns the name of the passed operator.
-#'
-#' @param operator [\code{ecr_operator}]\cr
-#'   Operator object.
-#' @return [\code{character(1)}]
-#'   Name of the operator.
-#' @export
-getOperatorName = function(operator) {
-  UseMethod("getOperatorName")
-}
-
-#' @export
-getOperatorName.ecr_operator = function(operator) {
-  attr(operator, "name")
-}
-
-#' @title
 #' Check if given function is an ecr operator.
 #'
 #' @description
@@ -119,24 +99,4 @@ is.supported = function(operator, representation) {
 #' @export
 is.supported.ecr_operator = function(operator, representation) {
   return (representation %in% getSupportedRepresentations(operator))
-}
-
-#' @title
-#' Get the operator's parameters.
-#'
-#' @description
-#' Return a named list of parameters the operator was initialized with.
-#'
-#' @param operator [\code{ecr_operator}]\cr
-#'   Operator object.
-#' @return [\code{list}]
-#'   Named list of parameters.
-#' @export
-getOperatorParameters = function(operator) {
-  UseMethod("getOperatorParameters")
-}
-
-#' @export
-getOperatorParameters.ecr_operator = function(operator) {
-  attr(operator, "params")
 }

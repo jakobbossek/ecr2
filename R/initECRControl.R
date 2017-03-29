@@ -76,22 +76,6 @@ checkCorrectOperatorType = function(operator, class, type) {
 }
 
 # @title
-# Check whether an operator can handle a specific representation.
-#
-# @param operator [ecr_operator]
-#   Operator.
-# @param representation [character(1)]
-#   Representation, i.e., float, binary, permutation or custom.
-# @return [logical(1)]
-checkOperatorIsCompatible = function(operator, representation) {
-  if (!is.supported(operator, representation)) {
-    stopf("Operator '%s' is not compatible with representation '%s'",
-      getOperatorName(operator), representation
-    )
-  }
-}
-
-# @title
 # Helper function which returns the defaults evolutionary operators for the
 # standard representations.
 #

@@ -198,7 +198,7 @@ updateLogger = function(log, population, fitness = NULL, n.evals, ...) {
 
   # grow memory
   if (n.log < log$env$cur.line) {
-    catf("increasing log size! Doubling size: %i -> %i", n.log, 2 * n.log)
+    #catf("increasing log size! Doubling size: %i -> %i", n.log, 2 * n.log)
     log$env$stats = rbind(log$env$stats, makeDataFrame(ncol = ncol(log$env$stats),
       nrow = n.log * 2, col.types = "numeric", col.names = names(log$env$stats)))
 

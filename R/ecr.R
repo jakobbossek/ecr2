@@ -167,30 +167,3 @@ makeECRResult = function(control, log, population, fitness, stop.object, ...) {
     return(setupResult.ecr_single_objective(population, fitness, control, log, stop.object, ...))
   return(setupResult.ecr_multi_objective(population, fitness, control, log, stop.object, ...))
 }
-
-# @title
-# Check operators for compatibility with objectives and representation.
-#
-# @param control [ecr2_control]
-#   Control object.
-# @return Nothing
-checkOperatorCompatibility = function(control) { # nocov start
-  task = control$task
-  selectors = list(control$selectForMating, control$selectForSurvival)
-  desired.obj = if (task$n.objectives == 1L) "single-objective" else "multi-objective"
-  lapply(selectors, function(selector) {
-    if (desired.obj %nin% attr(selector, "supported.objectives")) {
-      stopf("Selector '%s' cannot be applied to problem with %i objectives.",
-        getOperatorName(selector), task$n.objectives)
-    }
-  })
-
-  operators = list(control$mutate, control$recombine, control$generate)
-  operators = BBmisc::filterNull(operators)
-  lapply(operators, function(operator) {
-    if (!is.supported(operator, control$type)) {
-      stopf("Operator '%s' is not compatible with representation '%s'.",
-        getOperatorName(operator), control$type)
-    }
-  })
-} # nocov end

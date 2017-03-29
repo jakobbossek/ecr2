@@ -21,7 +21,7 @@ test_that("mutation operators working on permutation genes create valid offsprin
     for (i in seq(n.reps)) {
       child = mutate(test.ind, NULL)
       expect_true(setequal(test.ind, child), info = sprintf("Mutator '%s' did not produce a valid
-        permutation! Input: (%s), Output: (%s)", getOperatorName(mutate),
+        permutation! Input: (%s), Output: (%s)", "mutate",
         collapse(test.ind), collapse(child)))
     }
   }
@@ -39,7 +39,7 @@ test_that("mutation operators working on real-numbered representation create val
     for (i in seq(n.reps)) {
       child = mutate(test.ind, params)
       expect_true(all(child >= 0 && child <= 1), info = sprintf("Mutator '%s' did not stick to the
-        box constraints! Input: (%s), Output: (%s)", getOperatorName(mutate), collapse(test.ind), collapse(child)))
+        box constraints! Input: (%s), Output: (%s)", "mutate", collapse(test.ind), collapse(child)))
     }
   }
 
@@ -56,7 +56,7 @@ test_that("mutation operators working on binary representation create valid offs
     for (i in seq(n.reps)) {
       child = mutate(test.ind, params)
       expect_true(all(child %in% c(0, 1)), info = sprintf("Mutator '%s' did not produce {0,1}* string! Input: (%s), Output: (%s)",
-        getOperatorName(mutate), collapse(test.ind), collapse(child)))
+        "mutate", collapse(test.ind), collapse(child)))
     }
   }
 })

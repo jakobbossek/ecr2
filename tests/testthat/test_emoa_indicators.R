@@ -101,3 +101,42 @@ test_that("R{1,2,3} indicators are computed correctly.", {
   expect_equal(computeR2Indicator(points = points, ref.points = points), 0)
   expect_equal(computeR3Indicator(points = points, ref.points = points), 0)
 })
+
+test_that("HyperVolume indicator is computed correctly", {
+  # here all the points in the approximation are located on a line
+  #   |
+  #   |
+  # 0 |  o    o
+  #   |   o     o
+  #   |     o     o
+  #   |       o
+  #   |          o
+  #   __________________
+  #               0
+
+  # generate random convex Pareto front shapes, like the one of DTLZ1
+  randConvex = function(n, r) {
+    alphas = runif(n, pi, 1.5 * pi) # draw random degrees from [pi, 3/2 pi]
+    matrix(c(
+      r * cos(alphas),
+      r * sin(alphas)),
+    byrow = TRUE, nrow = 2L)
+  }
+
+  # radius of pf and pf approx
+  rpf = 3
+  rpfa = 2
+
+  # now check if HV indicator is always > 0 and moreover check if in this case
+  # the HV indicator value approximates the theoretical area included between the
+  # fronts
+  for (i in 1:10) {
+    pf = randConvex(1000, rpf)
+    pfa = randConvex(1000, rpfa)
+    r = c(0, 0)
+    hvi = computeHypervolumeIndicator(pfa, pf, r)
+    theoretical = pi * (rpf^2 - rpfa^2) / 4
+    expect_true(hvi >= 0)
+    expect_true(abs(hvi - theoretical) < 0.01)
+  }
+})

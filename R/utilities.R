@@ -55,28 +55,6 @@ wrapChildren = function(...) {
 }
 
 # @title
-#   Convert parameter list to string.
-#
-# @param parameters [\code{list}]\cr
-#   Named list of parameters.
-# @return Nothing
-getParametersAsString = function(parameters) {
-  x = ""
-  n = length(parameters)
-  if (n == 0) {
-    return("no parameters")
-  }
-  for (i in seq(n)) {
-    name = names(parameters)[i]
-    x = paste(x, " ", name, ": ", parameters[[name]], sep = "")
-    if (i < n) {
-      x = paste(x, ",", sep = "")
-    }
-  }
-  return(x)
-}
-
-# @title
 # Add some properties to matrix of fitness values.
 #
 # @param fitness [matrix]

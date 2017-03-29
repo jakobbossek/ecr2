@@ -64,3 +64,7 @@ test_that("initPopulation helper works well", {
     expect_equal(population[[i]], initial.solutions[[i]])
   }
 })
+
+test_that("initPopulation fails if size exceeds mu", {
+  expect_error(initPopulation(5L, gen.fun = genBin, initial.solutions = genBin(10L, 10L), n.bits = 10L))
+})

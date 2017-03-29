@@ -37,7 +37,7 @@ doNondominatedSorting = function(x) {
 }
 
 # Old pure R implementation
-doNondominatedSortingR = function(x) {
+doNondominatedSortingR = function(x) { # nocov start
   # initialize domination front wrapper
   fronts = list()
   fronts[[1L]] = list()
@@ -90,4 +90,4 @@ doNondominatedSortingR = function(x) {
       dom.counter = dom.counter2 # assign the unmodified version
     )
   )
-}
+} # nocov end

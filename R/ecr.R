@@ -174,7 +174,7 @@ makeECRResult = function(control, log, population, fitness, stop.object, ...) {
 # @param control [ecr2_control]
 #   Control object.
 # @return Nothing
-checkOperatorCompatibility = function(control) {
+checkOperatorCompatibility = function(control) { # nocov start
   task = control$task
   selectors = list(control$selectForMating, control$selectForSurvival)
   desired.obj = if (task$n.objectives == 1L) "single-objective" else "multi-objective"
@@ -193,4 +193,4 @@ checkOperatorCompatibility = function(control) {
         getOperatorName(operator), control$type)
     }
   })
-}
+} # nocov end

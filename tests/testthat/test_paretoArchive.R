@@ -32,5 +32,6 @@ test_that("Pareto archive works well", {
     updateParetoArchive(archive, inds = list(9 + i), fitness = matrix(c(11 - i - 0.5, i + 0.5)))
     expect_equal(getSize(archive), max.size)
     expect_true(setequal(unlist(getIndividuals(archive)), 1:10))
+    expect_true(is.matrix(getFront(archive)))
   }
 })

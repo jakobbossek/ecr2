@@ -39,6 +39,7 @@ test_that("recombinators for permutations work as expected", {
 
     # check output
     expect_output(print(recombine), regexp = "ECR2 OPERATOR")
+    expect_true(is.logical(generatesMultipleChildren(recombine)))
 
     for (representation in representations) {
       parentMaker = parent.mapper[[representation]]

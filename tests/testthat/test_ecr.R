@@ -26,9 +26,12 @@ test_that("real-valued smoof function optimization works", {
   for (mu in c(15, 30)) {
     for (lambda in c(15, 30)) {
       for (survival.strategy in c("plus", "comma")) {
+        if (survival.strategy == "comma" & lambda < mu)
+          next
         n.elite = if (survival.strategy == "comma") floor(mu / 3) else 0
         res = ecr(fitness.fun = fitness.fun, n.dim = getNumberOfParameters(fitness.fun),
           n.objectives = 1L, minimize = TRUE,
+          survival.strategy = survival.strategy,
           mu = mu, lambda = lambda, n.elite = n.elite,
           terminators = list(stopOnIters(max.gens)),
           mutator = setupGaussMutator(lower = getLowerBoxConstraints(fitness.fun),

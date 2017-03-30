@@ -1,7 +1,7 @@
 Package: ecr2
 Type: Package
-Title: Evolutionary Computing in R
-Description: Famework for building evolutionary/genetic optimization algorithms for both single- and multiobjective continuous or discrete optimization problems. A set of predefined evolutionary building blocks and operators is included. Moreover, the user can easily set up custom objective functions, operators, building blocks and representations sticking to few conventions. The package allows both a black-box approach for standard tasks (plug-and-play style) and a much more flexible white-box approach where the evolutionary cycle is written by hand.
+Title: Evolutionary Computation in R: Reboot of Ecr
+Description: Framework for building evolutionary algorithms for both single- and multi-objective continuous or discrete optimization problems. A set of predefined evolutionary building blocks and operators is included. Moreover, the user can easily set up custom objective functions, operators, building blocks and representations sticking to few conventions. The package allows both a black-box approach for standard tasks (plug-and-play style) and a much more flexible white-box approach where the evolutionary cycle is written by hand.
 Version: 1.0
 Encoding: UTF-8
 Date: 2017-03-29

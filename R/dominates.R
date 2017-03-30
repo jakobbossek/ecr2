@@ -57,7 +57,7 @@ isDominated = function(x, y) {
 #' @export
 dominated = function(x) {
   assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE)
-  return(.Call("dominated", x, PACKAGE = "ecr2"))
+  return(.Call("dominatedC", x, PACKAGE = "ecr2"))
 }
 
 #' @rdname dominated

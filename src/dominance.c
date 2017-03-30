@@ -47,7 +47,7 @@ static int getDominance(double *points, R_len_t col1, R_len_t col2, R_len_t dim)
  *   Numeric matrix.
  * @return [logical(n)]
  */
-SEXP dominated(SEXP r_points) {
+SEXP dominatedC(SEXP r_points) {
   // first unpack R structures
   EXTRACT_NUMERIC_MATRIX(r_points, c_points, dim, n_points);
 
@@ -97,7 +97,7 @@ SEXP dominated(SEXP r_points) {
  *   Numeric (n x m) matrix.
  * @return [list]
  */
-SEXP doNondominatedSorting(SEXP r_points) {
+SEXP doNondominatedSortingC(SEXP r_points) {
   // unwrap R structure into C objects
   EXTRACT_NUMERIC_MATRIX(r_points, c_points, dim, n_points);
 

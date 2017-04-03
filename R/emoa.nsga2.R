@@ -50,18 +50,18 @@ nsga2 = function(
   upper = NULL,
   mu = 100L,
   lambda = mu,
-  mutator = setupPolynomialMutator(eta = 25, p = 0.2, lower = lower, upper = upper),
-  recombinator = setupSBXRecombinator(eta = 15, p = 0.7, lower = lower, upper = upper),
+  mutator = setup(mutPolynomial, eta = 25, p = 0.2, lower = lower, upper = upper),
+  recombinator = setup(recSBX, eta = 15, p = 0.7, lower = lower, upper = upper),
   terminators = list(stopOnIters(100L)),
   ...) {
 
   res = ecr(fitness.fun = fitness.fun, n.objectives = n.objectives,
     n.dim = n.dim, minimize = minimize, lower = lower, upper = upper,
     mu = mu, lambda = lambda, representation = "float", survival.strategy = "plus",
-    parent.selector = setupSimpleSelector(),
+    parent.selector = selSimple,
     mutator = mutator,
     recombinator = recombinator,
-    survival.selector = setupNondomSelector(),
+    survival.selector = selNondom,
     terminators = terminators)
   return(res)
 }

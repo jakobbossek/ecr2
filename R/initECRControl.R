@@ -96,28 +96,28 @@ getDefaultEvolutionaryOperators = function(representation, type, n.objectives, c
 getSingleObjectiveDefaults = function(representation, type, control) {
   defaults = list(
     "float" = list(
-      "parent.selector" = setupTournamentSelector(k = 2L),
-      "mutator" = try(setupGaussMutator(), silent = TRUE),
-      "recombinator" = setupIntermediateRecombinator(),
-      "survival.selector" = setupGreedySelector()
+      "parent.selector" = setup(selTournament, k = 2L),
+      "mutator" = try(setup(mutGauss), silent = TRUE),
+      "recombinator" = setup(recIntermediate),
+      "survival.selector" = setup(selGreedy)
     ),
     "binary" = list(
-      "parent.selector" = setupTournamentSelector(k = 2L),
-      "mutator" = setupBitflipMutator(),
-      "recombinator" = setupCrossoverRecombinator(),
-      "survival.selector" = setupGreedySelector()
+      "parent.selector" = setup(selTournament, k = 2L),
+      "mutator" = setup(mutBitflip),
+      "recombinator" = setup(recCrossover),
+      "survival.selector" = setup(selGreedy)
     ),
     "permutation" = list(
-      "parent.selector" = setupTournamentSelector(k = 2L),
-      "mutator" = setupSwapMutator(),
-      "recombinator" = setupPMXRecombinator(),
-      "survival.selector" = setupGreedySelector()
+      "parent.selector" = setup(selTournament, k = 2L),
+      "mutator" = setup(mutSwap),
+      "recombinator" = setup(recPMX),
+      "survival.selector" = setup(selGreedy)
     ),
     "custom" = list(
-      "parent.selector" = setupTournamentSelector(k = 2L),
+      "parent.selector" = setup(selTournament, k = 2L),
       "mutator" = NULL,
       "recombinator" = NULL,
-      "survival.selector" = setupGreedySelector()
+      "survival.selector" = setup(selGreedy)
     )
   )
 
@@ -131,28 +131,28 @@ getSingleObjectiveDefaults = function(representation, type, control) {
 getMultiObjectiveDefaults = function(representation, type, control) {
   defaults = list(
     "float" = list(
-      "parent.selector" = setupSimpleSelector(),
-      "mutator" = try(setupGaussMutator(), silent = TRUE),
-      "recombinator" = setupIntermediateRecombinator(),
-      "survival.selector" = setupNondomSelector()
+      "parent.selector" = setup(selSimple),
+      "mutator" = try(setup(mutGauss), silent = TRUE),
+      "recombinator" = setup(recIntermediate),
+      "survival.selector" = setup(selNondom)
     ),
     "binary" = list(
-      "parent.selector" = setupSimpleSelector(),
-      "mutator" = setupBitflipMutator(),
-      "recombinator" = setupCrossoverRecombinator(),
-      "survival.selector" = setupNondomSelector()
+      "parent.selector" = setup(selSimple),
+      "mutator" = setup(mutBitflip),
+      "recombinator" = setup(recCrossover),
+      "survival.selector" = setup(selNondom)
     ),
     "permutation" = list(
-      "parent.selector" = setupSimpleSelector(),
-      "mutator" = setupSwapMutator(),
-      "recombinator" = setupPMXRecombinator(),
-      "survival.selector" = setupNondomSelector()
+      "parent.selector" = setup(selSimple),
+      "mutator" = setup(mutSwap),
+      "recombinator" = setup(recPMX),
+      "survival.selector" = setup(selNondom)
     ),
     "custom" = list(
-      "parent.selector" = setupSimpleSelector(),
+      "parent.selector" = setup(selSimple),
       "mutator" = NULL,
       "recombinator" = NULL,
-      "survival.selector" = setupNondomSelector()
+      "survival.selector" = setup(selNondom)
     )
   )
 

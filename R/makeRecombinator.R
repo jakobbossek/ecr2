@@ -26,7 +26,7 @@ makeRecombinator = function(
   supported = getAvailableRepresentations(),
   n.parents = 2L,
   n.children = NULL) {
-  assertFunction(recombinator, args = c("inds", "par.list"))
+  assertFunction(recombinator)
   assertInt(n.parents, lower = 2L)
   assertInt(n.children, lower = 1L)
 

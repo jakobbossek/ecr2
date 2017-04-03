@@ -47,10 +47,10 @@ ref.point = c(15000, 500L)
 
 # initialize toolbox
 control = initECRControl(fitness.fun, n.objectives = 2L, minimize = c(TRUE, TRUE))
-control = registerECROperator(control, "mutate", setupScrambleMutator())
-control = registerECROperator(control, "recombine", setupOXRecombinator())
-control = registerECROperator(control, "selectForMating", setupSimpleSelector())
-control = registerECROperator(control, "selectForSurvival", setupNondomSelector())
+control = registerECROperator(control, "mutate", mutScramble)
+control = registerECROperator(control, "recombine", recOX)
+control = registerECROperator(control, "selectForMating", selSimple)
+control = registerECROperator(control, "selectForSurvival", selNondom)
 
 # initialize population of random schedules
 population = genPerm(MU, n.jobs)
@@ -84,7 +84,7 @@ for (i in seq_len(MAX.ITER)) {
 
 stats = getStatistics(log)
 pl.stats = plotStatistics(stats) + theme(legend.position = "top")
-# ggsave("emoa_scheduling_statistics.pdf", width = 8, height = 4, plot = pl.stats)
-# pl.front = plotFront(fitness, obj.names = c("SumCi", "Lmax"))
-# ggsave("emoa_scheduling_front.pdf", width = 4, height = 4, plot = pl.front)
-# print(pl.front)
+ggsave("emoa_scheduling_statistics.pdf", width = 7, height = 3, plot = pl.stats)
+pl.front = plotFront(fitness, obj.names = c("SumCi", "Lmax")) + ggtitle("")
+ggsave("emoa_scheduling_front.pdf", width = 3, height = 3, plot = pl.front)
+print(pl.front)

@@ -137,7 +137,7 @@ fn = function(x) {
 lower = c(-5, -5); upper = c(5, 5)
 res = ecr(fn, n.dim = 2L, n.objectives = 1L, lower = lower, upper = lower,
  representation = "float", mu = 20L, lambda = 10L,
-  mutator = setupGaussMutator(lower = lower, upper = upper))
+  mutator = setup(mutGauss, lower = lower, upper = upper))
 }
 \keyword{optimize}
 

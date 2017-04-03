@@ -27,11 +27,10 @@ test_that("recombinators for permutations work as expected", {
     "float" = getRealValuedParents)
 
   # check validity of produced output for each permutation-based recombinator
-  available.recombinators = c(setupPMXRecombinator, setupOXRecombinator,
-    setupCrossoverRecombinator, setupIntermediateRecombinator) # setupSBXRecombinator
+  available.recombinators = c(recPMX, recOX,
+    recCrossover, recIntermediate) # setupSBXRecombinator
 
-  for (recombinatorGenerator in available.recombinators) {
-    recombine = recombinatorGenerator()
+  for (recombine in available.recombinators) {
     representations = getSupportedRepresentations(recombine)
 
     # check type
@@ -47,7 +46,7 @@ test_that("recombinators for permutations work as expected", {
       # generate samples
       for (i in seq(n.reps)) {
         parents = parentMaker(n.parents = 2L)
-        children = recombine(parents, params)
+        children = recombine(parents)
         # check that the child is actually a permutation
         for (j in seq(length(children))) {
           if (representation == "float") {

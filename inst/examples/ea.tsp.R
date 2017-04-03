@@ -32,8 +32,8 @@ res = ecr(fitness.fun = fitness.fun,
   representation = "permutation", perm = n.nodes,
   mu = 50L, lambda = 50L,
   survival.strategy = "plus", n.elite = 25L,
-  survival.selector = setupGreedySelector(),
-  recombinator = setupPMXRecombinator(),
+  survival.selector = selGreedy,
+  recombinator = recPMX,
   terminators = list(stopOnIters(1000L)))
 print(res)
 

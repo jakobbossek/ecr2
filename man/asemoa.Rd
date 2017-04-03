@@ -7,10 +7,10 @@
 asemoa(fitness.fun, n.objectives = NULL, minimize = NULL, n.dim = NULL,
   lower = NULL, upper = NULL, mu = 10L, aspiration.set = NULL,
   normalize.fun = NULL, dist.fun = ecr2:::computeEuclideanDistance, p = 1,
-  parent.selector = setupSimpleSelector(),
-  mutator = setupPolynomialMutator(eta = 25, p = 0.2, lower = lower, upper =
-  upper), recombinator = setupSBXRecombinator(eta = 15, p = 0.7, lower =
-  lower, upper = upper), terminators = list(stopOnIters(100L)))
+  parent.selector = setup(selSimple), mutator = setup(mutPolynomial, eta =
+  25, p = 0.2, lower = lower, upper = upper), recombinator = setup(recSBX, eta
+  = 15, p = 0.7, lower = lower, upper = upper),
+  terminators = list(stopOnIters(100L)))
 }
 \arguments{
 \item{fitness.fun}{[\code{function}]\cr

@@ -5,7 +5,7 @@
 #' The Inversion mutation operator selects two positions within the chromosome at
 #' random and inverts this sub-permutation.
 #'
-#' @return [\code{ecr2_mutator}]
+#' @return [\code{ecr_mutator}]
 #' @export
 setupInversionMutator = function() {
   mutator = function(ind, par.list) {

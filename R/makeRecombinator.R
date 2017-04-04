@@ -34,7 +34,7 @@ makeRecombinator = function(
   attr(recombinator, "n.parents") = n.parents
   attr(recombinator, "n.children") = n.children
 
-  recombinator = addClasses(recombinator, c("ecr2_recombinator"))
+  recombinator = addClasses(recombinator, c("ecr_recombinator"))
 
   return(recombinator)
 }
@@ -43,7 +43,7 @@ generatesMultipleChildren = function(recombinator) {
   UseMethod("generatesMultipleChildren")
 }
 
-generatesMultipleChildren.ecr2_recombinator = function(recombinator) {
+generatesMultipleChildren.ecr_recombinator = function(recombinator) {
   return(attr(recombinator, "n.children") > 0L)
 }
 
@@ -51,7 +51,7 @@ getNumberOfParentsNeededForMating = function(recombinator) {
   UseMethod("getNumberOfParentsNeededForMating")
 }
 
-getNumberOfParentsNeededForMating.ecr2_recombinator = function(recombinator) {
+getNumberOfParentsNeededForMating.ecr_recombinator = function(recombinator) {
   return(attr(recombinator, "n.parents"))
 }
 
@@ -59,6 +59,6 @@ getNumberOfChildren = function(recombinator) {
   UseMethod("getNumberOfChildren")
 }
 
-getNumberOfChildren.ecr2_recombinator = function(recombinator) {
+getNumberOfChildren.ecr_recombinator = function(recombinator) {
   return(attr(recombinator, "n.children"))
 }

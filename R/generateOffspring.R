@@ -62,7 +62,7 @@ generateOffspring = function(control, inds, fitness, lambda, p.recomb = 0.7, p.m
 #' @rdname generateOffspring
 #' @export
 mutate = function(control, inds, p.mut = 0.1, slot = "mutate", ...) {
-  assertClass(control, "ecr2_control")
+  assertClass(control, "ecr_control")
   assertString(slot)
   mutatorFun = control[[slot]]
   mutator.pars = control[[paste0(slot, ".pars")]]
@@ -94,7 +94,7 @@ mutate = function(control, inds, p.mut = 0.1, slot = "mutate", ...) {
 #' @rdname generateOffspring
 #' @export
 recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb = 0.7, slot = "recombine", ...) {
-  assertClass(control, "ecr2_control")
+  assertClass(control, "ecr_control")
   assertString(slot)
   assertList(inds)
   assertMatrix(fitness, ncols = length(inds), min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
@@ -146,7 +146,7 @@ recombinate = function(control, inds, fitness, lambda = length(inds), p.recomb =
 # and produce a (k x lambda) matrix with k being the number of individuals needed for
 # potential recombination.
 #
-# @param control [ecr2_control]
+# @param control [ecr_control]
 #   Control object.
 # @param fitness [matrix]
 #   Matrix of fitness values.

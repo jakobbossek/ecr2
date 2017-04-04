@@ -59,11 +59,11 @@ wrapChildren = function(...) {
 #
 # @param fitness [matrix]
 #   Fitness matrix.
-# @param control [ecr2_control]
+# @param control [ecr_control]
 #   Control object.
-# @return [ecr2_fitness_matrix]
+# @return [ecr_fitness_matrix]
 makeFitnessMatrix = function(fitness, control) {
-  fitness = BBmisc::addClasses(fitness, "ecr2_fitness_matrix")
+  fitness = BBmisc::addClasses(fitness, "ecr_fitness_matrix")
   fitness = BBmisc::setAttribute(fitness, "minimize", control$task$minimize)
   return(fitness)
 }

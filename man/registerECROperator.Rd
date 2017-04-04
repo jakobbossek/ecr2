@@ -7,7 +7,7 @@
 registerECROperator(control, slot, fun, ...)
 }
 \arguments{
-\item{control}{[\code{ecr2_control}]\cr
+\item{control}{[\code{ecr_control}]\cr
 Control object.}
 
 \item{slot}{[\code{character(1)}]\cr

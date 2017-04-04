@@ -6,7 +6,7 @@
 #' @param step [\code{integer(1)}]\cr
 #'   Number of steps of the EA between monitoring.
 #'   Default is 10.
-#' @return [\code{ecr2_monitor}]
+#' @return [\code{ecr_monitor}]
 #' @export
 setupECRDefaultMonitor = function(step = 10L) {
   step = asInt(step)
@@ -17,7 +17,7 @@ setupECRDefaultMonitor = function(step = 10L) {
       catf("Starting optimization process.")
     },
     step = function(log, ...) {
-      assertClass(log, "ecr2_logger")
+      assertClass(log, "ecr_logger")
       gen = log$env$n.gens
       if (gen %% step == 0)
         catf("Generation: %i", gen)

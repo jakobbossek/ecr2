@@ -4,7 +4,7 @@
 #' @description
 #' Chooses two positions at random and swaps the genes.
 #'
-#' @return [\code{ecr2_mutator}]
+#' @return [\code{ecr_mutator}]
 #' @family mutators
 #' @export
 setupSwapMutator = function() {

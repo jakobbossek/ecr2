@@ -2,7 +2,7 @@
 #'
 #' @description Returns the number of stored individuals in Pareto archive.
 #'
-#' @param x [\code{ecr2_pareto_archive}]\cr
+#' @param x [\code{ecr_pareto_archive}]\cr
 #'   Pareto archive.
 #' @return [\code{integer(1)}]
 #' @family ParetoArchive
@@ -12,7 +12,7 @@ getSize = function(x) {
 }
 
 #' @export
-getSize.ecr2_pareto_archive = function(x) {
+getSize.ecr_pareto_archive = function(x) {
   return(x$env$size)
 }
 
@@ -29,7 +29,7 @@ getIndividuals = function(x) {
 }
 
 #' @export
-getIndividuals.ecr2_pareto_archive = function(x) {
+getIndividuals.ecr_pareto_archive = function(x) {
   return(x$env$individuals)
 }
 
@@ -47,6 +47,6 @@ getFront = function(x) {
 }
 
 #' @export
-getFront.ecr2_pareto_archive = function(x) {
+getFront.ecr_pareto_archive = function(x) {
   return(x$env$fitness)
 }

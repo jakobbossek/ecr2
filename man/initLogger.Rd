@@ -8,7 +8,7 @@ initLogger(control, log.stats = list(fitness = list("min", "mean", "max")),
   log.pop = FALSE, init.size = 1000L)
 }
 \arguments{
-\item{control}{[\code{ecr2_control}]\cr
+\item{control}{[\code{ecr_control}]\cr
 Control object.}
 
 \item{log.stats}{[\code{list}]\cr
@@ -33,8 +33,8 @@ overflow occurs.
 Default is 1000.}
 }
 \value{
-[\code{ecr2_logger}]
-  An S3 object of class \code{ecr2_logger} with the following components:
+[\code{ecr_logger}]
+  An S3 object of class \code{ecr_logger} with the following components:
   \describe{
     \item{log.stats}{The \code{log.stats} list.}
     \item{log.pop}{The \code{log.pop} parameter.}

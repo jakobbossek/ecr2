@@ -1,2 +1,2 @@
-#' @param control [\code{ecr2_control}]\cr
+#' @param control [\code{ecr_control}]\cr
 #'   Control object.

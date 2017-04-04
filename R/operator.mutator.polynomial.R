@@ -30,7 +30,7 @@ setupPolynomialMutator = function(p = 0.2, eta = 10, lower, upper) {
   force(upper)
 
   mutator = function(ind, par.list) {
-    child = .Call("polynomialMutationC", ind, as.numeric(lower), as.numeric(upper), p, eta, PACKAGE = "ecr2")
+    child = .Call("polynomialMutationC", ind, as.numeric(lower), as.numeric(upper), p, eta, PACKAGE = "ecr")
     return(child)
   }
 

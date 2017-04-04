@@ -34,7 +34,7 @@ EAseq = function() {
 # wrapper for parallel evaluation with 3 CPU cores
 # Note: This will fail, if your system has less than 3 cores.
 EApar = function() {
-  parallelStartMulticore(cpus = 3L, level = "ecr2.evaluateFitness") # use 3 cpus
+  parallelStartMulticore(cpus = 3L, level = "ecr.evaluateFitness") # use 3 cpus
   runEA()
   parallelStop()
 }

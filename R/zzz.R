@@ -7,9 +7,9 @@
 #' @import ParamHelpers
 #' @importFrom stats median rnorm runif
 #' @importFrom utils tail
-#' @useDynLib ecr2
+#' @useDynLib ecr
 NULL
 
 .onAttach = function(libname, pkgname) {
-  parallelRegisterLevels(package = "ecr2", levels = c("evaluateFitness", "generateOffspring"))
+  parallelRegisterLevels(package = "ecr", levels = c("evaluateFitness", "generateOffspring"))
 }

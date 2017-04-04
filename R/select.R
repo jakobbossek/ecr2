@@ -20,8 +20,8 @@
 #' @name select
 #' @export
 selectForMating = function(control, fitness, n.select) {
-  assertClass(control, "ecr2_control")
-  assertClass(control$selectForMating, "ecr2_selector")
+  assertClass(control, "ecr_control")
+  assertClass(control$selectForMating, "ecr_selector")
   assertMatrix(fitness, min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
   n.select = asInt(n.select, lower = 1L)
 
@@ -32,8 +32,8 @@ selectForMating = function(control, fitness, n.select) {
 #' @rdname select
 #' @export
 selectForSurvival = function(control, fitness, n.select) {
-  assertClass(control, "ecr2_control")
-  assertClass(control$selectForSurvival, "ecr2_selector")
+  assertClass(control, "ecr_control")
+  assertClass(control$selectForSurvival, "ecr_selector")
   assertMatrix(fitness, min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
   n.select = asInt(n.select, lower = 1L)
 

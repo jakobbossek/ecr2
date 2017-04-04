@@ -81,7 +81,7 @@ ecr = function(
   assertChoice(survival.strategy, c("comma", "plus"))
   assertNumber(p.recomb, lower = 0, upper = 1)
   assertNumber(p.mut, lower = 0, upper = 1)
-  assertList(terminators, any.missing = FALSE, all.missing = FALSE, types = "ecr2_terminator")
+  assertList(terminators, any.missing = FALSE, all.missing = FALSE, types = "ecr_terminator")
   mu = asInt(mu, lower = 1L)
   lambda.lower = if (survival.strategy == "plus") 1L else mu
   lambda = asInt(lambda, lower = lambda.lower)

@@ -7,7 +7,7 @@
 toGG(x, drop.stats = character(0L))
 }
 \arguments{
-\item{x}{[\code{ecr2_statistics} | \code{ecr2_logger}]\cr
+\item{x}{[\code{ecr_statistics} | \code{ecr_logger}]\cr
 Logger object or statistics data frame from logger object.}
 
 \item{drop.stats}{[\code{character}]\cr

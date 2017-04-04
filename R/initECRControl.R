@@ -8,13 +8,13 @@
 #' @template arg_fitness_fun
 #' @template arg_n_objectives
 #' @template arg_minimize
-#' @return [\code{ecr2_control}]
+#' @return [\code{ecr_control}]
 #' @name initECRControl
 #' @rdname initECRControl
 #' @export
 initECRControl = function(fitness.fun, n.objectives = NULL, minimize = NULL) {
   task = makeOptimizationTask(fitness.fun, n.objectives = n.objectives, minimize = minimize)
-  makeS3Obj("ecr2_control", task = task)
+  makeS3Obj("ecr_control", task = task)
 }
 
 #FIXME: converter soobench -> params

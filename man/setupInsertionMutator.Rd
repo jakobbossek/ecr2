@@ -7,7 +7,7 @@
 setupInsertionMutator()
 }
 \value{
-[\code{ecr2_mutator}]
+[\code{ecr_mutator}]
 }
 \description{
 The Insertion mutation operator selects a position random and inserts it at

@@ -5,7 +5,7 @@
 #' The Scramble mutation operator selects two positions within the chromosome at
 #' random and randomly intermixes the subsequence between these positions.
 #'
-#' @return [\code{ecr2_mutator}]
+#' @return [\code{ecr_mutator}]
 #' @family mutators
 #' @export
 setupScrambleMutator = function() {

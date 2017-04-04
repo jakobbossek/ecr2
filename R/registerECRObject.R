@@ -4,7 +4,7 @@
 #' function and serves as a storage for evolutionary components used by your evluationary
 #' algorithm. This function handles the registration process.
 #'
-#' @param control [\code{ecr2_control}]\cr
+#' @param control [\code{ecr_control}]\cr
 #'   Control object.
 #' @param slot [\code{character(1)}]\cr
 #'   Name of the field in the control object where to store the operator.
@@ -21,7 +21,7 @@
 #' @return [\code{ecr_control}]
 #' @export
 registerECROperator = function(control, slot, fun, ...) {
-  assertClass(control, "ecr2_control")
+  assertClass(control, "ecr_control")
   assertString(slot)
   assertFunction(fun)
   fun.pars = list(...)

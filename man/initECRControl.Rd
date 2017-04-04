@@ -20,7 +20,7 @@ shall be minimized. If a single logical is passed, it is assumed to be valid
 for each objective.}
 }
 \value{
-[\code{ecr2_control}]
+[\code{ecr_control}]
 }
 \description{
 The control object keeps information on the objective function and a set of

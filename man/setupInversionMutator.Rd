@@ -7,7 +7,7 @@
 setupInversionMutator()
 }
 \value{
-[\code{ecr2_mutator}]
+[\code{ecr_mutator}]
 }
 \description{
 The Inversion mutation operator selects two positions within the chromosome at

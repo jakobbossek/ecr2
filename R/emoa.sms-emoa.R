@@ -36,7 +36,7 @@
 #' @template arg_terminators
 #' @param ... [any]\cr
 #'   Further arguments passed down to fitness function.
-#' @return [\code{ecr2_multi_objective_result}]
+#' @return [\code{ecr_multi_objective_result}]
 #' @export
 smsemoa = function(
   fitness.fun,

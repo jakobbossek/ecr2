@@ -33,7 +33,7 @@
 #' @export
 doNondominatedSorting = function(x) {
   assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE, mode = "numeric")
-  return(.Call("doNondominatedSortingC", x, PACKAGE = "ecr2"))
+  return(.Call("doNondominatedSortingC", x, PACKAGE = "ecr"))
 }
 
 # Old pure R implementation

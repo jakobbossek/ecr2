@@ -17,7 +17,7 @@
 #' @export
 evaluateFitness = function(control, inds, ...) {
   assertList(inds)
-  assertClass(control, "ecr2_control")
+  assertClass(control, "ecr_control")
   fitness.fun = control$task$fitness
   if (is.null(fitness.fun))
     stopf("Fitness function not found in control object. Did you use initECRControl*
@@ -34,7 +34,7 @@ evaluateFitness = function(control, inds, ...) {
     return(fitness)
   }
   fitness = parallelMap(function(x) do.call(fitness.fun, c(list(x), list(...))),
-    inds, level = "ecr2.evaluateFitness")
+    inds, level = "ecr.evaluateFitness")
   # force fitness to be stored in a matrix (be consistent for single and
   # multi-objective fitness funs)
   fitness = do.call(cbind, fitness)

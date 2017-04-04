@@ -7,7 +7,7 @@
 setupOXRecombinator()
 }
 \value{
-[\code{ecr2_recombinator}]
+[\code{ecr_recombinator}]
 }
 \description{
 This recombination operator is specifically designed for permutations.

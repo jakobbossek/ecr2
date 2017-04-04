@@ -27,7 +27,7 @@ Not used.}
 Monitor objects serve for monitoring the optimization process, e.g., printing
 some status messages to the console. Each monitor includes the functions
 \code{before}, \code{step} and \code{after}, each being a function and expecting
-a log \code{log} of type \code{ecr2_logger} and \code{...} as the only parameters.
+a log \code{log} of type \code{ecr_logger} and \code{...} as the only parameters.
 This way the logger has access to the entire log.
 }
 

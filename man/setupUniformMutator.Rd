@@ -14,7 +14,7 @@ Vector of minimal values for each parameter of the decision space.}
 Vector of maximal values for each parameter of the decision space.}
 }
 \value{
-[\code{ecr2_mutator}]
+[\code{ecr_mutator}]
 }
 \description{
 This mutation operator works on real-valued genotypes only. It selects a position

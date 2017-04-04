@@ -8,7 +8,7 @@
 #'   Maximal number of function evaluations. Default ist \code{Inf}.
 #' @param max.iter [\code{integer(1)}]\cr
 #'   Maximal number of iterations. Default ist \code{Inf}.
-#' @return [\code{ecr2_terminator}]
+#' @return [\code{ecr_terminator}]
 #' @family stopping conditions
 #' @rdname stoppingConditions
 #' @name stoppingConditions

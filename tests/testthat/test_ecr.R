@@ -12,7 +12,7 @@ test_that("ONE-MIN optimization works", {
           mu = mu, lambda = lambda, n.elite = n.elite,
           terminators = list(stopOnIters(max.gens)),
           representation = "binary")
-        expect_class(res, "ecr2_result")
+        expect_class(res, "ecr_result")
         expect_equal(res$best.y, 0)
         expect_true(all(unlist(res$best.x) == 0))
       }
@@ -37,7 +37,7 @@ test_that("real-valued smoof function optimization works", {
           mutator = setupGaussMutator(lower = getLowerBoxConstraints(fitness.fun),
             upper = getUpperBoxConstraints(fitness.fun)),
           representation = "float")
-        expect_class(res, "ecr2_result")
+        expect_class(res, "ecr_result")
         expect_false(is.null(res))
         expect_true(res$best.y < 0.1,
           info = sprintf("Did not approximate optimal value with params mu: %i, lambda: %i, strategy: %s",

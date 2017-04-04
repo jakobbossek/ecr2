@@ -18,7 +18,7 @@ Maximal number of function evaluations. Default ist \code{Inf}.}
 Maximal number of iterations. Default ist \code{Inf}.}
 }
 \value{
-[\code{ecr2_terminator}]
+[\code{ecr_terminator}]
 }
 \description{
 Stop the EA after at most \code{max.evals} evaluations of the fitness function.

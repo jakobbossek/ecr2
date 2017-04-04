@@ -74,7 +74,7 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL, objec
     n.objectives = n.objectives,
     minimize = minimize,
     objective.names = objective.names,
-    classes = c("ecr2_optimization_task")
+    classes = c("ecr_optimization_task")
   )
 
   if (isSmoofFunction(fun)) {
@@ -88,7 +88,7 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL, objec
 }
 
 #' @export
-print.ecr2_optimization_task = function(x, ...) {
+print.ecr_optimization_task = function(x, ...) {
   catf("[ecr OPTIMIZATION TASK]")
   n.obj = "Single-objective"
   if (x$n.objectives == 2L) {

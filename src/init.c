@@ -24,8 +24,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"computeDominatedHypervolumeContributionC", (DL_FUNC) &computeDominatedHypervolumeContributionC, 2},
     {"computeEpsilonIndicatorC",                 (DL_FUNC) &computeEpsilonIndicatorC,                 2},
     {"computeRIndicatorC",                       (DL_FUNC) &computeRIndicatorC,                       5},
-    {"dominatedC",                                (DL_FUNC) &dominatedC,                                1},
-    {"doNondominatedSortingC",                    (DL_FUNC) &doNondominatedSortingC,                    1},
+    {"dominatedC",                               (DL_FUNC) &dominatedC,                               1},
+    {"doNondominatedSortingC",                   (DL_FUNC) &doNondominatedSortingC,                   1},
     {"polynomialMutationC",                      (DL_FUNC) &polynomialMutationC,                      5},
     {"simulatedBinaryCrossoverC",                (DL_FUNC) &simulatedBinaryCrossoverC,                5},
     {NULL, NULL, 0}

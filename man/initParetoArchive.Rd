@@ -7,7 +7,7 @@
 initParetoArchive(control, max.size = Inf, trunc.fun = NULL)
 }
 \arguments{
-\item{control}{[\code{ecr2_control}]\cr
+\item{control}{[\code{ecr_control}]\cr
 Control object.}
 
 \item{max.size}{[\code{integer(1)}]\cr
@@ -26,7 +26,7 @@ and \dQuote{inds} which shall be the subsets of \code{fitness} and \code{inds}
 respectively, which should be kept by the archive.}
 }
 \value{
-[\code{ecr2_pareto_archive}]
+[\code{ecr_pareto_archive}]
 }
 \description{
 A Pareto archive is usually used to store all / a part of the

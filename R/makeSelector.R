@@ -30,6 +30,6 @@ makeSelector = function(
   selector = makeOperator(selector, supported)
   selector = setAttribute(selector, "supported.objectives", supported.objectives)
   selector = setAttribute(selector, "supported.opt.direction", supported.opt.direction)
-  selector = addClasses(selector, c("ecr2_selector"))
+  selector = addClasses(selector, c("ecr_selector"))
   return(selector)
 }

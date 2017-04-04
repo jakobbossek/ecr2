@@ -51,14 +51,14 @@ Mutation operator of type \code{ecr_mutator}.}
 Recombination operator of type \code{ecr_recombinator}.}
 
 \item{terminators}{[\code{list}]\cr
-List of stopping conditions of type \dQuote{ecr2_terminator}.
+List of stopping conditions of type \dQuote{ecr_terminator}.
 Default is to stop after 100 iterations.}
 
 \item{...}{[any]\cr
 Further arguments passed down to fitness function.}
 }
 \value{
-[\code{ecr2_multi_objective_result}]
+[\code{ecr_multi_objective_result}]
 }
 \description{
 Pure R implementation of the SMS-EMOA. This algorithm belongs to the group

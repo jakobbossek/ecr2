@@ -20,6 +20,6 @@ makeTerminator = function(condition.fun, name, message) {
 
   condition.fun = setAttribute(condition.fun, "name", name)
   condition.fun = setAttribute(condition.fun, "message", message)
-  condition.fun = addClasses(condition.fun, "ecr2_terminator")
+  condition.fun = addClasses(condition.fun, "ecr_terminator")
   return(condition.fun)
 }

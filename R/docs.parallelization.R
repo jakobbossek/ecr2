@@ -16,5 +16,5 @@
 #' evaluations are computationally more expensive, parallelization leads to
 #' significant running time benefits.
 #'
-#' @name ecr2_parallelization
+#' @name ecr_parallelization
 NULL

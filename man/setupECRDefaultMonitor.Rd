@@ -12,7 +12,7 @@ Number of steps of the EA between monitoring.
 Default is 10.}
 }
 \value{
-[\code{ecr2_monitor}]
+[\code{ecr_monitor}]
 }
 \description{
 Default monitor object that outputs messages to the console

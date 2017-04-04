@@ -11,7 +11,7 @@ selectForMating(control, fitness, n.select)
 selectForSurvival(control, fitness, n.select)
 }
 \arguments{
-\item{control}{[\code{ecr2_control}]\cr
+\item{control}{[\code{ecr_control}]\cr
 Control object.}
 
 \item{fitness}{[\code{matrix}]\cr

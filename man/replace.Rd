@@ -14,7 +14,7 @@ replaceMuCommaLambda(control, population, offspring, fitness = NULL,
   0.1)), 1L))
 }
 \arguments{
-\item{control}{[\code{ecr2_control}]\cr
+\item{control}{[\code{ecr_control}]\cr
 Control object.}
 
 \item{population}{[\code{list}]\cr

@@ -57,7 +57,7 @@ isDominated = function(x, y) {
 #' @export
 dominated = function(x) {
   assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE)
-  return(.Call("dominatedC", x, PACKAGE = "ecr2"))
+  return(.Call("dominatedC", x, PACKAGE = "ecr"))
 }
 
 #' @rdname dominated
@@ -130,7 +130,7 @@ isMaximallyDominated = function(x) {
 #' @param minimize [\code{logical}]\cr
 #'   Logical vector with ith entry \code{TRUE} if the ith objective shall be minimized.
 #'   If a single logical is passed, it is assumed to be valid for each objective.
-#'   If the matrix is of type \code{ecr2_fitness_matrix} (this is the case if it is
+#'   If the matrix is of type \code{ecr_fitness_matrix} (this is the case if it is
 #'   produced by one of ecr2's utility functions, e.g. \code{\link{evaluateFitness}}),
 #'   the appended \code{minimize} attribute is the default.
 #' @return [\code{ggplot}] \pkg{ggplot} object.
@@ -151,7 +151,7 @@ plotFront.matrix = function(x, obj.names = NULL, minimize = TRUE) {
 }
 
 #' @export
-plotFront.ecr2_fitness_matrix = function(x, obj.names = NULL, minimize = attr(x, "minimize")) {
+plotFront.ecr_fitness_matrix = function(x, obj.names = NULL, minimize = attr(x, "minimize")) {
   plotFront.matrix(x, obj.names, minimize = minimize)
 }
 
@@ -181,7 +181,7 @@ plotFront.data.frame = function(x, obj.names = NULL, minimize = TRUE) {
   }
   ns = names(x)
   dirs = ifelse(minimize, "min", "max")
-  BBmisc::requirePackages("ggplot2", why = "ecr2::plotFront")
+  BBmisc::requirePackages("ggplot2", why = "ecr::plotFront")
   pl = ggplot(x, aes_string(x = ns[1L], y = ns[2L])) + geom_point()
   pl = pl + xlab(sprintf("%s (-> %s)", ns[1L], dirs[1L]))
   pl = pl + ylab(sprintf("%s (-> %s)", ns[2L], dirs[2L]))

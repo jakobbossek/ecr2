@@ -14,7 +14,7 @@
 #'   Vector of minimal values for each parameter of the decision space.
 #' @param upper [\code{numeric}]\cr
 #'   Vector of maximal values for each parameter of the decision space.
-#' @return [\code{ecr2_mutator}]
+#' @return [\code{ecr_mutator}]
 #' @family mutators
 #' @export
 setupUniformMutator = function(lower, upper) {

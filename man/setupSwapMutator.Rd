@@ -7,7 +7,7 @@
 setupSwapMutator()
 }
 \value{
-[\code{ecr2_mutator}]
+[\code{ecr_mutator}]
 }
 \description{
 Chooses two positions at random and swaps the genes.

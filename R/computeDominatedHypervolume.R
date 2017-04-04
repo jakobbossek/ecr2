@@ -51,7 +51,7 @@ computeDominatedHypervolume = function(x, ref.point = NULL) {
     return(NaN)
   }
 
-  return(.Call("computeDominatedHypervolumeC", x, ref.point, PACKAGE = "ecr2"))
+  return(.Call("computeDominatedHypervolumeC", x, ref.point, PACKAGE = "ecr"))
 }
 
 #' @export
@@ -64,5 +64,5 @@ computeHypervolumeContribution = function(x, ref.point = NULL, offset = 1) {
   assertNumeric(ref.point, any.missing = FALSE)
   assertNumber(offset, finite = TRUE, lower = 0)
 
-  return(.Call("computeDominatedHypervolumeContributionC", x, ref.point, PACKAGE = "ecr2"))
+  return(.Call("computeDominatedHypervolumeContributionC", x, ref.point, PACKAGE = "ecr"))
 }

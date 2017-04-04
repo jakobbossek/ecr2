@@ -5,7 +5,7 @@
 #' The Insertion mutation operator selects a position random and inserts it at
 #' a random position.
 #'
-#' @return [\code{ecr2_mutator}]
+#' @return [\code{ecr_mutator}]
 #' @family mutators
 #' @export
 setupInsertionMutator = function() {

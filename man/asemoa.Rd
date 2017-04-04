@@ -70,7 +70,7 @@ Mutation operator of type \code{ecr_mutator}.}
 Recombination operator of type \code{ecr_recombinator}.}
 
 \item{terminators}{[\code{list}]\cr
-List of stopping conditions of type \dQuote{ecr2_terminator}.
+List of stopping conditions of type \dQuote{ecr_terminator}.
 Default is to stop after 100 iterations.}
 }
 \value{

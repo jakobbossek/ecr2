@@ -1,12 +1,12 @@
 ---
-title: "Brief introduction to ecr2"
+title: "Brief introduction to ecr"
 author: "Jakob Bossek"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Brief introduction to ecr2}
+  %\VignetteIndexEntry{Brief introduction to ecr}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,7 +18,7 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 
 # A gentle introduction
 
-The **ecr2** package, *Evolutionary Computation in R (2nd version)*, is conceived as a "white-box" framework for single- and multi-objective optimization strongly inspired by the awesome [Evolutionary Computation (EC) framework DEAP](https://github.com/DEAP/deap) for the Python programming language. In contrast to black-box frameworks, which usually try to hide as much of internal complexity (e.g., data structures) in opaque high-level EC components, **ecr2** makes the development of evolutionary algorithms (EA) - as DEAP does - transparent: the evolutionary loop is written by hand sticking to few conventions, utilizing few simple utility functions and controlling everything. We believe, that this is the most flexible way in evolutionary algorithm design. On top **ecr2** ships with a black-box for *standard tasks*, e.g., optimization of a continuous function, as well. The core features of ecr are the following
+The **ecr** package, *Evolutionary Computation in R (2nd version)*, is conceived as a "white-box" framework for single- and multi-objective optimization strongly inspired by the awesome [Evolutionary Computation (EC) framework DEAP](https://github.com/DEAP/deap) for the Python programming language. In contrast to black-box frameworks, which usually try to hide as much of internal complexity (e.g., data structures) in opaque high-level EC components, **ecr** makes the development of evolutionary algorithms (EA) - as DEAP does - transparent: the evolutionary loop is written by hand sticking to few conventions, utilizing few simple utility functions and controlling everything. We believe, that this is the most flexible way in evolutionary algorithm design. On top **ecr** ships with a black-box for *standard tasks*, e.g., optimization of a continuous function, as well. The core features of ecr are the following
 
 * Flexible *white-box* approach to EA design and implementation.
 * A lot of predefined EA operators for standard representations, i.e., permutations, binary strings and real-values vectors.
@@ -31,9 +31,9 @@ The **ecr2** package, *Evolutionary Computation in R (2nd version)*, is conceive
 * Implementations of some popular performance indicators in Evolutionary Multi-Objective Optimization (EMOA), e.g., hyper-volume-indicator, epsilon indicator as well as R1, R2 and R3 indicator.
 * Predefined state-of-the-art EMOA algorithms NSGA-II, SMS-EMOA and AS-EMOA.
 
-The best way to illustrate the process of algorithm design in **ecr2** is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package [smoof](https://cran.r-project.org/package=smoof) and may be initialized as follows:
+The best way to illustrate the process of algorithm design in **ecr** is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package [smoof](https://cran.r-project.org/package=smoof) and may be initialized as follows:
 ```{r, fig.cap = "One-dimensional Ackley test function.", fig.width = 6, fig.height = 4}
-library(ecr2)
+library(ecr)
 library(ggplot2)
 library(smoof)
 fn = makeAckleyFunction(1L)
@@ -80,7 +80,7 @@ print(population[[which.min(fitness)]])
 
 ### Black-box approach
 
-Since the optimization of a continuous numeric function is a standard task in EC, **ecr2** ships with a black-box function `ecr(...)` which basically is a customizable wrapper around the loop above. A lot of tasks can be accomplished by utlizing this single entry point. However, often EA design requires small tweaks, changes and adaptations which are simply impossible to realize with a black box regardless of their flexebility.
+Since the optimization of a continuous numeric function is a standard task in EC, **ecr** ships with a black-box function `ecr(...)` which basically is a customizable wrapper around the loop above. A lot of tasks can be accomplished by utlizing this single entry point. However, often EA design requires small tweaks, changes and adaptations which are simply impossible to realize with a black box regardless of their flexebility.
 
 The optimization of our 1D Ackley-function via `ecr(...)` might look like this:
 ```{r}

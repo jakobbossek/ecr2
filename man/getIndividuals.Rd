@@ -7,7 +7,7 @@
 getIndividuals(x)
 }
 \arguments{
-\item{x}{[\code{ecr2_pareto_archive}]\cr
+\item{x}{[\code{ecr_pareto_archive}]\cr
 Pareto archive.}
 }
 \value{

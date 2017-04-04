@@ -8,7 +8,7 @@
 #' node indizes from the entire sequence of the second parent from the sescond
 #' cut point and b) fill the remaining gaps with this trimmed sequence.
 #'
-#' @return [\code{ecr2_recombinator}]
+#' @return [\code{ecr_recombinator}]
 #' @family recombinators
 #' @export
 setupOXRecombinator = function() {

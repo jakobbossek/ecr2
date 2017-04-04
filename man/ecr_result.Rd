@@ -23,7 +23,7 @@ The single objective result object contains the following fields:
 In case of a solved multi-objective function the result object contains the
 following fields:
 \describe{
-  \item{task}{The \code{ecr2_optimization_task}.}
+  \item{task}{The \code{ecr_optimization_task}.}
   \item{log}{Logger object.}
   \item{pareto.idx}{Indizes of the non-dominated solutions in the last population.}
   \item{pareto.front}{(n x d) matrix of the approximated non-dominated front where n

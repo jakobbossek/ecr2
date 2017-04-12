@@ -140,4 +140,3 @@ res = ecr(fn, n.dim = 2L, n.objectives = 1L, lower = lower, upper = lower,
   mutator = setup(mutGauss, lower = lower, upper = upper))
 }
 \keyword{optimize}
-

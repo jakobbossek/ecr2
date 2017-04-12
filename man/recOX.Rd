@@ -25,4 +25,3 @@ Other recombinators: \code{\link{recCrossover}},
   \code{\link{recIntermediate}}, \code{\link{recPMX}},
   \code{\link{recSBX}}
 }
-

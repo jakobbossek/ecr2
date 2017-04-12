@@ -98,4 +98,3 @@ bridge between Probability, Set Oriented Numerics and Evolutionary Computation
 V, Springer: Berlin Heidelberg 2014.
 }
 \keyword{optimize}
-

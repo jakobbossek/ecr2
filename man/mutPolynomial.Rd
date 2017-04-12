@@ -34,4 +34,3 @@ Other mutators: \code{\link{mutBitflip}},
   \code{\link{mutScramble}}, \code{\link{mutSwap}},
   \code{\link{mutUniform}}
 }
-

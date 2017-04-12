@@ -105,4 +105,3 @@ head(getStatistics(log))
 Other logging: \code{\link{getPopulations}},
   \code{\link{getStatistics}}, \code{\link{updateLogger}}
 }
-

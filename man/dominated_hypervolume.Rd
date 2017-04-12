@@ -41,4 +41,3 @@ that the reference point dominates all of the points in the reference set.
 In case at least one objective is to be maximized the matrix \code{x} needs
 to be transformed accordingly in advance.
 }
-

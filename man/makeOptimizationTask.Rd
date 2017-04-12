@@ -33,4 +33,3 @@ number of objectives, the \dQuote{direction} of optimization, i.e.,
 which objectives should be minimized/maximized and the names of the
 objectives.
 }
-

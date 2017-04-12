@@ -17,4 +17,3 @@ Permutation of integers, i.e., vector of integer values.}
 The Inversion mutation operator selects two positions within the chromosome at
 random and inverts the elements inbetween.
 }
-

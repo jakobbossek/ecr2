@@ -39,4 +39,3 @@ evolutionary algorithm (see \code{\link{nsga2}}).
 Algorithm: NSGA-II. IEEE Transactions on Evolutionary Computation, 6 (8) (2002),
 182-197.
 }
-

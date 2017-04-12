@@ -27,4 +27,3 @@ Other selectors: \code{\link{selDomHV}},
   \code{\link{selGreedy}}, \code{\link{selRoulette}},
   \code{\link{selSimple}}, \code{\link{selTournament}}
 }
-

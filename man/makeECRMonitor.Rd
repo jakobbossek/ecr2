@@ -30,4 +30,3 @@ some status messages to the console. Each monitor includes the functions
 a log \code{log} of type \code{ecr2_logger} and \code{...} as the only parameters.
 This way the logger has access to the entire log.
 }
-

@@ -24,4 +24,3 @@ condition is met.}
 \description{
 Wrap a function within a stopping condition object.
 }
-

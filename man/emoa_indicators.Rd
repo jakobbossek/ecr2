@@ -63,4 +63,3 @@ Hyp(X, R, r). Given a set of point X (\code{points}), another set of reference
 points R (\code{ref.points}) (which maybe the true Pareto front) and a reference
 point r (\code{ref.point}) it is defined as Hyp(X, R, r) = HV(R, r) - HV(X, r).
 }
-

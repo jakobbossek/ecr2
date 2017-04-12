@@ -24,4 +24,3 @@ Other recombinators: \code{\link{recCrossover}},
   \code{\link{recIntermediate}}, \code{\link{recOX}},
   \code{\link{recSBX}}
 }
-

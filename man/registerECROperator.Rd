@@ -33,4 +33,3 @@ In \pkg{ecr2} the control object stores information on the fitness
 function and serves as a storage for evolutionary components used by your evluationary
 algorithm. This function handles the registration process.
 }
-

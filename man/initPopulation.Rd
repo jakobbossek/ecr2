@@ -31,4 +31,3 @@ Further parameters passed to \code{gen.fun}.}
 Generates the initial population. Optionally a set of initial solutions
 can be passed.
 }
-

@@ -17,4 +17,3 @@ Operator object.}
 \description{
 Returns the character vector of representation which the operator supports.
 }
-

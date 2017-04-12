@@ -25,4 +25,3 @@ Default is \code{computeEuclideanDist}.}
 \description{
 Helper to compute distance between a single point and a point set.
 }
-

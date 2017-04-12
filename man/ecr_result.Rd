@@ -34,4 +34,3 @@ following fields:
   \item{message}{Character string describing the reason of termination.}
 }
 }
-

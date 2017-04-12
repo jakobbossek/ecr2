@@ -21,4 +21,3 @@ Vector of strings/names of supported parameter representations. Possible choices
 \description{
 Helper function which constructs a mutator, i. e., a mutation operator.
 }
-

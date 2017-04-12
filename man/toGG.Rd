@@ -21,4 +21,3 @@ Default is the empty character, i.e., not to drop any stats.}
 Transform the data.frame of logged statistics from wide to
 \pkg{ggplot2}-friendly long format.
 }
-

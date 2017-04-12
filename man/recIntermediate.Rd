@@ -22,4 +22,3 @@ Other recombinators: \code{\link{recCrossover}},
   \code{\link{recOX}}, \code{\link{recPMX}},
   \code{\link{recSBX}}
 }
-

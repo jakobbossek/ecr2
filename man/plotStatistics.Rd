@@ -20,4 +20,3 @@ a logger object by calling \code{\link{getStatistics}}, and generates a basic
 line plot. The plot is generated with the \pkg{ggplot2} package and the ggplot
 object is returned.
 }
-

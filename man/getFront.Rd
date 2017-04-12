@@ -18,4 +18,3 @@ Get all non-dominated points in objective space, i.e., an (m x n)
 matrix of fitness with m being the number of objectives and n being the number
 of non-dominated points in the Pareto archive.
 }
-

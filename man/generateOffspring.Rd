@@ -61,4 +61,3 @@ Finally, function \code{generateOffspring} is a wrapper for both \code{recombina
 and \code{mutate}. Both functions are applied subsequently to generate new individuals
 by variation and mutation.
 }
-

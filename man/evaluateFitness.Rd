@@ -26,4 +26,3 @@ returns a matrix of fitness values; even in single-objective optimization a
 This function makes use of \code{\link[parallelMap]{parallelMap}} to
 parallelize the fitness evaluation.
 }
-

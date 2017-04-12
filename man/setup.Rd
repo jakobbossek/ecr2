@@ -49,4 +49,3 @@ ctrl = registerECROperator(ctrl, "mutate", setup(mutBitflip, p = 0.3))
 print(x)
 print(mutate(ctrl, list(x), p.mut = 1, p = 1)[[1]])
 }
-

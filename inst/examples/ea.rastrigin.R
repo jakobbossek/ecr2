@@ -24,9 +24,9 @@ max.iter = 1000L
 
 # Init control object / toolbox
 control = initECRControl(fn)
-control = registerECROperator(control, "mutate", setupUniformMutator(lower = lower, upper = upper))
-control = registerECROperator(control, "selectForMating", setupRouletteWheelSelector())
-control = registerECROperator(control, "selectForSurvival", setupGreedySelector())
+control = registerECROperator(control, "mutate", mutUniform, lower = lower, upper = upper)
+control = registerECROperator(control, "selectForMating", selRoulette)
+control = registerECROperator(control, "selectForSurvival", selGreedy)
 
 # build initial population
 population = initPopulation(mu, genReal, n.dim = 5L, lower = lower, upper = upper)

@@ -6,9 +6,9 @@
 \usage{
 nsga2(fitness.fun, n.objectives = NULL, n.dim = NULL, minimize = NULL,
   lower = NULL, upper = NULL, mu = 100L, lambda = mu,
-  mutator = setupPolynomialMutator(eta = 25, p = 0.2, lower = lower, upper =
-  upper), recombinator = setupSBXRecombinator(eta = 15, p = 0.7, lower =
-  lower, upper = upper), terminators = list(stopOnIters(100L)), ...)
+  mutator = setup(mutPolynomial, eta = 25, p = 0.2, lower = lower, upper =
+  upper), recombinator = setup(recSBX, eta = 15, p = 0.7, lower = lower, upper
+  = upper), terminators = list(stopOnIters(100L)), ...)
 }
 \arguments{
 \item{fitness.fun}{[\code{function}]\cr

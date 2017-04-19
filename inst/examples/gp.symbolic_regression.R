@@ -57,8 +57,8 @@ makeRandomExpression = function(depth = 1L) {
 
 # Generates a mutator, which randomly selects non-terminal elements and replaces
 # them with random reverse polish notation expressions.
-mutator = makeMutator(
-  mutator = function(ind, par.list) {
+mutReplace = makeMutator(
+  mutator = function(ind) {
     if (runif(1L) < 1) {
       # sample until we find a (non-)terminal element and skip all comma symbols
       poss = which(!(ind %in% c("(", ")")))
@@ -102,8 +102,8 @@ res = ecr(fitness.fun = obj.fun, n.objectives = 1L,
   representation = "custom",
   mu = 25L, lambda = 25L,
   survival.strategy = "comma", n.elite = 1L,
-  mutator = mutator,
-  survival.selector = setupGreedySelector(),
+  mutator = mutReplace,
+  survival.selector = selGreedy,
   terminators = list(stopOnIters(500L)),
   lower.bounds = lower, upper.bounds = upper, design = design
 )

@@ -25,21 +25,18 @@ fitness.fun = function(string, target) {
 # helper function to create a mutator for strings, i.e., character vectors.
 # It works by selecting genes, i.e., string positions, with a low probability p,
 # and replacing these with random values from the char.set.
-setupStringMutator = function(p) {
-  force(p)
-  makeMutator(
-    mutator = function(ind, par.list) {
-      # determine which genes to mutate
-      idx = which(runif(length(ind)) < p)
-      n.mut = length(idx)
-      # perform mutation
-      if (n.mut > 0)
-        ind[idx] = sample(char.set, n.mut, replace = TRUE)
-      return(ind)
-    },
-    supported = "custom" # non-standard representation
-  )
-}
+mutString = makeMutator(
+  mutator = function(ind, p) {
+    # determine which genes to mutate
+    idx = which(runif(length(ind)) < p)
+    n.mut = length(idx)
+    # perform mutation
+    if (n.mut > 0)
+      ind[idx] = sample(char.set, n.mut, replace = TRUE)
+    return(ind)
+  },
+  supported = "custom" # non-standard representation
+)
 
 # here we generate the initial population by hand (no generator object)
 initial.solutions = list(sample(char.set, length(target), replace = TRUE))
@@ -47,7 +44,7 @@ initial.solutions = list(sample(char.set, length(target), replace = TRUE))
 res = ecr(fitness.fun, n.objectives = 1L, minimize = TRUE,
   representation = "custom",
   mu = 1L, lambda = 100L,
-  mutator = setupStringMutator(p = 0.05),
+  mutator = setup(mutString, p = 0.05),
   initial.solutions = initial.solutions,
   terminators = list(stopOnIters(200L)),
   # further params for the fitness function

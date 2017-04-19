@@ -22,7 +22,7 @@ runEA = function() {
     representation = "float", n.dim = 2L,
     lower = lower, upper = upper,
     mu = 10L, lambda = 10L,
-    mutator = setupGaussMutator(lower = lower, upper = upper),
+    mutator = setup(mutGauss, lower = lower, upper = upper),
     terminators = list(stopOnIters(30L)))
 }
 
@@ -52,6 +52,7 @@ bench = microbenchmark(
 print(bench, unit = "relative")
 pl = autoplot(bench, log = FALSE)# + ylim(c(0, 50)) + ylab("Time [seconds]")
 print(pl)
+ggsave("benchmark_parallelization.pdf", width = 7, height = 3, plot = pl)
 # Unit: relative
 #     expr   min    lq  mean median    uq  max neval cld
 #  EAseq() 2.429 2.349 2.379   2.36 2.346 2.42    10   b

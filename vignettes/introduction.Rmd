@@ -53,8 +53,8 @@ upper = getUpperBoxConstraints(fn)
 In order to implement this algorithm the first step is to define a *control object*, which stores information on the objective function and a set of evolutionary operators.
 ```{r}
 control = initECRControl(fn)
-control = registerECROperator(control, "mutate", setupGaussMutator(sdev = 2, lower = lower, upper = upper))
-control = registerECROperator(control, "selectForSurvival", setupGreedySelector())
+control = registerECROperator(control, "mutate", mutGauss, sdev = 2, lower = lower, upper = upper)
+control = registerECROperator(control, "selectForSurvival", selGreedy)
 ```
 Here, we decide to perform mutation only. The best mu individuals (regarding fitness values) are going to be selected to build up the next generation.
 
@@ -88,7 +88,7 @@ res = ecr(fitness.fun = fn, representation = "float",
   n.dim = getNumberOfParameters(fn), survival.strategy = "plus",
   lower = lower, upper = upper,
   mu = MU, lambda = LAMBDA,
-  mutator = setupGaussMutator(sdev = 2, lower = lower, upper = upper),
+  mutator = setup(mutGauss, sdev = 2, lower = lower, upper = upper),
   terminators = list(stopOnIters(MAX.ITER)))
 print(res$best.y)
 print(res$best.x)

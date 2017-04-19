@@ -47,8 +47,8 @@ smsemoa = function(
   upper = NULL,
   mu = 100L,
   ref.point = NULL,
-  mutator = setupPolynomialMutator(eta = 25, p = 0.2, lower = lower, upper = upper),
-  recombinator = setupSBXRecombinator(eta = 15, p = 0.7, lower = lower, upper = upper),
+  mutator = setup(mutPolynomial, eta = 25, p = 0.2, lower = lower, upper = upper),
+  recombinator = setup(recSBX, eta = 15, p = 0.7, lower = lower, upper = upper),
   terminators = list(stopOnIters(100L)),
   ...) {
 
@@ -63,10 +63,10 @@ smsemoa = function(
   res = ecr(fitness.fun = fitness.fun, n.objectives = n.objectives,
     n.dim = n.dim, minimize = minimize, lower = lower, upper = upper,
     mu = 100L, lambda = 1L, representation = "float", survival.strategy = "plus",
-    parent.selector = setupSimpleSelector(),
+    parent.selector = selSimple,
     mutator = mutator,
     recombinator = recombinator,
-    survival.selector = setupDominatedHypervolumeSelector(ref.point = ref.point),
+    survival.selector = setup(selDomHV, ref.point = ref.point),
     terminators = terminators)
 
   return(res)

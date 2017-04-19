@@ -58,7 +58,7 @@ for (i in seq_len(n.reps)) {
     representation = "float", n.dim = getNumberOfParameters(fitness.fun),
     mu = 50L, lambda = 10L, lower = lower, upper = upper,
     terminators = list(stopOnIters(100L)),
-    mutator = setupGaussMutator(sdev = 0.05, lower = lower, upper = upper))
+    mutator = setup(mutGauss, sdev = 0.05, lower = lower, upper = upper))
 
   # save new non-inferior point
   pareto.set[i, ] = as.numeric(res$best.x[[1L]])

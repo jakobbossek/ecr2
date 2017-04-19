@@ -22,10 +22,10 @@ MAX.ITER = 100L
 
 # initialize toolbox
 control = initECRControl(fitness.fun, n.objectives = 1L, minimize = FALSE)
-control = registerECROperator(control, "mutate", setupBitflipMutator(p = 1 / n.bits))
-control = registerECROperator(control, "recombine", setupCrossoverRecombinator())
-control = registerECROperator(control, "selectForMating", setupTournamentSelector(k = 2L))
-control = registerECROperator(control, "selectForSurvival", setupGreedySelector())
+control = registerECROperator(control, "mutate", mutBitflip, p = 1 / n.bits)
+control = registerECROperator(control, "recombine", recCrossover)
+control = registerECROperator(control, "selectForMating", selTournament, k = 2L)
+control = registerECROperator(control, "selectForSurvival", selGreedy)
 
 # initialize population of MU random bitstring
 population = genBin(MU, n.bits)
@@ -67,7 +67,7 @@ set.seed(1)
 res = ecr(fitness.fun = fitness.fun, n.objectives = 1L, minimize = FALSE,
   representation = "binary", n.bits = n.bits,
   mu = MU, lambda = LAMBDA, survival.strategy = "plus",
-  mutator = setupBitflipMutator(p = 1 / n.bits),
+  mutator = setup(mutBitflip, p = 1 / n.bits),
   p.mut = 0.7, p.recomb = 0.3, terminators = list(stopOnIters(MAX.ITER)))
 
 print(res$best.y)

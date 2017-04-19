@@ -1,15 +1,17 @@
 #' @title
-#' Generator for the Insertion mutation operator.
+#' Insertion mutator.
 #'
 #' @description
 #' The Insertion mutation operator selects a position random and inserts it at
 #' a random position.
 #'
-#' @return [\code{ecr_mutator}]
+#' @param ind [\code{integer}]\cr
+#'   Permutation of integers, i.e., vector of integer values.
+#' @return [\code{integer}]
 #' @family mutators
 #' @export
-setupInsertionMutator = function() {
-  mutator = function(ind, par.list) {
+mutInsertion = makeMutator(
+  mutator = function(ind) {
     n = length(ind)
     # select a random position and insert it at another random location
     idx = sample(seq(n), size = 2L)
@@ -22,10 +24,5 @@ setupInsertionMutator = function() {
     ind[idx[1]:(idx[2] - offset)] = ind[(idx[1] + offset):idx[2]]
     ind[idx[2]] = tmp
     return(ind)
-  }
-
-  makeMutator(
-    mutator = mutator,
-    supported = "permutation"
-  )
-}
+  },
+  supported = "permutation")

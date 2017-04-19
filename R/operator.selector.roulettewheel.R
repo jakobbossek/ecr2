@@ -1,11 +1,10 @@
 #' @title
-#' Generator for Roulette-Wheel-Selection (fitness-proportional selection).
+#' Roulette-wheel / fitness-proportional selector.
 #'
 #' @description
-#' Selects genes for the mating pool. The chance of an individual to get selected
-#' is proportional to its fitness, i.e., better individuals get a higher chance
-#' to take part in the reproduction process. Low-fitness individuals however,
-#' have a positive fitness as well.
+#' The chance of an individual to get selected is proportional to its fitness,
+#' i.e., better individuals get a higher chance to take part in the reproduction
+#' process. Low-fitness individuals however, have a positive fitness as well.
 #'
 #' @details
 #' Fitness proportional selection can be naturally applied to single objective
@@ -16,6 +15,8 @@
 #' value to be zero and thus have a zero probability of being selected an additional
 #' positive constant \code{offset} is added (see parameters).
 #'
+#' @template arg_fitness
+#' @template arg_n_select
 #' @param offset [\code{numeric(1)}]\cr
 #'   In case of negative fitness values all values are shifted towards positive
 #'   values by adding the negative of the minimal fitness value. However, in this
@@ -27,12 +28,10 @@
 #' @return [\code{setOfIndividuals}]
 #' @family selectors
 #' @export
-setupRouletteWheelSelector = function(offset = 0.1) {
-  assertNumber(offset, na.ok = FALSE, lower = 0, finite = TRUE)
+selRoulette = makeSelector(
+  selector = function(fitness, n.select, offset = 0.1) {
+    assertNumber(offset, na.ok = FALSE, lower = 0, finite = TRUE)
 
-  force(offset)
-
-  selector = function(fitness, n.select, par.list = list()) {
     fitness = as.numeric(fitness)
 
     # shift negative values
@@ -45,10 +44,6 @@ setupRouletteWheelSelector = function(offset = 0.1) {
     prob = fitness / sum(fitness)
     idx = sample(seq_along(fitness), size = n.select, replace = TRUE, prob = prob)
     return(idx)
-  }
-  makeSelector(
-    selector = selector,
-    supported.objectives = "single-objective",
-    supported.opt.direction = "maximize"
-  )
-}
+  },
+  supported.objectives = "single-objective",
+  supported.opt.direction = "maximize")

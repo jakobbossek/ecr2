@@ -7,8 +7,8 @@ test_that("mutate helper works if control is passed", {
 
   # setup control
   control = initECRControl(fitness.fun)
-  control = registerECROperator(control, "mutate", setupGaussMutator(lower = rep(-1, 10L),
-    upper = rep(1, 10L)))
+  control = registerECROperator(control, "mutate", mutGauss, lower = rep(-1, 10L),
+    upper = rep(1, 10L))
   inds = genReal(10L, 10L, -1, 1)
 
   # now mutate with prob 1 and pass additional arguments

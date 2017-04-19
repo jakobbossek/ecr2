@@ -34,7 +34,7 @@ test_that("real-valued smoof function optimization works", {
           survival.strategy = survival.strategy,
           mu = mu, lambda = lambda, n.elite = n.elite,
           terminators = list(stopOnIters(max.gens)),
-          mutator = setupGaussMutator(lower = getLowerBoxConstraints(fitness.fun),
+          mutator = setup(mutGauss, lower = getLowerBoxConstraints(fitness.fun),
             upper = getUpperBoxConstraints(fitness.fun)),
           representation = "float")
         expect_class(res, "ecr_result")
@@ -66,10 +66,8 @@ test_that("permutation based problems work well", {
   }
 
   # check it for a selection of mutators for permutations
-  for (mutatorGenerator in c(setupSwapMutator, setupInversionMutator, setupInsertionMutator)) {
-    for (recombinatorGenerator in c(setupPMXRecombinator, setupOXRecombinator)) {
-      mutator = mutatorGenerator()
-      recombinator = recombinatorGenerator()
+  for (mutator in c(setup(mutSwap), setup(mutInversion), setup(mutInsertion))) {
+    for (recombinator in c(setup(recPMX), setup(recOX))) {
       res = ecr(fitness.fun = fitness.fun,
         representation = "permutation", perm = perm.len,
         n.objectives = 1L, minimize = TRUE,
@@ -95,7 +93,7 @@ test_that("ecr works for maximization", {
   res = ecr(fitness.fun = fitness.fun,
     representation = "float",
     mu = 10L, lambda = 10L, survival.strategy = "plus",
-    mutator = setupGaussMutator(lower = getLowerBoxConstraints(fitness.fun),
+    mutator = setup(mutGauss, lower = getLowerBoxConstraints(fitness.fun),
       upper = getUpperBoxConstraints(fitness.fun)),
     terminators = list(stopOnIters(100L)))
 

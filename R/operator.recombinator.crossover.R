@@ -1,5 +1,5 @@
 #' @title
-#' Generator of the one-point crossover recombination operator.
+#' One-point crossover recombinator.
 #'
 #' @description
 #' The one-point crossover recombinator is defined for float and binary
@@ -12,11 +12,13 @@
 #' If the parents are list of real-valued/binary vectors, the procedure described
 #' above is applied to each element of the list.
 #'
-#' @return [\code{ecr_recombinator}]
+#' @param inds [\code{list}]\cr
+#'   Parents, i.e., list of exactly two numeric or binary vectors of equal length.
+#' @return [\code{list}]
 #' @family recombinators
 #' @export
-setupCrossoverRecombinator = function() {
-  recombinator = function(inds, par.list) {
+recCrossover = makeRecombinator(
+  recombinator = function(inds) {
     n = length(inds[[1L]])
 
     # recombinate sub genes
@@ -32,12 +34,7 @@ setupCrossoverRecombinator = function() {
     child2[1:idx] = parent2[1:idx]
 
     return(wrapChildren(child1, child2))
-  }
-
-  makeRecombinator(
-    recombinator = recombinator,
-    n.parents = 2L,
-    supported = c("float", "binary"),
-    n.children = 2L
-  )
-}
+  },
+  n.parents = 2L,
+  supported = c("float", "binary"),
+  n.children = 2L)

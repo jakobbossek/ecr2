@@ -65,11 +65,11 @@ asemoa = function(
   mu = 10L,
   aspiration.set = NULL,
   normalize.fun = NULL,
-  dist.fun = ecr2:::computeEuclideanDistance,
+  dist.fun = ecr:::computeEuclideanDistance,
   p = 1,
-  parent.selector = setupSimpleSelector(),
-  mutator = setupPolynomialMutator(eta = 25, p = 0.2, lower = lower, upper = upper),
-  recombinator = setupSBXRecombinator(eta = 15, p = 0.7, lower = lower, upper = upper),
+  parent.selector = setup(selSimple),
+  mutator = setup(mutPolynomial, eta = 25, p = 0.2, lower = lower, upper = upper),
+  recombinator = setup(recSBX, eta = 15, p = 0.7, lower = lower, upper = upper),
   terminators = list(stopOnIters(100L))) {
 
   if (isSmoofFunction(fitness.fun)) {
@@ -174,7 +174,7 @@ asemoa = function(
 
   # Implementation of surival selection operator of the AS-EMOA algorithm.
   asemoaSelector = makeSelector(
-    selector = function(fitness, n.select, par.list) {
+    selector = function(fitness, n.select) {
       n.archive = ncol(aspiration.set)
 
       # get offspring

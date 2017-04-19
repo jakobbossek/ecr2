@@ -1,5 +1,5 @@
 #' @title
-#' Generator of the Ordered-Crossover (OX) recombination operator.
+#' Ordered-Crossover (OX) recombinator.
 #'
 #' @description
 #' This recombination operator is specifically designed for permutations.
@@ -8,11 +8,13 @@
 #' node indizes from the entire sequence of the second parent from the sescond
 #' cut point and b) fill the remaining gaps with this trimmed sequence.
 #'
-#' @return [\code{ecr_recombinator}]
+#' @param inds [\code{list}]\cr
+#'   Parents, i.e., list of exactly two permutations (vectors of integer values) of equal length.
+#' @return [\code{list}]
 #' @family recombinators
 #' @export
-setupOXRecombinator = function() {
-  recombinator = function(inds, par.list) {
+recOX = makeRecombinator(
+  recombinator = function(inds) {
     p1 = inds[[1L]]
     p2 = inds[[2L]]
     n = length(p1)
@@ -54,12 +56,7 @@ setupOXRecombinator = function() {
     c2[(cut2:(cut2 + n.miss) %% n) + 1L] = r2
 
     return(wrapChildren(c1, c2))
-  }
-
-  makeRecombinator(
-    recombinator = recombinator,
-    supported = "permutation",
-    n.parents = 2L,
-    n.children = 2L
-  )
-}
+  },
+  supported = "permutation",
+  n.parents = 2L,
+  n.children = 2L)

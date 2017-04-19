@@ -6,11 +6,13 @@
 #' criterion to select a subset of individuals. This is the selector used by the
 #' NSGA-II EMOA (see \code{\link{nsga2}}).
 #'
+#' @template arg_fitness
+#' @template arg_n_select
 #' @return [\code{setOfIndividuals}]
 #' @family selectors
 #' @export
-setupNondomSelector = function() {
-  selector = function(fitness, n.select, par.list = list()) {
+selNondom = makeSelector(
+  selector = function(fitness, n.select) {
     nondom.layers = doNondominatedSorting(fitness)
 
     # storage for indizes of selected individuals
@@ -48,10 +50,5 @@ setupNondomSelector = function() {
 
     # merge the stuff and return
     return(new.pop.idxs)
-  }
-
-  makeSelector(
-    selector = selector,
-    supported.objectives = "multi-objective"
-  )
-}
+  },
+  supported.objectives = "multi-objective")

@@ -39,9 +39,9 @@
 #' @examples
 #' control = initECRControl(function(x) sum(x), minimize = TRUE,
 #'   n.objectives = 1L)
-#' control = registerECROperator(control, "mutate", setupBitflipMutator(0.1))
-#' control = registerECROperator(control, "selectForMating", setupTournamentSelector())
-#' control = registerECROperator(control, "selectForSurvival", setupGreedySelector())
+#' control = registerECROperator(control, "mutate", mutBitflip, p = 0.1)
+#' control = registerECROperator(control, "selectForMating", selTournament, k = 2)
+#' control = registerECROperator(control, "selectForSurvival", selGreedy)
 #'
 #' log = initLogger(control,
 #'   log.stats = list(

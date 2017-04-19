@@ -32,4 +32,3 @@ copies.
 Other logging: \code{\link{getPopulations}},
   \code{\link{getStatistics}}, \code{\link{initLogger}}
 }
-

@@ -25,4 +25,3 @@ Simple getter for the logged fitness statistics.
 Other logging: \code{\link{getPopulations}},
   \code{\link{initLogger}}, \code{\link{updateLogger}}
 }
-

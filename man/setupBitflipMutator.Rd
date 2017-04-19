@@ -28,4 +28,3 @@ Other mutators: \code{\link{setupGaussMutator}},
   \code{\link{setupSwapMutator}},
   \code{\link{setupUniformMutator}}
 }
-

@@ -24,4 +24,3 @@ a point and return a logical vector. The i-th position of the latter is
 \code{dominated} and \code{FALSE} for \code{nonDominated}.
 }
 \keyword{optimize}
-

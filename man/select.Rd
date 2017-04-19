@@ -37,4 +37,3 @@ Both functions check the optimization directions stored in the task
 inside the control object, i.e., whether to minimize or maximize each objective,
 and transparently prepare/transform the \code{fitness} matrix for the selector.
 }
-

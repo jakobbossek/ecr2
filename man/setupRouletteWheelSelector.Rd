@@ -41,4 +41,3 @@ Other selectors: \code{\link{setupDominatedHypervolumeSelector}},
   \code{\link{setupSimpleSelector}},
   \code{\link{setupTournamentSelector}}
 }
-

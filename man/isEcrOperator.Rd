@@ -16,4 +16,3 @@ Arbitrary R object to check.}
 \description{
 Checks if the passed object is of type \code{ecr_operator}.
 }
-

@@ -39,4 +39,3 @@ At the moment only two-dimensional objective spaces are supported.
 \examples{
 matrix
 }
-

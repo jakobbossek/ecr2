@@ -20,4 +20,3 @@ Representation as a string.}
 \description{
 Check if the given operator supportds a certain representation, e.g., \dQuote{float}.
 }
-

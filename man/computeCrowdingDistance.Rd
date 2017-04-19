@@ -24,4 +24,3 @@ multiobjective genetic algorithm: NSGA-II, IEEE Transactions on Evolutionary
 Computation In Evolutionary Computation, IEEE Transactions on, Vol. 6, No. 2.
 (07 April 2002), pp. 182-197, doi:10.1109/4235.996017
 }
-

@@ -34,4 +34,3 @@ If a recombinator returns more than one child, the \code{multiple.children}
 parameter needs to be \code{TRUE}, which is the default. In case of multiple
 children produced these have to be placed within a list.
 }
-

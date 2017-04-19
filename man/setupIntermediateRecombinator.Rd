@@ -23,4 +23,3 @@ Other recombinators: \code{\link{setupCrossoverRecombinator}},
   \code{\link{setupPMXRecombinator}},
   \code{\link{setupSBXRecombinator}}
 }
-

@@ -20,4 +20,3 @@ Other mutators: \code{\link{setupBitflipMutator}},
   \code{\link{setupScrambleMutator}},
   \code{\link{setupUniformMutator}}
 }
-

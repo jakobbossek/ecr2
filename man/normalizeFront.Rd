@@ -25,4 +25,3 @@ Default is the row-wise maximum of \code{A}.}
 Normalization is done by subtracting the \code{min.value} for each dimension
 and dividing by the \code{max.value} for each dimension by default.
 }
-

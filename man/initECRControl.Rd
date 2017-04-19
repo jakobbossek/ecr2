@@ -26,4 +26,3 @@ for each objective.}
 The control object keeps information on the objective function and a set of
 evolutionary components, i.e., operators.
 }
-

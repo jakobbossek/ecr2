@@ -2,8 +2,8 @@
 % Please edit documentation in R/replace.R
 \name{replace}
 \alias{replace}
-\alias{replaceMuCommaLambda}
 \alias{replaceMuPlusLambda}
+\alias{replaceMuCommaLambda}
 \title{(mu + lambda) selection}
 \usage{
 replaceMuPlusLambda(control, population, offspring, fitness = NULL,
@@ -47,4 +47,3 @@ Takes a population of mu individuals and another set of lambda
 offspring individuals and selects mu individuals out of the union set according
 to the survival selection strategy stored in the control object.
 }
-

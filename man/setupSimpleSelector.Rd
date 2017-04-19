@@ -20,4 +20,3 @@ Other selectors: \code{\link{setupDominatedHypervolumeSelector}},
   \code{\link{setupRouletteWheelSelector}},
   \code{\link{setupTournamentSelector}}
 }
-

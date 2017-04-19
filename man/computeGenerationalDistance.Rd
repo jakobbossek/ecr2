@@ -33,4 +33,3 @@ Default is \code{computeEuclideanDist}.}
 \description{
 Helper to compute the Generational Distance (GD) between two sets of points.
 }
-

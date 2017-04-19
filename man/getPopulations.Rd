@@ -29,4 +29,3 @@ This functions throws an error if the logger was initialized with
 Other logging: \code{\link{getStatistics}},
   \code{\link{initLogger}}, \code{\link{updateLogger}}
 }
-

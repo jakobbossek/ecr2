@@ -24,4 +24,3 @@ Helper function which constructs an evolutionary operator.
 In general you will not need this function, but rather one of its
 deriviatives like \code{\link{makeMutator}} or \code{\link{makeSelector}}.
 }
-

@@ -55,7 +55,7 @@
  * @return double
  */
 //JB: FIXME: rename the poorly named vars
-static double computeEpsilonIndicator(
+static double emoaIndEps(
   double *a, const size_t n_a,
   double *b, const size_t n_b,
   const size_t dim, unsigned int method) {
@@ -106,12 +106,12 @@ static double computeEpsilonIndicator(
  *   R matrix (each column contains one point of the reference set).
  * @return [numeric(1)] Unary epsilon-indicator value.
  */
-SEXP computeEpsilonIndicatorC(SEXP points, SEXP ref_points) {
+SEXP emoaIndEpsC(SEXP points, SEXP ref_points) {
   // get that stuff from R
   EXTRACT_NUMERIC_MATRIX(points, c_points, n_objectives, n_points);
   EXTRACT_NUMERIC_MATRIX(ref_points, c_ref_points, n_ref_objectives, n_ref_points);
 
-  double eps_ind = computeEpsilonIndicator(
+  double eps_ind = emoaIndEps(
     c_ref_points, n_ref_points,
     c_points, n_points,
     n_objectives,

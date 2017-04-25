@@ -10,7 +10,7 @@ test_that("Pareto archive works well", {
 
   # truncation operator based on hypervolume contribution
   truncateByHVContr = function(inds, fitness, max.size, ...) {
-    hvcs = computeHypervolumeContribution(fitness, ...)
+    hvcs = computeHVContr(fitness, ...)
     hvcs.ord = order(hvcs, decreasing = TRUE)
     return(list(
       individuals = inds[hvcs.ord[seq_len(max.size)]],

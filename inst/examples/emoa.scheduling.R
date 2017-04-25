@@ -59,7 +59,7 @@ fitness = evaluateFitness(control, population)
 # initialize logger (store HV)
 log = initLogger(control,
   log.stats = list(fitness = list("HV" = list(
-    fun = computeDominatedHypervolume,
+    fun = computeHV,
     pars = list(ref.point = ref.point)))),
   init.size = MAX.ITER)
 updateLogger(log, population, fitness = fitness, n.evals = MU)

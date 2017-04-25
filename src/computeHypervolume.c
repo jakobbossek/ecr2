@@ -12,7 +12,7 @@
  *   Reference point.
  * @return [numeric(1)] Dominated hypervolume.
 **/
-SEXP computeDominatedHypervolumeC(SEXP r_points, SEXP r_ref_point) {
+SEXP computeHVC(SEXP r_points, SEXP r_ref_point) {
   // unpack R data
   EXTRACT_NUMERIC_MATRIX(r_points, c_points, dim, n_points);
   EXTRACT_NUMERIC_VECTOR(r_ref_point, c_ref_point, len_ref);
@@ -37,7 +37,7 @@ SEXP computeDominatedHypervolumeC(SEXP r_points, SEXP r_ref_point) {
  *   Reference point, e.g., the nadir point.
  * @return [numeric] Vector of hypervolume contributions.
 **/
-SEXP computeDominatedHypervolumeContributionC(SEXP r_points, SEXP r_ref_point) {
+SEXP computeHVContributionC(SEXP r_points, SEXP r_ref_point) {
   // unpack imcoming R data
   // JB: compatibility of dimensions is checked in R
   EXTRACT_NUMERIC_MATRIX(r_points, c_points, dim, n_points);

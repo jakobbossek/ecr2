@@ -2,9 +2,9 @@
 #' Functions for the calculation of the dominated hypervolume (contribution).
 #'
 #' @description
-#' The function \code{computeDominatedHypervolume} computes the dominated
+#' The function \code{computeHV} computes the dominated
 #' hypervolume of a set of points given a reference set whereby
-#' \code{computeHypervolumeContribution} computes the hypervolume contribution
+#' \code{computeHVContr} computes the hypervolume contribution
 #' of each point.
 #'
 #' If no reference point is given the nadir point of the set \code{x} is
@@ -24,11 +24,11 @@
 #'   Offset to be added to each component of the reference point only in the case
 #'   where no reference is provided and one is calculated automatically.
 #' @return [\code{numeric(1)}] Dominated hypervolume in the case of
-#'  \code{computeDominatedHypervolume} and the dominated hypervolume contributions
-#'  for each point in the case of \code{computeHypervolumeContribution}.
+#'  \code{computeHV} and the dominated hypervolume contributions
+#'  for each point in the case of \code{computeHVContr}.
 #' @rdname dominated_hypervolume
 #' @export
-computeDominatedHypervolume = function(x, ref.point = NULL) {
+computeHV = function(x, ref.point = NULL) {
   # sanity checks
   assertMatrix(x, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
 
@@ -51,12 +51,12 @@ computeDominatedHypervolume = function(x, ref.point = NULL) {
     return(NaN)
   }
 
-  return(.Call("computeDominatedHypervolumeC", x, ref.point, PACKAGE = "ecr"))
+  return(.Call("computeHVC", x, ref.point, PACKAGE = "ecr"))
 }
 
 #' @export
 #' @rdname dominated_hypervolume
-computeHypervolumeContribution = function(x, ref.point = NULL, offset = 1) {
+computeHVContr = function(x, ref.point = NULL, offset = 1) {
   if (is.null(ref.point)) {
     ref.point = approximateNadirPoint(x) + offset
   }
@@ -64,5 +64,5 @@ computeHypervolumeContribution = function(x, ref.point = NULL, offset = 1) {
   assertNumeric(ref.point, any.missing = FALSE)
   assertNumber(offset, finite = TRUE, lower = 0)
 
-  return(.Call("computeDominatedHypervolumeContributionC", x, ref.point, PACKAGE = "ecr"))
+  return(.Call("computeHVContributionC", x, ref.point, PACKAGE = "ecr"))
 }

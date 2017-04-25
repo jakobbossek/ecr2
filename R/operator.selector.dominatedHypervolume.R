@@ -28,7 +28,7 @@ selDomHV = makeSelector(
     }
 
     # compute exclusive hypervolume contributions and remove the one with the smallest
-    hvctrbs = computeHypervolumeContribution(fitness[, idx.max, drop = FALSE], ref.point = ref.point)
+    hvctrbs = computeHVContr(fitness[, idx.max, drop = FALSE], ref.point = ref.point)
     die.idx = idx.max[getMinIndex(hvctrbs)]
 
     return(setdiff(all.idx, die.idx))

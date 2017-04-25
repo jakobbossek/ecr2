@@ -9,9 +9,9 @@
 
 /* .Call calls */
 extern SEXP computeCrowdingDistanceC(SEXP);
-extern SEXP computeDominatedHypervolumeC(SEXP, SEXP);
-extern SEXP computeDominatedHypervolumeContributionC(SEXP, SEXP);
-extern SEXP computeEpsilonIndicatorC(SEXP, SEXP);
+extern SEXP computeHVC(SEXP, SEXP);
+extern SEXP computeHVContributionC(SEXP, SEXP);
+extern SEXP emoaIndEpsC(SEXP, SEXP);
 extern SEXP computeRIndicatorC(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP dominatedC(SEXP);
 extern SEXP doNondominatedSortingC(SEXP);
@@ -20,9 +20,9 @@ extern SEXP simulatedBinaryCrossoverC(SEXP, SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"computeCrowdingDistanceC",                 (DL_FUNC) &computeCrowdingDistanceC,                 1},
-    {"computeDominatedHypervolumeC",             (DL_FUNC) &computeDominatedHypervolumeC,             2},
-    {"computeDominatedHypervolumeContributionC", (DL_FUNC) &computeDominatedHypervolumeContributionC, 2},
-    {"computeEpsilonIndicatorC",                 (DL_FUNC) &computeEpsilonIndicatorC,                 2},
+    {"computeHVC",             (DL_FUNC) &computeHVC,             2},
+    {"computeHVContributionC", (DL_FUNC) &computeHVContributionC, 2},
+    {"emoaIndEpsC",                 (DL_FUNC) &emoaIndEpsC,                 2},
     {"computeRIndicatorC",                       (DL_FUNC) &computeRIndicatorC,                       5},
     {"dominatedC",                               (DL_FUNC) &dominatedC,                               1},
     {"doNondominatedSortingC",                   (DL_FUNC) &doNondominatedSortingC,                   1},

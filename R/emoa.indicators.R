@@ -6,10 +6,10 @@
 #' are useful for the evaluation of the performace of EMOAs. See the references
 #' section for literature on these indicators.
 #'
-#' Given a set of points \code{points}, \code{computeEpsilonIndicator} computes the
+#' Given a set of points \code{points}, \code{emoaIndEps} computes the
 #' unary epsilon-indicator provided a set of reference points \code{ref.points}.
 #'
-#' The \code{computeHypervolumeIndicator} function computes the hypervolume indicator
+#' The \code{emoaIndHV} function computes the hypervolume indicator
 #' Hyp(X, R, r). Given a set of point X (\code{points}), another set of reference
 #' points R (\code{ref.points}) (which maybe the true Pareto front) and a reference
 #' point r (\code{ref.point}) it is defined as Hyp(X, R, r) = HV(R, r) - HV(X, r).
@@ -20,7 +20,7 @@
 #'   Set of reference points.
 #' @param ref.point [\code{numeric}]\cr
 #'   A single reference point used, e.g., for the computation of the hypervolume
-#'   indicator via \code{computeHypervolumeIndicator}. If \code{NULL} the
+#'   indicator via \code{emoaIndHV}. If \code{NULL} the
 #'   nadir point of the union of the \code{points} and \code{ref.points} is used.
 #' @param ideal.point [\code{numeric}]\cr
 #'   The utopia point of the true Pareto front, i.e., each component of the point
@@ -35,18 +35,18 @@
 #' @return [\code{numeric(1)}] Epsilon indicator.
 #' @rdname emoa_indicators
 #' @export
-computeEpsilonIndicator = function(points, ref.points) {
+emoaIndEps = function(points, ref.points) {
   # sanity checks
   assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertSameDimensions(points, ref.points)
 
-  return(.Call("computeEpsilonIndicatorC", points, ref.points, PACKAGE = "ecr"))
+  return(.Call("emoaIndEpsC", points, ref.points, PACKAGE = "ecr"))
 }
 
 #' @rdname emoa_indicators
 #' @export
-computeHypervolumeIndicator = function(points, ref.points, ref.point = NULL) {
+emoaIndHV = function(points, ref.points, ref.point = NULL) {
   # compute nadir point
   if (is.null(ref.point)) {
     ref.point = approximateNadirPoint(points, ref.points)
@@ -59,15 +59,15 @@ computeHypervolumeIndicator = function(points, ref.points, ref.point = NULL) {
   assertSameDimensions(points, ref.points, ref.point)
 
   # actual indicator calculation
-  hv.points = computeDominatedHypervolume(points, ref.point)
-  hv.ref.points = computeDominatedHypervolume(ref.points, ref.point)
+  hv.points = computeHV(points, ref.point)
+  hv.ref.points = computeHV(ref.points, ref.point)
 
   return (hv.ref.points - hv.points)
 }
 
 #' @rdname emoa_indicators
 #' @export
-computeR1Indicator = function(points, ref.points, ideal.point = NULL,
+emoaIndR1 = function(points, ref.points, ideal.point = NULL,
   nadir.point = NULL, lambda = NULL, utility = "tschebycheff") {
   computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
     aggregator = function(ua, ur) mean(ua > ur) + mean(ua == ur) / 2)
@@ -75,7 +75,7 @@ computeR1Indicator = function(points, ref.points, ideal.point = NULL,
 
 #' @rdname emoa_indicators
 #' @export
-computeR2Indicator = function(points, ref.points, ideal.point = NULL,
+emoaIndR2 = function(points, ref.points, ideal.point = NULL,
   nadir.point = NULL, lambda = NULL, utility = "tschebycheff") {
   computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
     aggregator = function(ua, ur) mean(ur - ua))
@@ -83,7 +83,7 @@ computeR2Indicator = function(points, ref.points, ideal.point = NULL,
 
 #' @rdname emoa_indicators
 #' @export
-computeR3Indicator = function(points, ref.points, ideal.point = NULL,
+emoaIndR3 = function(points, ref.points, ideal.point = NULL,
   nadir.point = NULL, lambda = NULL, utility = "tschebycheff") {
   computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
     aggregator = function(ua, ur) mean((ur - ua) / ur))

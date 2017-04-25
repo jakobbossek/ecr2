@@ -103,7 +103,7 @@ ecr = function(
   #FIXME: logger params should be passable to ecr -> logger.pars
   log = initLogger(control,
     log.stats = list(fitness = list("min", "max", "mean")),
-    #, "hv" = list(fun = computeDominatedHypervolume, pars = list(ref.point = rep(11, 2L)))),
+    #, "hv" = list(fun = computeHV, pars = list(ref.point = rep(11, 2L)))),
     log.pop = TRUE, init.size = 1000L)
 
   # generate population (depends on representation)

@@ -1,4 +1,4 @@
-# ecr: Evolutionary Computation in R (2nd version)
+# ecr v2: Evolutionary Computation in R
 
 [![CRAN Status Badge](http://www.r-pkg.org/badges/version/ecr2)](http://cran.r-project.org/web/packages/ecr2)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/ecr2)](http://cran.rstudio.com/web/packages/ecr2/index.html)
@@ -6,11 +6,11 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/eu0nns2dsgocwntw/branch/master?svg=true)](https://ci.appveyor.com/project/jakobbossek/ecr2/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/jakobbossek/ecr2/badge.svg?branch=master)](https://coveralls.io/github/jakobbossek/ecr2?branch=master)
 
-**NOTE:** The **ecr package v.2.0.0** is the official follow-up package to my package [ecr](https://github.com/jakobbossek/ecr). I was unsatisfied with some design choices and thus decided to restructure and rewrite a lot. Changes are that manifold and fundamental, that I decided to set up a new package, since most of the **ecr** functions are either deprecated, renamed, deleted or underlie substantial interface changes.
+**NOTE:** The **ecr package v2** is the official follow-up package to my package [ecr v1](https://github.com/jakobbossek/ecr). I was unsatisfied with some design choices and thus decided to restructure and rewrite a lot. Changes are that manifold and fundamental, that I decided to set up a new repository, since most of the **ecr v1** functions are either deprecated, renamed, deleted or underlie substantial interface changes.
 
 ## A gentle introduction
 
-The **ecr** package, *Evolutionary Computation in R (2nd version)*, is conceived as a "white-box" framework for single- and multi-objective optimization strongly inspired by the awesome [Evolutionary Computation (EC) framework DEAP](https://github.com/DEAP/deap) for the Python programming language. In contrast to black-box frameworks, which usually try to hide as much of internal complexity (e.g., data structures) in opaque high-level EC components, **ecr** makes the development of evolutionary algorithms (EA) - as DEAP does - transparent: the evolutionary loop is written by hand sticking to few conventions, utilizing few simple utility functions and controlling everything. We believe, that this is the most flexible way in evolutionary algorithm design. On top **ecr** ships with a black-box for *standard tasks*, e.g., optimization of a continuous function, as well. The core features of ecr are the following
+The **ecr 2.0** package, *Evolutionary Computation in R*, is conceived as a "white-box" framework for single- and multi-objective optimization strongly inspired by the awesome [Evolutionary Computation (EC) framework DEAP](https://github.com/DEAP/deap) for the Python programming language. In contrast to black-box frameworks, which usually try to hide as much of internal complexity (e.g., data structures) in opaque high-level EC components, **ecr** makes the development of evolutionary algorithms (EA) - as DEAP does - transparent: the evolutionary loop is written by hand sticking to few conventions, utilizing few simple utility functions and controlling everything. We believe, that this is the most flexible way in evolutionary algorithm design. On top **ecr** ships with a black-box for *standard tasks*, e.g., optimization of a continuous function, as well. The core features of ecr are the following
 
 * Flexible *white-box* approach to EA design and implementation.
 * A lot of predefined EA operators for standard representations, i.e., permutations, binary strings and real-values vectors.

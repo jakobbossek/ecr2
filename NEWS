@@ -1,0 +1,10 @@
+ecr2 2.1.0
+========
+
+* Added: uniform crossover recombinator recUnifCrossover
+
+ecr2 2.0
+=========
+
+* First submission of ecr 2 to CRAN.
+* Almost everything changed.

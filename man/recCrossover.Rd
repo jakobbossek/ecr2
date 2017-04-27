@@ -27,5 +27,5 @@ above is applied to each element of the list.
 \seealso{
 Other recombinators: \code{\link{recIntermediate}},
   \code{\link{recOX}}, \code{\link{recPMX}},
-  \code{\link{recSBX}}
+  \code{\link{recSBX}}, \code{\link{recUnifCrossover}}
 }

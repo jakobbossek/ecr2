@@ -20,5 +20,5 @@ Intermediate recombination computes the component-wise mean value of the
 \seealso{
 Other recombinators: \code{\link{recCrossover}},
   \code{\link{recOX}}, \code{\link{recPMX}},
-  \code{\link{recSBX}}
+  \code{\link{recSBX}}, \code{\link{recUnifCrossover}}
 }

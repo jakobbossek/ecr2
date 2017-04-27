@@ -28,7 +28,7 @@ test_that("recombinators for permutations work as expected", {
 
   # check validity of produced output for each permutation-based recombinator
   available.recombinators = c(recPMX, recOX,
-    recCrossover, recIntermediate) # setupSBXRecombinator
+    recCrossover, recIntermediate, recUnifCrossover) # setupSBXRecombinator
 
   for (recombine in available.recombinators) {
     representations = getSupportedRepresentations(recombine)

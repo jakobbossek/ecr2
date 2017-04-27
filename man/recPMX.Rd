@@ -22,5 +22,5 @@ positions while preserving the order and position of as many genes as possible.
 \seealso{
 Other recombinators: \code{\link{recCrossover}},
   \code{\link{recIntermediate}}, \code{\link{recOX}},
-  \code{\link{recSBX}}
+  \code{\link{recSBX}}, \code{\link{recUnifCrossover}}
 }

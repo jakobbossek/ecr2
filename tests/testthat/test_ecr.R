@@ -99,3 +99,12 @@ test_that("ecr works for maximization", {
 
   expect_true(abs(res$best.y - 0) < 0.05)
 })
+
+test_that("ecr logs what we want to be logged", {
+  res = ecr(fitness.fun = ONEMIN, mu = 5L, lambda = 5L, survival.strategy = "plus",
+    n.bits = 10L, n.objectives = 1L, representation = "binary",
+    terminators = list(stopOnIters(10L)),
+    log.stats = list(fitness = list("min", "max")))
+  stats = getStatistics(res$log)
+  expect_true(BBmisc::isSubset(c("fitness.min", "fitness.max"), colnames(stats)))
+})

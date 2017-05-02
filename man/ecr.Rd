@@ -7,8 +7,8 @@
 ecr(fitness.fun, minimize = NULL, n.objectives = NULL, n.dim = NULL,
   lower = NULL, upper = NULL, n.bits, representation, mu, lambda,
   perm = NULL, p.recomb = 0.7, p.mut = 0.3, survival.strategy = "plus",
-  n.elite = 0L, custom.constants = list(), logger = NULL,
-  monitor = NULL, more.args = list(), initial.solutions = NULL,
+  n.elite = 0L, custom.constants = list(), log.stats = list(fitness =
+  list("min", "mean", "max")), monitor = NULL, initial.solutions = NULL,
   parent.selector = NULL, survival.selector = NULL, mutator = NULL,
   recombinator = NULL, terminators = list(stopOnIters(100L)), ...)
 }
@@ -79,16 +79,14 @@ Default is 0.}
 Additional constants which should be available to all generators and operators.
 Defaults to empty list.}
 
-\item{logger}{[\code{function}]\cr
-Monitoring object used to log stuff.
-Default is \code{NULL} which means no logging at all.}
+\item{log.stats}{[\code{list}]\cr
+(Named) list of scalar functions to compute statistics on the fitness values
+in each generation. See \code{\link{initLogger}} for more information.
+Default is to log fitness minimum, mean and maximum values.}
 
 \item{monitor}{[\code{function}]\cr
 Monitoring function.
 Default is \code{NULL}, i.e. no monitoring.}
-
-\item{more.args}{[\code{list}]\cr
-Additional arguments passed to objective function.}
 
 \item{initial.solutions}{[\code{list}]\cr
 List of individuals which should be placed in the initial population.

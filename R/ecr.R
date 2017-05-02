@@ -27,9 +27,8 @@
 #' @template arg_survival_strategy
 #' @template arg_n_elite
 #' @template arg_custom_constants
-#' @template arg_logger
+#' @template arg_logstats
 #' @template arg_monitor
-#' @template arg_more_args
 #' @template arg_initial_solutions
 #' @template arg_parent_selector
 #' @template arg_survival_selector
@@ -54,8 +53,10 @@ ecr = function(
   representation, mu, lambda, perm = NULL,
   p.recomb = 0.7, p.mut = 0.3,
   survival.strategy = "plus", n.elite = 0L,
-  custom.constants = list(), logger = NULL, monitor = NULL,
-  more.args = list(), initial.solutions = NULL,
+  custom.constants = list(),
+  log.stats = list(fitness = list("min", "mean", "max")),
+  monitor = NULL,
+  initial.solutions = NULL,
   parent.selector = NULL,
   survival.selector = NULL,
   mutator = NULL,
@@ -99,10 +100,9 @@ ecr = function(
   control = registerECROperator(control, "selectForSurvival", coalesce(getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control)))
   control = registerECROperator(control, "selectForMating", coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
 
-  # # init logger
-  #FIXME: logger params should be passable to ecr -> logger.pars
+  # init logger
   log = initLogger(control,
-    log.stats = list(fitness = list("min", "max", "mean")),
+    log.stats = log.stats,
     #, "hv" = list(fun = computeHV, pars = list(ref.point = rep(11, 2L)))),
     log.pop = TRUE, init.size = 1000L)
 

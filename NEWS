@@ -2,6 +2,7 @@ ecr2 2.1.0
 ========
 
 * Added: uniform crossover recombinator recUnifCrossover
+* Added: parameter log.stats for ecr function (possibility to define fitness statistics to be logged)
 
 ecr2 2.0
 =========

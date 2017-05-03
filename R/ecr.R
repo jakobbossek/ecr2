@@ -28,6 +28,7 @@
 #' @template arg_n_elite
 #' @template arg_custom_constants
 #' @template arg_logstats
+#' @template arg_logpop
 #' @template arg_monitor
 #' @template arg_initial_solutions
 #' @template arg_parent_selector
@@ -55,6 +56,7 @@ ecr = function(
   survival.strategy = "plus", n.elite = 0L,
   custom.constants = list(),
   log.stats = list(fitness = list("min", "mean", "max")),
+  log.pop = FALSE,
   monitor = NULL,
   initial.solutions = NULL,
   parent.selector = NULL,
@@ -82,6 +84,7 @@ ecr = function(
   assertChoice(survival.strategy, c("comma", "plus"))
   assertNumber(p.recomb, lower = 0, upper = 1)
   assertNumber(p.mut, lower = 0, upper = 1)
+  assertFlag(log.pop)
   assertList(terminators, any.missing = FALSE, all.missing = FALSE, types = "ecr_terminator")
   mu = asInt(mu, lower = 1L)
   lambda.lower = if (survival.strategy == "plus") 1L else mu
@@ -104,7 +107,7 @@ ecr = function(
   log = initLogger(control,
     log.stats = log.stats,
     #, "hv" = list(fun = computeHV, pars = list(ref.point = rep(11, 2L)))),
-    log.pop = TRUE, init.size = 1000L)
+    log.pop = log.pop, init.size = 1000L)
 
   # generate population (depends on representation)
   gen.fun = NULL

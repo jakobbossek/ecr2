@@ -23,7 +23,7 @@ Since fitness statistics are the most important ones these do not have to
 be stored as attributes, but can be passed as a matrix to the update function.}
 
 \item{log.pop}{[\code{logical(1)}]\cr
-Shall the entire population be saved?
+Shall the entire population be saved in each generation?
 Default is \code{FALSE}.}
 
 \item{init.size}{[\code{integer(1)}]\cr

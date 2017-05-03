@@ -18,9 +18,7 @@
 #'   By default the minimum, mean and maximum of the fitness values is computed.
 #'   Since fitness statistics are the most important ones these do not have to
 #'   be stored as attributes, but can be passed as a matrix to the update function.
-#' @param log.pop [\code{logical(1)}]\cr
-#'   Shall the entire population be saved?
-#'   Default is \code{FALSE}.
+#' @template arg_logpop
 #' @param init.size [\code{integer(1)}]\cr
 #'   Initial number of rows of the slot of the logger, where the fitness
 #'   statistics are stored. The size of the statistics log is doubled each time an

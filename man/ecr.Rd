@@ -8,9 +8,10 @@ ecr(fitness.fun, minimize = NULL, n.objectives = NULL, n.dim = NULL,
   lower = NULL, upper = NULL, n.bits, representation, mu, lambda,
   perm = NULL, p.recomb = 0.7, p.mut = 0.3, survival.strategy = "plus",
   n.elite = 0L, custom.constants = list(), log.stats = list(fitness =
-  list("min", "mean", "max")), monitor = NULL, initial.solutions = NULL,
-  parent.selector = NULL, survival.selector = NULL, mutator = NULL,
-  recombinator = NULL, terminators = list(stopOnIters(100L)), ...)
+  list("min", "mean", "max")), log.pop = FALSE, monitor = NULL,
+  initial.solutions = NULL, parent.selector = NULL,
+  survival.selector = NULL, mutator = NULL, recombinator = NULL,
+  terminators = list(stopOnIters(100L)), ...)
 }
 \arguments{
 \item{fitness.fun}{[\code{function}]\cr
@@ -83,6 +84,10 @@ Defaults to empty list.}
 (Named) list of scalar functions to compute statistics on the fitness values
 in each generation. See \code{\link{initLogger}} for more information.
 Default is to log fitness minimum, mean and maximum values.}
+
+\item{log.pop}{[\code{logical(1)}]\cr
+Shall the entire population be saved in each generation?
+Default is \code{FALSE}.}
 
 \item{monitor}{[\code{function}]\cr
 Monitoring function.

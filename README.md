@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/jakobbossek/ecr2.svg?branch=master)](https://travis-ci.org/jakobbossek/ecr2)
 [![Build status](https://ci.appveyor.com/api/projects/status/eu0nns2dsgocwntw/branch/master?svg=true)](https://ci.appveyor.com/project/jakobbossek/ecr2/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/jakobbossek/ecr2/badge.svg?branch=master)](https://coveralls.io/github/jakobbossek/ecr2?branch=master)
+[![Research software impact](http://depsy.org/api/package/cran/ecr/badge.svg)](http://depsy.org/package/r/ecr)
 
 **NOTE:** The **ecr package v2** is the official follow-up package to my package [ecr v1](https://github.com/jakobbossek/ecr). I was unsatisfied with some design choices and thus decided to restructure and rewrite a lot. Changes are that manifold and fundamental, that I decided to set up a new repository, since most of the **ecr v1** functions are either deprecated, renamed, deleted or underlie substantial interface changes.
 

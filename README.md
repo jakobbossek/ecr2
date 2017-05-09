@@ -25,7 +25,7 @@ The **ecr 2** package, *Evolutionary Computation in R*, is conceived as a "white
 * Predefined state-of-the-art EMOA algorithms NSGA-II, SMS-EMOA and AS-EMOA.
 
 The best way to illustrate the process of algorithm design in **ecr** is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package [smoof](https://cran.r-project.org/web/packages/smoof/index.html) and may be initialized as follows:
-```splus
+```r
 library(ecr)
 library(ggplot2)
 library(smoof)
@@ -36,14 +36,14 @@ autoplot(fn, show.optimum=TRUE, length.out = 1000)
 ### Writing the evolutionary loop by hand
 
 We decide to use an evolutionary (30 + 5)-strategy, i.e., an algorithm that keeps a population of size mu = 30, in each generation creates lambda = 5 offspring by variation and selects the best mu out of mu + lambda individuals to survive. First, we define some variables.
-```splus
+```r
 MU = 30L; LAMBDA = 5L; MAX.ITER = 200L
 lower = getLowerBoxConstraints(fn)
 upper = getUpperBoxConstraints(fn)
 ```
 
 In order to implement this algorithm the first step is to define a *control object*, which stores information on the objective function and a set of evolutionary operators.
-```splus
+```r
 control = initECRControl(fn)
 control = registerECROperator(control, "mutate", mutGauss, sdev = 2, lower = lower, upper = upper)
 control = registerECROperator(control, "selectForSurvival", selGreedy)
@@ -51,7 +51,7 @@ control = registerECROperator(control, "selectForSurvival", selGreedy)
 Here, we decide to perform mutation only. The best mu individuals (regarding fitness values) are going to be selected to build up the next generation.
 
 Finally, the evolutionary loop is implemented. 
-```splus
+```r
 population = genReal(MU, getNumberOfParameters(fn), lower, upper)
 fitness = evaluateFitness(control, population)
 for (i in seq_len(MAX.ITER)) {
@@ -80,7 +80,7 @@ print(population[[which.min(fitness)]])
 Since the optimization of a continuous numeric function is a standard task in EC, **ecr** ships with a black-box function `ecr(...)` which basically is a customizable wrapper around the loop above. A lot of tasks can be accomplished by utlizing this single entry point. However, often EA design requires small tweaks, changes and adaptations which are simply impossible to realize with a black box regardless of their flexebility.
 
 The optimization of our 1D Ackley-function via `ecr(...)` (without animation) might look like this:
-```splus
+```r
 res = ecr(fitness.fun = fn, representation = "float",
   n.dim = getNumberOfParameters(fn), survival.strategy = "plus",
   lower = lower, upper = upper,
@@ -94,12 +94,12 @@ print(res$best.x)
 ## Installation Instructions
 
 The package will be available at [CRAN](http://cran.r-project.org) soon. Install the release version via:
-```splus
+```r
 install.packages("ecr")
 ```
 If you are interested in trying out and playing around with the current github developer version use the [devtools](https://github.com/hadley/devtools) package and type the following command in R:
 
-```splus
+```r
 devtools::install_github("jakobbossek/ecr2")
 ```
 

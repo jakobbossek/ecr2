@@ -10,7 +10,7 @@
 #'
 #' @note
 #' This is a pure R implementation of the AS-EMOA algorithm. It hides the regular
-#' \pkg{ecr2} interface and offers a more R like interface while still being quite
+#' ecr interface and offers a more R like interface while still being quite
 #' adaptable.
 #'
 #' @keywords optimize

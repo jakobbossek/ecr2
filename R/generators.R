@@ -1,4 +1,5 @@
-#' @title Population generators
+#' @title
+#' Population generators
 #'
 #' @description Utility functions to build a set of individuals. The function
 #' \code{gen} expects an R expression and a number n in order to create a list

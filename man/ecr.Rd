@@ -2,7 +2,7 @@
 % Please edit documentation in R/ecr.R
 \name{ecr}
 \alias{ecr}
-\title{Interface to \pkg{ecr} similar to the \code{\link[stats]{optim}} function.}
+\title{Interface to ecr similar to the optim function.}
 \usage{
 ecr(fitness.fun, minimize = NULL, n.objectives = NULL, n.dim = NULL,
   lower = NULL, upper = NULL, n.bits, representation, mu, lambda,
@@ -126,8 +126,8 @@ Further arguments passed down to \code{fitness.fun}.}
 [\code{\link{ecr_result}}]
 }
 \description{
-The most flexible way to setup evolutionary algorithms with \pkg{ecr2} is by
-explicitely writing the evolutionary loop utilizing various ecr2 utlity functions.
+The most flexible way to setup evolutionary algorithms with ecr is by
+explicitely writing the evolutionary loop utilizing various ecr utlity functions.
 However, in everyday life R users frequently need to optimize a single-objective R function.
 The \code{ecr} function thus provides a more R like interface for single
 objective optimization similar to the interface of the \code{\link[stats]{optim}}

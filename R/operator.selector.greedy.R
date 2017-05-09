@@ -1,5 +1,5 @@
 #' @title
-#' Simple \dQuote{greedy} selector.
+#' Simple selector.
 #'
 #' @description
 #' Sorts the individuals according to their fitness value in increasing order

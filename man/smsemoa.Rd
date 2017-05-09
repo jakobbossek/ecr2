@@ -68,7 +68,7 @@ and finally selects the best subset of individuals among all subsets by maximizi
 the Hypervolume indicator.
 }
 \note{
-This helper function hides the regular \pkg{ecr2} interface and offers a more
+This helper function hides the regular ecr interface and offers a more
 R like interface of this state of the art EMOA.
 }
 \references{

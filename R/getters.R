@@ -1,4 +1,5 @@
-#' @title Get size of Pareto-archive.
+#' @title
+#' Get size of Pareto-archive.
 #'
 #' @description Returns the number of stored individuals in Pareto archive.
 #'
@@ -33,7 +34,8 @@ getIndividuals.ecr_pareto_archive = function(x) {
   return(x$env$individuals)
 }
 
-#' @title Extract fitness values from Pareto archive.
+#' @title
+#' Extract fitness values from Pareto archive.
 #'
 #' @description Get all non-dominated points in objective space, i.e., an (m x n)
 #' matrix of fitness with m being the number of objectives and n being the number

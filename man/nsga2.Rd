@@ -71,7 +71,7 @@ individuals from the i-th front.
 }
 \note{
 This is a pure R implementation of the NSGA-II algorithm. It hides the regular
-\pkg{ecr2} interface and offers a more R like interface while still being quite
+ecr interface and offers a more R like interface while still being quite
 adaptable.
 }
 \references{

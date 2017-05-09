@@ -46,7 +46,7 @@ Default is 1000.}
 \description{
 Logging is a central aspect of each EA. Besides the final solution(s)
 especially in research often we need to keep track of different aspects of the
-evolutionary process, e.g., fitness statistics. The logger of \pkg{ecr2} keeps
+evolutionary process, e.g., fitness statistics. The logger of ecr2 keeps
 track of different user-defined statistics and the population.
 It may also be used to check stopping conditions (see \code{makeECRTerminator}). Most
 important this logger is used internally by the \code{\link{ecr}} black-box interface.

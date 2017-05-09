@@ -1,4 +1,5 @@
-#' @title Initialize Pareto Archive.
+#' @title
+#' Initialize Pareto Archive.
 #'
 #' @description A Pareto archive is usually used to store all / a part of the
 #' non-dominated points stored during a run of an multi-objective evolutionary

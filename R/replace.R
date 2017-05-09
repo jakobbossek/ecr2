@@ -1,4 +1,5 @@
-#' @title (mu + lambda) selection
+#' @title
+#' (mu + lambda) selection
 #'
 #' @description Takes a population of mu individuals and another set of lambda
 #' offspring individuals and selects mu individuals out of the union set according

@@ -4,7 +4,7 @@
 \alias{ecr_parallelization}
 \title{Parallelization in ecr}
 \description{
-In \pkg{ecr2} it is possible to parallelize the fitness function evaluation
+In ecr it is possible to parallelize the fitness function evaluation
 to make use, e.g., of multiple CP cores or nodes in a HPC cluster.
 For maximal flexibility this is realized by means of the \pkg{parallelMap} package
 (see the \href{https://github.com/berndbischl/parallelMap}{official

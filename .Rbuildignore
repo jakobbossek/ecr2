@@ -14,3 +14,4 @@ benchmark.R
 todo
 benchmark
 cran-comments.md
+^docs$

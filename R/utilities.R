@@ -31,10 +31,10 @@ hasAllEqualElements = function(x) {
 }
 
 #' @title
-#'   Wrap the individuals constructed by a recombination operator.
+#' Wrap the individuals constructed by a recombination operator.
 #'
 #' @description
-#'   Should be used if the recombinator returns multiple children.
+#' Should be used if the recombinator returns multiple children.
 #'
 #' @param ... [any]\cr
 #'   Individuals.

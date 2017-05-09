@@ -1,4 +1,5 @@
-#' @title Select individuals.
+#' @title
+#' Select individuals.
 #'
 #' @description This utility functions expect a control object, a matrix of
 #' fitness values - each column containing the fitness value(s) of one individual -

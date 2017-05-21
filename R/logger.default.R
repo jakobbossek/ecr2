@@ -254,8 +254,6 @@ updateLogger = function(log, population, fitness = NULL, n.evals, extras = NULL,
   })
   cur.stats = unlist(cur.stats)
 
-  extras = list()
-
   if (length(log$env$extra.names) > 0L) {
     extra.names = log$env$extra.names
     if (is.null(extras)) {

@@ -4,7 +4,7 @@
 \alias{updateLogger}
 \title{Update the log.}
 \usage{
-updateLogger(log, population, fitness = NULL, n.evals, ...)
+updateLogger(log, population, fitness = NULL, n.evals, extras = NULL, ...)
 }
 \arguments{
 \item{log}{[\code{ecr_logger}]\cr
@@ -20,6 +20,10 @@ store information of the fitness, each individual needs to have an attribute fit
 
 \item{n.evals}{[\code{integer(1)}]\cr
 Number of fitness function evaluations performed in the last generation.}
+
+\item{extras}{[\code{list}]\cr
+Optional named list of additional scalar values to log.
+See \code{log.extras} argument of \code{\link{initLogger}} for details.}
 
 \item{...}{[any]\cr
 Furhter arguments. Not used at the moment.}

@@ -7,9 +7,11 @@ test_that("logger keeps track the right way in single-objective case", {
   evals.per.iter = 10L
   n.iters = 20L
   log.stats = list(fitness = list("min", "median", "ncol", "myRange" = function(x) max(x) - min(x)))
+  log.extras = c(double = "numeric", number = "integer", mutator = "character")
 
   log = initLogger(control,
     log.stats = log.stats,
+    log.extras = log.extras,
     log.pop = TRUE,
     init.size = 10L)
 
@@ -20,18 +22,19 @@ test_that("logger keeps track the right way in single-objective case", {
     for (i in seq_along(population)) {
       attr(population[[i]], "fitness") = fitness[, i]
     }
-    updateLogger(log, population, n.evals = evals.per.iter)
+    extras = list(double = runif(1), number = sample(1:10, 1L), mutator = c("mut1", "mut2")[sample(1:2, 1L)])
+    updateLogger(log, population, n.evals = evals.per.iter, extras = extras)
   }
 
   # now check that stuff
   stats = getStatistics(log)
 
   # check that stats is a data.frame
-  assertDataFrame(stats, nrows = n.iters, ncols = 5L,
+  assertDataFrame(stats, nrows = n.iters, ncols = 8L,
     any.missing = FALSE, all.missing = FALSE)
 
   # check for logged stats
-  expected.stats = c("gen", "fitness.min", "fitness.median", "fitness.ncol", "fitness.myRange")
+  expected.stats = c("gen", "fitness.min", "fitness.median", "fitness.ncol", "fitness.myRange", "double", "number", "mutator")
   expect_set_equal(colnames(stats), expected.stats)
 
   # check stats df to ggplot-friendly df helpers
@@ -48,13 +51,7 @@ test_that("logger keeps track the right way in single-objective case", {
   # now with dropping of stats
   stats.gg = toGG(log, drop.stats = c("fitness.ncol", "fitness.myRange"))
   expect_set_equal(colnames(stats.gg), c("gen", "stat", "value"))
-  expect_set_equal(unique(stats.gg$stat), expected.stats[2:3])
-
-  # check that all are numeric
-  for (stat in expected.stats) {
-    expect_numeric(stats[[stat]], info = sprintf("Doh! Stat %s is not numeric: %s",
-      stat, collapse(stats[[stat]])))
-  }
+  expect_set_equal(unique(stats.gg$stat), expected.stats[-c(1, 4, 5)])
 
   # check logged populations
   pops  = getPopulations(log)

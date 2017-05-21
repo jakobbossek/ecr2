@@ -5,7 +5,7 @@
 \title{Initialize a log object.}
 \usage{
 initLogger(control, log.stats = list(fitness = list("min", "mean", "max")),
-  log.pop = FALSE, init.size = 1000L)
+  log.extras = NULL, log.pop = FALSE, init.size = 1000L)
 }
 \arguments{
 \item{control}{[\code{ecr_control}]\cr
@@ -21,6 +21,13 @@ Each function is required to return a scalar numeric value.
 By default the minimum, mean and maximum of the fitness values is computed.
 Since fitness statistics are the most important ones these do not have to
 be stored as attributes, but can be passed as a matrix to the update function.}
+
+\item{log.extras}{[\code{character}]\cr
+Possibility to instruct the logger to store additional
+scalar values in each generation. Named character vector where the names
+indicate the value to store and the value indicates the corresponding data types.
+Currently we support all atomic modes of \code{\link[base]{vector}} expect \dQuote{factor}
+and \dQuote{raw}.}
 
 \item{log.pop}{[\code{logical(1)}]\cr
 Shall the entire population be saved in each generation?
@@ -46,10 +53,13 @@ Default is 1000.}
 \description{
 Logging is a central aspect of each EA. Besides the final solution(s)
 especially in research often we need to keep track of different aspects of the
-evolutionary process, e.g., fitness statistics. The logger of ecr2 keeps
+evolutionary process, e.g., fitness statistics. The logger of ecr keeps
 track of different user-defined statistics and the population.
 It may also be used to check stopping conditions (see \code{makeECRTerminator}). Most
 important this logger is used internally by the \code{\link{ecr}} black-box interface.
+}
+\note{
+Statistics are logged in a \code{data.frame}.
 }
 \examples{
 control = initECRControl(function(x) sum(x), minimize = TRUE,

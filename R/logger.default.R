@@ -3,10 +3,12 @@
 #'
 #' @description Logging is a central aspect of each EA. Besides the final solution(s)
 #' especially in research often we need to keep track of different aspects of the
-#' evolutionary process, e.g., fitness statistics. The logger of ecr2 keeps
+#' evolutionary process, e.g., fitness statistics. The logger of ecr keeps
 #' track of different user-defined statistics and the population.
 #' It may also be used to check stopping conditions (see \code{makeECRTerminator}). Most
 #' important this logger is used internally by the \code{\link{ecr}} black-box interface.
+#'
+#' @note Statistics are logged in a \code{data.frame}.
 #'
 #' @template arg_control
 #' @param log.stats [\code{list}]\cr
@@ -19,6 +21,12 @@
 #'   By default the minimum, mean and maximum of the fitness values is computed.
 #'   Since fitness statistics are the most important ones these do not have to
 #'   be stored as attributes, but can be passed as a matrix to the update function.
+#' @param log.extras [\code{character}]\cr
+#'   Possibility to instruct the logger to store additional
+#'   scalar values in each generation. Named character vector where the names
+#'   indicate the value to store and the value indicates the corresponding data types.
+#'   Currently we support all atomic modes of \code{\link[base]{vector}} expect \dQuote{factor}
+#'   and \dQuote{raw}.
 #' @template arg_logpop
 #' @param init.size [\code{integer(1)}]\cr
 #'   Initial number of rows of the slot of the logger, where the fitness
@@ -88,6 +96,7 @@
 initLogger = function(
   control,
   log.stats = list(fitness = list("min", "mean", "max")),
+  log.extras = NULL,
   log.pop = FALSE, init.size = 1000L) {
 
   assertClass(control, "ecr_control")
@@ -108,18 +117,28 @@ initLogger = function(
   })
   names(stats) = names(log.stats)
 
-  #print(stats)
-
-  #stop(98989)
   n.stats = sum(sapply(stats, length))
-  #print(n.stats)
-
   stat.names = unname(do.call(c, lapply(stats, names)))
-  #print(stat.names)
+  stat.types = rep("numeric", n.stats)
+
+  #
+  n.extras = 0
+  extra.names = character(0L)
+  extra.types = character(0L)
+  if (!is.null(log.extras)) {
+    assertCharacter(log.extras, names = "unique", any.missing = FALSE, all.missing = FALSE)
+    assertSubset(log.extras, choices = c("logical", "integer", "double", "numeric", "complex", "character"))
+    extra.names = names(log.extras)
+    extra.types = unname(log.extras)
+    n.extras = length(log.extras)
+  }
 
   env = new.env()
-  env$stats = BBmisc::makeDataFrame(ncol = n.stats + 1L, nrow = init.size,
-    col.types = "numeric", col.names = c("gen", stat.names))
+  env$stats = BBmisc::makeDataFrame(
+    ncol = 1L + n.stats + n.extras, nrow = init.size,
+    col.types = c("integer", stat.types, extra.types),
+    col.names = c("gen", stat.names, extra.names))
+
   env$stats = addClasses(env$stats, "ecr_statistics")
   env$cur.line = 1L
   env$time.started = Sys.time()
@@ -127,6 +146,7 @@ initLogger = function(
   env$n.gens = 0L
   env$task = control$task
   env$log.pop = log.pop
+  env$extra.names = extra.names
 
   if (log.pop) {
     env$pop = vector("list", length = init.size)
@@ -154,11 +174,14 @@ initLogger = function(
 #'   store information of the fitness, each individual needs to have an attribute fitness.
 #' @param n.evals [\code{integer(1)}]\cr
 #'   Number of fitness function evaluations performed in the last generation.
+#' @param extras [\code{list}]\cr
+#'   Optional named list of additional scalar values to log.
+#'   See \code{log.extras} argument of \code{\link{initLogger}} for details.
 #' @param ... [any]\cr
 #'   Furhter arguments. Not used at the moment.
 #' @family logging
 #' @export
-updateLogger = function(log, population, fitness = NULL, n.evals, ...) {
+updateLogger = function(log, population, fitness = NULL, n.evals, extras = NULL, ...) {
   # basic stuff
   log$env$time.passed = Sys.time() - log$env$time.started
   log$env$n.gens = log$env$n.gens + 1L
@@ -195,11 +218,18 @@ updateLogger = function(log, population, fitness = NULL, n.evals, ...) {
   #FIXME: make growing fun a parameter
   n.log = nrow(log$env$stats)
 
+  getTypes = function(obj) {
+    unname(sapply(obj, typeof))
+  }
+
   # grow memory
   if (n.log < log$env$cur.line) {
     #catf("increasing log size! Doubling size: %i -> %i", n.log, 2 * n.log)
-    log$env$stats = rbind(log$env$stats, makeDataFrame(ncol = ncol(log$env$stats),
-      nrow = n.log * 2, col.types = "numeric", col.names = names(log$env$stats)))
+    log$env$stats = rbind(log$env$stats,
+      makeDataFrame(ncol = ncol(log$env$stats),
+      nrow = n.log * 2,
+      col.types = getTypes(log$env$stats),
+      col.names = names(log$env$stats)))
 
     if (log$env$log.pop) {
       log$env$pop = c(log$env$pop, vector("list", length = n.log * 2))
@@ -224,6 +254,17 @@ updateLogger = function(log, population, fitness = NULL, n.evals, ...) {
   })
   cur.stats = unlist(cur.stats)
 
+  extras = list()
+
+  if (length(log$env$extra.names) > 0L) {
+    extra.names = log$env$extra.names
+    if (is.null(extras)) {
+      extras = BBmisc::namedList(init = NA, names = extra.names)
+    }
+    assertList(extras, names = "unique", any.missing = TRUE, all.missing = TRUE)
+    assertSubset(names(extras), extra.names)
+  }
+
   #print(cur.stats)
   #stop("hooray!!")
 
@@ -233,7 +274,7 @@ updateLogger = function(log, population, fitness = NULL, n.evals, ...) {
   #   return(stat.fun(fitness))
   # })
 
-  log$env$stats[log$env$cur.line, ] = c(list(gen = log$env$n.gens), cur.stats)
+  log$env$stats[log$env$cur.line, ] = c(list(gen = log$env$n.gens), cur.stats, extras)
 
   # store population if requested
   if (log$env$log.pop) {

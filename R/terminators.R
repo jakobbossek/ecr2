@@ -1,17 +1,24 @@
 #' @title
-#' Stopping condition: maximum number of function evaluations.
+#' Stopping conditions
 #'
 #' @description
-#' Stop the EA after at most \code{max.evals} evaluations of the fitness function.
+#' Stop the EA after a fixed number of fitness function evaluations, after
+#' a predefined number of generations/itereations or if the known optimal function
+#' value is approximated (only for single-objective optimization).
 #'
 #' @param max.evals [\code{integer(1)}]\cr
 #'   Maximal number of function evaluations. Default ist \code{Inf}.
 #' @param max.iter [\code{integer(1)}]\cr
 #'   Maximal number of iterations. Default ist \code{Inf}.
+#' @param opt.y [\code{numeric(1)}]\cr
+#'   Optimal scalar fitness function value.
+#' @param eps [\code{numeric(1)}]\cr
+#'   Stop if absolute deviation from \code{opt.y} is lower than \code{eps}.
 #' @return [\code{ecr_terminator}]
 #' @family stopping conditions
 #' @rdname stoppingConditions
 #' @name stoppingConditions
+#' @export
 stopOnEvals = function(max.evals = NULL) {
   force(max.evals)
 
@@ -55,6 +62,8 @@ stopOnIters = function(max.iter = NULL) {
   )
 }
 
+#' @rdname stoppingConditions
+#' @export
 stopOnOptY = function(opt.y, eps) {
   assertNumber(eps, lower = 0)
   assertNumber(opt.y)
@@ -71,7 +80,6 @@ stopOnOptY = function(opt.y, eps) {
     }
     return(abs(stats[cur.it, "fitness.min"] - opt.y) < eps)
   }
-
 
   makeTerminator(
     condition.fun,

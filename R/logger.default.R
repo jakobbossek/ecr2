@@ -373,12 +373,7 @@ toGG = function(x, drop.stats = character(0L)) {
 #' @export
 toGG.ecr_statistics = function(x, drop.stats = character(0L)) {
   assertCharacter(drop.stats)
-  stat.names = colnames(x)
-  if ("gen" %in% drop.stats)
-    stopf("Name 'gen' cannot be deleted from stats.")
-  if (length(drop.stats) > 0L)
-    x = x[, -which(stat.names %in% drop.stats)]
-
+  x = dropStatistics(x, drop.stats)
   BBmisc::requirePackages("reshape2", why = "ecr::toGG")
   melt(x, "gen", value.name = "value", variable.name = "stat")
 }
@@ -404,12 +399,30 @@ plotStatistics = function(x, drop.stats = character(0L)) {
 #' @export
 plotStatistics.ecr_statistics = function(x, drop.stats = character(0L)) {
   stats = toGG(x, drop.stats = drop.stats)
+  plotStatistics(stats)
+}
+
+#' @export
+plotStatistics.data.frame = function(x, drop.stats = character(0L)) {
+  x = dropStatistics(x, drop.stats)
+  if (!(isSubset(c("gen", "value", "stat"), colnames(x))))
+    stopf("plotStatistics: Data frame needs at least the columns 'gen', 'value' and 'stat'.")
   requirePackages("ggplot2", why = "ecr::plotStatistics")
-  pl = ggplot(stats, aes_string(x = "gen", y = "value", linetype = "stat")) + geom_line()
+  pl = ggplot(x, aes_string(x = "gen", y = "value", linetype = "stat")) + geom_line()
   return(pl)
 }
 
 #' @export
 plotStatistics.ecr_logger = function(x, drop.stats = character(0L)) {
   return(plotStatistics(getStatistics(x), drop.stats = drop.stats))
+}
+
+# Helper to drop some stats from statistics data frame.
+dropStatistics = function(x, drop.stats = character(0L)) {
+  stat.names = colnames(x)
+  if ("gen" %in% drop.stats)
+    stopf("Name 'gen' cannot be deleted from stats.")
+  if (length(drop.stats) > 0L)
+    x = x[, -which(stat.names %in% drop.stats)]
+  return(x)
 }

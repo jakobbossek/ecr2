@@ -100,7 +100,7 @@ ecr = function(
     control = registerECROperator(control, "mutate", coalesce(mutator, getDefaultEvolutionaryOperators(representation, "mutator", n.objectives, control)))
   if (representation != "custom" | !is.null(recombinator))
     control = registerECROperator(control, "recombine", coalesce(recombinator, getDefaultEvolutionaryOperators(representation, "recombinator", n.objectives, control)))
-  control = registerECROperator(control, "selectForSurvival", coalesce(getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control)))
+  control = registerECROperator(control, "selectForSurvival", coalesce(survival.selector, getDefaultEvolutionaryOperators(representation, "survival.selector", n.objectives, control)))
   control = registerECROperator(control, "selectForMating", coalesce(parent.selector, getDefaultEvolutionaryOperators(representation, "parent.selector", n.objectives, control)))
 
   # init logger

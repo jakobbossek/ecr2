@@ -10,6 +10,10 @@
 
 **NOTE:** The **ecr package v2** is the official follow-up package to my package [ecr v1](https://github.com/jakobbossek/ecr). I was unsatisfied with some design choices and thus decided to restructure and rewrite a lot. Changes are that manifold and fundamental, that I decided to set up a new repository, since most of the **ecr v1** functions are either deprecated, renamed, deleted or underlie substantial interface changes.
 
+## News
+
+*
+
 ## A gentle introduction
 
 The **ecr** package (version 2), *Evolutionary Computation in R*, is conceived as a "white-box" framework for single- and multi-objective optimization strongly inspired by the awesome [Evolutionary Computation (EC) framework DEAP](https://github.com/DEAP/deap) for the Python programming language. In contrast to black-box frameworks, which usually try to hide as much of internal complexity (e.g., data structures) in opaque high-level EC components, **ecr** makes the development of evolutionary algorithms (EA) - as DEAP does - transparent: the evolutionary loop is written by hand sticking to few conventions, utilizing few simple utility functions and controlling everything. We believe, that this is the most flexible way in evolutionary algorithm design. On top **ecr** ships with a black-box for *standard tasks*, e.g., optimization of a continuous function, as well. The core features of ecr are the following
@@ -102,6 +106,30 @@ If you are interested in trying out and playing around with the current github d
 
 ```r
 devtools::install_github("jakobbossek/ecr2")
+```
+
+## Citation
+
+To cite **ecr** please use:
+> Bossek, J. (2017). ecr 2.0: A Modular Framework for Evolutionary Computation
+> in R. In Proceedings of the Genetic and Evolutionary Computation Conference 
+> (GECCO '17) Companion, Berlin, Germany, 1187--1193.
+
+A BibTeX entry for LaTeX users is
+```
+@InProceedings{,
+    author = {{Bossek} and {Jakob}},
+    title = {ecr 2.0: A Modular Framework for Evolutionary Computation in R},
+    year = {2017},
+    booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference Companion},
+    location = {Berlin, Germany},
+    doi = {10.1145/3067695.3082470},
+    publischer = {ACM},
+    isbn = {978-1-4503-4939-0},
+    series = {GECCO '17},
+    numpages = {7},
+    pages = {1187--1193},
+}
 ```
 
 ## Contact

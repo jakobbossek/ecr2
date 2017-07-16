@@ -1,0 +1,16 @@
+citHeader("To cite 'ecr' in publications, please use:")
+
+citEntry(entry = "inproceedings",
+  author = "Bossek, Jakob",
+  title = "ecr 2.0: A Modular Framework for Evolutionary Computation in R",
+  year = "2017",
+  booktitle = "Proceedings of the Genetic and Evolutionary Computation Conference Companion",
+  location = "Berlin, Germany",
+  doi = "10.1145/3067695.3082470",
+  publischer = "ACM",
+  isbn = "978-1-4503-4939-0",
+  series = "GECCO '17",
+  numpages = "7",
+  pages = "1187--1193",
+  textVersion = "Bossek, J. (2017). ecr 2.0: A Modular Framework for Evolutionary Computation in R. In Proceedings of the Genetic and Evolutionary Computation Conference (GECCO '17) Companion, Berlin, Germany, 1187--1193"
+)

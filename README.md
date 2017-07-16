@@ -12,8 +12,9 @@
 
 ## News
 
-* 16.07.2017: I gave a talk on ecr v2.0 on the annual Genetic and Evolutionary Computation Conference ((GECCO'17)[http://gecco-2017.sigevo.org/]).
-* 18.04.2017: My paper submission to the *Evolutionary Computation Software Systems (EvoSoft)* workshop at this years *Genetic and Evolutionary Computation Conference* ((GECCO'17)[http://gecco-2017.sigevo.org/]) was accepted.
+* July 16, 2017: I gave a talk on ecr v2.0 on the annual Genetic and Evolutionary Computation Conference ((GECCO'17)[http://gecco-2017.sigevo.org/]) in Berlin.
+* July 10, 2017: Release of ecr v2.1.0
+* April 04, 2017: My paper submission to the *Evolutionary Computation Software Systems (EvoSoft)* workshop at this years *Genetic and Evolutionary Computation Conference* ((GECCO'17)[http://gecco-2017.sigevo.org/]) was accepted.
 
 ## A gentle introduction
 

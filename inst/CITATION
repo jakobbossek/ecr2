@@ -1,7 +1,7 @@
 citHeader("To cite 'ecr' in publications, please use:")
 
 citEntry(entry = "inproceedings",
-  author = "Bossek, Jakob",
+  author = "Jakob Bossek",
   title = "ecr 2.0: A Modular Framework for Evolutionary Computation in R",
   year = "2017",
   booktitle = "Proceedings of the Genetic and Evolutionary Computation Conference Companion",

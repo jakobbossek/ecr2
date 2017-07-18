@@ -120,8 +120,8 @@ To cite **ecr** please use:
 A BibTeX entry for LaTeX users is
 ```
 @InProceedings{,
-    author = {{Bossek} and {Jakob}},
-    title = {ecr 2.0: A Modular Framework for Evolutionary Computation in R},
+    author = {Jakob Bossek},
+    title = {{ecr 2.0: A Modular Framework for Evolutionary Computation in R}},
     year = {2017},
     booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference Companion},
     location = {Berlin, Germany},

@@ -16,3 +16,4 @@ benchmark
 cran-comments.md
 ^docs$
 bottleneck
+data-raw

@@ -151,3 +151,52 @@ plotFronts = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colour 
 
   return(pl)
 }
+
+#FIXME: docs
+toGG = function(x, value.name = "value") {
+  rns = rownames(x)
+  cns = colnames(x)
+  x = as.data.frame(x)
+  rownames(x) = rns
+  colnames(x) = cns
+  x = as.matrix(x)
+  x = reshape2::melt(x, value.name = value.name)
+  return(x)
+}
+
+#FIXME: docs
+plotHeatmap = function(x, value.name = "Value") {
+  # just transform to long format if matrix provided
+  if (is.matrix(x))
+    ggdf = toGG(x, value.name = value.name)
+  # otherwise assume a named list (named by problem)
+  else if (is.list(x))
+    ggdf = do.call(rbind, lapply(names(x), function(prob) {
+      tmp = x[[prob]]
+      tmp = toGG(tmp, value.name = value.name)
+      tmp$prob = prob
+      return(tmp)
+    }))
+
+  # plot heatmap
+  pl = ggplot(ggdf, aes(x = Var1, y = Var2))
+  pl = pl + geom_tile(aes_string(fill = value.name), color = "white", size = 0.1)
+  pl = pl + geom_text(aes(label = round(Value, 1)), color = "white", size = 1.4)
+  pl = pl + coord_equal()
+
+  # split if multiple problems available
+  if (!is.null(ggdf$prob))
+    pl = pl + facet_wrap(~ prob, nrow = 1L)#, scales = "free")
+
+  # default layout
+  requirePackages(c("viridis", "ggthemes"), why = "ecr::plotHeatmap")
+  pl = pl + scale_fill_viridis()
+  pl = pl + theme(axis.ticks = element_blank())
+  pl = pl + theme(axis.text = element_text(size=7))
+  #pl = pl + theme_tufte(base_family = "Helvetica")
+  pl = pl + theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "top")
+  pl = pl + xlab("") + ylab("")
+  return(pl)
+}

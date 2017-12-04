@@ -153,7 +153,7 @@ plotFronts = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colour 
 }
 
 #FIXME: docs
-toGG = function(x, value.name = "value") {
+convertToGG = function(x, value.name = "value") {
   rns = rownames(x)
   cns = colnames(x)
   x = as.data.frame(x)
@@ -164,24 +164,57 @@ toGG = function(x, value.name = "value") {
   return(x)
 }
 
-#FIXME: docs
+#' @title Plot heatmap.
+#'
+#' @description Given a matrix or list of matrizes \code{x} this function
+#' visualizes each matrix with a heatmap.
+#'
+#' @param x [\code{matrix} | \code{list[matrix]}]\cr
+#'   Either a matrix or a list of matrizes.
+#' @param value.name [\code{character(1)}]\cr
+#'   Name for the values represented by the matrix.
+#'   Internally, the matrix is transformed into a \code{data.frame}
+#'   via \code{\link[reshape2]{melt}} in order to obtain a format
+#'   which may be processed by \code{\link[ggplot2]{ggplot}} easily.
+#'   Default is \dQuote{Value}.
+#' @return [\code{\link[ggplot2]{ggplot}}] ggplot object.
+#' @examples
+#' # simulate two (correlation) matrizes
+#' x = matrix(runif(100), ncol = 10)
+#' y = matrix(runif(100), ncol = 10)
+#' \dontrun{
+#' pl = plotHeatmap(x)
+#' pl = plotHeatmap(list(x, y), value.name = "Correlation")
+#' pl = plotHeatmap(list(MatrixX = x, MatrixY = y), value.name = "Correlation")
+#' }
+#' @export
 plotHeatmap = function(x, value.name = "Value") {
   # just transform to long format if matrix provided
   if (is.matrix(x))
-    ggdf = toGG(x, value.name = value.name)
+    ggdf = convertToGG(x, value.name = value.name)
   # otherwise assume a named list (named by problem)
   else if (is.list(x))
-    ggdf = do.call(rbind, lapply(names(x), function(prob) {
-      tmp = x[[prob]]
-      tmp = toGG(tmp, value.name = value.name)
-      tmp$prob = prob
+    ns = names(x)
+    if (is.null(ns))
+      ns = as.character(1:length(x))
+    if (any(ns == ""))
+      stopf("ecr::plotHeatmap: Either all elements of x or none must be named.")
+    ggdf = do.call(rbind, lapply(1:length(x), function(i) {
+      tmp = x[[i]]
+      tmp = convertToGG(tmp, value.name = value.name)
+      tmp$prob = ns[i]
       return(tmp)
     }))
 
   # plot heatmap
   pl = ggplot(ggdf, aes(x = Var1, y = Var2))
   pl = pl + geom_tile(aes_string(fill = value.name), color = "white", size = 0.1)
-  pl = pl + geom_text(aes(label = round(Value, 1)), color = "white", size = 1.4)
+
+  # workaround to get rounded values
+  ggdf2 = ggdf
+  ggdf2[[value.name]] = round(ggdf2[[value.name]], 1L)
+  pl = pl + geom_text(data = ggdf2, aes_string(label = value.name), color = "white", size = 1.4)
+
   pl = pl + coord_equal()
 
   # split if multiple problems available
@@ -193,7 +226,6 @@ plotHeatmap = function(x, value.name = "Value") {
   pl = pl + scale_fill_viridis()
   pl = pl + theme(axis.ticks = element_blank())
   pl = pl + theme(axis.text = element_text(size=7))
-  #pl = pl + theme_tufte(base_family = "Helvetica")
   pl = pl + theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
     legend.position = "top")

@@ -50,20 +50,19 @@
 #' pl = plotFronts(mcMST, highlight.algos = "PRIM")
 #'
 #' # customize layout
-#' pl = plotFronts(mcMST, title = "Pareto-approximations", subtitle = "based on different mcMST algorithms.", facet.args = list(nrow = 2))
+#' pl = plotFronts(mcMST, title = "Pareto-approximations",
+#'   subtitle = "based on different mcMST algorithms.", facet.args = list(nrow = 2))
 #' }
 #' @export
-#'
-plotFronts = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colour = NULL, highlight.algos = NULL, title = NULL, subtitle = NULL, facet.type = "wrap", facet.args = list(),
-  highlight.dom.area = FALSE, ref.point = NULL) {
+#FIXME: allow to work if there is no prob column
+#FIXME: allow to pass column numbers of obj.cols
+plotFronts = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colour = NULL, highlight.algos = NULL, title = NULL, subtitle = NULL, facet.type = "wrap", facet.args = list()) {
   assertDataFrame(df, min.rows = 2L, min.cols = 4L)
   assertCharacter(obj.cols, min.len = 2L)
   assertChoice(facet.type, choices = c("wrap", "grid"))
   assertChoice(shape, choices = setdiff(colnames(df), obj.cols))
   assertChoice(colour, choices = setdiff(colnames(df), obj.cols), null.ok = TRUE)
   assertList(facet.args)
-  assertFlag(highlight.dom.area)
-  assertNumeric(ref.point, len = 2L, null.ok = TRUE, any.missing = FALSE, all.missing = FALSE)
 
   if (!all(obj.cols %in% colnames(df)))
     stopf("obj.cols needs to contain valid column names.")
@@ -84,26 +83,7 @@ plotFronts = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colour 
   assertString(subtitle, null.ok = TRUE)
 
   BBmisc::requirePackages("ggplot2", why = "ecr::plotFronts")
-  pl = ggplot(mapping = aes_string(x = obj.cols[1L], y = obj.cols[2L]))
-
-  # experimental
-  if (highlight.dom.area) {
-    offset = 10
-    if (is.null(ref.point))
-      ref.point = approximateNadirPoint(t(df[, obj.cols, drop = FALSE])) + offset
-    data.rects = df
-    data.rects$r1 = ref.point[1L]
-    data.rects$r2 = ref.point[2L]
-    pl = pl + geom_rect(
-      data = data.rects,
-      mapping = aes_string(
-        xmin = obj.cols[1L], xmax = "r1",
-        ymin = obj.cols[2L], ymax = "r2"
-      ),
-      fill = "black",
-      alpha = 0.01
-    )
-  }
+  pl = ggplot2::ggplot(mapping = ggplot2::aes_string(x = obj.cols[1L], y = obj.cols[2L]))
 
   data = df
   data.highlight = NULL
@@ -114,20 +94,20 @@ plotFronts = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colour 
   }
 
   if (!is.null(data.highlight)) {
-    pl = pl + geom_step(
+    pl = pl + ggplot2::geom_step(
       data = data.highlight,
       alpha = 0.3)
-    pl = pl + geom_line(
+    pl = pl + ggplot2::geom_line(
       data = data.highlight,
       alpha = 0.3)
-    pl = pl + geom_point(
+    pl = pl + ggplot2::geom_point(
       data = data.highlight,
       size = 3.5,
       shape = 1,
       alpha = 0.8,
       colour = "tomato")
   }
-  pl = pl + geom_point(
+  pl = pl + ggplot2::geom_point(
     data = data,
     mapping = aes_string(shape = shape, colour = colour),
     alpha = 0.5)
@@ -177,6 +157,9 @@ convertToGG = function(x, value.name = "value") {
 #'   via \code{\link[reshape2]{melt}} in order to obtain a format
 #'   which may be processed by \code{\link[ggplot2]{ggplot}} easily.
 #'   Default is \dQuote{Value}.
+#' @param show.values [\code{logical(1L)}]\cr
+#'   Should the values be printed within the heatmap cells?
+#'   Default is \code{FALSE}.
 #' @return [\code{\link[ggplot2]{ggplot}}] ggplot object.
 #' @examples
 #' # simulate two (correlation) matrizes
@@ -188,12 +171,18 @@ convertToGG = function(x, value.name = "value") {
 #' pl = plotHeatmap(list(MatrixX = x, MatrixY = y), value.name = "Correlation")
 #' }
 #' @export
-plotHeatmap = function(x, value.name = "Value") {
+plotHeatmap = function(x, value.name = "Value", show.values = FALSE) {
+  assertDataFrame(x, min.cols = 3L)
+  assertFlag(show.values)
+  assertString(value.name)
+
   # just transform to long format if matrix provided
-  if (is.matrix(x))
+  ggdf = NULL
+  if (is.matrix(x)) {
     ggdf = convertToGG(x, value.name = value.name)
+  }
   # otherwise assume a named list (named by problem)
-  else if (is.list(x))
+  else if (is.list(x)) {
     ns = names(x)
     if (is.null(ns))
       ns = as.character(1:length(x))
@@ -205,30 +194,32 @@ plotHeatmap = function(x, value.name = "Value") {
       tmp$prob = ns[i]
       return(tmp)
     }))
+  }
 
   # plot heatmap
-  pl = ggplot(ggdf, aes(x = Var1, y = Var2))
-  pl = pl + geom_tile(aes_string(fill = value.name), color = "white", size = 0.1)
+  pl = ggplot2::ggplot(ggdf, ggplot2::aes_string(x = "Var1", y = "Var2"))
+  pl = pl + ggplot2::geom_tile(ggplot2::aes_string(fill = value.name), color = "white", size = 0.1)
 
   # workaround to get rounded values
-  ggdf2 = ggdf
-  ggdf2[[value.name]] = round(ggdf2[[value.name]], 1L)
-  pl = pl + geom_text(data = ggdf2, aes_string(label = value.name), color = "white", size = 1.4)
+  if (show.values) {
+    ggdf2 = ggdf
+    ggdf2[[value.name]] = round(ggdf2[[value.name]], 1L)
+    pl = pl + ggplot2::geom_text(data = ggdf2, ggplot2::aes_string(label = value.name), color = "white", size = 1.4)
+  }
 
-  pl = pl + coord_equal()
+  pl = pl + ggplot2::coord_equal()
 
   # split if multiple problems available
   if (!is.null(ggdf$prob))
-    pl = pl + facet_wrap(~ prob, nrow = 1L)#, scales = "free")
+    pl = pl + ggplot2::facet_wrap(~ prob, nrow = 1L)#, scales = "free")
 
   # default layout
-  requirePackages(c("viridis", "ggthemes"), why = "ecr::plotHeatmap")
-  pl = pl + scale_fill_viridis()
-  pl = pl + theme(axis.ticks = element_blank())
-  pl = pl + theme(axis.text = element_text(size=7))
-  pl = pl + theme(
+  pl = pl + viridis::scale_fill_viridis()
+  pl = pl + ggplot2::theme(axis.ticks = element_blank())
+  pl = pl + ggplot2::theme(axis.text = element_text(size=7))
+  pl = pl + ggplot2::theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
     legend.position = "top")
-  pl = pl + xlab("") + ylab("")
+  pl = pl + ggplot2::xlab("") + ggplot2::ylab("")
   return(pl)
 }

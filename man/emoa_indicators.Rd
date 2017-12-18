@@ -6,6 +6,8 @@
 \alias{emoaIndR1}
 \alias{emoaIndR2}
 \alias{emoaIndR3}
+\alias{emoaIndVarNeighbourSolutions}
+\alias{emoaIndMD}
 \title{Computation of the unary epsilon-indicator.}
 \usage{
 emoaIndEps(points, ref.points)
@@ -20,6 +22,10 @@ emoaIndR2(points, ref.points, ideal.point = NULL, nadir.point = NULL,
 
 emoaIndR3(points, ref.points, ideal.point = NULL, nadir.point = NULL,
   lambda = NULL, utility = "tschebycheff")
+
+emoaIndVarNeighbourSolutions(points)
+
+emoaIndMD(points, ...)
 }
 \arguments{
 \item{points}{[\code{matrix}]\cr
@@ -46,6 +52,9 @@ Number of weight vectors to use in estimating the utility function.}
 \item{utility}{[\code{character(1)}]\cr
 Name of the utility function to use. Must be one of \dQuote{weightedsum},
 \dQuote{tschebycheff} or \dQuote{augmented tschbycheff}.}
+
+\item{...}{[any]\cr
+Not used at the moment.}
 }
 \value{
 [\code{numeric(1)}] Epsilon indicator.

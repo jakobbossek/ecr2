@@ -6,8 +6,7 @@
 \usage{
 plotFronts(df, obj.cols = c("f1", "f2"), shape = "algorithm",
   colour = NULL, highlight.algos = NULL, title = NULL, subtitle = NULL,
-  facet.type = "wrap", facet.args = list(), highlight.dom.area = FALSE,
-  ref.point = NULL)
+  facet.type = "wrap", facet.args = list())
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr
@@ -73,6 +72,7 @@ pl = plotFronts(mcMST)
 pl = plotFronts(mcMST, highlight.algos = "PRIM")
 
 # customize layout
-pl = plotFronts(mcMST, title = "Pareto-approximations", subtitle = "based on different mcMST algorithms.", facet.args = list(nrow = 2))
+pl = plotFronts(mcMST, title = "Pareto-approximations",
+  subtitle = "based on different mcMST algorithms.", facet.args = list(nrow = 2))
 }
 }

@@ -4,7 +4,7 @@
 \alias{plotHeatmap}
 \title{Plot heatmap.}
 \usage{
-plotHeatmap(x, value.name = "Value")
+plotHeatmap(x, value.name = "Value", show.values = FALSE)
 }
 \arguments{
 \item{x}{[\code{matrix} | \code{list[matrix]}]\cr
@@ -16,6 +16,10 @@ Internally, the matrix is transformed into a \code{data.frame}
 via \code{\link[reshape2]{melt}} in order to obtain a format
 which may be processed by \code{\link[ggplot2]{ggplot}} easily.
 Default is \dQuote{Value}.}
+
+\item{show.values}{[\code{logical(1L)}]\cr
+Should the values be printed within the heatmap cells?
+Default is \code{FALSE}.}
 }
 \value{
 [\code{\link[ggplot2]{ggplot}}] ggplot object.

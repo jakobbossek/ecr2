@@ -29,8 +29,6 @@ compareApproximations = function(df, obj.cols = c("f1", "f2"), algo.col = "algor
 
   print(ref.points)
 
-  library(tidyverse)
-
   # unary indicators
   unary.inds = by(df,
     list(df$algorithm, df$prob, df$repl),
@@ -42,6 +40,7 @@ compareApproximations = function(df, obj.cols = c("f1", "f2"), algo.col = "algor
         HV = ecr::computeHV(t(approx), ref.point = as.numeric(ref.points[which(ref.points$prob == x[1L, "prob"]), obj.cols])),
         NDISTINCT = nrow(approx[!duplicated(approx), , drop = FALSE]),
         N = nrow(approx)
+        #DELTA = emoaIndDelta(approx[!duplicated(approx), , drop = FALSE])
       )
     })
 
@@ -70,18 +69,18 @@ compareApproximations = function(df, obj.cols = c("f1", "f2"), algo.col = "algor
 }
 
 plotIndicatorDistribution = function(inds) {
-  df = melt(inds, id.vars = c("algo", "prob", "repl"), value.name = "Value", variable.name = "Measure")
+  df = reshape2::melt(inds, id.vars = c("algo", "prob", "repl"), value.name = "Value", variable.name = "Measure")
   print(head(df))
-  pl = ggplot(df, aes_string(x = "Measure", y = "Value"))
-  pl = pl + geom_boxplot(aes_string(fill = "algo"))
-  pl = pl + facet_wrap(~ prob)
+  pl = ggplot2::ggplot(df, ggplot2::aes_string(x = "Measure", y = "Value"))
+  pl = pl + ggplot2::geom_boxplot(ggplot2::aes_string(fill = "algo"))
+  pl = pl + ggplot2::facet_wrap(~ prob)
 
   # pl = ggplot(df, aes_string(x = "prob", y = "Value"))
   # pl = pl + geom_boxplot(aes_string(fill = "algo"))
   # #pl = pl + facet_wrap("Measure")
   # pl = pl + facet_grid(algo ~ .)
-  pl = pl + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-  pl = pl + scale_y_log10()
+  pl = pl + ggplot2::theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  pl = pl + ggplot2::scale_y_log10()
   pl = pl + viridis::scale_fill_viridis(discrete = TRUE)
   return(pl)
 }

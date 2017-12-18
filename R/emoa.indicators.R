@@ -32,6 +32,8 @@
 #' @param utility [\code{character(1)}]\cr
 #'   Name of the utility function to use. Must be one of \dQuote{weightedsum},
 #'   \dQuote{tschebycheff} or \dQuote{augmented tschbycheff}.
+#' @param ... [any]\cr
+#'   Not used at the moment.
 #' @return [\code{numeric(1)}] Epsilon indicator.
 #' @rdname emoa_indicators
 #' @export
@@ -146,4 +148,85 @@ determineLambdaByDimension = function(n.obj) {
   } else {
     3L
   }
+}
+
+#' @rdname emoa_indicators
+#' @export
+emoaIndVarNeighbourSolutions = function(points) {
+
+}
+
+#' @rdname emoa_indicators
+#' @export
+
+
+# Minimum distance between two solutions
+emoaIndMD = function(points, ...) {
+  dists = dist(t(points), ...)
+  min(dists)
+}
+
+# C(A, B) correponds to the ratio of points in B which are dominated by
+# ad least one solution in A.
+emoaIndC = function(points, ref.points) {
+  res = apply(ref.points, 2L, function(pb) {
+    any(apply(points, 2L, function(pa) {
+      dominates(pa, pb)
+    }))
+  })
+  mean(res)
+}
+
+# M1(A, B) computes the average Euclidean distance between a set of
+# points and a reference set
+emoaIndM1 = function(points, ref.points) {
+  dists = apply(points, 2L, function(p) {
+    colSums((ref.points - p)^2)
+  })
+  mean(dists)
+}
+
+# Overall non-dominated vector generation
+emoaIndONVG = function(points, normalize = FALSE) {
+  assertFlag(normalize)
+  res = sum(nondominated(points))
+  if (normalize)
+    return(res / ncol(points))
+  return(res)
+}
+
+
+#' @inheritParams computeGenerationalDistance
+emoaIndGD = function(points, ref.points, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance) {
+  computeGenerationalDistance(points, ref.points, p = p, normalize = normalize, dist.fun = dist.fun)
+}
+
+# Spacing as proposed by Sch95
+emoaIndSP = function(points) {
+  n = ncol(points)
+  dists = as.matrix(dist(t(points), method = "manhattan", p = 1))
+  diag(dists) = Inf
+  min.dists = apply(dists, 1L, min)
+  avg.min.dist = mean(min.dists)
+  ind = sqrt(sum((min.dists - avg.min.dist)^2) / (n - 1L))
+  return(ind)
+}
+
+# \Delta^{'} as proposed by Deb et al. a fast elitist non-dominated ...
+emoaIndDelta = function(points) {
+  n = ncol(points)
+  if (nrow(points) > 2L)
+    stopf("emoaIndDelta: only applicable for 2 objectivs.")
+  # sort points by first objective => sorted in decreasing order
+  # regarding second objective automatically
+  points = points[, order(points[1L, ], decreasing = FALSE)]
+
+  # compute Euclidean distance between neighbour points
+  dists = sapply(1:(n - 1L), function(i) {
+    sqrt(sum((points[, i] - points[, i + 1L])^2))
+  })
+  avg.dist = mean(dists)
+
+  # compute indicator
+  mean(abs(dist - avg.dist))
 }

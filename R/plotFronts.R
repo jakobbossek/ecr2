@@ -172,7 +172,7 @@ convertToGG = function(x, value.name = "value") {
 #' }
 #' @export
 plotHeatmap = function(x, value.name = "Value", show.values = FALSE) {
-  assertDataFrame(x, min.cols = 3L)
+  assertMatrix(x, mode = "numeric")
   assertFlag(show.values)
   assertString(value.name)
 

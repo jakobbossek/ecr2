@@ -71,9 +71,9 @@ compareApproximations = function(df, obj.cols = c("f1", "f2"), algo.col = "algor
 plotIndicatorDistribution = function(inds) {
   df = reshape2::melt(inds, id.vars = c("algo", "prob", "repl"), value.name = "Value", variable.name = "Measure")
   print(head(df))
-  pl = ggplot2::ggplot(df, ggplot2::aes_string(x = "Measure", y = "Value"))
-  pl = pl + ggplot2::geom_boxplot(ggplot2::aes_string(fill = "algo"))
-  pl = pl + ggplot2::facet_wrap(~ prob)
+  pl = ggplot2::ggplot(df, ggplot2::aes_string(x = "algo", y = "Value"))
+  pl = pl + ggplot2::geom_boxplot(ggplot2::aes_string(fill = "Measure"))
+  pl = pl + ggplot2::facet_grid(Measure ~ prob)
 
   # pl = ggplot(df, aes_string(x = "prob", y = "Value"))
   # pl = pl + geom_boxplot(aes_string(fill = "algo"))

@@ -27,7 +27,11 @@ Imports:
     parallelMap (>= 1.3),
     reshape2 (>= 1.4.1),
     ggplot2 (>= 1.0.0),
-    viridis
+    viridis,
+    dplyr,
+    plot3D,
+    plot3Drgl,
+    scatterplot3d
 Suggests:
     testthat (>= 0.9.1),
     knitr,

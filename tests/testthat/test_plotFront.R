@@ -28,3 +28,23 @@ test_that("plotFront works as expected", {
   # check for class
   expect_class(pl, "ggplot")
 })
+
+test_that("plotScatter{2,3}d works", {
+  data(mcMST)
+  testdata = subset(mcMST, prob %in% paste0("prob", 1:3))
+
+  # test 2d scatterplots
+  expect_error(plotScatter2d(testdata, obj.cols = c("non", "sense")))
+
+  pl = plotScatter2d(mcMST, shape = "algorithm", colour = "algorithm", highlight.algos = "PRIM", title = "test", subtitle = "to test plots")
+  expect_class(pl, "ggplot")
+
+  # now 3d scatterplots
+  # (here we test scatterplot3d and plot3D only and not the HTML/RGL stuff)
+  testdata$f3 = testdata$f1
+
+  #FIXME: how to test this stuff?
+  # for (package in c("scatterplot3d", "plot3D")) {
+  #   expect_output(plotScatter3d(testdata, max.in.col = 2L, package = package))
+  # }
+})

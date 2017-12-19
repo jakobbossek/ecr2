@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotFronts.R
 \name{plotFronts}
 \alias{plotFronts}
-\title{Visualize Pareto-front approximations.}
+\title{Visualize bi-objective Pareto-front approximations.}
 \usage{
 plotFronts(df, obj.cols = c("f1", "f2"), shape = "algorithm",
   colour = NULL, highlight.algos = NULL, title = NULL, subtitle = NULL,

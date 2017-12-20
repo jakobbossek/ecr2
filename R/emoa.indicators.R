@@ -37,7 +37,7 @@
 #' @return [\code{numeric(1)}] Epsilon indicator.
 #' @rdname emoa_indicators
 #' @export
-emoaIndEps = function(points, ref.points) {
+emoaIndEps = function(points, ref.points, ...) {
   # sanity checks
   assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
@@ -48,7 +48,7 @@ emoaIndEps = function(points, ref.points) {
 
 #' @rdname emoa_indicators
 #' @export
-emoaIndHV = function(points, ref.points, ref.point = NULL) {
+emoaIndHV = function(points, ref.points, ref.point = NULL, ...) {
   # compute nadir point
   if (is.null(ref.point)) {
     ref.point = approximateNadirPoint(points, ref.points)
@@ -70,25 +70,25 @@ emoaIndHV = function(points, ref.points, ref.point = NULL) {
 #' @rdname emoa_indicators
 #' @export
 emoaIndR1 = function(points, ref.points, ideal.point = NULL,
-  nadir.point = NULL, lambda = NULL, utility = "tschebycheff") {
+  nadir.point = NULL, lambda = NULL, utility = "tschebycheff", ...) {
   computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
-    aggregator = function(ua, ur) mean(ua > ur) + mean(ua == ur) / 2)
+    aggregator = function(ua, ur) mean(ua > ur) + mean(ua == ur) / 2, ...)
 }
 
 #' @rdname emoa_indicators
 #' @export
 emoaIndR2 = function(points, ref.points, ideal.point = NULL,
-  nadir.point = NULL, lambda = NULL, utility = "tschebycheff") {
+  nadir.point = NULL, lambda = NULL, utility = "tschebycheff", ...) {
   computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
-    aggregator = function(ua, ur) mean(ur - ua))
+    aggregator = function(ua, ur) mean(ur - ua), ...)
 }
 
 #' @rdname emoa_indicators
 #' @export
 emoaIndR3 = function(points, ref.points, ideal.point = NULL,
-  nadir.point = NULL, lambda = NULL, utility = "tschebycheff") {
+  nadir.point = NULL, lambda = NULL, utility = "tschebycheff", ...) {
   computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
-    aggregator = function(ua, ur) mean((ur - ua) / ur))
+    aggregator = function(ua, ur) mean((ur - ua) / ur), ...)
 }
 
 # @rdname emoa_indicators
@@ -97,7 +97,8 @@ computeRIndicator = function(
   ideal.point = NULL, nadir.point = NULL,
   lambda = NULL,
   utility,
-  aggregator) {
+  aggregator,
+  ...) {
   assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   if (is.null(ideal.point)) {
@@ -152,7 +153,7 @@ determineLambdaByDimension = function(n.obj) {
 
 #' @rdname emoa_indicators
 #' @export
-emoaIndVarNeighbourSolutions = function(points) {
+emoaIndVarNeighbourSolutions = function(points, ...) {
 
 }
 
@@ -168,7 +169,7 @@ emoaIndMD = function(points, ...) {
 
 # C(A, B) correponds to the ratio of points in B which are dominated by
 # ad least one solution in A.
-emoaIndC = function(points, ref.points) {
+emoaIndC = function(points, ref.points, ...) {
   res = apply(ref.points, 2L, function(pb) {
     any(apply(points, 2L, function(pa) {
       dominates(pa, pb)
@@ -179,7 +180,7 @@ emoaIndC = function(points, ref.points) {
 
 # M1(A, B) computes the average Euclidean distance between a set of
 # points and a reference set
-emoaIndM1 = function(points, ref.points) {
+emoaIndM1 = function(points, ref.points, ...) {
   dists = apply(points, 2L, function(p) {
     colSums((ref.points - p)^2)
   })
@@ -187,7 +188,7 @@ emoaIndM1 = function(points, ref.points) {
 }
 
 # Overall non-dominated vector generation
-emoaIndONVG = function(points, normalize = FALSE) {
+emoaIndONVG = function(points, normalize = FALSE, ...) {
   assertFlag(normalize)
   res = sum(nondominated(points))
   if (normalize)
@@ -197,12 +198,12 @@ emoaIndONVG = function(points, normalize = FALSE) {
 
 
 #' @inheritParams computeGenerationalDistance
-emoaIndGD = function(points, ref.points, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance) {
-  computeGenerationalDistance(points, ref.points, p = p, normalize = normalize, dist.fun = dist.fun)
+emoaIndGD = function(points, ref.points, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance, ...) {
+  computeGenerationalDistance(points, ref.points, p = p, normalize = normalize, dist.fun = dist.fun, ...)
 }
 
 # Spacing as proposed by Sch95
-emoaIndSP = function(points) {
+emoaIndSP = function(points, ...) {
   n = ncol(points)
   dists = as.matrix(dist(t(points), method = "manhattan", p = 1))
   diag(dists) = Inf
@@ -213,7 +214,7 @@ emoaIndSP = function(points) {
 }
 
 # \Delta^{'} as proposed by Deb et al. a fast elitist non-dominated ...
-emoaIndDelta = function(points) {
+emoaIndDelta = function(points, ...) {
   n = ncol(points)
   if (nrow(points) > 2L)
     stopf("emoaIndDelta: only applicable for 2 objectivs.")

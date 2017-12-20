@@ -28,7 +28,7 @@
 #'  for each point in the case of \code{computeHVContr}.
 #' @rdname dominated_hypervolume
 #' @export
-computeHV = function(x, ref.point = NULL) {
+computeHV = function(x, ref.point = NULL, ...) {
   # sanity checks
   assertMatrix(x, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
 

@@ -22,13 +22,22 @@
 #' @return Nothing
 #' @export
 plotScatter3d = function(df, obj.cols = c("f1", "f2", "f3"), max.in.row = 4L, package = "scatterplot3d", ...) {
-  assertDataFrame(df, min.rows = 2L, min.cols = 5L)
+  assertDataFrame(df, min.rows = 2L, min.cols = 3L)
   assertCharacter(obj.cols, min.len = 2L)
   assertChoice(package, c("scatterplot3d", "plot3D", "plot3Drgl", "plotly"))
   max.in.row = asInt(max.in.row, lower = 1L, upper = 10L)
 
   if (!all(obj.cols %in% colnames(df)))
     stopf("obj.cols needs to contain valid column names.")
+
+  if (is.null(df$algorithm))
+    df$algorithm = "Algorithm"
+  if (is.null(df$prob))
+    df$prob = "Problem"
+  if (is.null(df$repl))
+    df$repl = as.factor(1L)
+
+  df$repl = as.factor(df$repl)
 
   # get algorithm and problem names
   algos = factor(unique(df$algorithm))
@@ -45,9 +54,11 @@ plotScatter3d = function(df, obj.cols = c("f1", "f2", "f3"), max.in.row = 4L, pa
   pchs = 1:16
   cols = viridis::viridis_pal()(n.algos)
 
-  n.rows = ceiling(n.probs / max.in.row)
-  opar = graphics::par(mfrow = c(n.rows, max.in.row))
-  on.exit(graphics::par(opar))
+  if (n.probs > 1L) {
+    n.rows = ceiling(n.probs / max.in.row)
+    opar = graphics::par(mfrow = c(n.rows, max.in.row))
+    on.exit(graphics::par(opar))
+  }
 
   if (package %in% c("scatterplot3d", "plot3D", "plot3Drgl")) {
     for (prob in probs) {

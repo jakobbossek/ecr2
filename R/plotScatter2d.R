@@ -77,6 +77,10 @@ plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colo
     df$algorithm = "Algorithm"
   if (is.null(df$prob))
     df$prob = "Problem"
+  if (is.null(df$repl))
+    df$repl = as.factor(1L)
+
+  df$repl = as.factor(df$repl)
 
   assertChoice(shape, choices = setdiff(colnames(df), obj.cols))
   assertChoice(colour, choices = setdiff(colnames(df), obj.cols), null.ok = TRUE)
@@ -113,12 +117,12 @@ plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colo
     pl = pl + ggplot2::geom_line(
       data = data.highlight,
       alpha = 0.3)
-    pl = pl + ggplot2::geom_point(
-      data = data.highlight,
-      size = 3.5,
-      shape = 1,
-      alpha = 0.8,
-      colour = "tomato")
+    # pl = pl + ggplot2::geom_point(
+    #   data = data.highlight,
+    #   size = 3.5,
+    #   shape = 1,
+    #   alpha = 0.8,
+    #   colour = "tomato")
   }
   pl = pl + ggplot2::geom_point(
     data = data,
@@ -126,7 +130,7 @@ plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colo
     alpha = 0.5)
   if (n.probs > 1L) {
     # how to group stuff
-    group.by = ". ~ prob"
+    group.by = if (facet.type == "wrap") formula( ~ prob) else formula(. ~ prob)
     default.facet.args = list(facets = group.by, scale = "free")
     facet.args = BBmisc::insert(default.facet.args, facet.args)
     if (facet.type == "wrap")
@@ -140,7 +144,12 @@ plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colo
     shape = "Algorithm",
     colour = "Algorithm"
   )
-  pl = pl + ggplot2::theme(legend.position = "bottom")
+  pl = pl + ggplot2::theme(
+    legend.position = "bottom",
+    axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
+  )
+  if (!is.null(colour))
+    pl = pl + viridis::scale_colour_viridis(discrete = TRUE)
 
   return(pl)
 }

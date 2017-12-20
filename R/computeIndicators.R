@@ -131,7 +131,8 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), offset = 0, ref.point
 
   return(list(
     unary = unary.inds,
-    binary = list(epsilon = eps.inds)
+    binary = list(epsilon = eps.inds),
+    ref.points = ref.points
   ))
 }
 

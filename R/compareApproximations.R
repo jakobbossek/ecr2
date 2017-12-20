@@ -1,13 +1,32 @@
+#' @title Computation of EMOA performance indicators.
+#'
+#' @description Given a data.frame of Pareto-front approximations for different
+#' sets of problems, algorithms and replications, the function computes sets
+#' of unary and binary EMOA performance indicators.
+#'
+#' @param df [\code{data.frame}]\cr
+#'   Data frame with columns \code{obj.cols}, \dQuote{prob}, \dQuote{algorithm}
+#'   and \dQuote{repl}.
+#' @param obj.cols [\code{character(>= 2)}]\cr
+#'   Column names of the objective functions.
+#'   Default is \code{c("f1", "f2")}, i.e., the bi-objective case is assumed.
+#' @return [\code{list}] List with components \dQuote{unary} (data frame of
+#'   unary indicators) and \dQuote{binary} (list of matrizes of binary indicators).
+#' @export
 #FIXME: ignores prob column
-compareApproximations = function(df, obj.cols = c("f1", "f2"), algo.col = "algorithm", offset = 10) {
+#FIXME: allow to pass list of ref.points, list of ref.sets or better a data.frame
+# of \code{df} structure?
+#FIXME: imagine something like AS-EMOA, where we want each one approx set for each prob
+computeIndicators = function(df, obj.cols = c("f1", "f2"), offset = 10) {
   assertDataFrame(df)
 
   # ref point approx
+  #FIXME: generalize to problem of arbitrary many probs
   pareto.approx = df[, obj.cols, drop = FALSE]
   ref.point = apply(pareto.approx, 2L, max)
   ref.point = ref.point + offset
 
-  algos = unique(df[[algo.col]])
+  algos = unique(df[["algorithm"]])
   probs = unique(df[["prob"]])
   n.algos = length(algos)
 
@@ -34,7 +53,7 @@ compareApproximations = function(df, obj.cols = c("f1", "f2"), algo.col = "algor
     list(df$algorithm, df$prob, df$repl),
     function(x) {
       approx = x[, obj.cols, drop = FALSE]
-      data.frame(algo = x[[algo.col]][1L],
+      data.frame(algo = x[["algorithm"]][1L],
         prob = x[["prob"]][1L],
         repl = x[["repl"]][1L],
         HV = ecr::computeHV(t(approx), ref.point = as.numeric(ref.points[which(ref.points$prob == x[1L, "prob"]), obj.cols])),
@@ -47,6 +66,8 @@ compareApproximations = function(df, obj.cols = c("f1", "f2"), algo.col = "algor
   unary.inds = do.call(rbind, unary.inds)
 
   # binary indicators
+  #FIXME: generalize for multiple indicators
+  #FIXME: use outer()
   eps.inds = list()
   for (prob in probs) {
     df.prob = df[which(df[["prob"]] == prob), , drop = FALSE]
@@ -54,8 +75,8 @@ compareApproximations = function(df, obj.cols = c("f1", "f2"), algo.col = "algor
     colnames(eps.mat) = rownames(eps.mat) = algos
     for (i in 1:n.algos) {
       for (j in 1:n.algos) {
-        pfaA = df.prob[which(df.prob[[algo.col]] == algos[i]), obj.cols]
-        pfaB = df.prob[which(df.prob[[algo.col]] == algos[j]), obj.cols]
+        pfaA = df.prob[which(df.prob[["algorithm"]] == algos[i]), obj.cols]
+        pfaB = df.prob[which(df.prob[["algorithm"]] == algos[j]), obj.cols]
         eps.mat[i, j] = ecr::emoaIndEps(t(pfaA), t(pfaB))
       }
     }

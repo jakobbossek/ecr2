@@ -9,8 +9,8 @@
 #' @param obj.cols [\code{character(>= 3)}]\cr
 #'   Column names of the objective functions.
 #'   Default is \code{c("f1", "f2", "f3")}.
-#' @param max.in.col [\code{integer(1)}]\cr
-#'   Maximum number of plots to be displayed side by side.
+#' @param max.in.row [\code{integer(1)}]\cr
+#'   Maximum number of plots to be displayed side by side in a row.
 #'   Default is 4.
 #' @param package [\code{character(1L)}]\cr
 #'   Which package to use for 3d scatterplot generation?
@@ -21,11 +21,11 @@
 #'   Further arguments passed down to scatterplot function.
 #' @return Nothing
 #' @export
-plotScatter3d = function(df, obj.cols = c("f1", "f2", "f3"), max.in.col = 4L, package = "scatterplot3d", ...) {
+plotScatter3d = function(df, obj.cols = c("f1", "f2", "f3"), max.in.row = 4L, package = "scatterplot3d", ...) {
   assertDataFrame(df, min.rows = 2L, min.cols = 5L)
   assertCharacter(obj.cols, min.len = 2L)
   assertChoice(package, c("scatterplot3d", "plot3D", "plot3Drgl", "plotly"))
-  max.in.col = asInt(max.in.col, lower = 1L, upper = 10L)
+  max.in.row = asInt(max.in.row, lower = 1L, upper = 10L)
 
   if (!all(obj.cols %in% colnames(df)))
     stopf("obj.cols needs to contain valid column names.")
@@ -45,8 +45,8 @@ plotScatter3d = function(df, obj.cols = c("f1", "f2", "f3"), max.in.col = 4L, pa
   pchs = 1:16
   cols = viridis::viridis_pal()(n.algos)
 
-  n.rows = ceiling(n.probs / max.in.col)
-  opar = graphics::par(mfrow = c(n.rows, n.probs))
+  n.rows = ceiling(n.probs / max.in.row)
+  opar = graphics::par(mfrow = c(n.rows, max.in.row))
   on.exit(graphics::par(opar))
 
   if (package %in% c("scatterplot3d", "plot3D", "plot3Drgl")) {

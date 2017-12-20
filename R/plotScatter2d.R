@@ -57,15 +57,29 @@
 #FIXME: allow to work if there is no prob column
 #FIXME: allow to pass column numbers of obj.cols
 plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colour = NULL, highlight.algos = NULL, title = NULL, subtitle = NULL, facet.type = "wrap", facet.args = list()) {
-  assertDataFrame(df, min.rows = 2L, min.cols = 4L)
+  assertDataFrame(df, min.rows = 2L, min.cols = 2L)
   assertCharacter(obj.cols, min.len = 2L)
   assertChoice(facet.type, choices = c("wrap", "grid"))
-  assertChoice(shape, choices = setdiff(colnames(df), obj.cols))
-  assertChoice(colour, choices = setdiff(colnames(df), obj.cols), null.ok = TRUE)
   assertList(facet.args)
 
+  # sanity check columns containing objective values
   if (!all(obj.cols %in% colnames(df)))
     stopf("obj.cols needs to contain valid column names.")
+
+  df.obj = df[, obj.cols, drop = FALSE]
+  obj.cols.numeric = sapply(df.obj, is.numeric)
+  if (!all(obj.cols.numeric))
+    stopf("Only numeric values allowed in obj.cols, but column(s) '%s' %s not numeric!",
+      collapse(obj.cols[which(!obj.cols.numeric)], ifelse(sum(!obj.cols.numeric) > 1L, "are", "is")))
+
+  # insert dummy values if missing
+  if (is.null(df$algorithm))
+    df$algorithm = "Algorithm"
+  if (is.null(df$prob))
+    df$prob = "Problem"
+
+  assertChoice(shape, choices = setdiff(colnames(df), obj.cols))
+  assertChoice(colour, choices = setdiff(colnames(df), obj.cols), null.ok = TRUE)
 
   # get algorithm names
   algos = unique(df$algorithm)
@@ -82,7 +96,6 @@ plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colo
   assertString(title, null.ok = TRUE)
   assertString(subtitle, null.ok = TRUE)
 
-  BBmisc::requirePackages("ggplot2", why = "ecr::plotFronts")
   pl = ggplot2::ggplot(mapping = ggplot2::aes_string(x = obj.cols[1L], y = obj.cols[2L]))
 
   data = df
@@ -109,7 +122,7 @@ plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colo
   }
   pl = pl + ggplot2::geom_point(
     data = data,
-    mapping = aes_string(shape = shape, colour = colour),
+    mapping = ggplot2::aes_string(shape = shape, colour = colour),
     alpha = 0.5)
   if (n.probs > 1L) {
     # how to group stuff
@@ -117,17 +130,17 @@ plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colo
     default.facet.args = list(facets = group.by, scale = "free")
     facet.args = BBmisc::insert(default.facet.args, facet.args)
     if (facet.type == "wrap")
-      pl = pl + do.call("facet_wrap", facet.args)
+      pl = pl + do.call(ggplot2::facet_wrap, facet.args)
     else
-      pl = pl + do.call("facet_grid", facet.args)
+      pl = pl + do.call(ggplot2::facet_grid, facet.args)
   }
-  pl = pl + labs(
+  pl = pl + ggplot2::labs(
     title = title,
     subtitle = subtitle,
     shape = "Algorithm",
     colour = "Algorithm"
   )
-  pl = pl + theme(legend.position = "bottom")
+  pl = pl + ggplot2::theme(legend.position = "bottom")
 
   return(pl)
 }

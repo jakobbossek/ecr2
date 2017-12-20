@@ -10,20 +10,20 @@
 \alias{emoaIndMD}
 \title{Computation of the unary epsilon-indicator.}
 \usage{
-emoaIndEps(points, ref.points)
+emoaIndEps(points, ref.points, ...)
 
-emoaIndHV(points, ref.points, ref.point = NULL)
+emoaIndHV(points, ref.points, ref.point = NULL, ...)
 
 emoaIndR1(points, ref.points, ideal.point = NULL, nadir.point = NULL,
-  lambda = NULL, utility = "tschebycheff")
+  lambda = NULL, utility = "tschebycheff", ...)
 
 emoaIndR2(points, ref.points, ideal.point = NULL, nadir.point = NULL,
-  lambda = NULL, utility = "tschebycheff")
+  lambda = NULL, utility = "tschebycheff", ...)
 
 emoaIndR3(points, ref.points, ideal.point = NULL, nadir.point = NULL,
-  lambda = NULL, utility = "tschebycheff")
+  lambda = NULL, utility = "tschebycheff", ...)
 
-emoaIndVarNeighbourSolutions(points)
+emoaIndVarNeighbourSolutions(points, ...)
 
 emoaIndMD(points, ...)
 }
@@ -33,6 +33,9 @@ Matrix of points.}
 
 \item{ref.points}{[\code{matrix}]\cr
 Set of reference points.}
+
+\item{...}{[any]\cr
+Not used at the moment.}
 
 \item{ref.point}{[\code{numeric}]\cr
 A single reference point used, e.g., for the computation of the hypervolume
@@ -52,9 +55,6 @@ Number of weight vectors to use in estimating the utility function.}
 \item{utility}{[\code{character(1)}]\cr
 Name of the utility function to use. Must be one of \dQuote{weightedsum},
 \dQuote{tschebycheff} or \dQuote{augmented tschbycheff}.}
-
-\item{...}{[any]\cr
-Not used at the moment.}
 }
 \value{
 [\code{numeric(1)}] Epsilon indicator.

@@ -4,7 +4,7 @@
 \alias{plotScatter3d}
 \title{Visualize three-objective Pareto-front approximations.}
 \usage{
-plotScatter3d(df, obj.cols = c("f1", "f2", "f3"), max.in.col = 4L,
+plotScatter3d(df, obj.cols = c("f1", "f2", "f3"), max.in.row = 4L,
   package = "scatterplot3d", ...)
 }
 \arguments{
@@ -15,8 +15,8 @@ Data.frame with columns at least \code{obj.cols}, \dQuote{prob} and \dQuote{algo
 Column names of the objective functions.
 Default is \code{c("f1", "f2", "f3")}.}
 
-\item{max.in.col}{[\code{integer(1)}]\cr
-Maximum number of plots to be displayed side by side.
+\item{max.in.row}{[\code{integer(1)}]\cr
+Maximum number of plots to be displayed side by side in a row.
 Default is 4.}
 
 \item{package}{[\code{character(1L)}]\cr

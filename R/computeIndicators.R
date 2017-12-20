@@ -11,8 +11,24 @@
 #'   Column names of the objective functions.
 #'   Default is \code{c("f1", "f2")}, i.e., the bi-objective case is assumed.
 #' @param unary.inds [\code{list}]\cr
-#'   List of unary indicators which shall be calculated.
-#'
+#'   Named list of unary indicators which shall be calculated.
+#'   Each component must be another list with mandatory argument \code{fun} (the
+#'   function which calculates the indicator) and optional argument pars (a named
+#'   list of parameters for \code{fun}). Function \code{fun} must have the
+#'   signiture \dQuote{function(points, arg1, ..., argk, ...)}.
+#'   The arguments \dQuote{points} and \dQuote{...} are mandatory, the remaining are
+#'   optional.
+#'   The names of the components on the first level are used for the column names
+#'   of the output data.frame.
+#'   Default is \code{list(HV = list(fun = computeHV))}, i.e., the dominated
+#'   Hypervolume indicator.
+#' @param binary.inds [\code{list}]\cr
+#'   Named list of binary indicators which shall be applied for each algorithm
+#'   combination. Parameter \code{binary.inds} needs the same structure as \code{unary.inds}.
+#'   However, the function signature of \code{fun} is slighly different:
+#'   \dQuote{function(points1, points2, arg1, ..., argk, ...)}.
+#'   See function \code{\link{emoaIndEps}} for an example.
+#'   Default is \code{list(EPS = list(fun = emoaIndEps))}.
 #' @param offset [\code{numeric(1)}]\cr
 #'   Offset added to reference point estimations.
 #'   Default is 0.
@@ -27,7 +43,9 @@
 #FIXME: list of ref.sets or better a data.frame
 # of \code{df} structure?
 #FIXME: imagine something like AS-EMOA, where we want each one approx set for each prob
-computeIndicators = function(df, obj.cols = c("f1", "f2"), unary.inds = NULL, offset = 0, ref.points = NULL) {
+computeIndicators = function(df, obj.cols = c("f1", "f2"),
+  unary.inds = NULL, binary.inds = NULL,
+  offset = 0, ref.points = NULL) {
   assertDataFrame(df)
 
   # get some meta data
@@ -41,6 +59,10 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), unary.inds = NULL, of
   # check list of unary indicators
   if (is.null(unary.inds))
     unary.inds = list(HV = list(fun = computeHV))
+
+  # check list of binary indicators
+  if (is.null(binary.inds))
+    binary.inds = list(EPS = list(fun = emoaIndEps))
 
   # check reference points
   if (!is.null(ref.points)) {
@@ -65,7 +87,7 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), unary.inds = NULL, of
   ref.points.length = sapply(ref.points, length)
   if (any(ref.points.length != n.obj))
     stopf("computeIndicators: considering %i objectives, but reference point %s do not match in length.",
-      n.obj, collapse(which(ref.point.length != n.obj), sep = ", "))
+      n.obj, collapse(which(ref.points.length != n.obj), sep = ", "))
 
   grid = expand.grid(algorithm = algos, prob = probs)
   df$prob = as.factor(df$prob)
@@ -79,7 +101,7 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), unary.inds = NULL, of
   unary.inds.names = names(unary.inds)
 
   # split by algorithm x prob x repl combination
-  unary.inds = by(df,
+  unary.indicators = by(df,
     list(df$algorithm, df$prob, df$repl),
     function(x) {
       # all EMOA indicators expect a matrix of type n.obj x n.points
@@ -103,29 +125,40 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), unary.inds = NULL, of
       return(res)
     }
   )
-  unary.inds = do.call(rbind, unary.inds)
+  unary.indicators = do.call(rbind, unary.indicators)
 
   # binary indicators
-  #FIXME: generalize for multiple indicators
-  #FIXME: use outer()
-  eps.inds = list()
-  for (prob in probs) {
-    df.prob = df[which(df[["prob"]] == prob), , drop = FALSE]
-    eps.mat = matrix(NA, nrow = n.algos, ncol = n.algos)
-    colnames(eps.mat) = rownames(eps.mat) = algos
-    for (i in 1:n.algos) {
-      for (j in 1:n.algos) {
-        pfaA = df.prob[which(df.prob[["algorithm"]] == algos[i]), obj.cols]
-        pfaB = df.prob[which(df.prob[["algorithm"]] == algos[j]), obj.cols]
-        eps.mat[i, j] = ecr::emoaIndEps(t(pfaA), t(pfaB))
+  #FIXME: use outer()?
+  binary.inds.names = names(binary.inds)
+  binary.indicators = list()
+  for (binary.ind.name in binary.inds.names) {
+    for (prob in probs) {
+      prob.ind = list()
+      # filter data
+      df.prob = df[which(df[["prob"]] == prob), , drop = FALSE]
+      # empty indicators matrix
+      ind.mat = matrix(NA, nrow = n.algos, ncol = n.algos)
+      colnames(ind.mat) = rownames(ind.mat) = algos
+      for (i in 1:n.algos) {
+        for (j in 1:n.algos) {
+          approx.i = t(df.prob[which(df.prob[["algorithm"]] == algos[i]), obj.cols])
+          approx.j = t(df.prob[which(df.prob[["algorithm"]] == algos[j]), obj.cols])
+
+          # call indicator
+          ind.fun = binary.inds[[binary.ind.name]][["fun"]]
+          ind.args = BBmisc::coalesce(binary.inds[[binary.ind.name]][["pars"]], list())
+          ind.args = BBmisc::insert(list(approx.i, approx.j), ind.args)
+          ind.mat[i, j] = do.call(ind.fun, ind.args)
+        }
       }
+      prob.ind[[prob]] = ind.mat
+      binary.indicators[[binary.ind.name]] = c(binary.indicators[[binary.ind.name]], prob.ind)
     }
-    eps.inds[[prob]] = eps.mat
   }
 
   return(list(
-    unary = unary.inds,
-    binary = list(epsilon = eps.inds),
+    unary = unary.indicators,
+    binary = binary.indicators,
     ref.points = ref.points
   ))
 }

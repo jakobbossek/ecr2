@@ -1,7 +1,7 @@
 #' @title Plot distributions of EMOA indicators.
 #'
 #' @description Visualizes of empirical distributions of unary EMOA indicator
-#' based on the results of \code{\link{compareApproximations}}.
+#' based on the results of \code{\link{computeIndicators}}.
 #'
 #' @param inds [\code{data.frame}]\cr
 #'   Data frame with columns \dQuote{algorithm}, \dQuote{prob}, \dQuote{repl} and
@@ -10,11 +10,14 @@
 #'   Either \dQuote{boxplot} (the default) for boxplots or \dQuote{violin} for
 #'   violin plots.
 #' @return [\code{\link[ggplot2]{ggplot}}]
-plotIndicatorDistribution = function(inds) {
+plotIndicatorDistribution = function(inds, plot.type = "boxplot") {
+  assertDataFrame(inds)
+  assertChoice(plot.type, choices = c("boxplot", "violinplot"))
   df = reshape2::melt(inds, id.vars = c("algorithm", "prob", "repl"), value.name = "Value", variable.name = "Measure")
   print(head(df))
   pl = ggplot2::ggplot(df, ggplot2::aes_string(x = "algorithm", y = "Value"))
-  pl = pl + ggplot2::geom_boxplot()#ggplot2::aes_string(fill = "Measure"))
+  plot.fun = if (plot.type == "boxplot") ggplot2::geom_boxplot else ggplot2::geom_violin
+  pl = pl + plot.fun()#ggplot2::aes_string(fill = "Measure"))
   pl = pl + ggplot2::facet_grid(Measure ~ prob, scale = "free_y")
 
   # pl = ggplot(df, aes_string(x = "prob", y = "Value"))

@@ -4,11 +4,11 @@
 \alias{plotIndicatorDistribution}
 \title{Plot distributions of EMOA indicators.}
 \usage{
-plotIndicatorDistribution(inds)
+plotIndicatorDistribution(inds, plot.type = "boxplot")
 }
 \arguments{
 \item{inds}{[\code{data.frame}]\cr
-Data frame with columns \dQuote{algo}, \dQuote{prob}, \dQuote{repl} and
+Data frame with columns \dQuote{algorithm}, \dQuote{prob}, \dQuote{repl} and
 one additional column per EMOA indicator.}
 
 \item{plot.type}{[\code{character(1)}]\cr
@@ -20,5 +20,5 @@ violin plots.}
 }
 \description{
 Visualizes of empirical distributions of unary EMOA indicator
-based on the results of \code{\link{compareApproximations}}.
+based on the results of \code{\link{computeIndicators}}.
 }

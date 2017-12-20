@@ -23,6 +23,8 @@
 #' @param offset [\code{numeric(1)}]\cr
 #'   Offset to be added to each component of the reference point only in the case
 #'   where no reference is provided and one is calculated automatically.
+#' @param ... [any]\cr
+#'   Not used at the moment.
 #' @return [\code{numeric(1)}] Dominated hypervolume in the case of
 #'  \code{computeHV} and the dominated hypervolume contributions
 #'  for each point in the case of \code{computeHVContr}.

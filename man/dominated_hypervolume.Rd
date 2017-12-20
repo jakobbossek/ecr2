@@ -5,7 +5,7 @@
 \alias{computeHVContr}
 \title{Functions for the calculation of the dominated hypervolume (contribution).}
 \usage{
-computeHV(x, ref.point = NULL)
+computeHV(x, ref.point = NULL, ...)
 
 computeHVContr(x, ref.point = NULL, offset = 1)
 }
@@ -16,6 +16,9 @@ Matrix of points (column-wise).}
 \item{ref.point}{[\code{numeric} | \code{NULL}]\cr
 Reference point.
 Set to the maximum in each dimension by default if not provided.}
+
+\item{...}{[any]\cr
+Not used at the moment.}
 
 \item{offset}{[\code{numeric(1)}]\cr
 Offset to be added to each component of the reference point only in the case

@@ -10,6 +10,9 @@
 #' @param obj.cols [\code{character(>= 2)}]\cr
 #'   Column names of the objective functions.
 #'   Default is \code{c("f1", "f2")}, i.e., the bi-objective case is assumed.
+#' @param unary.inds [\code{list}]\cr
+#'   List of unary indicators which shall be calculated.
+#'
 #' @param offset [\code{numeric(1)}]\cr
 #'   Offset added to reference point estimations.
 #'   Default is 0.
@@ -24,7 +27,7 @@
 #FIXME: list of ref.sets or better a data.frame
 # of \code{df} structure?
 #FIXME: imagine something like AS-EMOA, where we want each one approx set for each prob
-computeIndicators = function(df, obj.cols = c("f1", "f2"), offset = 0, ref.points = NULL) {
+computeIndicators = function(df, obj.cols = c("f1", "f2"), unary.inds = NULL, offset = 0, ref.points = NULL) {
   assertDataFrame(df)
 
   # get some meta data
@@ -35,6 +38,11 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), offset = 0, ref.point
   n.probs = length(probs)
   n.obj   = length(obj.cols)
 
+  # check list of unary indicators
+  if (is.null(unary.inds))
+    unary.inds = list(HV = list(fun = computeHV))
+
+  # check reference points
   if (!is.null(ref.points)) {
     probs.yes.ref.point = names(ref.points)
     if (!all(probs.yes.ref.point %in% probs))
@@ -51,7 +59,7 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), offset = 0, ref.point
       ref.points = c(ref.points, ref.points.missing)
     }
   } else {
-    ref.points = approximateRefPoints(df, obj.cols, as.df = FALSE)
+    ref.points = approximateRefPoints(df, obj.cols, offset = offset, as.df = FALSE)
   }
 
   ref.points.length = sapply(ref.points, length)
@@ -67,24 +75,34 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), offset = 0, ref.point
     df$repl = 1L
   }
 
-  print(ref.points)
-
   # unary indicators
+  unary.inds.names = names(unary.inds)
+
+  # split by algorithm x prob x repl combination
   unary.inds = by(df,
     list(df$algorithm, df$prob, df$repl),
     function(x) {
-      approx = x[, obj.cols, drop = FALSE]
-      data.frame(
+      # all EMOA indicators expect a matrix of type n.obj x n.points
+      approx = t(x[, obj.cols, drop = FALSE])
+      mode(approx) = "double"
+
+      res = list(
         algorithm = x$algorithm[1L],
         prob      = x$prob[1L],
-        repl      = x$repl[1L],
-        HV        = ecr::computeHV(t(approx), ref.point = as.numeric(ref.points[[x$prob[1L]]])),
-        NDISTINCT = nrow(approx[!duplicated(approx), , drop = FALSE]),
-        N         = nrow(approx)
-        #DELTA = emoaIndDelta(approx[!duplicated(approx), , drop = FALSE])
+        repl      = x$repl[1L]
       )
-    })
 
+      for (unary.ind.name in unary.inds.names) {
+        ind.fun = unary.inds[[unary.ind.name]][["fun"]]
+        ind.args = BBmisc::coalesce(unary.inds[[unary.ind.name]][["pars"]], list())
+        ind.args = BBmisc::insert(list(approx, ref.point = ref.points[[x$prob[1L]]]), ind.args)
+        res[[unary.ind.name]] = do.call(ind.fun, ind.args)
+      }
+
+      res = as.data.frame(res)
+      return(res)
+    }
+  )
   unary.inds = do.call(rbind, unary.inds)
 
   # binary indicators
@@ -121,12 +139,15 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), offset = 0, ref.point
 #' @param obj.cols [\code{character(>= 2)}]\cr
 #'   Column names of the objective functions.
 #'   Default is \code{c("f1", "f2")}, i.e., the bi-objective case is assumed.
+#' @param offset [\code{numeric(1)}]\cr
+#'   Offset added to reference points.
+#'   Default is \code{0}.
 #' @param as.df [\code{logical(1)}]\cr
 #'   Should a data.frame be returned?
 #'   Default is \code{FALSE}. In this case a named list is returned.
 #' @return [\code{list} | \code{data.frame}]
 #' @export
-approximateRefPoints = function(df, obj.cols, as.df = FALSE) {
+approximateRefPoints = function(df, obj.cols, offset = 0, as.df = FALSE) {
   # split by prob(lem)
   ref.points = by(df, list(df$prob), function(x) {
     # get data points

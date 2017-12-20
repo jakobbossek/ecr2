@@ -21,35 +21,11 @@
 #' @return [\code{list}] List with components \dQuote{unary} (data frame of
 #'   unary indicators) and \dQuote{binary} (list of matrizes of binary indicators).
 #' @export
-#FIXME: allow to pass list of ref.points, list of ref.sets or better a data.frame
+#FIXME: list of ref.sets or better a data.frame
 # of \code{df} structure?
 #FIXME: imagine something like AS-EMOA, where we want each one approx set for each prob
 computeIndicators = function(df, obj.cols = c("f1", "f2"), offset = 0, ref.points = NULL) {
   assertDataFrame(df)
-
-  approximateRefPoints = function(df, obj.cols, as.df = FALSE) {
-    # split by prob(lem)
-    ref.points = by(df, list(df$prob), function(x) {
-      # get data points
-      pf.approx = x[, obj.cols, drop = FALSE]
-      # compute reference point
-      ref.point = apply(pf.approx, 2L, max) + offset
-      # return a list with component prob
-      res = list()
-      res[[x$prob[1L]]] = ref.point
-      return(res)
-    })
-    # drop "by" class and attributes
-    attr(ref.points, "call") = NULL
-    ref.points = unclass(ref.points)
-    # eventually convert to data.frame
-    if (as.df) {
-      probs = names(ref.points)
-      ref.points = as.data.frame(do.call(rbind, unname(ref.points)))
-      ref.points$prob = probs
-    }
-    return(ref.points)
-  }
 
   # get some meta data
   algos = unique(df$algorithm)
@@ -136,19 +112,40 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"), offset = 0, ref.point
   ))
 }
 
-# plotIndicatorDistribution = function(inds) {
-#   df = reshape2::melt(inds, id.vars = c("algorithm", "prob", "repl"), value.name = "Value", variable.name = "Measure")
-#   print(head(df))
-#   pl = ggplot2::ggplot(df, ggplot2::aes_string(x = "algorithm", y = "Value"))
-#   pl = pl + ggplot2::geom_boxplot(ggplot2::aes_string(fill = "Measure"))
-#   pl = pl + ggplot2::facet_grid(Measure ~ prob)
-
-#   # pl = ggplot(df, aes_string(x = "prob", y = "Value"))
-#   # pl = pl + geom_boxplot(aes_string(fill = "algo"))
-#   # #pl = pl + facet_wrap("Measure")
-#   # pl = pl + facet_grid(algo ~ .)
-#   pl = pl + ggplot2::theme(axis.text.x = element_text(angle = 45, hjust = 1))
-#   pl = pl + ggplot2::scale_y_log10()
-#   pl = pl + viridis::scale_fill_viridis(discrete = TRUE)
-#   return(pl)
-# }
+#' @title Helper function to estimate reference points.
+#'
+#' @description E.g., for calculation of dominated hypervolume.
+#'
+#' @param df [\code{data.frame}]\cr
+#'   Data frame with the required structure.
+#' @param obj.cols [\code{character(>= 2)}]\cr
+#'   Column names of the objective functions.
+#'   Default is \code{c("f1", "f2")}, i.e., the bi-objective case is assumed.
+#' @param as.df [\code{logical(1)}]\cr
+#'   Should a data.frame be returned?
+#'   Default is \code{FALSE}. In this case a named list is returned.
+#' @return [\code{list} | \code{data.frame}]
+#' @export
+approximateRefPoints = function(df, obj.cols, as.df = FALSE) {
+  # split by prob(lem)
+  ref.points = by(df, list(df$prob), function(x) {
+    # get data points
+    pf.approx = x[, obj.cols, drop = FALSE]
+    # compute reference point
+    ref.point = apply(pf.approx, 2L, max) + offset
+    # return a list with component prob
+    res = list()
+    res[[x$prob[1L]]] = ref.point
+    return(res)
+  })
+  # drop "by" class and attributes
+  attr(ref.points, "call") = NULL
+  ref.points = unclass(ref.points)
+  # eventually convert to data.frame
+  if (as.df) {
+    probs = names(ref.points)
+    ref.points = as.data.frame(do.call(rbind, unname(ref.points)))
+    ref.points$prob = probs
+  }
+  return(ref.points)
+}

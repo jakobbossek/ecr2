@@ -205,6 +205,8 @@ emoaIndGD = function(points, ref.points, p = 1, normalize = FALSE, dist.fun = co
 # Spacing as proposed by Sch95
 emoaIndSP = function(points, ...) {
   n = ncol(points)
+  if (n == 1L)
+    return(NA)
   dists = as.matrix(dist(t(points), method = "manhattan", p = 1))
   diag(dists) = Inf
   min.dists = apply(dists, 1L, min)
@@ -216,8 +218,10 @@ emoaIndSP = function(points, ...) {
 # \Delta^{'} as proposed by Deb et al. a fast elitist non-dominated ...
 emoaIndDelta = function(points, ...) {
   n = ncol(points)
+  if (n == 1L)
+    return(NA)
   if (nrow(points) > 2L)
-    stopf("emoaIndDelta: only applicable for 2 objectivs.")
+    stopf("emoaIndDelta: only applicable for 2 objectives.")
   # sort points by first objective => sorted in decreasing order
   # regarding second objective automatically
   points = points[, order(points[1L, ], decreasing = FALSE)]
@@ -229,5 +233,5 @@ emoaIndDelta = function(points, ...) {
   avg.dist = mean(dists)
 
   # compute indicator
-  mean(abs(dist - avg.dist))
+  mean(abs(dists - avg.dist))
 }

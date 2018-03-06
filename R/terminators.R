@@ -3,13 +3,18 @@
 #'
 #' @description
 #' Stop the EA after a fixed number of fitness function evaluations, after
-#' a predefined number of generations/itereations or if the known optimal function
-#' value is approximated (only for single-objective optimization).
+#' a predefined number of generations/iterations, a given cutoff time or
+#' if the known optimal function value is approximated (only for single-objective optimization).
 #'
 #' @param max.evals [\code{integer(1)}]\cr
-#'   Maximal number of function evaluations. Default ist \code{Inf}.
+#'   Maximal number of function evaluations.
+#'   Default is \code{Inf}.
 #' @param max.iter [\code{integer(1)}]\cr
-#'   Maximal number of iterations. Default ist \code{Inf}.
+#'   Maximal number of iterations/generations.
+#'   Default is \code{Inf}.
+#' @param max.time [\code{integer(1)}]\cr
+#'   Time limit in seconds.
+#'   Default is \code{Inf}.
 #' @param opt.y [\code{numeric(1)}]\cr
 #'   Optimal scalar fitness function value.
 #' @param eps [\code{numeric(1)}]\cr
@@ -86,5 +91,26 @@ stopOnOptY = function(opt.y, eps) {
     name = "OptYApprox",
     message = sprintf("Best function value close to optimum |f_opt - f_EA| < %.5f.",
       eps)
+  )
+}
+
+#' @rdname stoppingConditions
+#' @export
+stopOnMaxTime = function(max.time = NULL) {
+  if (!is.null(max.time)) {
+    assertInt(max.time, lower = 1L, na.ok = FALSE)
+  } else {
+    max.time = Inf
+  }
+  force(max.time)
+
+  condition.fun = function(log) {
+    return(log$env$time.passed >= max.time)
+  }
+
+  makeTerminator(
+    condition.fun,
+    name = "TimeLimit",
+    message = sprintf("Time limit reached: '%s' [seconds]", max.time)
   )
 }

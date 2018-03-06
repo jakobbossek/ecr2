@@ -141,7 +141,7 @@ initLogger = function(
 
   env$stats = addClasses(env$stats, "ecr_statistics")
   env$cur.line = 1L
-  env$time.started = Sys.time()
+  env$time.started = proc.time()[3L]
   env$n.evals = 0L
   env$n.gens = 0L
   env$task = control$task
@@ -183,7 +183,7 @@ initLogger = function(
 #' @export
 updateLogger = function(log, population, fitness = NULL, n.evals, extras = NULL, ...) {
   # basic stuff
-  log$env$time.passed = Sys.time() - log$env$time.started
+  log$env$time.passed = proc.time()[3L] - log$env$time.started
   log$env$n.gens = log$env$n.gens + 1L
   log$env$n.evals = log$env$n.evals + n.evals
 

@@ -1,4 +1,13 @@
-# ecr 2.1.0.9000 (upcoming)
+# ecr 2.1.1 (upcoming)
+
+## Fixes
+
+* Fixed: bug in replaceMuCommaLambda if n.elite was not set by hand
+* Fixed: selGreedy throws error if n.select is larger than the number of individuals passed (this led to hard-to-detect errors in (mu, lambda) strategies and white-box approach)
+
+## New Features
+
+* Added terminator stopOnMaxTime
 
 # ecr 2.1.0
 

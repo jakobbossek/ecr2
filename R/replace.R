@@ -55,7 +55,7 @@ replaceMuPlusLambda = function(control, population, offspring, fitness = NULL, f
 
 #' @rdname replace
 #' @export
-replaceMuCommaLambda = function(control, population, offspring, fitness = NULL, fitness.offspring = NULL, n.elite = base::max(ceiling(length(population * 0.1)), 1L)) {
+replaceMuCommaLambda = function(control, population, offspring, fitness = NULL, fitness.offspring = NULL, n.elite = base::max(ceiling(length(population) * 0.1), 1L)) {
   assertList(population)
   assertList(offspring)
   mu = length(population)

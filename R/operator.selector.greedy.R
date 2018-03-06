@@ -12,6 +12,10 @@
 #' @export
 selGreedy = makeSelector(
   selector = function(fitness, n.select) {
+    if (n.select > ncol(fitness))
+      stopf("selGreedy: Selection of %i individuals required, but only %i available.
+        Probably, you apply a (mu, lambda) strategy with mu lambda < mu",
+        n.select, ncol(fitness))
     fitness = as.numeric(fitness)
     idx = order(fitness)[seq(n.select)]
     return(idx)

@@ -128,7 +128,6 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"),
   unary.indicators = do.call(rbind, unary.indicators)
 
   # binary indicators
-  #FIXME: use outer()?
   binary.inds.names = names(binary.inds)
   binary.indicators = list()
   for (binary.ind.name in binary.inds.names) {

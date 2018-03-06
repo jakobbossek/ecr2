@@ -36,7 +36,15 @@ test_that("plotScatter{2,3}d works", {
   # test 2d scatterplots
   expect_error(plotScatter2d(testdata, obj.cols = c("non", "sense")))
 
+  testdata.malforemed = testdata
+  testdata.malforemed$f1 = as.character(testdata.malforemed$f1)
+  expect_error(plotScatter2d(testdata.malforemed), pattern = "not numeric")
+
   pl = plotScatter2d(mcMST, shape = "algorithm", colour = "algorithm", highlight.algos = "PRIM", title = "test", subtitle = "to test plots")
+  expect_class(pl, "ggplot")
+
+  # should work if only objective columns are passed
+  pl = plotScatter2d(mcMST[, 1:2])
   expect_class(pl, "ggplot")
 
   # now 3d scatterplots

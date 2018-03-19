@@ -4,7 +4,8 @@
 \alias{plotIndicatorDistribution}
 \title{Plot distributions of EMOA indicators.}
 \usage{
-plotIndicatorDistribution(inds, plot.type = "boxplot")
+plotIndicatorDistribution(inds, plot.type = "boxplot", facet.type = "grid",
+  facet.args = list(), logscale = character())
 }
 \arguments{
 \item{inds}{[\code{data.frame}]\cr

@@ -168,7 +168,7 @@ emoaIndMD = function(points, ...) {
 }
 
 # C(A, B) correponds to the ratio of points in B which are dominated by
-# ad least one solution in A.
+# at least one solution in A.
 emoaIndC = function(points, ref.points, ...) {
   res = apply(ref.points, 2L, function(pb) {
     any(apply(points, 2L, function(pa) {

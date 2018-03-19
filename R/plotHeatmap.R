@@ -26,7 +26,10 @@
 #' }
 #' @export
 plotHeatmap = function(x, value.name = "Value", show.values = FALSE) {
-  assertMatrix(x, mode = "numeric")
+  if (is.list(x))
+    assertList(x, types = "matrix", any.missing = FALSE, all.missing = FALSE)
+  else
+    assertMatrix(x, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertFlag(show.values)
   assertString(value.name)
 
@@ -69,9 +72,9 @@ plotHeatmap = function(x, value.name = "Value", show.values = FALSE) {
 
   # default layout
   pl = pl + viridis::scale_fill_viridis()
-  pl = pl + ggplot2::theme(axis.ticks = element_blank())
-  pl = pl + ggplot2::theme(axis.text = element_text(size=7))
   pl = pl + ggplot2::theme(
+    axis.ticks = element_blank(),
+    axis.text = element_text(size = 7),
     axis.text.x = element_text(angle = 45, hjust = 1),
     legend.position = "top")
   pl = pl + ggplot2::xlab("") + ggplot2::ylab("")

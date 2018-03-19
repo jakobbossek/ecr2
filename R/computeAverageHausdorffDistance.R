@@ -82,31 +82,6 @@ computeInvertedGenerationalDistance = function(A, B, p = 1, normalize = FALSE, d
 }
 
 #' @title
-#' Normalize points of a set.
-#'
-#' @description
-#' Normalization is done by subtracting the \code{min.value} for each dimension
-#' and dividing by the \code{max.value} for each dimension by default.
-#'
-#' @param A [\code{matrix}]\cr
-#'   Point set (each column corresponds to a point).
-#' @param min.value [\code{numeric}]\cr
-#'   Vector of minimal values of length \code{nrow(A)}.
-#'   Default is the row-wise minimum of \code{A}.
-#' @param max.value [\code{numeric}]\cr
-#'   Vector of maximal values of length \code{nrow(A)}.
-#'   Default is the row-wise maximum of \code{A}.
-#' @return [\code{matrix}] Normalized front.
-#' @export
-normalizeFront = function(A, min.value = NULL, max.value = NULL) {
-  if (is.null(min.value))
-    min.value = apply(A, 1L, min)
-  if (is.null(max.value))
-    max.value = apply(A, 1L, max)
-  return((A - min.value) / (max.value - min.value))
-}
-
-#' @title
 #' Computes distance between a single point and set of points.
 #'
 #' @description

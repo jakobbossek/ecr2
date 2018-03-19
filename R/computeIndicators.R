@@ -13,7 +13,7 @@
 #' @param unary.inds [\code{list}]\cr
 #'   Named list of unary indicators which shall be calculated.
 #'   Each component must be another list with mandatory argument \code{fun} (the
-#'   function which calculates the indicator) and optional argument pars (a named
+#'   function which calculates the indicator) and optional argument \code{pars} (a named
 #'   list of parameters for \code{fun}). Function \code{fun} must have the
 #'   signiture \dQuote{function(points, arg1, ..., argk, ...)}.
 #'   The arguments \dQuote{points} and \dQuote{...} are mandatory, the remaining are
@@ -29,6 +29,11 @@
 #'   \dQuote{function(points1, points2, arg1, ..., argk, ...)}.
 #'   See function \code{\link{emoaIndEps}} for an example.
 #'   Default is \code{list(EPS = list(fun = emoaIndEps))}.
+#' @param normalize [\code{logical(1)}]\cr
+#'   Normalize approximation sets to \eqn{[0, 1]^p} where \eqn{p} is the number of
+#'   objectives? Normalization is done on the union of all approximation sets for each
+#'   problem.
+#'   Default is \code{FALSE}.
 #' @param offset [\code{numeric(1)}]\cr
 #'   Offset added to reference point estimations.
 #'   Default is 0.
@@ -43,18 +48,34 @@
 #FIXME: list of ref.sets or better a data.frame
 # of \code{df} structure?
 #FIXME: imagine something like AS-EMOA, where we want each one approx set for each prob
-computeIndicators = function(df, obj.cols = c("f1", "f2"),
+computeIndicators = function(df,
+  obj.cols = c("f1", "f2"),
   unary.inds = NULL, binary.inds = NULL,
+  normalize = FALSE,
   offset = 0, ref.points = NULL) {
+
   assertDataFrame(df)
+  assertFlag(normalize)
+  cnames = colnames(df)
+  # note: repl is added later
+  required.names = c(cnames, c("prob", "algorithm"))
+  assertSubset(obj.cols, cnames)
 
   # get some meta data
-  algos = unique(df$algorithm)
-  probs = unique(df$prob)
+  algos   = unique(df$algorithm)
+  probs   = unique(df$prob)
 
   n.algos = length(algos)
   n.probs = length(probs)
   n.obj   = length(obj.cols)
+
+  #EXPERIMENTAL: normlize approximation sets
+  #FIXME: there should be a dedicated function which
+  # expects a data frame in ecr format, i.e., with columns
+  # f1, ..., fp, algorithm, instance, repl and performs
+  # normalization.
+  if (normalize)
+    df = ecr::normalize(df)
 
   # check list of unary indicators
   if (is.null(unary.inds))
@@ -160,45 +181,4 @@ computeIndicators = function(df, obj.cols = c("f1", "f2"),
     binary = binary.indicators,
     ref.points = ref.points
   ))
-}
-
-#' @title Helper function to estimate reference points.
-#'
-#' @description E.g., for calculation of dominated hypervolume.
-#'
-#' @param df [\code{data.frame}]\cr
-#'   Data frame with the required structure.
-#' @param obj.cols [\code{character(>= 2)}]\cr
-#'   Column names of the objective functions.
-#'   Default is \code{c("f1", "f2")}, i.e., the bi-objective case is assumed.
-#' @param offset [\code{numeric(1)}]\cr
-#'   Offset added to reference points.
-#'   Default is \code{0}.
-#' @param as.df [\code{logical(1)}]\cr
-#'   Should a data.frame be returned?
-#'   Default is \code{FALSE}. In this case a named list is returned.
-#' @return [\code{list} | \code{data.frame}]
-#' @export
-approximateRefPoints = function(df, obj.cols, offset = 0, as.df = FALSE) {
-  # split by prob(lem)
-  ref.points = by(df, list(df$prob), function(x) {
-    # get data points
-    pf.approx = x[, obj.cols, drop = FALSE]
-    # compute reference point
-    ref.point = apply(pf.approx, 2L, max) + offset
-    # return a list with component prob
-    res = list()
-    res[[x$prob[1L]]] = ref.point
-    return(res)
-  })
-  # drop "by" class and attributes
-  attr(ref.points, "call") = NULL
-  ref.points = unclass(ref.points)
-  # eventually convert to data.frame
-  if (as.df) {
-    probs = names(ref.points)
-    ref.points = as.data.frame(do.call(rbind, unname(ref.points)))
-    ref.points$prob = probs
-  }
-  return(ref.points)
 }

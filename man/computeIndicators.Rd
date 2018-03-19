@@ -5,7 +5,7 @@
 \title{Computation of EMOA performance indicators.}
 \usage{
 computeIndicators(df, obj.cols = c("f1", "f2"), unary.inds = NULL,
-  binary.inds = NULL, offset = 0, ref.points = NULL)
+  binary.inds = NULL, normalize = FALSE, offset = 0, ref.points = NULL)
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr
@@ -19,7 +19,7 @@ Default is \code{c("f1", "f2")}, i.e., the bi-objective case is assumed.}
 \item{unary.inds}{[\code{list}]\cr
 Named list of unary indicators which shall be calculated.
 Each component must be another list with mandatory argument \code{fun} (the
-function which calculates the indicator) and optional argument pars (a named
+function which calculates the indicator) and optional argument \code{pars} (a named
 list of parameters for \code{fun}). Function \code{fun} must have the
 signiture \dQuote{function(points, arg1, ..., argk, ...)}.
 The arguments \dQuote{points} and \dQuote{...} are mandatory, the remaining are
@@ -36,6 +36,12 @@ However, the function signature of \code{fun} is slighly different:
 \dQuote{function(points1, points2, arg1, ..., argk, ...)}.
 See function \code{\link{emoaIndEps}} for an example.
 Default is \code{list(EPS = list(fun = emoaIndEps))}.}
+
+\item{normalize}{[\code{logical(1)}]\cr
+Normalize approximation sets to \eqn{[0, 1]^p} where \eqn{p} is the number of
+objectives? Normalization is done on the union of all approximation sets for each
+problem.
+Default is \code{FALSE}.}
 
 \item{offset}{[\code{numeric(1)}]\cr
 Offset added to reference point estimations.

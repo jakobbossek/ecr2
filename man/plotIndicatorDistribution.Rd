@@ -15,6 +15,22 @@ one additional column per EMOA indicator.}
 \item{plot.type}{[\code{character(1)}]\cr
 Either \dQuote{boxplot} (the default) for boxplots or \dQuote{violin} for
 violin plots.}
+
+\item{facet.type}{[\code{character(1)}]\cr
+Which faceting method to use? Pass \dQuote{wrap} for \code{\link[ggplot2]{facet_wrap}}
+or \dQuote{grid} for \code{\link[ggplot2]{facet_grid}}.
+Default is \dQuote{wrap}.}
+
+\item{facet.args}{[\code{list}]\cr
+Named list of arguments passed down to \code{\link[ggplot2]{facet_wrap}} or
+\code{\link[ggplot2]{facet_grid}} respectively (depends on \code{facet.type}).
+E.g., \code{nrow} to change layout.
+Default is the empty list. In this case data is grouped by problem and indicator.}
+
+\item{logscale}{[\code{character}]\cr
+Vector of indicator names which should be log-transformed prior to
+visualization.
+Default is the empty character vector.}
 }
 \value{
 [\code{\link[ggplot2]{ggplot}}]

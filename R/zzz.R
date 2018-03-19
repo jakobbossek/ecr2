@@ -5,7 +5,7 @@
 #' @import parallelMap
 #' @import reshape2
 #' @import ParamHelpers
-#' @importFrom stats median rnorm runif dist
+#' @importFrom stats median rnorm runif dist formula sd
 #' @importFrom utils tail head
 #' @useDynLib ecr
 NULL

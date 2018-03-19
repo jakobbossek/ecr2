@@ -4,23 +4,25 @@
 \alias{normalize}
 \title{Normalize approximations set(s).}
 \usage{
-normalize(x, obj.cols = c("f1", "f2"), min.value = NULL, max.value = NULL,
-  offset = NULL)
+normalize(x, obj.cols, min.value = NULL, max.value = NULL, offset = NULL)
 }
 \arguments{
 \item{x}{[\code{matrix} | \code{data.frame}]\cr
 Either a numeric \code{matrix} (each column corresponds to a point) or a
 \code{data.frame} with columns at least \code{obj.cols}.}
 
+\item{obj.cols}{[\code{character(>= 2)}]\cr
+Column names of the objective functions.}
+
 \item{min.value}{[\code{numeric}]\cr
-Vector of minimal values of length \code{nrow(A)}.
+Vector of minimal values of length \code{nrow(x)}.
 Only relevant if \code{x} is a matrix.
-Default is the row-wise minimum of \code{A}.}
+Default is the row-wise minimum of \code{x}.}
 
 \item{max.value}{[\code{numeric}]\cr
-Vector of maximal values of length \code{nrow(A)}.
+Vector of maximal values of length \code{nrow(x)}.
 Only relevant if \code{x} is a matrix.
-Default is the row-wise maximum of \code{A}.}
+Default is the row-wise maximum of \code{x}.}
 
 \item{offset}{[\code{numeric}]\cr
 Numeric constant added to each normalized element.

@@ -9,6 +9,7 @@
 #'  \item{\code{f2}}{Second objective (to be minimized).}
 #'  \item{\code{algorithm}}{Short name of algorithm used.}
 #'  \item{\code{prob}}{Short name of problem instance.}
+#'  \item{\code{repl}}{Algorithm run.}
 #' }
 #'
 #' The data is based on the \pkg{mcMST} package.

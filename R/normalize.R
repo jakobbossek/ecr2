@@ -14,20 +14,22 @@
 #' @param x [\code{matrix} | \code{data.frame}]\cr
 #'   Either a numeric \code{matrix} (each column corresponds to a point) or a
 #'   \code{data.frame} with columns at least \code{obj.cols}.
+#' @param obj.cols [\code{character(>= 2)}]\cr
+#'   Column names of the objective functions.
 #' @param min.value [\code{numeric}]\cr
-#'   Vector of minimal values of length \code{nrow(A)}.
+#'   Vector of minimal values of length \code{nrow(x)}.
 #'   Only relevant if \code{x} is a matrix.
-#'   Default is the row-wise minimum of \code{A}.
+#'   Default is the row-wise minimum of \code{x}.
 #' @param max.value [\code{numeric}]\cr
-#'   Vector of maximal values of length \code{nrow(A)}.
+#'   Vector of maximal values of length \code{nrow(x)}.
 #'   Only relevant if \code{x} is a matrix.
-#'   Default is the row-wise maximum of \code{A}.
+#'   Default is the row-wise maximum of \code{x}.
 #' @param offset [\code{numeric}]\cr
 #'   Numeric constant added to each normalized element.
 #'   Useful to make all objectives strictly positive, e.g., located in \eqn{[1,2]}.
 #' @return [\code{matrix} | \code{data.frame}]
 #' @export
-normalize = function(x, obj.cols = c("f1", "f2"), min.value = NULL, max.value = NULL, offset = NULL) {
+normalize = function(x, obj.cols, min.value = NULL, max.value = NULL, offset = NULL) {
   if (is.matrix(x))
     return(normalizeMatrix(x, min.value = min.value, max.value = max.value, offset = offset))
 

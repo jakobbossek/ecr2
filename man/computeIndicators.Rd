@@ -5,7 +5,8 @@
 \title{Computation of EMOA performance indicators.}
 \usage{
 computeIndicators(df, obj.cols = c("f1", "f2"), unary.inds = NULL,
-  binary.inds = NULL, normalize = FALSE, offset = 0, ref.points = NULL)
+  binary.inds = NULL, normalize = FALSE, offset = 0, ref.points = NULL,
+  ref.sets = NULL)
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr
@@ -49,6 +50,12 @@ Default is 0.}
 
 \item{ref.points}{[\code{list}]\cr
 Named list of numeric vectors (the reference points). The names must be the
+unique problem names in \code{df$prob} or a subset of these.
+If \code{NULL} (the default), reference points are estimated from the
+approximation sets for each problem.}
+
+\item{ref.points}{[\code{list}]\cr
+Named list matrizes (the reference sets). The names must be the
 unique problem names in \code{df$prob} or a subset of these.
 If \code{NULL} (the default), reference points are estimated from the
 approximation sets for each problem.}

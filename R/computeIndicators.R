@@ -42,6 +42,11 @@
 #'   unique problem names in \code{df$prob} or a subset of these.
 #'   If \code{NULL} (the default), reference points are estimated from the
 #'   approximation sets for each problem.
+#' @param ref.points [\code{list}]\cr
+#'   Named list matrizes (the reference sets). The names must be the
+#'   unique problem names in \code{df$prob} or a subset of these.
+#'   If \code{NULL} (the default), reference points are estimated from the
+#'   approximation sets for each problem.
 #' @return [\code{list}] List with components \dQuote{unary} (data frame of
 #'   unary indicators) and \dQuote{binary} (list of matrizes of binary indicators).
 #' @export
@@ -52,7 +57,10 @@ computeIndicators = function(df,
   obj.cols = c("f1", "f2"),
   unary.inds = NULL, binary.inds = NULL,
   normalize = FALSE,
-  offset = 0, ref.points = NULL) {
+  offset = 0,
+  ref.points = NULL,
+  ref.sets = NULL
+  ) {
 
   assertDataFrame(df)
   assertFlag(normalize)
@@ -70,10 +78,6 @@ computeIndicators = function(df,
   n.obj   = length(obj.cols)
 
   #EXPERIMENTAL: normlize approximation sets
-  #FIXME: there should be a dedicated function which
-  # expects a data frame in ecr format, i.e., with columns
-  # f1, ..., fp, algorithm, instance, repl and performs
-  # normalization.
   if (normalize)
     df = ecr::normalize(df)
 
@@ -110,6 +114,9 @@ computeIndicators = function(df,
     stopf("computeIndicators: considering %i objectives, but reference point %s do not match in length.",
       n.obj, collapse(which(ref.points.length != n.obj), sep = ", "))
 
+  if (is.null(ref.sets))
+    ref.sets = ecr::approximateRefSets(df, obj.cols, as.df = FALSE)
+
   grid = expand.grid(algorithm = algos, prob = probs)
   df$prob = as.factor(df$prob)
 
@@ -138,7 +145,10 @@ computeIndicators = function(df,
       for (unary.ind.name in unary.inds.names) {
         ind.fun = unary.inds[[unary.ind.name]][["fun"]]
         ind.args = BBmisc::coalesce(unary.inds[[unary.ind.name]][["pars"]], list())
-        ind.args = BBmisc::insert(list(approx, ref.point = ref.points[[x$prob[1L]]]), ind.args)
+        ind.args = BBmisc::insert(list(approx,
+          ref.point = ref.points[[x$prob[1L]]],
+          ref.points = ref.sets[[x$prob[1L]]]),
+          ind.args)
         res[[unary.ind.name]] = do.call(ind.fun, ind.args)
       }
 

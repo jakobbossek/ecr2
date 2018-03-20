@@ -77,7 +77,7 @@ computeIndicators = function(df,
   n.probs = length(probs)
   n.obj   = length(obj.cols)
 
-  #EXPERIMENTAL: normlize approximation sets
+  # normalize approximation sets
   if (normalize)
     df = ecr::normalize(df)
 

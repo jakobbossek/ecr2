@@ -8,6 +8,8 @@
 \alias{emoaIndR3}
 \alias{emoaIndVarNeighbourSolutions}
 \alias{emoaIndMD}
+\alias{emoaIndM1}
+\alias{emoaIndONVG}
 \title{Computation of the unary epsilon-indicator.}
 \usage{
 emoaIndEps(points, ref.points, ...)
@@ -26,6 +28,10 @@ emoaIndR3(points, ref.points, ideal.point = NULL, nadir.point = NULL,
 emoaIndVarNeighbourSolutions(points, ...)
 
 emoaIndMD(points, ...)
+
+emoaIndM1(points, ref.points, ...)
+
+emoaIndONVG(points, normalize = FALSE, ...)
 }
 \arguments{
 \item{points}{[\code{matrix}]\cr

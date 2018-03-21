@@ -1,6 +1,31 @@
-toLatex = function(stats, probs = NULL, inds = NULL, by.instance = TRUE, cell.formatter = NULL) {
+#' @title Export results of statistical tests to LaTeX table(s).
+#'
+#' @description Returns high-quality LaTeX-tables of the test results of
+#' statistical tests performed with function \code{\link{applyStatisticalTests}}
+#' on per-instance basis. I.e., a table is returned for each instances combining
+#' the results of different indicators.
+#'
+#' @param stats [\code{list}]\cr
+#'   Named list of list as returned by \code{\link{applyStatisticalTests}}.
+#' @param probs [\code{character}]\cr
+#'   Filtering: vector of problem instances. This way one can restrict the
+#'   size of the table(s).
+#'   Defaults to all problems available in \code{stats}.
+#' @param inds [\code{character}]\cr
+#'   Names of the indicators to consider.
+#'   Defaults to all indicators available in \code{stats}.
+#' @param type [\code{character(1)}]\cr
+#'   Type of tables. At the moment only option \dQuote{by.instance} is available.
+#'   I.e., a separate LaTeX-table is generated for each instance specified via \code{probs}.
+#' @param cell.formater [\code{function(cell, ...)}]\cr
+#'   Function which is used to format table cells. This function is applied to each
+#'   table cell and may be used to customize the output. Default is \code{niceCellFormater}.
+#' @return [\code{list}] Named list of strings (LaTeX tables). Names correspond to the
+#'   selected problem instances in \code{probs}.
+#' @export
+toLatexTables = function(stats, probs = NULL, inds = NULL, type = "by.instance", cell.formatter = NULL) {
   assertList(stats)
-  assertFlag(by.instance)
+  assertChoice(type, choices = "by.instance")
 
   if (is.null(probs))
     probs = unique(names(stats))
@@ -24,7 +49,8 @@ toLatex = function(stats, probs = NULL, inds = NULL, by.instance = TRUE, cell.fo
   # now filter relevant stats, i.e., for selected problems
   stats = stats[which(all.probs %in% probs)]
 
-  if (by.instance) {
+  tables = list()
+  if (type == "by.instance") {
     for (prob in probs) {
       catf("Problem: %s", prob)
       # extract relevant indicators
@@ -62,8 +88,11 @@ toLatex = function(stats, probs = NULL, inds = NULL, by.instance = TRUE, cell.fo
       dd = kableExtra::add_header_above(dd, header.probs, bold = TRUE, escape = FALSE)
       dd = kableExtra::footnote(dd, general = sprintf("Bold font entries are significant to significance level $\\\\alpha = %.2f$ (adjusted for multiple testing).", alpha), general_title = "Note: ", footnote_as_chunk = TRUE, escape = FALSE)
       print(dd)
+
+      tables[[prob]] = dd
       # dd = group_rows(dd, "$I_{HV}^{+}$", 1, 4, escape = FALSE)
       # dd = group_rows(dd, "$I_{\\eps}^b$", 5, 8, escape = FALSE)
     }
   }
+  return(tables)
 }

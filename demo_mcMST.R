@@ -42,7 +42,7 @@ unary.inds$algorithm = gsub("NSGA2.", "", unary.inds$algorithm, fixed = TRUE)
 test.res = applyStatisticalTests(unary.inds, ind.names = c("HV", "EPS"))
 
 
-print(toLatex(test.res, probs = c("instance-100-2", "instance-100-3"), by.instance = TRUE))
+print(toLatexTables(test.res, probs = c("instance-100-2", "instance-100-3"), type = "by.instance"))
 
 
 # dd = kable(comb.res, format = "latex", booktabs = TRUE, escape = FALSE)

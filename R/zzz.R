@@ -5,8 +5,10 @@
 #' @import parallelMap
 #' @import reshape2
 #' @import ParamHelpers
+#' @import kableExtra
 #' @importFrom stats median rnorm runif dist formula sd
 #' @importFrom utils tail head
+#' @importFrom knitr kable
 #' @useDynLib ecr
 NULL
 

@@ -33,7 +33,9 @@ Imports:
     plot3D,
     plot3Drgl,
     scatterplot3d,
-    plotly
+    plotly,
+    knitr,
+    kableExtra
 Suggests:
     testthat (>= 0.9.1),
     knitr,

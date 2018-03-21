@@ -189,6 +189,8 @@ computeIndicators = function(df,
   return(list(
     unary = unary.indicators,
     binary = binary.indicators,
-    ref.points = ref.points
+    ref.points = ref.points,
+    unary.inds = unary.inds,
+    binary.inds = binary.inds
   ))
 }

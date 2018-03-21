@@ -37,59 +37,83 @@
 #' @return [\code{numeric(1)}] Epsilon indicator.
 #' @rdname emoa_indicators
 #' @export
-emoaIndEps = function(points, ref.points, ...) {
-  # sanity checks
-  assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
-  assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
-  assertSameDimensions(points, ref.points)
+emoaIndEps = makeEMOAIndicator(
+  fun = function(points, ref.points, ...) {
+    # sanity checks
+    assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+    assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+    assertSameDimensions(points, ref.points)
 
-  return(.Call("emoaIndEpsC", points, ref.points, PACKAGE = "ecr"))
-}
-
-#' @rdname emoa_indicators
-#' @export
-emoaIndHV = function(points, ref.points, ref.point = NULL, ...) {
-  # compute nadir point
-  if (is.null(ref.point)) {
-    ref.point = approximateNadirPoint(points, ref.points)
-  }
-
-  # sanity checks
-  assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
-  assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
-  assertNumeric(ref.point, any.missing = FALSE, all.missing = FALSE)
-  assertSameDimensions(points, ref.points, ref.point)
-
-  # actual indicator calculation
-  hv.points = computeHV(points, ref.point)
-  hv.ref.points = computeHV(ref.points, ref.point)
-
-  return (hv.ref.points - hv.points)
-}
+    return(.Call("emoaIndEpsC", points, ref.points, PACKAGE = "ecr"))
+  },
+  name = "EPS",
+  latex.name = "I_{\\epsilon}",
+  minimize = TRUE
+)
 
 #' @rdname emoa_indicators
 #' @export
-emoaIndR1 = function(points, ref.points, ideal.point = NULL,
-  nadir.point = NULL, lambda = NULL, utility = "tschebycheff", ...) {
-  computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
-    aggregator = function(ua, ur) mean(ua > ur) + mean(ua == ur) / 2, ...)
-}
+emoaIndHV = makeEMOAIndicator(
+  fun = function(points, ref.points, ref.point = NULL, ...) {
+    # compute nadir point
+    if (is.null(ref.point))
+      ref.point = approximateNadirPoint(points, ref.points)
+
+    # sanity checks
+    assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+    assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+    assertNumeric(ref.point, any.missing = FALSE, all.missing = FALSE)
+    assertSameDimensions(points, ref.points, ref.point)
+
+    # actual indicator calculation
+    hv.points = computeHV(points, ref.point)
+    hv.ref.points = computeHV(ref.points, ref.point)
+
+    return (hv.ref.points - hv.points)
+  },
+  name = "HV",
+  latex.name = "I_{HV}",
+  minimize = TRUE
+)
 
 #' @rdname emoa_indicators
 #' @export
-emoaIndR2 = function(points, ref.points, ideal.point = NULL,
-  nadir.point = NULL, lambda = NULL, utility = "tschebycheff", ...) {
-  computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
-    aggregator = function(ua, ur) mean(ur - ua), ...)
-}
+emoaIndR1 = makeEMOAIndicator(
+  fun = function(points, ref.points, ideal.point = NULL,
+    nadir.point = NULL, lambda = NULL, utility = "tschebycheff", ...) {
+    computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
+      aggregator = function(ua, ur) mean(ua > ur) + mean(ua == ur) / 2, ...)
+  },
+  name = "R1",
+  latex.name = "I_{R1}",
+  minimize = TRUE
+)
 
 #' @rdname emoa_indicators
 #' @export
-emoaIndR3 = function(points, ref.points, ideal.point = NULL,
-  nadir.point = NULL, lambda = NULL, utility = "tschebycheff", ...) {
-  computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
-    aggregator = function(ua, ur) mean((ur - ua) / ur), ...)
-}
+emoaIndR2 = makeEMOAIndicator(
+  fun = function(points, ref.points, ideal.point = NULL,
+    nadir.point = NULL, lambda = NULL, utility = "tschebycheff", ...) {
+    computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
+      aggregator = function(ua, ur) mean(ur - ua), ...)
+  },
+  name = "R2",
+  latex.name = "I_{R2}",
+  minimize = TRUE
+)
+
+#' @rdname emoa_indicators
+#' @export
+emoaIndR3 = makeEMOAIndicator(
+  fun = function(points, ref.points, ideal.point = NULL,
+    nadir.point = NULL, lambda = NULL, utility = "tschebycheff", ...) {
+    computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
+      aggregator = function(ua, ur) mean((ur - ua) / ur), ...)
+  },
+  name = "R3",
+  latex.name = "I_{R3}",
+  minimize = TRUE
+)
 
 # @rdname emoa_indicators
 computeRIndicator = function(
@@ -159,79 +183,117 @@ emoaIndVarNeighbourSolutions = function(points, ...) {
 
 #' @rdname emoa_indicators
 #' @export
-
-
 # Minimum distance between two solutions
-emoaIndMD = function(points, ...) {
-  dists = dist(t(points), ...)
-  min(dists)
-}
+emoaIndMD = makeEMOAIndicator(
+  fun = function(points, ...) {
+    dists = dist(t(points), ...)
+    min(dists)
+  },
+  name = "MD",
+  latex.name = "I_{MD}",
+  minimize = TRUE
+)
 
 # C(A, B) correponds to the ratio of points in B which are dominated by
 # at least one solution in A.
-emoaIndC = function(points, ref.points, ...) {
-  res = apply(ref.points, 2L, function(pb) {
-    any(apply(points, 2L, function(pa) {
-      dominates(pa, pb)
-    }))
-  })
-  mean(res)
-}
+emoaIndC = makeEMOAIndicator(
+  fun = function(points, ref.points, ...) {
+    res = apply(ref.points, 2L, function(pb) {
+      any(apply(points, 2L, function(pa) {
+        dominates(pa, pb)
+      }))
+    })
+    mean(res)
+  },
+  name = "C",
+  latex.name = "I_{C}",
+  minimize = FALSE
+)
+
 
 # M1(A, B) computes the average Euclidean distance between a set of
 # points and a reference set
-emoaIndM1 = function(points, ref.points, ...) {
-  dists = apply(points, 2L, function(p) {
-    colSums((ref.points - p)^2)
-  })
-  mean(dists)
-}
+#' @rdname emoa_indicators
+#' @export
+emoaIndM1 = makeEMOAIndicator(
+  fun = function(points, ref.points, ...) {
+    dists = apply(points, 2L, function(p) {
+      colSums((ref.points - p)^2)
+    })
+    mean(dists)
+  },
+  name = "M1",
+  latex.name = "I_{M1}",
+  minimize = TRUE
+)
 
 # Overall non-dominated vector generation
-emoaIndONVG = function(points, normalize = FALSE, ...) {
-  assertFlag(normalize)
-  res = sum(nondominated(points))
-  if (normalize)
-    return(res / ncol(points))
-  return(res)
-}
-
+#' @rdname emoa_indicators
+#' @export
+emoaIndONVG = makeEMOAIndicator(
+  fun = function(points, normalize = FALSE, ...) {
+    assertFlag(normalize)
+    res = sum(nondominated(points))
+    if (normalize)
+      return(res / ncol(points))
+    return(res)
+  },
+  name = "ONVG",
+  latex.name = "I_{\\text{ONVG}}",
+  minimize = FALSE
+)
 
 #' @inheritParams computeGenerationalDistance
-emoaIndGD = function(points, ref.points, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance, ...) {
-  computeGenerationalDistance(points, ref.points, p = p, normalize = normalize, dist.fun = dist.fun, ...)
-}
+emoaIndGD = makeEMOAIndicator(
+  fun = function(points, ref.points, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance, ...) {
+    computeGenerationalDistance(points, ref.points, p = p, normalize = normalize, dist.fun = dist.fun, ...)
+  },
+  name = "GD",
+  latex.name = "I_{GD}",
+  minimize = TRUE
+)
 
 # Spacing as proposed by Sch95
-emoaIndSP = function(points, ...) {
-  n = ncol(points)
-  if (n == 1L)
-    return(NA)
-  dists = as.matrix(dist(t(points), method = "manhattan", p = 1))
-  diag(dists) = Inf
-  min.dists = apply(dists, 1L, min)
-  avg.min.dist = mean(min.dists)
-  ind = sqrt(sum((min.dists - avg.min.dist)^2) / (n - 1L))
-  return(ind)
-}
+emoaIndSP = makeEMOAIndicator(
+  fun = function(points, ...) {
+    n = ncol(points)
+    if (n == 1L)
+      return(NA)
+    dists = as.matrix(dist(t(points), method = "manhattan", p = 1))
+    diag(dists) = Inf
+    min.dists = apply(dists, 1L, min)
+    avg.min.dist = mean(min.dists)
+    ind = sqrt(sum((min.dists - avg.min.dist)^2) / (n - 1L))
+    return(ind)
+  },
+  name = "SP",
+  latex.name = "I_{SP}",
+  minimize = TRUE
+)
 
 # \Delta^{'} as proposed by Deb et al. a fast elitist non-dominated ...
-emoaIndDelta = function(points, ...) {
-  n = ncol(points)
-  if (n == 1L)
-    return(NA)
-  if (nrow(points) > 2L)
-    stopf("emoaIndDelta: only applicable for 2 objectives.")
-  # sort points by first objective => sorted in decreasing order
-  # regarding second objective automatically
-  points = points[, order(points[1L, ], decreasing = FALSE)]
+emoaIndDelta = makeEMOAIndicator(
+  fun = function(points, ...) {
+    n = ncol(points)
+    if (n == 1L)
+      return(NA)
+    if (nrow(points) > 2L)
+      stopf("emoaIndDelta: only applicable for 2 objectives.")
+    # sort points by first objective => sorted in decreasing order
+    # regarding second objective automatically
+    points = points[, order(points[1L, ], decreasing = FALSE)]
 
-  # compute Euclidean distance between neighbour points
-  dists = sapply(1:(n - 1L), function(i) {
-    sqrt(sum((points[, i] - points[, i + 1L])^2))
-  })
-  avg.dist = mean(dists)
+    # compute Euclidean distance between neighbour points
+    dists = sapply(1:(n - 1L), function(i) {
+      sqrt(sum((points[, i] - points[, i + 1L])^2))
+    })
+    avg.dist = mean(dists)
 
-  # compute indicator
-  mean(abs(dists - avg.dist))
-}
+    # compute indicator
+    mean(abs(dists - avg.dist))
+  },
+  name = "DELTA",
+  latex.name = "I_{\\Delta}",
+  minimize = TRUE
+)
+

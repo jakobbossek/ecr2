@@ -13,6 +13,9 @@ Optional named arguments (often \dQuote{ref.point} for a reference
 point or \dQuote{ref.points} for a reference set, e.g., the true Pareto-front)
 are allowed. See implementations of existing indicators for examples.}
 
+\item{minimize}{[\code{logical(1)}]\cr
+Lower values indicate better performance?}
+
 \item{name}{[\code{character(1)}]\cr
 Short name of the indicator. Used, e.g., as column name for the indicator
 in the data.frame returned by \code{\link{computeIndicators}}.}
@@ -20,9 +23,6 @@ in the data.frame returned by \code{\link{computeIndicators}}.}
 \item{latex.name}{[\code{character(1)}]\cr
 LaTeX representation of the indicator. Used in LaTeX-table output statistical
 tests (see \code{\link{toLatex}}).}
-
-\item{ninimize}{[\code{logical(1)}]\cr
-Lower values indicate better performance?}
 }
 \value{
 [\code{function(points, ...)}] Argument \code{fun} with all other

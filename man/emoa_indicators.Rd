@@ -31,7 +31,7 @@ emoaIndMD(points, ...)
 
 emoaIndM1(points, ref.points, ...)
 
-emoaIndONVG(points, normalize = FALSE, ...)
+emoaIndONVG(points, ...)
 }
 \arguments{
 \item{points}{[\code{matrix}]\cr

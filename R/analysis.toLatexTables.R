@@ -17,7 +17,7 @@
 #' @param type [\code{character(1)}]\cr
 #'   Type of tables. At the moment only option \dQuote{by.instance} is available.
 #'   I.e., a separate LaTeX-table is generated for each instance specified via \code{probs}.
-#' @param cell.formater [\code{function(cell, ...)}]\cr
+#' @param cell.formatter [\code{function(cell, ...)}]\cr
 #'   Function which is used to format table cells. This function is applied to each
 #'   table cell and may be used to customize the output. Default is \code{niceCellFormater}.
 #' @return [\code{list}] Named list of strings (LaTeX tables). Names correspond to the

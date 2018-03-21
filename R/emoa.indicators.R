@@ -231,12 +231,9 @@ emoaIndM1 = makeEMOAIndicator(
 #' @rdname emoa_indicators
 #' @export
 emoaIndONVG = makeEMOAIndicator(
-  fun = function(points, normalize = FALSE, ...) {
+  fun = function(points, ...) {
     assertFlag(normalize)
-    res = sum(nondominated(points))
-    if (normalize)
-      return(res / ncol(points))
-    return(res)
+    sum(nondominated(points))
   },
   name = "ONVG",
   latex.name = "I_{\\text{ONVG}}",

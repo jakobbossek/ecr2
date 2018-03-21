@@ -42,7 +42,7 @@
 #'   unique problem names in \code{df$prob} or a subset of these.
 #'   If \code{NULL} (the default), reference points are estimated from the
 #'   approximation sets for each problem.
-#' @param ref.points [\code{list}]\cr
+#' @param ref.sets [\code{list}]\cr
 #'   Named list matrizes (the reference sets). The names must be the
 #'   unique problem names in \code{df$prob} or a subset of these.
 #'   If \code{NULL} (the default), reference points are estimated from the
@@ -112,7 +112,7 @@ computeIndicators = function(df,
       n.obj, collapse(which(ref.points.length != n.obj), sep = ", "))
 
   if (is.null(ref.sets))
-    ref.sets = ecr::approximateRefSets(df, obj.cols, as.df = FALSE)
+    ref.sets = approximateRefSets(df, obj.cols, as.df = FALSE)
 
   grid = expand.grid(algorithm = algos, prob = probs)
   df$prob = as.factor(df$prob)

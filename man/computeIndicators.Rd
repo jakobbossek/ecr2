@@ -54,7 +54,7 @@ unique problem names in \code{df$prob} or a subset of these.
 If \code{NULL} (the default), reference points are estimated from the
 approximation sets for each problem.}
 
-\item{ref.points}{[\code{list}]\cr
+\item{ref.sets}{[\code{list}]\cr
 Named list matrizes (the reference sets). The names must be the
 unique problem names in \code{df$prob} or a subset of these.
 If \code{NULL} (the default), reference points are estimated from the

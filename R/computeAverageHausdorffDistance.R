@@ -57,8 +57,8 @@ computeGenerationalDistance = function(A, B, p = 1, normalize = FALSE, dist.fun 
   if (normalize) {
     min.B = apply(B, 1L, min)
     max.B = apply(B, 1L, max)
-    A = normalizeFront(A, min.value = min.B, max.value = max.B)
-    B = normalizeFront(B, min.value = min.B, max.value = max.B)
+    A = normalizeMatrix(A, min.value = min.B, max.value = max.B)
+    B = normalizeMatrix(B, min.value = min.B, max.value = max.B)
   }
 
   # compute distance of each point from A to the point set B

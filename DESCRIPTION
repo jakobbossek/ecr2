@@ -38,7 +38,6 @@ Imports:
     kableExtra
 Suggests:
     testthat (>= 0.9.1),
-    knitr,
     rmarkdown
 ByteCompile: yes
 LazyData: yes

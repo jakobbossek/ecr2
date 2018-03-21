@@ -6,7 +6,7 @@
 #' @import reshape2
 #' @import ParamHelpers
 #' @import kableExtra
-#' @importFrom stats median rnorm runif dist formula sd
+#' @importFrom stats median rnorm runif dist formula sd wilcox.test
 #' @importFrom utils tail head
 #' @importFrom knitr kable
 #' @useDynLib ecr

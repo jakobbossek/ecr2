@@ -59,10 +59,10 @@ plotFront.data.frame = function(x, obj.names = NULL, minimize = TRUE, ...) {
   if (length(minimize) == 1L)
     minimize = rep(minimize, 2L)
 
-  x$prob =
-  if (n.cols == 2L) {
+  # x$prob =
+  # if (n.cols == 2L) {
 
-  }
+  # }
 
   # filter non-dominated points
   # we need to transform here (back) to a matrix and scale the matrix if not all
@@ -86,6 +86,6 @@ plotFront.data.frame = function(x, obj.names = NULL, minimize = TRUE, ...) {
   pl = ggplot(x, aes_string(x = ns[1L], y = ns[2L])) + geom_point()
   pl = pl + xlab(sprintf("%s (-> %s)", ns[1L], dirs[1L]))
   pl = pl + ylab(sprintf("%s (-> %s)", ns[2L], dirs[2L]))
-  pl = pl + ggtitle(sprintf("Fraction of nondominated points: %.2f", n.nondominated / n))
+  #pl = pl + ggtitle(sprintf("Fraction of nondominated points: %.2f", n.nondominated / n))
   return(pl)
 }

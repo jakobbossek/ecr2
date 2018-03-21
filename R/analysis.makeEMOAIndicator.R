@@ -10,7 +10,7 @@
 #'   Optional named arguments (often \dQuote{ref.point} for a reference
 #'   point or \dQuote{ref.points} for a reference set, e.g., the true Pareto-front)
 #'   are allowed. See implementations of existing indicators for examples.
-#' @param ninimize [\code{logical(1)}]\cr
+#' @param minimize [\code{logical(1)}]\cr
 #'   Lower values indicate better performance?
 #' @param name [\code{character(1)}]\cr
 #'   Short name of the indicator. Used, e.g., as column name for the indicator

@@ -47,7 +47,7 @@ emoaIndEps = makeEMOAIndicator(
     return(.Call("emoaIndEpsC", points, ref.points, PACKAGE = "ecr"))
   },
   name = "EPS",
-  latex.name = "I_{\\epsilon}",
+  latex.name = "I_{\\\\epsilon}",
   minimize = TRUE
 )
 

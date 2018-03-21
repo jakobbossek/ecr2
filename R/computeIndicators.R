@@ -50,9 +50,6 @@
 #' @return [\code{list}] List with components \dQuote{unary} (data frame of
 #'   unary indicators) and \dQuote{binary} (list of matrizes of binary indicators).
 #' @export
-#FIXME: list of ref.sets or better a data.frame
-# of \code{df} structure?
-#FIXME: imagine something like AS-EMOA, where we want each one approx set for each prob
 computeIndicators = function(df,
   obj.cols = c("f1", "f2"),
   unary.inds = NULL, binary.inds = NULL,
@@ -126,7 +123,8 @@ computeIndicators = function(df,
   }
 
   # unary indicators
-  unary.inds.names = names(unary.inds)
+  unary.inds.names = sapply(unary.inds, function(x) attr(x$fun, "name"))
+  names(unary.inds) = unary.inds.names
 
   # split by algorithm x prob x repl combination
   unary.indicators = by(df,
@@ -187,10 +185,9 @@ computeIndicators = function(df,
   }
 
   return(list(
-    unary = unary.indicators,
+    unary = BBmisc::setAttribute(unary.indicators, "unary.inds", unary.inds),
     binary = binary.indicators,
     ref.points = ref.points,
-    unary.inds = unary.inds,
-    binary.inds = binary.inds
+    ref.sets = ref.sets
   ))
 }

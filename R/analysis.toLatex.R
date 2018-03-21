@@ -15,6 +15,7 @@ toLatex = function(stats, probs = NULL, inds = NULL, by.instance = TRUE, cell.fo
   all.inds  = names(stats[[1L]])
 
   alpha = attr(stats, "alpha")
+  unary.inds.funs = attr(stats, "unary.inds")
 
   assertSubset(probs, choices = all.probs)
   assertSubset(inds, choices = all.inds)
@@ -46,13 +47,20 @@ toLatex = function(stats, probs = NULL, inds = NULL, by.instance = TRUE, cell.fo
       dd = knitr::kable(res.stats, align = align.vec, format = "latex", booktabs = TRUE, escape = FALSE)
       dd = kableExtra::kable_styling(dd, position = "center")
       header.probs = c(1, rep(n.algos, n.inds))
-      inds.latex = c("$I_{HV}$", "$I_{\\\\epsilon}^{+}$")
+
+      # catf("Indicators: %s", collapse(inds, sep = ","))
+      # catf("Nmaes in stats: %s", collapse(names(unary.inds.funs)))
+      inds.latex = sapply(inds, function(ind.name) attr(unary.inds.funs[[ind.name]]$fun, "latex.name"))
+      inds.latex = paste0("$", inds.latex, "$")
+      # catf("Latex names: %s", collapse(inds.latex))
+      #print(unary.inds.funs)
+      #inds.latex = c("$I_{HV}$", "$I_{\\\\epsilon}^{+}$")
       group.titles = paste(rep(prob, n.inds), "/", inds.latex)
       names(header.probs) = c(" ", group.titles)
 
       # add some nice additions
       dd = kableExtra::add_header_above(dd, header.probs, bold = TRUE, escape = FALSE)
-      dd = kableExtra::footnote(dd, general = sprintf("Bold font entries are significant to significance level $\\alpha = %.2f$ (adjusted for multiple testing).", alpha), general_title = "Note: ", footnote_as_chunk = TRUE, escape = FALSE)
+      dd = kableExtra::footnote(dd, general = sprintf("Bold font entries are significant to significance level $\\\\alpha = %.2f$ (adjusted for multiple testing).", alpha), general_title = "Note: ", footnote_as_chunk = TRUE, escape = FALSE)
       print(dd)
       # dd = group_rows(dd, "$I_{HV}^{+}$", 1, 4, escape = FALSE)
       # dd = group_rows(dd, "$I_{\\eps}^b$", 5, 8, escape = FALSE)

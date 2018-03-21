@@ -1,5 +1,9 @@
 toScientificLaTeXNotation = function(x, digits = 2) {
-  sign = if (x < 0 ) "-" else -x
+  sign = ""
+  if (x < 0) {
+    sign = "-"
+    x = -x
+  }
 
   exponent = floor(log10(x))
   if (exponent) {
@@ -16,7 +20,7 @@ niceCellFormater = function(cell, alpha = 0.05) {
   if (is.na(cell))
     return ("-")
   else if (as.numeric(cell) > alpha)
-    return (sprintf("$> %f$", alpha))
+    return (sprintf("$> %.2f$", alpha))
   else
     return (sprintf("$\\mathbf{%s}$", toScientificLaTeXNotation(cell)))
 }

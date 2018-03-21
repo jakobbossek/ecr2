@@ -24,11 +24,10 @@ mcMST = dplyr::filter(mcMST,
 
 # # define which unary indicators to use
 unary.inds = list(
-  HVIND = list(fun = ecr::emoaIndHV),
-  EPS  = list(fun = ecr::emoaIndEps),
-  #R2   = list(fun = ecr::emoaIndR2),
-  ONVG = list(fun = ecr::emoaIndONVG),
-  DELTA = list(fun = ecr::emoaIndDelta)
+  list(fun = ecr::emoaIndHV),
+  list(fun = ecr::emoaIndEps),
+  list(fun = ecr::emoaIndONVG),
+  list(fun = ecr::emoaIndDelta)
 )
 
 # FIXME: rename to computeEMOAIndicators
@@ -40,7 +39,7 @@ unary.inds = inds$unary
 
 # load_all()
 unary.inds$algorithm = gsub("NSGA2.", "", unary.inds$algorithm, fixed = TRUE)
-test.res = applyStatisticalTests(unary.inds, ind.names = c("HVIND", "EPS"))
+test.res = applyStatisticalTests(unary.inds, ind.names = c("HV", "EPS"))
 
 
 print(toLatex(test.res, probs = c("instance-100-2", "instance-100-3"), by.instance = TRUE))

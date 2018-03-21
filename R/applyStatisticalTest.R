@@ -33,5 +33,17 @@ applyStatisticalTests = function(inds, ind.names, alpha = 0.05) {
   }
 
   res = BBmisc::setAttribute(res, "alpha", alpha)
+
+  catf("=============")
+  print(attr(inds, "unary.inds"))
+
+  unary.inds.names = sapply(attr(inds, "unary.inds"), function(ind.fun) {
+    attr(ind.fun$fun, "name")
+  })
+
+  unary.inds = attr(inds, "unary.inds")
+  names(unary.inds) = unary.inds.names
+
+  res = BBmisc::setAttribute(res, "unary.inds", unary.inds)
   return(res)
 }

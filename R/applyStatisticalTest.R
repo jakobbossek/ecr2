@@ -1,5 +1,12 @@
-applyStatisticalTests = function(inds, ind.names) {
+#FIXME: make test parameter
+#FIXME: not all relevant tests share the same signature my.test(x, y, alternative)$p.value
+# Document that this signature is needed.
+#FIXME: results object should have attributes at least alpha, used test etc.
+#FIXME: pairwise.wilcox.test
+#FIXME: add docs
+applyStatisticalTests = function(inds, ind.names, alpha = 0.05) {
   assertSubset(ind.names, choices = colnames(inds))
+  assertNumber(alpha, lower = 0.0000001, upper = 1)
 
   probs = unique(inds$prob)
   algos = unique(inds$algorithm)
@@ -24,8 +31,7 @@ applyStatisticalTests = function(inds, ind.names) {
       res[[prob]][[ind.name]] = p.mat
     }
   }
+
+  res = BBmisc::setAttribute(res, "alpha", alpha)
   return(res)
 }
-
-
-

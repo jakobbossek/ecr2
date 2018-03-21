@@ -24,7 +24,6 @@ load_all(".")
 
 # # define which unary indicators to use
 # unary.inds = list(
-#   HV = list(fun = ecr::computeHV),
 #   HVIND = list(fun = ecr::emoaIndHV),
 #   EPS  = list(fun = ecr::emoaIndEps),
 #   #R2   = list(fun = ecr::emoaIndR2),
@@ -32,6 +31,7 @@ load_all(".")
 #   DELTA = list(fun = ecr::emoaIndDelta)
 # )
 
+# FIXME: rename to computeEMOAIndicators
 # inds = computeIndicators(dplyr::filter(mcMST, grepl("NSGA", algorithm)), unary.inds = unary.inds)
 
 # unary.inds = inds$unary
@@ -51,51 +51,31 @@ n.probs = length(probs)
 n.algos = 4L
 
 
-scinot <- function(x, digits=2, showDollar=FALSE)
-{
-    sign <- ""
-    if (x < 0) {
-        sign <- "-"
-        x <- -x
-    }
-    exponent <- floor(log10(x))
-    if (exponent) {
-        xx <- round(x / 10^exponent, digits=digits)
-        e <- paste("\\times 10^{", as.integer(exponent), "}", sep="")
-    } else {
-        xx <- round(x, digits=digits)
-        e <- ""
-    }
-    if (showDollar) paste("$", sign, xx, e, "$", sep="")
-    else paste(sign, xx, e, sep="")
+toScientificLaTeXNotation = function(x, digits = 2) {
+  sign = ""
+  if (x < 0) {
+    sign = "-"
+    x = -x
+  }
+  exponent = floor(log10(x))
+  if (exponent) {
+    xx = round(x / 10^exponent, digits = digits)
+    e = paste0("\\times 10^{", as.integer(exponent), "}")
+  } else {
+    xx = round(x, digits = digits)
+    e = ""
+  }
+  return(paste0(sign, xx, e))
 }
 
-niceCellFormater = function(cell) {
+niceCellFormater = function(cell, alpha = 0.05) {
   if (is.na(cell))
     return ("-")
-  else if (as.numeric(cell) > 0.05)
-    return ("$> 0.05$")
+  else if (as.numeric(cell) > alpha)
+    return (sprintf("$> %f$", alpha))
   else
     return (sprintf("$\\mathbf{%s}$", scinot(cell)))
 }
-
-HV.res = do.call(cbind, lapply(test.res, "[[", "HV"))
-EPS.res = do.call(cbind, lapply(test.res, "[[", "EPS"))
-comb.res = rbind(HV.res, EPS.res)
-
-comb.res = apply(comb.res, 2L, function(x) {
-  sapply(x, niceCellFormater)
-})
-
-
-# mtcars[1:10, 1:2] %>%
-# mutate(
-# car = row.names(.),
-# # You don't need format = "latex" if you have ever defined options(knitr.table.format) mpg = cell_spec(mpg, "latex", color = ifelse(mpg > 20, "red", "blue")),
-# cyl = cell_spec(cyl, "latex", color = "white", align = "c", angle = 45,
-# background = factor(cyl, c(4, 6, 8),
-# c("#666666", "#999999", "#BBBBBB")))
-# ) %>%
 
 toLatex = function(stats, probs = NULL, inds = NULL, by.instance = TRUE, cell.formatter = NULL) {
   assertList(stats)
@@ -113,6 +93,8 @@ toLatex = function(stats, probs = NULL, inds = NULL, by.instance = TRUE, cell.fo
   all.probs = names(stats)
   all.inds  = names(stats[[1L]])
 
+  alpha = attr(stats, "alpha")
+
   assertSubset(probs, choices = all.probs)
   assertSubset(inds, choices = all.inds)
   assertFunction(cell.formatter, args = "cell")
@@ -120,33 +102,41 @@ toLatex = function(stats, probs = NULL, inds = NULL, by.instance = TRUE, cell.fo
   # now filter relevant stats, i.e., for selected problems
   stats = stats[which(all.probs %in% probs)]
 
-  if (by.instance)
+  if (by.instance) {
+    for (prob in probs) {
+      catf("Problem: %s", prob)
+      # extract relevant indicators
+      res.stats = stats[[prob]][which(names(stats[[prob]]) %in% inds)]
+      inds = names(res.stats)
+      res.stats = do.call(cbind, res.stats)
 
-  for (prob in probs) {
-    catf("Problem: %s", prob)
-    res.stats = stats[[prob]][which(names(stats[[prob]]) %in% inds)]
-    inds = names(res.stats)
-    res.stats = do.call(cbind, res.stats)
-    res.stats = apply(res.stats, 2L, function(column) sapply(column, cell.formatter))
+      # format cells
+      res.stats = apply(res.stats, 2L, function(column)
+        sapply(column, cell.formatter, alpha = alpha)
+      )
 
-    n.inds = length(inds)
-    n.algos = nrow(res.stats)
+      n.inds = length(inds)
+      n.algos = nrow(res.stats)
 
-    dd = kable(res.stats, format = "latex", booktabs = TRUE, escape = FALSE)
-    dd = kable_styling(dd, latex_options = "striped", position = "center")
-    header.probs = c(1, rep(n.algos, n.inds))
-    inds.latex = c("$I_{HV}$", "$I_{\\\\epsilon}^{+}$")
-    group.titles = paste(rep(prob, n.inds), "/", inds.latex)
-    names(header.probs) = c(" ", group.titles)
+      # build nice LaTeX table
+      dd = kable(res.stats, format = "latex", booktabs = TRUE, escape = FALSE)
+      dd = kable_styling(dd, position = "center")
+      header.probs = c(1, rep(n.algos, n.inds))
+      inds.latex = c("$I_{HV}$", "$I_{\\\\epsilon}^{+}$")
+      group.titles = paste(rep(prob, n.inds), "/", inds.latex)
+      names(header.probs) = c(" ", group.titles)
 
-    dd = kableExtra::add_header_above(dd, header.probs, bold = TRUE, escape = FALSE)
-    print(dd)
-    # dd = group_rows(dd, "$I_{HV}^{+}$", 1, 4, escape = FALSE)
-    # dd = group_rows(dd, "$I_{\\eps}^b$", 5, 8, escape = FALSE)
+      # add some nice additions
+      dd = kableExtra::add_header_above(dd, header.probs, bold = TRUE, escape = FALSE)
+      dd = kableExtra::footnote(dd, general = sprintf("Bold font entries are significant to significance level $\\alpha = %.2f$ (adjusted for multiple testing).", alpha), general_title = "Note: ", footnote_as_chunk = TRUE)
+      print(dd)
+      # dd = group_rows(dd, "$I_{HV}^{+}$", 1, 4, escape = FALSE)
+      # dd = group_rows(dd, "$I_{\\eps}^b$", 5, 8, escape = FALSE)
+    }
   }
 }
 
-toLatex(test.res, probs = c("instance-100-2", "instance-100-3"), by.instance = TRUE)
+print(toLatex(test.res, probs = c("instance-100-2", "instance-100-3"), by.instance = TRUE))
 
 
 # dd = kable(comb.res, format = "latex", booktabs = TRUE, escape = FALSE)

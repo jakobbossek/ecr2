@@ -1,10 +1,31 @@
-#FIXME: make test parameter
-#FIXME: not all relevant tests share the same signature my.test(x, y, alternative)$p.value
-# Document that this signature is needed.
-#FIXME: results object should have attributes at least alpha, used test etc.
-#FIXME: pairwise.wilcox.test
-#FIXME: add docs
-applyStatisticalTests = function(inds, ind.names, alpha = 0.05) {
+#' @title Statistical tests of EMOA indicators.
+#'
+#' @description Given a data.frame as returned by \code{\link{computeIndicators}},
+#' the function performs pairwise tests (non-parameteric Wilcoxon sum test at the
+#' moment) for location differences in the indicator distributions for all
+#' algorithms. Multiple testing issues are handled internally as is the \dQuote{direction}
+#' of the indicators (e.g., the unary hypervolume indicator shall be minimized
+#' while the number of non-dominated solutions is to be maximized).
+#'
+#' @param inds [\code{data.frame}]\cr
+#'   Input data frame (return value of \code{\link{computeIndicators}}).
+#' @param ind.names [\code{character}]\cr
+#'   Optional character vector of indicators (column names of \code{inds}) which
+#'   shall be considered in tests.
+#'   Defaults to all indicators.
+#' @param alpha [\code{numeric(1)}]\cr
+#'   Siginificance level for statistical tests.
+#'   Default is 0.05.
+#' @param ... [any]\cr
+#'   Not used at the moment.
+#' @return [\code{list}] Named list of lists of matrizes. The names of the top level
+#'   are the names of the problems (\code{unique(inds$prob)}), the names
+#'   on the second level are the names of the considered indicators (\code{ind.names}).
+#'   Each component of the matrizes on the bottom level contains the adjusted
+#'   \eqn{p}-values of the corresponding location test of the indicator for two
+#'   algorithms (row- and column names of the matrix).
+#' @export
+applyStatisticalTests = function(inds, ind.names, alpha = 0.05, ...) {
   assertSubset(ind.names, choices = colnames(inds))
   assertNumber(alpha, lower = 0.0000001, upper = 1)
 
@@ -34,8 +55,8 @@ applyStatisticalTests = function(inds, ind.names, alpha = 0.05) {
 
   res = BBmisc::setAttribute(res, "alpha", alpha)
 
-  catf("=============")
-  print(attr(inds, "unary.inds"))
+  # catf("=============")
+  # print(attr(inds, "unary.inds"))
 
   unary.inds.names = sapply(attr(inds, "unary.inds"), function(ind.fun) {
     attr(ind.fun$fun, "name")

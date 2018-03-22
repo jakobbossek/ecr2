@@ -24,7 +24,7 @@
 #'   Default is the empty character vector.
 #' @return [\code{\link[ggplot2]{ggplot}}]
 #' @export
-plotIndicatorDistribution = function(inds,
+plotDistribution = function(inds,
   plot.type = "boxplot",
   facet.type = "grid", facet.args = list(), logscale = character()) {
   assertDataFrame(inds)

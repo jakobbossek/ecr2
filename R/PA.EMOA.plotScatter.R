@@ -20,8 +20,7 @@
 #' @param ... [any]\cr
 #'   Not used at the moment.
 #' @return [\code{ggplot}] \pkg{ggplot} object.
-#' @examples
-#' matrix
+#' @family EMOA performance assessment tools
 #' @export
 plotFront = function(x, obj.names = NULL, minimize = TRUE, ...) {
   UseMethod("plotFront")

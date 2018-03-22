@@ -62,10 +62,22 @@ approximation sets for each problem.}
 }
 \value{
 [\code{list}] List with components \dQuote{unary} (data frame of
-  unary indicators) and \dQuote{binary} (list of matrizes of binary indicators).
+  unary indicators), \dQuote{binary} (list of matrizes of binary indicators),
+  \dQuote{ref.points} (list of reference points used) and \dQuote{ref.sets}
+  (reference sets used).
 }
 \description{
 Given a data.frame of Pareto-front approximations for different
 sets of problems, algorithms and replications, the function computes sets
 of unary and binary EMOA performance indicators.
+}
+\references{
+[1] Knowles, J., Thiele, L., & Zitzler, E. (2006). A Tutorial on the Performance Assessment
+of Stochastic Multiobjective Optimizers. Retrieved from https://sop.tik.ee.ethz.ch/KTZ2005a.pdf
+[2] Knowles, J., & Corne, D. (2002). On Metrics for Comparing Non-Dominated Sets.
+In Proceedings of the 2002 Congress on Evolutionary Computation Conference (CEC02)
+(pp. 711–716). Honolulu, HI, USA: Institute of Electrical and Electronics Engineers.
+[3] Okabe, T., Yaochu, Y., & Sendhoff, B. (2003). A Critical Survey of Performance
+Indices for Multi-Objective Optimisation. In Proceedings of the 2003 Congress on Evolutionary
+Computation Conference (CEC03) (pp. 878–885). Canberra, ACT, Australia: IEEE.
 }

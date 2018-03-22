@@ -12,6 +12,7 @@
 #'   exclusively or combined with \code{...}.
 #' @return [\code{numeric}] Reference point.
 #' @rdname reference_point_approximation
+#' @family EMOA performance assessment tools
 #' @export
 approximateNadirPoint = function(..., sets = NULL) {
   return(approximatePoint(..., sets = sets, FUN = max))

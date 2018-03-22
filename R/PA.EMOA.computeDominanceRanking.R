@@ -7,10 +7,15 @@
 #' exists a point in \eqn{y \in D} which weakly dominates \eqn{x}).
 #' Thus, each approximation set is reduced to a number -- its rank. This rank distribution
 #' may act for first comparrison of multi-objecitve stochastic optimizers.
+#' See [1] for more details.
 #'
 #' @note Since pairwise non-domination checks are performed over all algorithms and
 #' algorithm runs this function may take some time if the number of problems, algorithms
 #' and/or replications is high.
+#'
+#' @references
+#' [1] Knowles, J., Thiele, L., & Zitzler, E. (2006). A Tutorial on the Performance Assessment
+#' of Stochastic Multiobjective Optimizers. Retrieved from https://sop.tik.ee.ethz.ch/KTZ2005a.pdf
 #'
 #' @param df [\code{data.frame}]\cr
 #'   Data frame with columns at least \dQuote{prob}, \dQuote{algorithm}, \dQuote{repl} and
@@ -19,6 +24,7 @@
 #'   Column names in \code{df} which store the objective function values.
 #' @return [\code{data.frame}] Reduced \code{df} with columns \dQuote{prob}, \dQuote{algorithm}, \dQuote{repl}
 #'   and \dQuote{rank}.
+#' @family EMOA performance assessment tools
 #' @export
 computeDominanceRanking = function(df, obj.cols) {
   assertDataFrame(df)

@@ -28,6 +28,7 @@
 #'   Numeric constant added to each normalized element.
 #'   Useful to make all objectives strictly positive, e.g., located in \eqn{[1,2]}.
 #' @return [\code{matrix} | \code{data.frame}]
+#' @family EMOA performance assessment tools
 #' @export
 normalize = function(x, obj.cols, min.value = NULL, max.value = NULL, offset = NULL) {
   if (is.matrix(x))

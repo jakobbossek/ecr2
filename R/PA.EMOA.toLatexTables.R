@@ -22,6 +22,7 @@
 #'   table cell and may be used to customize the output. Default is \code{niceCellFormater}.
 #' @return [\code{list}] Named list of strings (LaTeX tables). Names correspond to the
 #'   selected problem instances in \code{probs}.
+#' @family EMOA performance assessment tools
 #' @export
 toLatexTables = function(stats, probs = NULL, inds = NULL, type = "by.instance", cell.formatter = NULL) {
   assertList(stats)

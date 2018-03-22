@@ -1,4 +1,4 @@
-#' @title Plot distributions of EMOA indicators.
+#' @title Plot distribution of EMOA indicators.
 #'
 #' @description Visualizes of empirical distributions of unary EMOA indicator
 #' based on the results of \code{\link{computeIndicators}}.
@@ -23,6 +23,7 @@
 #'   visualization.
 #'   Default is the empty character vector.
 #' @return [\code{\link[ggplot2]{ggplot}}]
+#' @family EMOA performance assessment tools
 #' @export
 plotDistribution = function(inds,
   plot.type = "boxplot",

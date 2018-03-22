@@ -7,6 +7,10 @@
 #' of the indicators (e.g., the unary hypervolume indicator shall be minimized
 #' while the number of non-dominated solutions is to be maximized).
 #'
+#' @references
+#' [1] Knowles, J., Thiele, L., & Zitzler, E. (2006). A Tutorial on the Performance Assessment
+#' of Stochastic Multiobjective Optimizers. Retrieved from https://sop.tik.ee.ethz.ch/KTZ2005a.pdf
+#'
 #' @param inds [\code{data.frame}]\cr
 #'   Input data frame (return value of \code{\link{computeIndicators}}).
 #' @param ind.names [\code{character}]\cr
@@ -24,6 +28,7 @@
 #'   Each component of the matrizes on the bottom level contains the adjusted
 #'   \eqn{p}-values of the corresponding location test of the indicator for two
 #'   algorithms (row- and column names of the matrix).
+#' @family EMOA performance assessment tools
 #' @export
 applyStatisticalTests = function(inds, ind.names, alpha = 0.05, ...) {
   assertSubset(ind.names, choices = colnames(inds))

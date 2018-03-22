@@ -14,6 +14,7 @@
 #'   Should a data.frame be returned?
 #'   Default is \code{FALSE}. In this case a named list is returned.
 #' @return [\code{list} | \code{data.frame}]
+#' @family EMOA performance assessment tools
 #' @export
 approximateRefPoints = function(df, obj.cols, offset = 0, as.df = FALSE) {
   # split by prob(lem)

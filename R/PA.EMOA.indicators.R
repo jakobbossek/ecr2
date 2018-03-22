@@ -1,5 +1,25 @@
+makeEMOAIndicator = function(
+  fun,
+  minimize,
+  #type,
+  name,
+  latex.name) {
+  assertFunction(fun, args = "points")
+  assertFlag(minimize)
+  #assertChoice(type, choices = c("binary", "unary"))
+  assertString(name)
+  assertString(latex.name)
+
+  fun = BBmisc::setAttribute(fun, "minimize", minimize)
+  #fun = BBmisc::setAttribute(fun, "type", type)
+  fun = BBmisc::setAttribute(fun, "name", name)
+  fun = BBmisc::setAttribute(fun, "latex.name", latex.name)
+  fun = BBmisc::addClasses(fun, "ecr_emoa_indicator")
+  return(fun)
+}
+
 #' @title
-#' Computation of the unary epsilon-indicator.
+#' EMOA performance indicators
 #'
 #' @description
 #' Functions for the computation of unary and binary measures which
@@ -36,6 +56,7 @@
 #'   Not used at the moment.
 #' @return [\code{numeric(1)}] Epsilon indicator.
 #' @rdname emoa_indicators
+#' @family EMOA performance assessment tools
 #' @export
 emoaIndEps = makeEMOAIndicator(
   fun = function(points, ref.points, ...) {

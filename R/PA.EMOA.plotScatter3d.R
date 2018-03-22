@@ -20,6 +20,7 @@
 #' @param ... [any]\cr
 #'   Further arguments passed down to scatterplot function.
 #' @return Nothing
+#' @family EMOA performance assessment tools
 #' @export
 plotScatter3d = function(df, obj.cols = c("f1", "f2", "f3"), max.in.row = 4L, package = "scatterplot3d", ...) {
   assertDataFrame(df, min.rows = 2L, min.cols = 3L)

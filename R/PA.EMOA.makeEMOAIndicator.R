@@ -20,6 +20,7 @@
 #'   tests (see \code{\link{toLatex}}).
 #' @return [\code{function(points, ...)}] Argument \code{fun} with all other
 #'   arguments appended.
+#' @family EMOA performance assessment tools
 #' @export
 makeEMOAIndicator = function(
   fun,

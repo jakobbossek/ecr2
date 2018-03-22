@@ -12,7 +12,7 @@ sel.algos = c("NSGA2.MIXED", "NSGA2.SG", "NSGA2.EX", "NSGA2.ZHOU")
 mcMST = dplyr::filter(mcMST, prob %in% sel.probs, algorithm %in% sel.algos)
 
 # normalize to [1, 2] x [1, 2]
-mcMST = ecr::normalize(mcMST, obj.cols = obj.cols, offset = c(1, 1))
+mcMST = ecr::normalize(mcMST, obj.cols = obj.cols, offset = 1)
 
 ## RANKING
 ## =======

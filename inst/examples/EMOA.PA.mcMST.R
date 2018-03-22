@@ -2,10 +2,25 @@ library(devtools)
 
 load_all(".")
 
+# PERFORMANCE ASSESSMENT OF MULTI-OBJECTIVE EVOLUTIONARY ALGORITHMS
+# =========================================================
+# Here we demonstrate the functionality of the EMOA performance
+# assessment functions which are integrated in ecr by example.
+# The example data is a subset of data obtained during a study
+# on the bi-criteria minimum spanning tree problem, where the
+# goal is to approximate the set of non-dominated spanning trees,
+# i.e., trees which span all graph nodes are have minimal sum of
+# weights regarding two conflicting objectives. The study focused
+# on multi-objective evolutionary algorithms for tackling this
+# NP-hard problem. Multiple mutation operators and representations
+# were compared using NSGA-II and SMS-EMOA as encapsulating
+# wrappers.
+
 # data import and preprocessing
 data(mcMST)
 print(head(mcMST))
 
+# we focus on NSGA-2 results and three problem instances
 obj.cols = c("f1", "f2")
 sel.probs = c("instance-100-1", "instance-100-2", "instance-100-3")
 sel.algos = c("NSGA2.MIXED", "NSGA2.SG", "NSGA2.EX", "NSGA2.ZHOU")

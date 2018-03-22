@@ -54,6 +54,6 @@ plotIndicatorDistribution = function(inds,
     axis.text.x = element_text(angle = 45, hjust = 1),
     legend.position = "top")
   #pl = pl + ggplot2::scale_y_log10()
-  pl = pl + viridis::scale_fill_viridis(discrete = TRUE, end = 0.8)
+  pl = pl + viridis::scale_fill_viridis(discrete = TRUE)#, end = 0.8)
   return(pl)
 }

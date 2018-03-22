@@ -108,3 +108,25 @@ isMaximallyDominated = function(x) {
   ranks = doNondominatedSorting(x)$ranks
   return(ranks == max(ranks))
 }
+
+#' @title
+#' Check if one set is better than another.
+#'
+#' @description
+#' The function checks, whether each points of the second set of points
+#' is dominated by at least one point from the first set.
+#'
+#' @param x [\code{matrix}]\cr
+#'   First set of points.
+#' @param y [\code{matrix}]\cr
+#'   Second set of points.
+#' @return [\code{logical(1)}]
+#' @export
+setDominates = function(x, y) {
+  n1 = ncol(x)
+  n2 = ncol(y)
+  z = cbind(x, y)
+
+  dom = dominated(z)
+  all(dom[(n1 + 1L):(n1 + n2)])
+}

@@ -232,7 +232,6 @@ emoaIndM1 = makeEMOAIndicator(
 #' @export
 emoaIndONVG = makeEMOAIndicator(
   fun = function(points, ...) {
-    assertFlag(normalize)
     sum(nondominated(points))
   },
   name = "ONVG",

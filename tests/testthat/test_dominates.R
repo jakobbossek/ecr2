@@ -42,3 +42,11 @@ test_that("[which.{non}]dominated works well on matrices", {
   expect_true(nondom.idxs == 1L)
   expect_true(setequal(c(dom.idxs, nondom.idxs), seq(ncol(m))))
 })
+
+test_that("setDominates works as expected", {
+  x = matrix(c(0, 1, 1, 0), ncol = 2L)
+  y = matrix(c(5, 5, 10, 10, 15, 15), nrow = 2L)
+  expect_true(setDominates(x, y))
+  y = cbind(y, matrix(c(0.5, 0.5), ncol = 1L))
+  expect_false(setDominates(x, y))
+})

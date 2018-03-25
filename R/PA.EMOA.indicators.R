@@ -310,7 +310,7 @@ emoaIndDelta = makeEMOAIndicator(
     mean(abs(dists - avg.dist))
   },
   name = "DELTA",
-  latex.name = "I_{\\Delta}",
+  latex.name = "I_{\\\\Delta}",
   minimize = TRUE
 )
 

@@ -77,12 +77,12 @@ pl = plotFronts(mcMST, title = "Pareto-approximations",
 }
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{applyStatisticalTests}},
-  \code{\link{approximateNadirPoint}},
+Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{computeDominanceRanking}},
   \code{\link{emoaIndEps}},
   \code{\link{makeEMOAIndicator}},
   \code{\link{niceCellFormater}}, \code{\link{normalize}},
   \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter3d}}, \code{\link{toLatexTables}}
+  \code{\link{plotScatter3d}}, \code{\link{test}},
+  \code{\link{toLatex}}
 }

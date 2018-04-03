@@ -58,8 +58,8 @@ explode = function(df, col, by = ".", keep = FALSE, col.names = NULL) {
   df.new.cols = do.call(rbind, col.exploded)
   colnames(df.new.cols) = col.names
 
-  if (length(intersect(colnames(df), col.names)) > 0L)
-    stopf("explode: existing and new column names must not intersect.")
+  # if (length(intersect(colnames(df), col.names)) > 0L)
+  #   stopf("explode: existing and new column names must not intersect.")
 
   df = cbind(df, df.new.cols)
 

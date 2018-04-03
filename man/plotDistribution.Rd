@@ -40,12 +40,12 @@ Visualizes of empirical distributions of unary EMOA indicator
 based on the results of \code{\link{computeIndicators}}.
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{applyStatisticalTests}},
-  \code{\link{approximateNadirPoint}},
+Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{computeDominanceRanking}},
   \code{\link{emoaIndEps}},
   \code{\link{makeEMOAIndicator}},
   \code{\link{niceCellFormater}}, \code{\link{normalize}},
   \code{\link{plotFront}}, \code{\link{plotScatter2d}},
-  \code{\link{plotScatter3d}}, \code{\link{toLatexTables}}
+  \code{\link{plotScatter3d}}, \code{\link{test}},
+  \code{\link{toLatex}}
 }

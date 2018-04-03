@@ -43,13 +43,12 @@ is performed for each unique element of the \dQuote{prob} column independently (
 existent).
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{applyStatisticalTests}},
-  \code{\link{approximateNadirPoint}},
+Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{computeDominanceRanking}},
   \code{\link{emoaIndEps}},
   \code{\link{makeEMOAIndicator}},
   \code{\link{niceCellFormater}},
   \code{\link{plotDistribution}}, \code{\link{plotFront}},
   \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
-  \code{\link{toLatexTables}}
+  \code{\link{test}}, \code{\link{toLatex}}
 }

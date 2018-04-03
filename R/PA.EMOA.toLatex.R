@@ -1,12 +1,12 @@
 #' @title Export results of statistical tests to LaTeX table(s).
 #'
 #' @description Returns high-quality LaTeX-tables of the test results of
-#' statistical tests performed with function \code{\link{applyStatisticalTests}}
+#' statistical tests performed with function \code{\link{test}}
 #' on per-instance basis. I.e., a table is returned for each instances combining
 #' the results of different indicators.
 #'
 #' @param stats [\code{list}]\cr
-#'   Named list of list as returned by \code{\link{applyStatisticalTests}}.
+#'   Named list of list as returned by \code{\link{test}}.
 #' @param probs [\code{character}]\cr
 #'   Filtering: vector of problem instances. This way one can restrict the
 #'   size of the table(s).
@@ -24,7 +24,11 @@
 #'   selected problem instances in \code{probs}.
 #' @family EMOA performance assessment tools
 #' @export
-toLatexTables = function(stats, probs = NULL, inds = NULL, type = "by.instance", cell.formatter = NULL) {
+toLatex = function(stats, ...) {
+  UseMethod("toLatex")
+}
+
+toLatex.list = function(stats, probs = NULL, inds = NULL, type = "by.instance", cell.formatter = NULL) {
   assertList(stats)
   assertChoice(type, choices = "by.instance")
 
@@ -88,7 +92,6 @@ toLatexTables = function(stats, probs = NULL, inds = NULL, type = "by.instance",
       # add some nice additions
       dd = kableExtra::add_header_above(dd, header.probs, bold = TRUE, escape = FALSE)
       dd = kableExtra::footnote(dd, general = sprintf("Bold font entries are significant to significance level $\\\\alpha = %.2f$ (adjusted for multiple testing).", alpha), general_title = "Note: ", footnote_as_chunk = TRUE, escape = FALSE)
-      print(dd)
 
       tables[[prob]] = dd
       # dd = group_rows(dd, "$I_{HV}^{+}$", 1, 4, escape = FALSE)
@@ -96,4 +99,99 @@ toLatexTables = function(stats, probs = NULL, inds = NULL, type = "by.instance",
     }
   }
   return(tables)
+}
+
+toLatex.data.frame = function(stats, stat.cols, highlight.fun = ecr::boldify) {
+  assertDataFrame(stats)
+
+  res.stats = dplyr::group_by_(stats, "algorithm", "prob")
+
+  res = lapply(stat.cols, function(stat.col) {
+    tmp = dplyr::summarise_(
+      res.stats,
+      mean = lazyeval::interp(~mean(x), x = as.name(stat.col)),
+      sd   = lazyeval::interp(~sd(x),   x = as.name(stat.col))
+    )
+    tmp = dplyr::ungroup(tmp)
+    names(tmp)[names(tmp) == "mean"] = paste0(stat.col, ".mean")
+    names(tmp)[names(tmp) == "sd"]   = paste0(stat.col, ".sd")
+    return(tmp)
+  })
+
+  # now cbind the ugly way
+  res2 = res[[1L]]
+  if (length(res) > 1L) {
+    for (i in 2:length(res)) {
+      drop.cols = c("prob", "algorithm")
+      drop.cols = which(colnames(res[[i]]) %in% drop.cols)
+      res2 = cbind(res2, res[[i]][, -drop.cols, drop = FALSE])
+    }
+  }
+
+  latex.name.mapping = list("HV" = "$I_{HV}$", "EPS" = "$I_{\\\\epsilon}$")
+
+  res2 = dplyr::arrange_(res2, "prob")
+  meta = res2[, c("prob", "algorithm")]
+  res2$prob = res2$algorithm = NULL
+  res2 = cbind(meta, res2)
+
+  prob.col = which(colnames(res2) == "prob")
+  n.probs = unique(res2[[prob.col]])
+
+  res2 = boldify(res2, group.by = "prob", col.names = c(3, 4, 5, 6), dir.funs = c(min, min, min, min))
+
+  align.vec = c("l", "l", rep(c("r", "r"), length(stat.cols)))
+  col.names = c("Problem", "Algorithm", rep(c("Mean", "StdDev"), length(stat.cols)))
+
+  dd = knitr::kable(res2, align = align.vec, col.names = col.names, format = "latex", booktabs = TRUE, escape = FALSE)
+
+  group.cols = c(1, 1, rep(2L, length(stat.cols)))
+  names(group.cols) = c(" ", " ", latex.name.mapping[stat.cols])
+  dd = kableExtra::kable_styling(dd)
+  dd = kableExtra::add_header_above(dd, group.cols, escape = FALSE)
+  dd = kableExtra::column_spec(dd, column = 1L, bold = TRUE)
+  dd = kableExtra::collapse_rows(dd, columns = 1L, latex_hline = "major")
+
+  return(dd)
+}
+
+boldify = function(df, group.by = NULL, col.names, dir.funs) {
+  n.cols = length(col.names)
+  if (is.numeric(col.names))
+    col.names = names(df)[as.integer(col.names)]
+  if (length(dir.funs) == 1L & n.cols > 1L)
+    dir.funs = rep(dir.funs, n.cols)
+  if (is.null(group.by)) {
+    df$groupby = "DUMMY"
+    group.by = "groupby"
+  }
+
+  for (i in 1:n.cols) {
+    col.name = col.names[i]
+    the.dir.fun = dir.funs[i][[1L]]
+
+    names(df)[names(df) == col.name] = "tmpname"
+    # get min or max value or some other for each group
+    tmp = df %>%
+      dplyr::group_by_(group.by) %>%
+      dplyr::summarize(best = the.dir.fun(tmpname)) %>%
+      dplyr::ungroup()
+    names(df)[names(df) == "tmpname"] = col.name
+
+    df = dplyr::left_join(df, tmp, by = group.by)
+    is.best = df[[col.name]] == df[["best"]]
+    pre.tex = ifelse(is.best, "\\cellcolor{gray!15}\\textbf{", "")
+    pre.tex = ifelse(is.best, "\\textbf{", "")
+    post.tex = ifelse(is.best, "}", "")
+    df[[col.name]] = sprintf("%s%.3f%s", pre.tex, df[[col.name]], post.tex)
+    df$best = NULL
+  }
+  if (group.by == "groupby")
+    df$groupby = NULL
+  return(df)
+}
+
+
+makeBoldHeader = function(x) {
+  paste('{\\textbf{',x,'}}', sep ='')
 }

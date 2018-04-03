@@ -37,12 +37,12 @@ different three-objective optimization algorithms on (multiple) problem instance
 the function generates 3D scatterplots of the obtained Pareto-front approximations.
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{applyStatisticalTests}},
-  \code{\link{approximateNadirPoint}},
+Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{computeDominanceRanking}},
   \code{\link{emoaIndEps}},
   \code{\link{makeEMOAIndicator}},
   \code{\link{niceCellFormater}}, \code{\link{normalize}},
   \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter2d}}, \code{\link{toLatexTables}}
+  \code{\link{plotScatter2d}}, \code{\link{test}},
+  \code{\link{toLatex}}
 }

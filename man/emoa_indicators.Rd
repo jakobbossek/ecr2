@@ -79,12 +79,11 @@ points R (\code{ref.points}) (which maybe the true Pareto front) and a reference
 point r (\code{ref.point}) it is defined as Hyp(X, R, r) = HV(R, r) - HV(X, r).
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{applyStatisticalTests}},
-  \code{\link{approximateNadirPoint}},
+Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{computeDominanceRanking}},
   \code{\link{makeEMOAIndicator}},
   \code{\link{niceCellFormater}}, \code{\link{normalize}},
   \code{\link{plotDistribution}}, \code{\link{plotFront}},
   \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
-  \code{\link{toLatexTables}}
+  \code{\link{test}}, \code{\link{toLatex}}
 }

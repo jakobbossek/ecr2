@@ -22,9 +22,10 @@ print(head(mcMST))
 
 # we focus on NSGA-2 results and three problem instances
 obj.cols = c("f1", "f2")
-sel.probs = c("instance-100-1", "instance-100-2", "instance-100-3")
-sel.algos = c("NSGA2.MIXED", "NSGA2.SG", "NSGA2.EX", "NSGA2.ZHOU")
-mcMST = dplyr::filter(mcMST, prob %in% sel.probs, algorithm %in% sel.algos)
+mcMST = dplyr::filter(mcMST,
+  grepl("100", prob),
+  grepl("NSGA", algorithm)
+)
 
 # normalize to [1, 2] x [1, 2]
 mcMST = ecr::normalize(mcMST, obj.cols = obj.cols, offset = 1)
@@ -35,15 +36,19 @@ mcMST = ecr::normalize(mcMST, obj.cols = obj.cols, offset = 1)
 # compute and visualize ranks
 ranks = computeDominanceRanking(mcMST, obj.cols = obj.cols)
 pl = plotDistribution(ranks) + ggplot2::scale_fill_grey(end = 0.8)
+ranks.test = test(ranks, "rank")
+toLatexTables(ranks.test)
 print(pl)
 # Observations: seemingly, MIXED and SG have rank 1 in any case;
-# EX and ZHOU ar far off with ZHOU being ranked worst for all three instances
+# EX and ZHOU are far off with ZHOU being ranked worst for all three instances
 
 ## APPROXIMATION SETS
 ## ========
 
 ## Take a glimpse at examplary approximation sets
-pl = plotScatter2d(dplyr::filter(mcMST, repl <= 2), facet.type = "grid",
+pl = plotScatter2d(
+  dplyr::filter(mcMST, repl <= 2),
+  facet.type = "grid",
   facet.args = list(facets = formula(repl ~ prob)))
 print(pl)
 # Observations: the results of the ranking are confirmed. ZHOU always performs
@@ -79,8 +84,9 @@ print(pl)
 # shorter algorithm names
 unary = inds$unary
 unary$algorithm = gsub("NSGA2.", "", unary$algorithm, fixed = TRUE)
-tests = applyStatisticalTests(unary, ind.names = c("HV", "EPS"))
-print(toLatexTables(tests, probs = sel.probs[2:3]))
+print(toLatex(unary, stat.cols = c("HV", "EPS")))
+tests = ecr::test(unary, cols = c("HV", "EPS"))
+print(toLatex(tests))
 
 # binary.inds = inds$binary
 # plotHeatmap(binary.inds[[1L]])

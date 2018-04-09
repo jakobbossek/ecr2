@@ -1,6 +1,7 @@
 library(devtools)
+library(ggplot2)
 
-load_all(".")
+load_all()
 
 # PERFORMANCE ASSESSMENT OF MULTI-OBJECTIVE EVOLUTIONARY ALGORITHMS
 # =========================================================
@@ -35,12 +36,15 @@ mcMST = ecr::normalize(mcMST, obj.cols = obj.cols, offset = 1)
 
 # compute and visualize ranks
 ranks = computeDominanceRanking(mcMST, obj.cols = obj.cols)
-pl = plotDistribution(ranks) + ggplot2::scale_fill_grey(end = 0.8)
-ranks.test = test(ranks, "rank")
-toLatexTables(ranks.test)
+pl = plotDistribution(ranks) + ggplot2::theme(legend.position = "none")
 print(pl)
+
+#ranks.test = test(ranks, "rank")
 # Observations: seemingly, MIXED and SG have rank 1 in any case;
 # EX and ZHOU are far off with ZHOU being ranked worst for all three instances
+
+# Next, we restrict to NSGA-II only and continue detailed analysis
+
 
 ## APPROXIMATION SETS
 ## ========
@@ -48,9 +52,11 @@ print(pl)
 ## Take a glimpse at examplary approximation sets
 pl = plotScatter2d(
   dplyr::filter(mcMST, repl <= 2),
+  shape = "algorithm",
   facet.type = "grid",
-  facet.args = list(facets = formula(repl ~ prob)))
+  facet.args = list(facets = formula(repl ~ prob))) + ggplot2::scale_colour_grey(end = 0.8)
 print(pl)
+
 # Observations: the results of the ranking are confirmed. ZHOU always performs
 # worse with its approxiamtion sets beeing far away from the the others. EX is placed
 # second while MIXED and SG approximation sets are incomparable in general. However,
@@ -60,11 +66,18 @@ print(pl)
 ## COMPUTATION OF INDICATORS
 ## ========
 
+myONVG = makeEMOAIndicator(
+  fun = function(points, ...) ncol(points),
+  name = "ONVG",
+  latex.name = "I_{O}",
+  minimize = FALSE
+)
+
 # define which unary indicators to use
 unary.inds = list(
   list(fun = ecr::emoaIndHV),
   list(fun = ecr::emoaIndEps),
-  list(fun = ecr::emoaIndDelta)
+  list(fun = myONVG)
 )
 
 # compute inidcators
@@ -72,10 +85,13 @@ inds = computeIndicators(
   mcMST, unary.inds = unary.inds
 )
 
+print(head(inds))
+
 # visualize indicator distributions
-pl = plotDistribution(inds$unary, plot.type = "boxplot")
-pl = pl + ggplot2::scale_fill_grey(end = 0.8)
+pl = plotDistribution(inds$unary, plot.type = "boxplot") + ggplot2::scale_fill_grey(end = 0.8)
+print(toLatex(inds$unary, stat.cols = c("HV", "EPS")))
 print(pl)
+
 # Observations: MIXED and SG outperform EX and ZHOU with regard to the hypervolume
 # and epsilon indicator with MIXED gaining a slight lead over SG. We will now check,
 # whether the differences are significant with statistical rigor.
@@ -84,12 +100,9 @@ print(pl)
 # shorter algorithm names
 unary = inds$unary
 unary$algorithm = gsub("NSGA2.", "", unary$algorithm, fixed = TRUE)
-print(toLatex(unary, stat.cols = c("HV", "EPS")))
-tests = ecr::test(unary, cols = c("HV", "EPS"))
-print(toLatex(tests))
-
-# binary.inds = inds$binary
-# plotHeatmap(binary.inds[[1L]])
+tests = ecr::test(unary, cols = c("HV", "EPS", "ONVG"))
+latex.tabs = toLatexTables(tests, probs = sel.probs)
+print(latex.tabs)
 
 stop()
 # 3D EXAMPLE

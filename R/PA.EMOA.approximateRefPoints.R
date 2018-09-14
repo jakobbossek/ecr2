@@ -25,7 +25,7 @@ approximateRefPoints = function(df, obj.cols, offset = 0, as.df = FALSE) {
     ref.point = apply(pf.approx, 2L, max) + offset
     # return a list with component prob
     res = list()
-    res[[x$prob[1L]]] = ref.point
+    res[[as.character(x$prob[1L])]] = ref.point
     return(res)
   })
   # drop "by" class and attributes

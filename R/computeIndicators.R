@@ -88,7 +88,7 @@ computeIndicators = function(df,
 
   # normalize approximation sets
   if (normalize)
-    df = ecr::normalize(df)
+    df = ecr::normalize(df, obj.cols = obj.cols)
 
   # check list of unary indicators
   if (is.null(unary.inds))
@@ -140,26 +140,28 @@ computeIndicators = function(df,
 
   # split by algorithm x prob x repl combination
   unary.indicators = by(df,
-    list(df$algorithm, df$prob, df$repl),
+    list(as.character(df$algorithm), as.character(df$prob), as.integer(df$repl)),
     function(x) {
       # all EMOA indicators expect a matrix of type n.obj x n.points
       approx = t(x[, obj.cols, drop = FALSE])
       mode(approx) = "double"
 
       res = list(
-        algorithm = x$algorithm[1L],
-        prob      = x$prob[1L],
-        repl      = x$repl[1L]
+        algorithm = as.character(x$algorithm[1L]),
+        prob      = as.character(x$prob[1L]),
+        repl      = as.integer(x$repl[1L])
       )
 
       for (unary.ind.name in unary.inds.names) {
         ind.fun = unary.inds[[unary.ind.name]][["fun"]]
         ind.args = BBmisc::coalesce(unary.inds[[unary.ind.name]][["pars"]], list())
         ind.args = BBmisc::insert(list(approx,
-          ref.point = ref.points[[x$prob[1L]]],
-          ref.points = ref.sets[[x$prob[1L]]]),
+          ref.point = ref.points[[as.character(x$prob[1L])]],
+          ref.points = ref.sets[[as.character(x$prob[1L])]]),
           ind.args)
+        #print(ind.args)
         res[[unary.ind.name]] = do.call(ind.fun, ind.args)
+        #print(res[[unary.ind.name]])
       }
 
       res = as.data.frame(res)

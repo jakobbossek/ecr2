@@ -30,7 +30,7 @@ approximateRefSets = function(df, obj.cols, as.df = FALSE) {
     ref.set = pf.approx[, ecr::nondominated(pf.approx), drop = FALSE]
     # return a list with component prob
     res = list()
-    res[[x$prob[1L]]] = ref.set
+    res[[as.character(x$prob[1L])]] = ref.set
     return(res)
   })
   # drop "by" class and attributes

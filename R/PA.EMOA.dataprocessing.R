@@ -95,3 +95,68 @@ implode = function(df, cols, by = ".", keep = FALSE, col.name) {
 
   return(df)
 }
+
+categorizeFactor = function(df, col, categories, cat.col, keep = TRUE, overwrite = FALSE) {
+  assertDataFrame(df, min.rows = 1L, min.cols = 1L)
+  assertChoice(col, choices = colnames(df))
+  assertFlag(overwrite)
+  if (!overwrite) {
+    assertString(cat.col)
+    if (cat.col %in% colnames(df))
+      BBmisc::stopf("Column for categorization must not exist in data frame df if overwrite = FALSE.")
+  }
+  else {
+    cat.col = col
+  }
+
+  assertList(categories, min.len = 1L, types = "character")
+  assertFlag(keep)
+
+  values = df[[col]]
+  unique.values = unique(values)
+
+  if (!is.character(values) & !is.factor(values))
+    BBmisc::stopf("Can only categorize factor or character columns.")
+
+  cat.names = names(categories)
+  cat.values = unname(do.call(c, categories))
+
+  # check if there are factors which are in neither category
+  not.in.category = setdiff(unique.values, cat.values)
+  if (length(not.in.category) > 0L) {
+    # if such elements exist, make another "rest" category
+    cat.names = c(cat.names, "rest")
+    cat.values = unique.values
+    categories[["rest"]] = not.in.category
+  }
+
+  # now do the categorization
+  df[[cat.col]] = sapply(values, function(value) {
+    idx = sapply(categories, function(category) {
+      return(value %in% category)
+    })
+    return(cat.names[idx])
+  })
+
+  if (!keep & !overwrite)
+    df[col] = NULL
+
+  return(df)
+}
+
+addUnionGroup = function(df, col, group, factors) {
+  assertDataFrame(df, min.cols = 1L, min.rows = 2L)
+  assertChoice(col, choices = colnames(df))
+  assertString(group)
+
+  values = df[[col]]
+
+  tmp = df[values %in% factors, , drop = FALSE]
+  tmp[[col]] = group
+
+  return(rbind(df, tmp))
+}
+
+addAllGroup = function(df, col, group = "all") {
+  addUnionGroup(df, col, group, factors = unique(as.character(df[[col]])))
+}

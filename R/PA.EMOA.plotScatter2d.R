@@ -16,12 +16,18 @@
 #'   Name of algorithm to highlight exclusively. Useful to highlight, e.g., the
 #'   true Pareto-optimal front (if known) or some reference set.
 #'   Default is \code{NULL}, i.e., unknown.
+#' @param offset.highlighted [\code{numeric(1)}]\cr
+#'   Numeric offset used to shift set (see \code{highlight.algos})
+#'   which should be highlighted.
+#'   Even though this produces objective vectors it
+#'   may be used to make visible reference sets which otherwise would
+#'   be hidden by overlap of multiple other approximation sets.
 #' @param shape [\code{character(1)}]\cr
 #'   Name of column which shall be used to define shape of points.
 #'   Default is \dQuote{algorithm}.
 #' @param colour [\code{character(1)}]\cr
 #'   Name of column which shall be used to define colour of points.
-#'   Default is \code{NULL}, i.e., colouring is deactivated.
+#'   Default is \code{NULL}, i.e., coloring is deactivated.
 #' @param title [\code{character(1)}]\cr
 #'   Plot title.
 #' @param subtitle [\code{character(1)}]\cr
@@ -57,9 +63,17 @@
 #' @export
 #FIXME: allow to work if there is no prob column
 #FIXME: allow to pass column numbers of obj.cols
-plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colour = NULL, highlight.algos = NULL, title = NULL, subtitle = NULL, facet.type = "wrap", facet.args = list()) {
+plotScatter2d = function(df,
+  obj.cols = c("f1", "f2"),
+  shape = "algorithm",
+  colour = NULL,
+  highlight.algos = NULL,
+  offset.highlighted = 0,
+  title = NULL, subtitle = NULL,
+  facet.type = "wrap", facet.args = list()) {
   assertDataFrame(df, min.rows = 2L, min.cols = 2L)
   assertCharacter(obj.cols, min.len = 2L)
+  assertNumber(offset.highlighted, lower = 0, finite = TRUE)
   assertChoice(facet.type, choices = c("wrap", "grid"))
   assertList(facet.args)
 
@@ -109,6 +123,7 @@ plotScatter2d = function(df, obj.cols = c("f1", "f2"), shape = "algorithm", colo
   if (!is.null(highlight.algos)) {
     data = df[df$algorithm != highlight.algos, , drop = FALSE]
     data.highlight = df[df$algorithm == highlight.algos, , drop = FALSE]
+    data.highlight[, obj.cols] = data.highlight[, obj.cols] - offset.highlighted
   }
 
   if (!is.null(data.highlight)) {

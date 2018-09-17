@@ -92,7 +92,7 @@ computeIndicators = function(df,
 
   # check list of unary indicators
   if (is.null(unary.inds))
-    unary.inds = list(HV = list(fun = computeHV))
+    unary.inds = list(HV = list(fun = emoaIndHV))
 
   # check list of binary indicators
   if (is.null(binary.inds))

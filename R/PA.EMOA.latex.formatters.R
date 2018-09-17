@@ -2,7 +2,7 @@
 #'
 #' @description This formatter function should be applied to
 #' tables where each table cell contains a \eqn{p}-value of
-#' a statistical significance test. See \code{\link{toLatexTables}}
+#' a statistical significance test. See \code{\link{toLatex}}
 #' for an application.
 #'
 #' @param cell [any]\cr

@@ -4,12 +4,14 @@
 \alias{toLatex}
 \title{Export results of statistical tests to LaTeX table(s).}
 \usage{
-toLatex(stats, probs = NULL, inds = NULL, type = "by.instance",
-  cell.formatter = NULL)
+toLatex(stats, ...)
 }
 \arguments{
 \item{stats}{[\code{list}]\cr
 Named list of list as returned by \code{\link{test}}.}
+
+\item{...}{[any]\cr
+Not used at the moment.}
 
 \item{probs}{[\code{character}]\cr
 Filtering: vector of problem instances. This way one can restrict the
@@ -45,6 +47,5 @@ Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{makeEMOAIndicator}},
   \code{\link{niceCellFormater}}, \code{\link{normalize}},
   \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
-  \code{\link{test}}
+  \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}}
 }

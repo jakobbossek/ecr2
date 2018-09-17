@@ -5,8 +5,9 @@
 \title{Visualize bi-objective Pareto-front approximations.}
 \usage{
 plotScatter2d(df, obj.cols = c("f1", "f2"), shape = "algorithm",
-  colour = NULL, highlight.algos = NULL, title = NULL, subtitle = NULL,
-  facet.type = "wrap", facet.args = list())
+  colour = NULL, highlight.algos = NULL, offset.highlighted = 0,
+  title = NULL, subtitle = NULL, facet.type = "wrap",
+  facet.args = list())
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr
@@ -22,12 +23,19 @@ Default is \dQuote{algorithm}.}
 
 \item{colour}{[\code{character(1)}]\cr
 Name of column which shall be used to define colour of points.
-Default is \code{NULL}, i.e., colouring is deactivated.}
+Default is \code{NULL}, i.e., coloring is deactivated.}
 
 \item{highlight.algos}{[\code{character(1)}]\cr
 Name of algorithm to highlight exclusively. Useful to highlight, e.g., the
 true Pareto-optimal front (if known) or some reference set.
 Default is \code{NULL}, i.e., unknown.}
+
+\item{offset.highlighted}{[\code{numeric(1)}]\cr
+Numeric offset used to shift set (see \code{highlight.algos})
+which should be highlighted.
+Even though this produces objective vectors it
+may be used to make visible reference sets which otherwise would
+be hidden by overlap of multiple other approximation sets.}
 
 \item{title}{[\code{character(1)}]\cr
 Plot title.}
@@ -83,6 +91,5 @@ Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{makeEMOAIndicator}},
   \code{\link{niceCellFormater}}, \code{\link{normalize}},
   \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter3d}}, \code{\link{test}},
-  \code{\link{toLatex}}
+  \code{\link{plotScatter3d}}, \code{\link{toLatex}}
 }

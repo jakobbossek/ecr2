@@ -42,5 +42,5 @@ Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{niceCellFormater}}, \code{\link{normalize}},
   \code{\link{plotDistribution}},
   \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
-  \code{\link{test}}, \code{\link{toLatex}}
+  \code{\link{toLatex}}
 }

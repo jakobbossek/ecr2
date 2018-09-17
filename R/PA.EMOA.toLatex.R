@@ -20,6 +20,8 @@
 #' @param cell.formatter [\code{function(cell, ...)}]\cr
 #'   Function which is used to format table cells. This function is applied to each
 #'   table cell and may be used to customize the output. Default is \code{niceCellFormater}.
+#' @param ... [any]\cr
+#'   Not used at the moment.
 #' @return [\code{list}] Named list of strings (LaTeX tables). Names correspond to the
 #'   selected problem instances in \code{probs}.
 #' @family EMOA performance assessment tools
@@ -28,6 +30,7 @@ toLatex = function(stats, ...) {
   UseMethod("toLatex")
 }
 
+#' @export
 toLatex.list = function(stats, probs = NULL, inds = NULL, type = "by.instance", cell.formatter = NULL) {
   assertList(stats)
   assertChoice(type, choices = "by.instance")
@@ -101,6 +104,7 @@ toLatex.list = function(stats, probs = NULL, inds = NULL, type = "by.instance", 
   return(tables)
 }
 
+#' @export
 toLatex.data.frame = function(stats, stat.cols, highlight.fun = ecr::boldify) {
   assertDataFrame(stats)
 
@@ -174,7 +178,7 @@ boldify = function(df, group.by = NULL, col.names, dir.funs) {
     # get min or max value or some other for each group
     tmp = df %>%
       dplyr::group_by_(group.by) %>%
-      dplyr::summarize(best = the.dir.fun(tmpname)) %>%
+      dplyr::summarize(best = the.dir.fun("tmpname")) %>%
       dplyr::ungroup()
     names(df)[names(df) == "tmpname"] = col.name
 

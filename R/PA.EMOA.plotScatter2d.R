@@ -144,6 +144,7 @@ plotScatter2d = function(df,
     data = data,
     mapping = ggplot2::aes_string(shape = shape, colour = colour),
     alpha = 0.5)
+  pl = pl + scale_shape_manual(values = 1:nlevels(as.factor(data[[shape]])))
   if (n.probs > 1L) {
     # how to group stuff
     group.by = if (facet.type == "wrap") formula( ~ prob) else formula(. ~ prob)

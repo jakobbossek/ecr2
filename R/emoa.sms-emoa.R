@@ -54,7 +54,7 @@ smsemoa = function(
 
   if (is.null(ref.point)) {
     if (is.null(n.objectives)) {
-      stopf("Reference point default can only be generated if n.objectives is passed.")
+      stopf("[smsemoa] Reference point default can only be generated if n.objectives is passed.")
     }
     ref.point = rep(11, n.objectives)
   }
@@ -62,7 +62,7 @@ smsemoa = function(
 
   res = ecr(fitness.fun = fitness.fun, n.objectives = n.objectives,
     n.dim = n.dim, minimize = minimize, lower = lower, upper = upper,
-    mu = 100L, lambda = 1L, representation = "float", survival.strategy = "plus",
+    mu = mu, lambda = 1L, representation = "float", survival.strategy = "plus",
     parent.selector = selSimple,
     mutator = mutator,
     recombinator = recombinator,

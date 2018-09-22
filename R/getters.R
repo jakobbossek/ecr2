@@ -52,3 +52,9 @@ getFront = function(x) {
 getFront.ecr_pareto_archive = function(x) {
   return(x$env$fitness)
 }
+
+#' @export
+getFront.ecr_multi_objective_result = function(x) {
+  return(x$pareto.front)
+}
+

@@ -4,7 +4,7 @@
 \alias{filterDuplicated}
 \title{Filter approximation sets by duplicate objective vectors.}
 \usage{
-filterDuplicated(res)
+filterDuplicated(x)
 }
 \description{
 Filter approximation sets by duplicate objective vectors.

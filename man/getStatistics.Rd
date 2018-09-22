@@ -22,6 +22,7 @@ Thus the default is \code{TRUE}.}
 Simple getter for the logged fitness statistics.
 }
 \seealso{
-Other logging: \code{\link{getPopulations}},
-  \code{\link{initLogger}}, \code{\link{updateLogger}}
+Other logging: \code{\link{getPopulationFitness}},
+  \code{\link{getPopulations}}, \code{\link{initLogger}},
+  \code{\link{updateLogger}}
 }

@@ -4,22 +4,43 @@
 #' objective function values but different values in decision space.
 #'
 #' @export
-filterDuplicated = function(res) {
-  is.dup = duplicated(res$pareto.front)
-  res$pareto.front = res$pareto.front[!is.dup, , drop = FALSE]
-  res$pareto.set = res$pareto.set[!is.dup]
-  return(res)
+filterDuplicated = function(x) {
+  if (is.data.frame(x)) {
+    is.dup = duplicated(x)
+    return(x[!is.dup, , drop = FALSE])
+  } else if (is.matrix(x)) {
+    is.dup = duplicated(t(x))
+    return(x[, !is.dup, drop = FALSE])
+  } else if (inherits(x, "ecr_multi_objective_result") | containsNames(x, c("pareto.set", "pareto.set"))) {
+    is.dup = duplicated(x$pareto.front)
+    x$pareto.front = x$pareto.front[!is.dup, , drop = FALSE]
+    x$pareto.set = x$pareto.set[!is.dup]
+    return(x)
+  }
+  stop("[filterDuplicated] Unsupported type.")
 }
 
-#' Combine multiple Pareto-front approximations into a single data.frame.
+#' Combine multiple data frames into a single data.frame.
+#'
+#' @param res [\code{list}]\cr
+#'   List of data frames or other lists which contain a data frame as one of the
+#'   components which is selected by \code{what}. If \code{res} is a named list
+#'   those names are used to fill the group column. Otherwise the names are 1 to
+#'   \code{length(res)} by default.
+#' @param what [\code{character(1)}]\cr
+#'   Which component of each list element in \code{res} to choose. Set this to
+#'   \code{NULL}, if \code{res} is not complex, i.e., is not a list of lists.
+#' @param group.col.name [\code{character(1)}]\cr
+#'   Name for the grouping column.
 #' @export
-reduceToSingleDataFrame = function(res = list(), group.col.name) {
+reduceToSingleDataFrame = function(res = list(), what = NULL, group.col.name) {
   checkmate::assertList(res)
   #res = BBmisc::insert(res, list(...))
   names = names(res)
-  print(names)
-  pf = do.call(rbind, lapply(1:length(res), function(i) {
-    tmp = res[[i]]$pareto.front
+  resdf = do.call(rbind, lapply(1:length(res), function(i) {
+    tmp = res[[i]]
+    if (!is.null(what))
+      tmp = tmp[[what]]
     tmp[[group.col.name]] = if (!is.null(names)) {
       if (names[i] == "") {
         i
@@ -32,6 +53,22 @@ reduceToSingleDataFrame = function(res = list(), group.col.name) {
     print(tmp)
     return(tmp)
   }))
-  pf[[group.col.name]] = as.character(pf[[group.col.name]])
-  return(pf)
+  resdf[[group.col.name]] = as.factor(resdf[[group.col.name]])
+  return(resdf)
+}
+
+toParetoDf = function(x, filter.dups = FALSE) {
+  checkmate::assertMatrix(x, mode = "numeric", min.cols = 1L, min.rows = 1L)
+  df = as.data.frame(t(x))
+  colnames(df) = paste0("y", seq_len(ncol(df)))
+  if (filter.dups)
+    df = filterDuplicated(df)
+  return(df)
+}
+
+containsNames = function(x, names) {
+  x.names = names(x)
+  if (is.null(x.names))
+    return(FALSE)
+  return(all(names %in% x.names))
 }

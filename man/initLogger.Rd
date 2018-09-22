@@ -112,6 +112,7 @@ for (iter in seq_len(10)) {
 head(getStatistics(log))
 }
 \seealso{
-Other logging: \code{\link{getPopulations}},
+Other logging: \code{\link{getPopulationFitness}},
+  \code{\link{getPopulations}},
   \code{\link{getStatistics}}, \code{\link{updateLogger}}
 }

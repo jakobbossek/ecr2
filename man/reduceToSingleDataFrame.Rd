@@ -2,10 +2,24 @@
 % Please edit documentation in R/pareto.utils.R
 \name{reduceToSingleDataFrame}
 \alias{reduceToSingleDataFrame}
-\title{Combine multiple Pareto-front approximations into a single data.frame.}
+\title{Combine multiple data frames into a single data.frame.}
 \usage{
-reduceToSingleDataFrame(res = list(), group.col.name)
+reduceToSingleDataFrame(res = list(), what = NULL, group.col.name)
+}
+\arguments{
+\item{res}{[\code{list}]\cr
+List of data frames or other lists which contain a data frame as one of the
+components which is selected by \code{what}. If \code{res} is a named list
+those names are used to fill the group column. Otherwise the names are 1 to
+\code{length(res)} by default.}
+
+\item{what}{[\code{character(1)}]\cr
+Which component of each list element in \code{res} to choose. Set this to
+\code{NULL}, if \code{res} is not complex, i.e., is not a list of lists.}
+
+\item{group.col.name}{[\code{character(1)}]\cr
+Name for the grouping column.}
 }
 \description{
-Combine multiple Pareto-front approximations into a single data.frame.
+Combine multiple data frames into a single data.frame.
 }

@@ -168,5 +168,7 @@ makeECRResult = function(control, log, population, fitness, stop.object, ...) {
   n.objectives = control$task$n.objectives
   if (n.objectives == 1L)
     return(setupResult.ecr_single_objective(population, fitness, control, log, stop.object, ...))
-  return(setupResult.ecr_multi_objective(population, fitness, control, log, stop.object, ...))
+  moo.res = setupResult.ecr_multi_objective(population, fitness, control, log, stop.object, ...)
+  moo.res = filterDuplicated(moo.res)
+  return(moo.res)
 }

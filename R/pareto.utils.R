@@ -11,13 +11,62 @@ filterDuplicated = function(x) {
   } else if (is.matrix(x)) {
     is.dup = duplicated(t(x))
     return(x[, !is.dup, drop = FALSE])
-  } else if (inherits(x, "ecr_multi_objective_result") | containsNames(x, c("pareto.set", "pareto.set"))) {
+  } else if (inherits(x, "ecr_multi_objective_result") | containsNames(x, c("pareto.front", "pareto.set"))) {
     is.dup = duplicated(x$pareto.front)
     x$pareto.front = x$pareto.front[!is.dup, , drop = FALSE]
     x$pareto.set = x$pareto.set[!is.dup]
     return(x)
   }
   stop("[filterDuplicated] Unsupported type.")
+}
+
+#' @title Sort Pareto-front approximation by objective.
+#'
+#' @param x [\code{object}]\cr
+#'   Object of type data frame (objectives column-wise), matrix (objectives row-wise),
+#'   \code{\link{ecr_multi_objective_result}} or \code{list} (with components \dQuote{pareto.front})
+#'   and \dQuote{pareto.set}.
+#' @param obj [\code{integer(1) | character(1)}]\cr
+#'   Either the row/column number to sort by or the column name, e.g., for data frames.
+#' @param ... [any]\cr
+#'   Further arguments passed down to \code{\link[base]{order}}.
+#' @return Modified object.
+#' @name sortByObjective
+#' @rdname sortByObjective
+#' @export
+sortByObjective = function(x, obj = 1L, ...) {
+  UseMethod("sortByObjective")
+}
+
+#' @rdname sortByObjective
+#' @export
+sortByObjective.data.frame = function(x, obj = 1L, ...) {
+  ord = order(x[[obj]], ...)
+  return(x[ord, , drop = FALSE])
+}
+
+#' @rdname sortByObjective
+#' @export
+sortByObjective.matrix = function(x, obj = 1L, ...) {
+  ord = order(x[obj, ], ...)
+  return(x[, ord, drop = FALSE])
+}
+
+#' @rdname sortByObjective
+#' @export
+sortByObjective.ecr_multi_objective_result = function(x, obj = 1L, ...) {
+  ord = order(x$pareto.front[[obj]], ...)
+  x$pareto.front = x$pareto.front[ord, , drop = FALSE]
+  x$pareto.set   = x$pareto.set[ord]
+  return(x)
+}
+
+#' @rdname sortByObjective
+#' @export
+sortByObjective.list = function(x, obj = 1L, ...) {
+  if (!containsNames(x, c("pareto.front", "pareto.set")))
+    BBmisc::stopf("[sortByObjective] List needs components pareto.{front,set}.")
+  sortByObjective.ecr_multi_objective_result(x)
 }
 
 #' Combine multiple data frames into a single data.frame.
@@ -57,6 +106,7 @@ reduceToSingleDataFrame = function(res = list(), what = NULL, group.col.name) {
   return(resdf)
 }
 
+#' @export
 toParetoDf = function(x, filter.dups = FALSE) {
   checkmate::assertMatrix(x, mode = "numeric", min.cols = 1L, min.rows = 1L)
   df = as.data.frame(t(x))

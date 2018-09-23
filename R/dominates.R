@@ -104,7 +104,7 @@ which.nondominated = function(x) {
 #' @rdname which.dominated
 #' @export
 isMaximallyDominated = function(x) {
-  assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE)
+  assertMatrix(x, min.rows = 2L, min.cols = 1L, any.missing = FALSE, all.missing = FALSE)
   ranks = doNondominatedSorting(x)$ranks
   return(ranks == max(ranks))
 }

@@ -32,7 +32,7 @@
 #'   }
 #' @export
 doNondominatedSorting = function(x) {
-  assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE, mode = "numeric")
+  assertMatrix(x, min.rows = 2L, min.cols = 1L, any.missing = FALSE, all.missing = FALSE, mode = "numeric")
   return(.Call("doNondominatedSortingC", x, PACKAGE = "ecr"))
 }
 

@@ -4,8 +4,8 @@
 \alias{plotDistribution}
 \title{Plot distribution of EMOA indicators.}
 \usage{
-plotDistribution(inds, plot.type = "boxplot", facet.type = "grid",
-  facet.args = list(), logscale = character())
+plotDistribution(inds, plot.type = "boxplot", fill = "algorithm",
+  facet.type = "grid", facet.args = list(), logscale = character())
 }
 \arguments{
 \item{inds}{[\code{data.frame}]\cr
@@ -15,6 +15,10 @@ one additional column per EMOA indicator.}
 \item{plot.type}{[\code{character(1)}]\cr
 Either \dQuote{boxplot} (the default) for boxplots or \dQuote{violin} for
 violin plots.}
+
+\item{fill}{[\code{character(1)}]\cr
+Variable used to fill boxplots.
+Default is \dQuote{algorithm}.}
 
 \item{facet.type}{[\code{character(1)}]\cr
 Which faceting method to use? Pass \dQuote{wrap} for \code{\link[ggplot2]{facet_wrap}}

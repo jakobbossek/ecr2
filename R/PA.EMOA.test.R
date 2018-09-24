@@ -42,6 +42,15 @@ test = function(df, cols, alpha = 0.05, ...) {
   n.probs = length(probs)
   n.algos = length(algos)
 
+  # Get indicator "directions"
+  inds.names = sapply(attr(df, "unary.inds"), function(ind.fun) {
+    attr(ind.fun$fun, "name")
+  })
+  inds.dir = sapply(attr(df, "unary.inds"), function(ind.fun) {
+    attr(ind.fun$fun, "minimize")
+  })
+  names(inds.dir) = inds.names
+
   res = list()
   for (prob in probs) {
     res[[prob]] = list()
@@ -56,8 +65,8 @@ test = function(df, cols, alpha = 0.05, ...) {
           ind.algo.j = df[df$prob == prob & df$algorithm == algos[j], col]
           if (!is.numeric(ind.algo.j))
             ind.algo.j = ind.algo.j[[col]]
-          #FIXME: directions
-          p.mat[i, j] = wilcox.test(x = ind.algo.i, y = ind.algo.j, alternative = "greater")$p.value
+          alternative = if (inds.dir[col]) "less" else "greater"
+          p.mat[i, j] = wilcox.test(x = ind.algo.i, y = ind.algo.j, alternative = alternative)$p.value
         }
       }
       diag(p.mat) = NA

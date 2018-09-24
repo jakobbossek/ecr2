@@ -62,8 +62,9 @@ computeGenerationalDistance = function(A, B, p = 1, normalize = FALSE, dist.fun 
   }
 
   # compute distance of each point from A to the point set B
-  dists = apply(A, 2L, function(a) computeDistanceFromPointToSetOfPoints(a, B, dist.fun))
-  GD = mean(dists^p)^(1 / p)
+  # dists = apply(A, 2L, function(a) computeDistanceFromPointToSetOfPoints(a, B, dist.fun))
+  # GD = mean(dists^p)^(1 / p)
+  GD = .Call(`_ecr_computeGenerationalDistanceC`, A, B, p)
   return(GD)
 }
 

@@ -65,7 +65,7 @@ emoaIndEps = makeEMOAIndicator(
     assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
     assertSameDimensions(points, ref.points)
 
-    return(.Call("emoaIndEpsC", points, ref.points, PACKAGE = "ecr"))
+    return(.Call("emoaIndEpsC", points, ref.points))
   },
   name = "EPS",
   latex.name = "I_{\\\\epsilon}",
@@ -174,8 +174,8 @@ computeRIndicator = function(
   }
   lambda = convertInteger(lambda)
 
-  ind.points = .Call("computeRIndicatorC", points, ideal.point, nadir.point, lambda, utility, PACKAGE = "ecr")
-  ind.ref.points = .Call("computeRIndicatorC", ref.points, ideal.point, nadir.point, lambda, utility, PACKAGE = "ecr")
+  ind.points = .Call("computeRIndicatorC", points, ideal.point, nadir.point, lambda, utility)
+  ind.ref.points = .Call("computeRIndicatorC", ref.points, ideal.point, nadir.point, lambda, utility)
 
   ind = aggregator(ind.points, ind.ref.points)
 

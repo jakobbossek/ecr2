@@ -9,6 +9,9 @@
 #' @param plot.type [\code{character(1)}]\cr
 #'   Either \dQuote{boxplot} (the default) for boxplots or \dQuote{violin} for
 #'   violin plots.
+#' @param fill [\code{character(1)}]\cr
+#'   Variable used to fill boxplots.
+#'   Default is \dQuote{algorithm}.
 #' @param facet.type [\code{character(1)}]\cr
 #'   Which faceting method to use? Pass \dQuote{wrap} for \code{\link[ggplot2]{facet_wrap}}
 #'   or \dQuote{grid} for \code{\link[ggplot2]{facet_grid}}.
@@ -27,9 +30,10 @@
 #' @export
 plotDistribution = function(inds,
   plot.type = "boxplot",
+  fill = "algorithm",
   facet.type = "grid", facet.args = list(), logscale = character()) {
   assertDataFrame(inds)
-  assertChoice(plot.type, choices = c("boxplot", "violinplot"))
+  #assertChoice(plot.type, choices = c("boxplot", "violinplot"))
   assertChoice(facet.type, choices = c("grid", "wrap"))
   assertList(facet.args)
 
@@ -39,9 +43,11 @@ plotDistribution = function(inds,
   #assertSubset(logscale, choices = unique(df$Measure))
   if (length(logscale) > 0L)
     df[df$Measure %in% logscale, "Value"] = log(df[df$Measure %in% logscale, "Value"])
-  pl = ggplot2::ggplot(df, ggplot2::aes_string(x = "algorithm", y = "Value", fill = "algorithm"))
-  plot.fun = if (plot.type == "boxplot") ggplot2::geom_boxplot else ggplot2::geom_violin
-  pl = pl + plot.fun()#ggplot2::aes_string(fill = "Measure"))
+  pl = ggplot2::ggplot(df, ggplot2::aes_string(x = "algorithm", y = "Value", fill = fill))
+  if ("violinplot" %in% plot.type)
+    pl = pl + ggplot2::geom_violin(trim = FALSE)
+  if ("boxplot" %in% plot.type)
+    pl = pl + ggplot2::geom_boxplot()
   default.facet.args = list(facets = formula(Measure ~ prob), scales = "free_y")
   facet.args = BBmisc::insert(default.facet.args, facet.args)
   facet.fun = if (facet.type == "grid") ggplot2::facet_grid else ggplot2::facet_wrap

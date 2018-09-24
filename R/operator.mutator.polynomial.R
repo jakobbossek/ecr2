@@ -26,7 +26,7 @@ mutPolynomial = makeMutator(
     if (length(lower) != length(upper)) {
       stopf("Polynomial mutator: length of lower and upper bounds need to be equal!")
     }
-    child = .Call("polynomialMutationC", ind, as.numeric(lower), as.numeric(upper), p, eta, PACKAGE = "ecr")
+    child = .Call("polynomialMutationC", ind, as.numeric(lower), as.numeric(upper), p, eta)
     return(child)
   },
   supported = "float")

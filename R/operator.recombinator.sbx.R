@@ -42,7 +42,7 @@ recSBX = makeRecombinator(
     inds = do.call(cbind, inds)
 
     # SBX produces two children
-    children = .Call("simulatedBinaryCrossoverC", inds, lower, upper, p, eta, PACKAGE = "ecr")
+    children = .Call("simulatedBinaryCrossoverC", inds, lower, upper, p, eta)
 
     return(wrapChildren(children[, 1L], children[, 2L]))
   },

@@ -53,7 +53,7 @@ computeHV = function(x, ref.point = NULL, ...) {
     return(NaN)
   }
 
-  return(.Call("computeHVC", x, ref.point, PACKAGE = "ecr"))
+  return(.Call("computeHVC", x, ref.point))
 }
 
 #' @export
@@ -66,5 +66,5 @@ computeHVContr = function(x, ref.point = NULL, offset = 1) {
   assertNumeric(ref.point, any.missing = FALSE)
   assertNumber(offset, finite = TRUE, lower = 0)
 
-  return(.Call("computeHVContributionC", x, ref.point, PACKAGE = "ecr"))
+  return(.Call("computeHVContributionC", x, ref.point))
 }

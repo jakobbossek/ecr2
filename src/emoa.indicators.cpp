@@ -1,8 +1,6 @@
 #include <Rcpp.h>
 #include <math.h>
 #include <limits>
-#include <cstddef>
-#include <stdlib.h>
 
 using namespace Rcpp;
 
@@ -19,7 +17,7 @@ double computeGenerationalDistanceC(NumericMatrix points, NumericMatrix refPoint
     for (int j = 0; j < m; ++j) {
       double pdist = 0.0;
       for (int k = 0; k < o; ++k) {
-        pdist += (points(o, i) - refPoints(o, j)) * (points(o, i) - refPoints(o, j));
+        pdist += (points(k, i) - refPoints(k, j)) * (points(k, i) - refPoints(k, j));
       }
       pdist = sqrt(pdist);
       if (pdist < minpDist) {
@@ -28,7 +26,6 @@ double computeGenerationalDistanceC(NumericMatrix points, NumericMatrix refPoint
     }
     gd += pow(minpDist, p);
   }
-  gd = gd / double(n);
-  gd = pow(gd, 1.0 / p);
+  gd = pow(gd / n, 1.0 / p);
   return gd;
 }

@@ -263,7 +263,7 @@ emoaIndONVG = makeEMOAIndicator(
 #' @inheritParams computeGenerationalDistance
 emoaIndGD = makeEMOAIndicator(
   fun = function(points, ref.points, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance, ...) {
-    computeGenerationalDistance(points, ref.points, p = p, normalize = normalize, dist.fun = dist.fun, ...)
+    computeGenerationalDistance(points, ref.points, p = p, normalize = normalize, dist.fun = dist.fun)
   },
   name = "GD",
   latex.name = "I_{GD}",

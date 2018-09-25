@@ -9,6 +9,7 @@
 #' @importFrom stats median rnorm runif dist formula sd wilcox.test
 #' @importFrom utils tail head
 #' @importFrom knitr kable
+#' @importFrom lazyeval interp
 #' @useDynLib ecr, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 NULL

@@ -36,7 +36,8 @@ Imports:
     scatterplot3d,
     plotly,
     knitr,
-    kableExtra
+    kableExtra,
+    lazyeval
 Suggests:
     testthat (>= 0.9.1),
     rmarkdown

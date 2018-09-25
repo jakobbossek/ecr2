@@ -9,6 +9,7 @@
 \alias{emoaIndMD}
 \alias{emoaIndM1}
 \alias{emoaIndONVG}
+\alias{emoaIndGD}
 \title{EMOA performance indicators}
 \usage{
 emoaIndEps(points, ref.points, ...)
@@ -29,6 +30,9 @@ emoaIndMD(points, ...)
 emoaIndM1(points, ref.points, ...)
 
 emoaIndONVG(points, ...)
+
+emoaIndGD(points, ref.points, p = 1, normalize = FALSE,
+  dist.fun = computeEuclideanDistance, ...)
 }
 \arguments{
 \item{points}{[\code{matrix}]\cr
@@ -58,6 +62,19 @@ Number of weight vectors to use in estimating the utility function.}
 \item{utility}{[\code{character(1)}]\cr
 Name of the utility function to use. Must be one of \dQuote{weightedsum},
 \dQuote{tschebycheff} or \dQuote{augmented tschbycheff}.}
+
+\item{p}{[\code{numeric(1)}]\cr
+Parameter p of the average Hausdoff metric.
+Default is 1.}
+
+\item{normalize}{[\code{logical(1)}]\cr
+Should the front be normalized on basis of \code{B}?
+Default is \code{FALSE}.}
+
+\item{dist.fun}{[\code{matrix}]\cr
+Distance function to compute distance between points x and y. Expects a single
+numeric vector d with the coordinate-wise differences di = (xi - yi).
+Default is \code{computeEuclideanDist}.}
 }
 \value{
 [\code{numeric(1)}] Epsilon indicator.

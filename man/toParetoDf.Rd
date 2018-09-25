@@ -10,7 +10,7 @@ toParetoDf(x, filter.dups = FALSE)
 \item{x}{[\code{matrix}]\cr
 Matrix.}
 
-\item{filter.dups}{[\logical(1)]\cr
+\item{filter.dups}{[\code{logical(1)}]\cr
 Shall duplicates be removed?
 Default is \code{FALSE}.}
 }

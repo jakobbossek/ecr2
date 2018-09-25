@@ -3,7 +3,7 @@
 \name{filterDuplicated}
 \alias{filterDuplicated}
 \alias{filterDuplicated.data.frame}
-\alias{filterDuuplicated.matrix}
+\alias{filterDuplicated.matrix}
 \alias{filterDuplicated.ecr_multi_objective_result}
 \alias{filterDuplicated.list}
 \title{Filter approximation sets by duplicate objective vectors.}
@@ -12,7 +12,7 @@ filterDuplicated(x, ...)
 
 \method{filterDuplicated}{data.frame}(x, ...)
 
-filterDuuplicated.matrix(x, ...)
+\method{filterDuplicated}{matrix}(x, ...)
 
 \method{filterDuplicated}{ecr_multi_objective_result}(x, ...)
 

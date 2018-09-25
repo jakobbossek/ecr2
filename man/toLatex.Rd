@@ -2,33 +2,42 @@
 % Please edit documentation in R/PA.EMOA.toLatex.R
 \name{toLatex}
 \alias{toLatex}
+\alias{toLatex.list}
+\alias{toLatex.data.frame}
 \title{Export results of statistical tests to LaTeX table(s).}
 \usage{
-toLatex(stats, ...)
+toLatex(stats, stat.cols = NULL, probs = NULL, type = "by.instance",
+  cell.formatter = NULL)
+
+\method{toLatex}{list}(stats, stat.cols = NULL, probs = NULL,
+  type = "by.instance", cell.formatter = NULL)
+
+\method{toLatex}{data.frame}(stats, stat.cols = NULL, probs = NULL,
+  type = "by.instance", cell.formatter = NULL)
 }
 \arguments{
 \item{stats}{[\code{list}]\cr
-Named list of list as returned by \code{\link{test}}.}
+Data frame (return value of \code{\link{computeIndicators}}) or named list of list as returned by \code{\link[ecr]{test}}.}
 
-\item{...}{[any]\cr
-Not used at the moment.}
+\item{stat.cols}{[\code{character}]\cr
+Names of the indicators to consider.
+Defaults to all indicators available in \code{stats}.}
 
 \item{probs}{[\code{character}]\cr
 Filtering: vector of problem instances. This way one can restrict the
 size of the table(s).
-Defaults to all problems available in \code{stats}.}
-
-\item{inds}{[\code{character}]\cr
-Names of the indicators to consider.
-Defaults to all indicators available in \code{stats}.}
+Defaults to all problems available in \code{stats}.
+Ignored if \code{stats} is a data frame.}
 
 \item{type}{[\code{character(1)}]\cr
 Type of tables. At the moment only option \dQuote{by.instance} is available.
-I.e., a separate LaTeX-table is generated for each instance specified via \code{probs}.}
+I.e., a separate LaTeX-table is generated for each instance specified via \code{probs}.
+Ignored if \code{stats} is a data frame.}
 
 \item{cell.formatter}{[\code{function(cell, ...)}]\cr
 Function which is used to format table cells. This function is applied to each
-table cell and may be used to customize the output. Default is \code{niceCellFormater}.}
+table cell and may be used to customize the output. Default is \code{niceCellFormater}.
+Ignored if \code{stats} is a data frame.}
 }
 \value{
 [\code{list}] Named list of strings (LaTeX tables). Names correspond to the
@@ -36,7 +45,7 @@ table cell and may be used to customize the output. Default is \code{niceCellFor
 }
 \description{
 Returns high-quality LaTeX-tables of the test results of
-statistical tests performed with function \code{\link{test}}
+statistical tests performed with function \code{\link[ecr]{test}}
 on per-instance basis. I.e., a table is returned for each instances combining
 the results of different indicators.
 }

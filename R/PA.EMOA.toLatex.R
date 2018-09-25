@@ -1,45 +1,49 @@
 #' @title Export results of statistical tests to LaTeX table(s).
 #'
 #' @description Returns high-quality LaTeX-tables of the test results of
-#' statistical tests performed with function \code{\link{test}}
+#' statistical tests performed with function \code{\link[ecr]{test}}
 #' on per-instance basis. I.e., a table is returned for each instances combining
 #' the results of different indicators.
 #'
 #' @param stats [\code{list}]\cr
-#'   Named list of list as returned by \code{\link{test}}.
+#'   Data frame (return value of \code{\link{computeIndicators}}) or named list of list as returned by \code{\link[ecr]{test}}.
+#' @param stat.cols [\code{character}]\cr
+#'   Names of the indicators to consider.
+#'   Defaults to all indicators available in \code{stats}.
 #' @param probs [\code{character}]\cr
 #'   Filtering: vector of problem instances. This way one can restrict the
 #'   size of the table(s).
 #'   Defaults to all problems available in \code{stats}.
-#' @param inds [\code{character}]\cr
-#'   Names of the indicators to consider.
-#'   Defaults to all indicators available in \code{stats}.
+#'   Ignored if \code{stats} is a data frame.
 #' @param type [\code{character(1)}]\cr
 #'   Type of tables. At the moment only option \dQuote{by.instance} is available.
 #'   I.e., a separate LaTeX-table is generated for each instance specified via \code{probs}.
+#'   Ignored if \code{stats} is a data frame.
 #' @param cell.formatter [\code{function(cell, ...)}]\cr
 #'   Function which is used to format table cells. This function is applied to each
 #'   table cell and may be used to customize the output. Default is \code{niceCellFormater}.
-#' @param ... [any]\cr
-#'   Not used at the moment.
+#'   Ignored if \code{stats} is a data frame.
 #' @return [\code{list}] Named list of strings (LaTeX tables). Names correspond to the
 #'   selected problem instances in \code{probs}.
 #' @family EMOA performance assessment tools
+#' @name toLatex
+#' @rdname toLatex
 #' @export
-toLatex = function(stats, ...) {
+toLatex = function(stats, stat.cols = NULL, probs = NULL, type = "by.instance", cell.formatter = NULL) {
   UseMethod("toLatex")
 }
 
+#' @rdname toLatex
 #' @export
-toLatex.list = function(stats, probs = NULL, inds = NULL, type = "by.instance", cell.formatter = NULL) {
+toLatex.list = function(stats, stat.cols = NULL, probs = NULL, type = "by.instance", cell.formatter = NULL) {
   assertList(stats)
   assertChoice(type, choices = "by.instance")
 
   if (is.null(probs))
     probs = unique(names(stats))
 
-  if (is.null(inds))
-    inds = unique(names(stats[[1L]]))
+  if (is.null(stat.cols))
+    stat.cols = unique(names(stats[[1L]]))
 
   if (is.null(cell.formatter))
     cell.formatter = niceCellFormater
@@ -51,7 +55,7 @@ toLatex.list = function(stats, probs = NULL, inds = NULL, type = "by.instance", 
   unary.inds.funs = attr(stats, "unary.inds")
 
   assertSubset(probs, choices = all.probs)
-  assertSubset(inds, choices = all.inds)
+  assertSubset(stat.cols, choices = all.inds)
   assertFunction(cell.formatter, args = "cell")
 
   # now filter relevant stats, i.e., for selected problems
@@ -62,8 +66,8 @@ toLatex.list = function(stats, probs = NULL, inds = NULL, type = "by.instance", 
     for (prob in probs) {
       catf("Problem: %s", prob)
       # extract relevant indicators
-      res.stats = stats[[prob]][which(names(stats[[prob]]) %in% inds)]
-      inds = names(res.stats)
+      res.stats = stats[[prob]][which(names(stats[[prob]]) %in% stat.cols)]
+      stat.cols = names(res.stats)
       res.stats = do.call(cbind, res.stats)
 
       # format cells
@@ -71,7 +75,7 @@ toLatex.list = function(stats, probs = NULL, inds = NULL, type = "by.instance", 
         sapply(column, cell.formatter, alpha = alpha)
       )
 
-      n.inds = length(inds)
+      n.inds = length(stat.cols)
       n.algos = nrow(res.stats)
 
       # build nice LaTeX table
@@ -84,7 +88,7 @@ toLatex.list = function(stats, probs = NULL, inds = NULL, type = "by.instance", 
 
       # catf("Indicators: %s", collapse(inds, sep = ","))
       # catf("Nmaes in stats: %s", collapse(names(unary.inds.funs)))
-      inds.latex = sapply(inds, function(ind.name) attr(unary.inds.funs[[ind.name]]$fun, "latex.name"))
+      inds.latex = sapply(stat.cols, function(ind.name) attr(unary.inds.funs[[ind.name]]$fun, "latex.name"))
       inds.latex = paste0("$", inds.latex, "$")
       # catf("Latex names: %s", collapse(inds.latex))
       #print(unary.inds.funs)
@@ -104,11 +108,13 @@ toLatex.list = function(stats, probs = NULL, inds = NULL, type = "by.instance", 
   return(tables)
 }
 
+#' @rdname toLatex
 #' @export
-toLatex.data.frame = function(stats, stat.cols, highlight.fun = ecr::boldify) {
+toLatex.data.frame = function(stats, stat.cols = NULL, probs = NULL, type = "by.instance", cell.formatter = NULL) {
   assertDataFrame(stats)
 
   res.stats = dplyr::group_by_(stats, "algorithm", "prob")
+  print(res.stats)
 
   res = lapply(stat.cols, function(stat.col) {
     tmp = dplyr::summarise_(
@@ -142,7 +148,7 @@ toLatex.data.frame = function(stats, stat.cols, highlight.fun = ecr::boldify) {
   prob.col = which(colnames(res2) == "prob")
   n.probs = unique(res2[[prob.col]])
 
-  res2 = boldify(res2, group.by = "prob", col.names = c(3, 4, 5, 6), dir.funs = c(min, min, min, min))
+  #res2 = boldify(res2, group.by = "prob", col.names = c(3, 4, 5, 6), dir.funs = c(min, min, min, min))
 
   align.vec = c("l", "l", rep(c("r", "r"), length(stat.cols)))
   col.names = c("Problem", "Algorithm", rep(c("Mean", "StdDev"), length(stat.cols)))

@@ -104,8 +104,7 @@ categorizeFactor = function(df, col, categories, cat.col, keep = TRUE, overwrite
     assertString(cat.col)
     if (cat.col %in% colnames(df))
       BBmisc::stopf("Column for categorization must not exist in data frame df if overwrite = FALSE.")
-  }
-  else {
+  } else {
     cat.col = col
   }
 
@@ -157,6 +156,20 @@ addUnionGroup = function(df, col, group, factors) {
   return(rbind(df, tmp))
 }
 
+#' @title Generate a new group that gathers all other groups.
+#'
+#' @description Given a data frame and a column name all rows of the data frame
+#' are duplicated and stored under a new group with respect to the column.
+#'
+#' @param df [\code{data.frame}]\cr
+#'   Data frame.
+#' @param col [\code{character(1)}]\cr
+#'   Column (factor or character) used to generate \dQuote{all}-group.
+#' @param group [\code{character(1)}]\cr
+#'   New group name.
+#'   Default is \dQuote{all}.
+#' @return [\code{data.frame}] Modified input \code{df}
+#' @export
 addAllGroup = function(df, col, group = "all") {
   addUnionGroup(df, col, group, factors = unique(as.character(df[[col]])))
 }

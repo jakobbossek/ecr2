@@ -26,7 +26,7 @@ filterDuplicated.data.frame = function(x, ...) {
 
 #' @rdname filterDuplicated
 #' @export
-filterDuuplicated.matrix = function(x, ...) {
+filterDuplicated.matrix = function(x, ...) {
   is.dup = duplicated(t(x))
   return(x[, !is.dup, drop = FALSE])
 }
@@ -142,7 +142,7 @@ reduceToSingleDataFrame = function(res = list(), what = NULL, group.col.name) {
 #'
 #' @param x [\code{matrix}]\cr
 #'   Matrix.
-#' @param filter.dups [\logical(1)]\cr
+#' @param filter.dups [\code{logical(1)}]\cr
 #'   Shall duplicates be removed?
 #'   Default is \code{FALSE}.
 #' @return [\code{data.frame}]

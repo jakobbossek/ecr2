@@ -1,7 +1,7 @@
 #' @title Statistical tests of EMOA indicators.
 #'
 #' @description Given a data frame (e.g., returned by \code{\link{computeIndicators}}),
-#' the function performs pairwise tests (non-parameteric Wilcoxon sum test at the
+#' the function performs pairwise tests (non-parametric Wilcoxon sum test at the
 #' moment) for location differences in the distributions of all columns
 #' for all pairs of algorithms. Multiple testing issues are handled internally.
 #' Moreover, if the data frame passed is the result of \code{\link{computeIndicators}}
@@ -22,10 +22,10 @@
 #'   Default is 0.05.
 #' @param ... [any]\cr
 #'   Not used at the moment.
-#' @return [\code{list}] Named list of lists of matrizes. The names of the top level
+#' @return [\code{list}] Named list of lists of matrices. The names of the top level
 #'   are the names of the problems (\code{unique(df$prob)}), the names
 #'   on the second level are the names of the considered columns (\code{cols}).
-#'   Each component of the matrizes on the bottom level contains the adjusted
+#'   Each component of the matrices on the bottom level contains the adjusted
 #'   \eqn{p}-values of the corresponding location test of the indicator for two
 #'   algorithms (row- and column names of the matrix).
 #' @family EMOA performance assessment tools

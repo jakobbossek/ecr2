@@ -3,28 +3,56 @@
 #' @note Note that this may be misleading if there can be solutions with identical
 #' objective function values but different values in decision space.
 #'
+#' @param x [\code{object}]\cr
+#'  Object of type data frame (objectives column-wise), matrix (objectives row-wise),
+#'  \code{\link[=ecr_result]{ecr_multi_objective_result}} or \code{list} (with components \dQuote{pareto.front})
+#'  and \dQuote{pareto.set}.
+#' @param ... [any]\cr
+#'  Not used at the moment
+#' @return [\code{object}] Modified input \code{x}.
+#' @name filterDuplicated
+#' @rdname filterDuplicated
 #' @export
-filterDuplicated = function(x) {
-  if (is.data.frame(x)) {
-    is.dup = duplicated(x)
-    return(x[!is.dup, , drop = FALSE])
-  } else if (is.matrix(x)) {
-    is.dup = duplicated(t(x))
-    return(x[, !is.dup, drop = FALSE])
-  } else if (inherits(x, "ecr_multi_objective_result") | containsNames(x, c("pareto.front", "pareto.set"))) {
-    is.dup = duplicated(x$pareto.front)
-    x$pareto.front = x$pareto.front[!is.dup, , drop = FALSE]
-    x$pareto.set = x$pareto.set[!is.dup]
-    return(x)
-  }
-  stop("[filterDuplicated] Unsupported type.")
+filterDuplicated = function(x, ...) {
+  UseMethod("filterDuplicated")
 }
 
-#' @title Sort Pareto-front approximation by objective.
+#' @rdname filterDuplicated
+#' @export
+filterDuplicated.data.frame = function(x, ...) {
+  is.dup = duplicated(x)
+  return(x[!is.dup, , drop = FALSE])
+}
+
+#' @rdname filterDuplicated
+#' @export
+filterDuuplicated.matrix = function(x, ...) {
+  is.dup = duplicated(t(x))
+  return(x[, !is.dup, drop = FALSE])
+}
+
+#' @rdname filterDuplicated
+#' @export
+filterDuplicated.ecr_multi_objective_result = function(x, ...) {
+  is.dup = duplicated(x$pareto.front)
+  x$pareto.front = x$pareto.front[!is.dup, , drop = FALSE]
+  x$pareto.set = x$pareto.set[!is.dup]
+  return(x)
+}
+
+#' @rdname filterDuplicated
+#' @export
+filterDuplicated.list = function(x, ...) {
+  if (!containsNames(x, c("pareto.front", "pareto.set")))
+    BBmisc::stopf("[filterDuplicated] List needs components pareto.{front,set}.")
+  filterDuplicated.ecr_multi_objective_result(x)
+}
+
+#' Sort Pareto-front approximation by objective.
 #'
 #' @param x [\code{object}]\cr
 #'   Object of type data frame (objectives column-wise), matrix (objectives row-wise),
-#'   \code{\link{ecr_multi_objective_result}} or \code{list} (with components \dQuote{pareto.front})
+#'   \code{\link[=ecr_result]{ecr_multi_objective_result}} or \code{list} (with components \dQuote{pareto.front})
 #'   and \dQuote{pareto.set}.
 #' @param obj [\code{integer(1) | character(1)}]\cr
 #'   Either the row/column number to sort by or the column name, e.g., for data frames.
@@ -106,6 +134,18 @@ reduceToSingleDataFrame = function(res = list(), what = NULL, group.col.name) {
   return(resdf)
 }
 
+#' Convert matrix to Pareto front data frame.
+#'
+#' Inside ecr EMOA algorithms the fitness is maintained in an \eqn{(o, n)} matrix
+#' where \eqn{o} is the number of objectives and \eqn{n} is the number of individuals.
+#' This function basically transposes such a matrix and converts it into a data frame.
+#'
+#' @param x [\code{matrix}]\cr
+#'   Matrix.
+#' @param filter.dups [\logical(1)]\cr
+#'   Shall duplicates be removed?
+#'   Default is \code{FALSE}.
+#' @return [\code{data.frame}]
 #' @export
 toParetoDf = function(x, filter.dups = FALSE) {
   checkmate::assertMatrix(x, mode = "numeric", min.cols = 1L, min.rows = 1L)

@@ -2,9 +2,33 @@
 % Please edit documentation in R/pareto.utils.R
 \name{filterDuplicated}
 \alias{filterDuplicated}
+\alias{filterDuplicated.data.frame}
+\alias{filterDuuplicated.matrix}
+\alias{filterDuplicated.ecr_multi_objective_result}
+\alias{filterDuplicated.list}
 \title{Filter approximation sets by duplicate objective vectors.}
 \usage{
-filterDuplicated(x)
+filterDuplicated(x, ...)
+
+\method{filterDuplicated}{data.frame}(x, ...)
+
+filterDuuplicated.matrix(x, ...)
+
+\method{filterDuplicated}{ecr_multi_objective_result}(x, ...)
+
+\method{filterDuplicated}{list}(x, ...)
+}
+\arguments{
+\item{x}{[\code{object}]\cr
+Object of type data frame (objectives column-wise), matrix (objectives row-wise),
+\code{\link[=ecr_result]{ecr_multi_objective_result}} or \code{list} (with components \dQuote{pareto.front})
+and \dQuote{pareto.set}.}
+
+\item{...}{[any]\cr
+Not used at the moment}
+}
+\value{
+[\code{object}] Modified input \code{x}.
 }
 \description{
 Filter approximation sets by duplicate objective vectors.

@@ -21,7 +21,7 @@ sortByObjective(x, obj = 1L, ...)
 \arguments{
 \item{x}{[\code{object}]\cr
 Object of type data frame (objectives column-wise), matrix (objectives row-wise),
-\code{\link{ecr_multi_objective_result}} or \code{list} (with components \dQuote{pareto.front})
+\code{\link[=ecr_result]{ecr_multi_objective_result}} or \code{list} (with components \dQuote{pareto.front})
 and \dQuote{pareto.set}.}
 
 \item{obj}{[\code{integer(1) | character(1)}]\cr
@@ -32,4 +32,7 @@ Further arguments passed down to \code{\link[base]{order}}.}
 }
 \value{
 Modified object.
+}
+\description{
+Sort Pareto-front approximation by objective.
 }

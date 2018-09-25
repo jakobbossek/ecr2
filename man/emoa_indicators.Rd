@@ -6,7 +6,6 @@
 \alias{emoaIndR1}
 \alias{emoaIndR2}
 \alias{emoaIndR3}
-\alias{emoaIndVarNeighbourSolutions}
 \alias{emoaIndMD}
 \alias{emoaIndM1}
 \alias{emoaIndONVG}
@@ -24,8 +23,6 @@ emoaIndR2(points, ref.points, ideal.point = NULL, nadir.point = NULL,
 
 emoaIndR3(points, ref.points, ideal.point = NULL, nadir.point = NULL,
   lambda = NULL, utility = "tschebycheff", ...)
-
-emoaIndVarNeighbourSolutions(points, ...)
 
 emoaIndMD(points, ...)
 

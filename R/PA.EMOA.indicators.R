@@ -198,12 +198,6 @@ determineLambdaByDimension = function(n.obj) {
 
 #' @rdname emoa_indicators
 #' @export
-emoaIndVarNeighbourSolutions = function(points, ...) {
-
-}
-
-#' @rdname emoa_indicators
-#' @export
 # Minimum distance between two solutions
 emoaIndMD = makeEMOAIndicator(
   fun = function(points, ...) {

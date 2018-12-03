@@ -122,7 +122,7 @@ To cite **ecr** please use:
 
 In case you made use of **ecr**'s performance assessment tools please cite:
 > Bossek, J. (2018). Performance Assessment of Multi-objective Evolutionary
-> Algorithms with the R Package Ecr. In Proceedings of the Genetic and >
+> Algorithms with the R Package Ecr. In Proceedings of the Genetic and
 > Evolutionary Computation Conference Companion (pp. 1350–1356). Kyoto, Japan:
 > ACM. http://doi.org/10.1145/3205651.3208312
 

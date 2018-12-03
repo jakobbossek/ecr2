@@ -12,6 +12,8 @@
 
 ## News
 
+* December 03, 2018: The ecr module on performance assessment of multi-objective stochastic algorithms is under heavy development. There will be a new release on CRAN soon.
+* December 01, 2018: My paper on *Performance Assessment of Multi-Objective Evolutionary Algorithms With the R Package ecr* was accepted at the *Evolutionary Computation Software Systems (EvoSoft)* workshop hosted at the annual *Genetic and Evolutionary Computation Conference* ([GECCO'18](http://gecco-2018.sigevo.org/)).
 * July 16, 2017: I gave a talk on ecr v2.0 on the annual Genetic and Evolutionary Computation Conference ([GECCO'17](http://gecco-2017.sigevo.org/)) in Berlin.
 * July 10, 2017: Release of ecr v2.1.0
 * April 04, 2017: My paper submission to the *Evolutionary Computation Software Systems (EvoSoft)* workshop at this years *Genetic and Evolutionary Computation Conference* ([GECCO'17](http://gecco-2017.sigevo.org/)) was accepted.
@@ -57,7 +59,7 @@ control = registerECROperator(control, "selectForSurvival", selGreedy)
 ```
 Here, we decide to perform mutation only. The best mu individuals (regarding fitness values) are going to be selected to build up the next generation.
 
-Finally, the evolutionary loop is implemented. 
+Finally, the evolutionary loop is implemented.
 ```r
 population = genReal(MU, getNumberOfParameters(fn), lower, upper)
 fitness = evaluateFitness(control, population)
@@ -113,24 +115,42 @@ devtools::install_github("jakobbossek/ecr2")
 ## Citation
 
 To cite **ecr** please use:
-> Bossek, J. (2017). ecr 2.0: A Modular Framework for Evolutionary Computation
-> in R. In Proceedings of the Genetic and Evolutionary Computation Conference 
-> (GECCO '17) Companion, Berlin, Germany, 1187--1193.
+> Bossek, J. (2017). Ecr 2.0: A Modular Framework for Evolutionary Computation
+> in R. In Proceedings of the Genetic and Evolutionary Computation Conference
+> (GECCO) Companion (pp. 1187–1193). Berlin, Germany:
+> ACM. http://doi.org/10.1145/3067695.3082470
 
-A BibTeX entry for LaTeX users is
+In case you made use of **ecr**'s performance assessment tools please cite:
+> Bossek, J. (2018). Performance Assessment of Multi-objective Evolutionary
+> Algorithms with the R Package Ecr. In Proceedings of the Genetic and >
+> Evolutionary Computation Conference Companion (pp. 1350–1356). Kyoto, Japan:
+> ACM. http://doi.org/10.1145/3205651.3208312
+
+BibTeX entries for LaTeX users:
 ```
-@InProceedings{,
-    author = {Jakob Bossek},
-    title = {{ecr 2.0: A Modular Framework for Evolutionary Computation in R}},
-    year = {2017},
-    booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference Companion},
-    location = {Berlin, Germany},
-    doi = {10.1145/3067695.3082470},
-    publischer = {ACM},
-    isbn = {978-1-4503-4939-0},
-    series = {GECCO '17},
-    numpages = {7},
-    pages = {1187--1193},
+@inproceedings{Bossek2018PerformanceAssessment,
+  author = {Bossek, Jakob},
+  booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference Companion},
+  doi = {10.1145/3205651.3208312},
+  pages = {1350--1356},
+  publisher = {ACM},
+  address = {Kyoto, Japan},
+  series = {GECCO '18},
+  title = {{Performance Assessment of Multi-objective Evolutionary Algorithms with the R Package Ecr}},
+  url = {http://doi.acm.org/10.1145/3205651.3208312},
+  year = {2018}
+}
+@inproceedings{B2017ecr,
+  author = {Bossek, Jakob},
+  booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference (GECCO) Companion},
+  doi = {10.1145/3067695.3082470},
+  pages = {1187--1193},
+  publisher = {ACM},
+  series = {GECCO '18},
+  address = {Berlin, Germany},
+  title = {{Ecr 2.0: A Modular Framework for Evolutionary Computation in R}},
+  url = {http://doi.acm.org/10.1145/3067695.3082470},
+  year = {2017}
 }
 ```
 

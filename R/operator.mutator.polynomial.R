@@ -22,9 +22,9 @@ mutPolynomial = makeMutator(
     assertNumber(p, lower = 0, upper = 1, na.ok = FALSE)
     assertNumber(eta, lower = 1, finite = TRUE, na.ok = FALSE)
     assertNumeric(lower, any.missing = FALSE, all.missing = FALSE)
-    assertNumeric(lower, any.missing = FALSE, all.missing = FALSE)
+    assertNumeric(upper, any.missing = FALSE, all.missing = FALSE)
     if (length(lower) != length(upper)) {
-      stopf("Polynomial mutator: length of lower and upper bounds need to be equal!")
+      BBmisc::stopf("Polynomial mutator: length of lower and upper bounds need to be equal!")
     }
     child = .Call("polynomialMutationC", ind, as.numeric(lower), as.numeric(upper), p, eta)
     return(child)

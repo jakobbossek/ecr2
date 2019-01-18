@@ -22,3 +22,4 @@ Other mutators: \code{\link{mutBitflip}},
   \code{\link{mutPolynomial}}, \code{\link{mutScramble}},
   \code{\link{mutUniform}}
 }
+\concept{mutators}

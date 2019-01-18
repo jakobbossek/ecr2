@@ -6,9 +6,10 @@
 \usage{
 ecr(fitness.fun, minimize = NULL, n.objectives = NULL, n.dim = NULL,
   lower = NULL, upper = NULL, n.bits, representation, mu, lambda,
-  perm = NULL, p.recomb = 0.7, p.mut = 0.3, survival.strategy = "plus",
-  n.elite = 0L, custom.constants = list(), log.stats = list(fitness =
-  list("min", "mean", "max")), log.pop = FALSE, monitor = NULL,
+  perm = NULL, p.recomb = 0.7, p.mut = 0.3,
+  survival.strategy = "plus", n.elite = 0L,
+  custom.constants = list(), log.stats = list(fitness = list("min",
+  "mean", "max")), log.pop = FALSE, monitor = NULL,
   initial.solutions = NULL, parent.selector = NULL,
   survival.selector = NULL, mutator = NULL, recombinator = NULL,
   terminators = list(stopOnIters(100L)), ...)

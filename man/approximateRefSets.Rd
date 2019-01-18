@@ -32,3 +32,5 @@ for the corresponding problem and filtering the non-dominated solutions.
 Other EMOA performance assessment tools
  @export: \code{\link{approximateRefPoints}}
 }
+\concept{EMOA performance assessment tools
+ @export}

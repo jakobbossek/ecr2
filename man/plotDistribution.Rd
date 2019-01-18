@@ -52,3 +52,4 @@ Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{plotFront}}, \code{\link{plotScatter2d}},
   \code{\link{plotScatter3d}}, \code{\link{toLatex}}
 }
+\concept{EMOA performance assessment tools}

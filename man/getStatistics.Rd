@@ -26,3 +26,4 @@ Other logging: \code{\link{getPopulationFitness}},
   \code{\link{getPopulations}}, \code{\link{initLogger}},
   \code{\link{updateLogger}}
 }
+\concept{logging}

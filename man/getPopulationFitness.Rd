@@ -28,3 +28,4 @@ Other logging: \code{\link{getPopulations}},
   \code{\link{getStatistics}}, \code{\link{initLogger}},
   \code{\link{updateLogger}}
 }
+\concept{logging}

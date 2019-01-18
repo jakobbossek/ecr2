@@ -5,8 +5,8 @@
 \title{Computation of EMOA performance indicators.}
 \usage{
 computeIndicators(df, obj.cols = c("f1", "f2"), unary.inds = NULL,
-  binary.inds = NULL, normalize = FALSE, offset = 0, ref.points = NULL,
-  ref.sets = NULL)
+  binary.inds = NULL, normalize = FALSE, offset = 0,
+  ref.points = NULL, ref.sets = NULL)
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr

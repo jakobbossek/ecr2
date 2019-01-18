@@ -30,3 +30,4 @@ Other selectors: \code{\link{selDomHV}},
   \code{\link{selGreedy}}, \code{\link{selNondom}},
   \code{\link{selRoulette}}, \code{\link{selSimple}}
 }
+\concept{selectors}

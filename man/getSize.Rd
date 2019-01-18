@@ -21,3 +21,4 @@ Other ParetoArchive: \code{\link{getIndividuals}},
   \code{\link{initParetoArchive}},
   \code{\link{updateParetoArchive}}
 }
+\concept{ParetoArchive}

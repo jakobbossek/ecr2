@@ -44,3 +44,4 @@ of n individuals based on the given expression. Functions \code{genBin},
 \code{genPerm} and \code{genReal} are shortcuts for initializing populations
 of binary strings, permutations or real-valued vectors respectively.
 }
+\concept{generators}

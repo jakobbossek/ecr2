@@ -45,3 +45,4 @@ Other selectors: \code{\link{selDomHV}},
   \code{\link{selGreedy}}, \code{\link{selNondom}},
   \code{\link{selSimple}}, \code{\link{selTournament}}
 }
+\concept{selectors}

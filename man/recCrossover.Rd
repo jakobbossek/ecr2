@@ -29,3 +29,4 @@ Other recombinators: \code{\link{recIntermediate}},
   \code{\link{recOX}}, \code{\link{recPMX}},
   \code{\link{recSBX}}, \code{\link{recUnifCrossover}}
 }
+\concept{recombinators}

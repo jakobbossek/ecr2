@@ -4,7 +4,8 @@
 \alias{normalize}
 \title{Normalize approximations set(s).}
 \usage{
-normalize(x, obj.cols, min.value = NULL, max.value = NULL, offset = NULL)
+normalize(x, obj.cols, min.value = NULL, max.value = NULL,
+  offset = NULL)
 }
 \arguments{
 \item{x}{[\code{matrix} | \code{data.frame}]\cr
@@ -52,3 +53,4 @@ Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
   \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
   \code{\link{toLatex}}
 }
+\concept{EMOA performance assessment tools}

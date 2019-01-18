@@ -37,3 +37,4 @@ algorithm.
 Other ParetoArchive: \code{\link{getIndividuals}},
   \code{\link{getSize}}, \code{\link{updateParetoArchive}}
 }
+\concept{ParetoArchive}

@@ -32,3 +32,5 @@ E.g., for calculation of dominated hypervolume.
 Other EMOA performance assessment tools
  @export: \code{\link{approximateRefSets}}
 }
+\concept{EMOA performance assessment tools
+ @export}

@@ -26,3 +26,4 @@ Other selectors: \code{\link{selDomHV}},
   \code{\link{selNondom}}, \code{\link{selRoulette}},
   \code{\link{selSimple}}, \code{\link{selTournament}}
 }
+\concept{selectors}

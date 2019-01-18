@@ -29,3 +29,4 @@ Other mutators: \code{\link{mutGauss}},
   \code{\link{mutScramble}}, \code{\link{mutSwap}},
   \code{\link{mutUniform}}
 }
+\concept{mutators}

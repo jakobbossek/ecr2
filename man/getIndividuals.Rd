@@ -21,3 +21,4 @@ Other ParetoArchive: \code{\link{getSize}},
   \code{\link{initParetoArchive}},
   \code{\link{updateParetoArchive}}
 }
+\concept{ParetoArchive}

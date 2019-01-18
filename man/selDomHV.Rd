@@ -29,3 +29,4 @@ Other selectors: \code{\link{selGreedy}},
   \code{\link{selNondom}}, \code{\link{selRoulette}},
   \code{\link{selSimple}}, \code{\link{selTournament}}
 }
+\concept{selectors}

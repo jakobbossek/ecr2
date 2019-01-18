@@ -43,3 +43,4 @@ Stop the EA after a fixed number of fitness function evaluations, after
 a predefined number of generations/iterations, a given cutoff time or
 if the known optimal function value is approximated (only for single-objective optimization).
 }
+\concept{stopping conditions}

@@ -35,3 +35,4 @@ all non-dominated points to determine which points should be dropped.
 Other ParetoArchive: \code{\link{getIndividuals}},
   \code{\link{getSize}}, \code{\link{initParetoArchive}}
 }
+\concept{ParetoArchive}

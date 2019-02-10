@@ -8,6 +8,7 @@
 #' @param ind [\code{integer}]\cr
 #'   Permutation of integers, i.e., vector of integer values.
 #' @return [\code{integer}]
+#' @family mutators
 #' @export
 mutInversion = makeMutator(
   mutator = function(ind) {

@@ -1,6 +1,6 @@
 context("PA data preprocessing")
 
-test_that("Data preprocessing function produces work", {
+test_that("Column explosion and implosion", {
   n.rows = 7L
   df = data.frame(
     c1 = c("a", "a", "b", "c", "b", "c", "a"),
@@ -24,4 +24,21 @@ test_that("Data preprocessing function produces work", {
   expect_true(all(df$c1 == df2$c1))
   expect_true(all(df$c2 == df2$c2))
   expect_true(all(df$i1 == df2$i1))
+})
+
+test_that("Grouping by character/factor levels", {
+  n.rows = 7L
+  df = data.frame(
+    c1 = c("a", "a", "b", "c", "b", "c", "a"),
+    c2 = c("x", "y", "x", "y", "x", "x", "y"),
+    i1 = sample(1:12, size = n.rows, replace = TRUE),
+    n1 = runif(n.rows),
+    n2 = rnorm(n.rows),
+    stringsAsFactors = FALSE)
+
+  df2 = addUnionGroup(df, col = "c1", group = "group", values = c("a", "b"))
+  expect_true(nrow(df2[df2$c1 == "group", , drop = FALSE]) == nrow(df[df$c1 %in% c("a", "b"), , drop = FALSE]))
+
+  df2 = addAllGroup(df, col = "c1", group = "group")
+  expect_true(nrow(df2) == 2 * nrow(df))
 })

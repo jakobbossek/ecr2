@@ -7,9 +7,8 @@
 ecr(fitness.fun, minimize = NULL, n.objectives = NULL, n.dim = NULL,
   lower = NULL, upper = NULL, n.bits, representation, mu, lambda,
   perm = NULL, p.recomb = 0.7, p.mut = 0.3,
-  survival.strategy = "plus", n.elite = 0L,
-  custom.constants = list(), log.stats = list(fitness = list("min",
-  "mean", "max")), log.pop = FALSE, monitor = NULL,
+  survival.strategy = "plus", n.elite = 0L, log.stats = list(fitness
+  = list("min", "mean", "max")), log.pop = FALSE, monitor = NULL,
   initial.solutions = NULL, parent.selector = NULL,
   survival.selector = NULL, mutator = NULL, recombinator = NULL,
   terminators = list(stopOnIters(100L)), ...)
@@ -76,10 +75,6 @@ Number of fittest individuals of the current generation that shall be copied to 
 next generation without changing. Keep in mind, that the algorithm
 does not care about this option if the \code{survival.strategy} is set to 'plus'.
 Default is 0.}
-
-\item{custom.constants}{[\code{list}]\cr
-Additional constants which should be available to all generators and operators.
-Defaults to empty list.}
 
 \item{log.stats}{[\code{list}]\cr
 (Named) list of scalar functions to compute statistics on the fitness values

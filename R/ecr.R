@@ -26,7 +26,6 @@
 #' @template arg_p_mut
 #' @template arg_survival_strategy
 #' @template arg_n_elite
-#' @template arg_custom_constants
 #' @template arg_logstats
 #' @template arg_logpop
 #' @template arg_monitor
@@ -54,7 +53,6 @@ ecr = function(
   representation, mu, lambda, perm = NULL,
   p.recomb = 0.7, p.mut = 0.3,
   survival.strategy = "plus", n.elite = 0L,
-  custom.constants = list(),
   log.stats = list(fitness = list("min", "mean", "max")),
   log.pop = FALSE,
   monitor = NULL,

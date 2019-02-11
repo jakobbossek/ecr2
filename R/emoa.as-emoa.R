@@ -137,7 +137,7 @@ asemoa = function(
 
       for (i in seq_len(n.pop)) {
         # GP_p contribution of archive point a
-        GDps[i] = computeDistanceFromPointToSetOfPoints(fitness.pop[, i], aspiration.set)
+        GDps[i] = computeDistanceFromPointToSetOfPoints(fitness.pop[, i], aspiration.set, dist.fun = dist.fun)
         # add GD_p contribution of a
         GDp = GDp + GDps[i]
       }
@@ -147,7 +147,7 @@ asemoa = function(
         # if (!is.null(normalize.fun)) {
         #   fitness.pop2 = normalize.fun(fitness.pop, aspiration.set)
         # }
-        rdists = computeDistancesFromPointToSetOfPoints(r, fitness.pop)
+        rdists = computeDistancesFromPointToSetOfPoints(r, fitness.pop, dist.fun = dist.fun)
         astar.idx = which.min(rdists)
         d1 = rdists[astar.idx] # distance to closest population point
         d2 = min(rdists[-astar.idx]) # distance to 2nd closest population point

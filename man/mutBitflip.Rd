@@ -25,8 +25,8 @@ representation.
 }
 \seealso{
 Other mutators: \code{\link{mutGauss}},
-  \code{\link{mutInsertion}}, \code{\link{mutPolynomial}},
-  \code{\link{mutScramble}}, \code{\link{mutSwap}},
-  \code{\link{mutUniform}}
+  \code{\link{mutInsertion}}, \code{\link{mutInversion}},
+  \code{\link{mutPolynomial}}, \code{\link{mutScramble}},
+  \code{\link{mutSwap}}, \code{\link{mutUniform}}
 }
 \concept{mutators}

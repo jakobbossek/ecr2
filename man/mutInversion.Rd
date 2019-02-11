@@ -17,3 +17,10 @@ Permutation of integers, i.e., vector of integer values.}
 The Inversion mutation operator selects two positions within the chromosome at
 random and inverts the elements inbetween.
 }
+\seealso{
+Other mutators: \code{\link{mutBitflip}},
+  \code{\link{mutGauss}}, \code{\link{mutInsertion}},
+  \code{\link{mutPolynomial}}, \code{\link{mutScramble}},
+  \code{\link{mutSwap}}, \code{\link{mutUniform}}
+}
+\concept{mutators}

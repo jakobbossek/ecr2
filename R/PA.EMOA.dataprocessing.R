@@ -98,7 +98,35 @@ implode = function(df, cols, by = ".", keep = FALSE, col.name) {
   return(df)
 }
 
-categorizeFactor = function(df, col, categories, cat.col, keep = TRUE, overwrite = FALSE) {
+#' @title
+#' Assign group membership based on another group membership.
+#'
+#' @description
+#' Given a data frame and a grouping column of type factor or character this function
+#' generates a new grouping column which groups the groups.
+#'
+#' @param df [\code{data.frame}]\cr
+#'   Data frame.
+#' @param col [\code{character(1)}]\cr
+#'   Column name of group variable.
+#' @param categories [\code{list}]\cr
+#'   Named list. Names indicate the name of the category while the values are character vectors
+#'   of values within the range of the \code{col} column.
+#' @param cat.col [\code{character(1)}]\cr
+#'   Column name for categorization.
+#' @param keep [\code{logical(1)}]\cr
+#'   Keep the source column \code{col}?
+#'   Default is \code{TRUE}.
+#' @param overwrite [\code{logical(1)}]\cr
+#'   If \code{TRUE}, \code{cat.col} is set to \code{col}.
+#' @return [\code{data.frame}]
+#' df = data.frame(
+#'   group = c("A1", "A1", "A2", "A2", "B1", "B2")
+#'   perf = runif(6),
+#'   stringsAsFactors = FALSE)
+#' df2 = categorize(df, col = "group", categories = list(A = c("A1", "A2"), B = c("B1", "B2")), cat.col = "group2")
+#' @export
+categorize = function(df, col, categories, cat.col, keep = TRUE, overwrite = FALSE) {
   assertDataFrame(df, min.rows = 1L, min.cols = 1L)
   assertChoice(col, choices = colnames(df))
   assertFlag(overwrite)

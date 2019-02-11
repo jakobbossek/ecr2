@@ -41,4 +41,8 @@ test_that("Grouping by character/factor levels", {
 
   df2 = addAllGroup(df, col = "c1", group = "group")
   expect_true(nrow(df2) == 2 * nrow(df))
+
+  df3 = categorize(df, col = "c1", categories = list("X" = c("a", "c")), cat.col = "c3")
+  expect_true(all(df3$c3 %in% c("X", "rest")))
+  expect_equal(ncol(df3), ncol(df) + 1L)
 })

@@ -27,8 +27,8 @@ test_that("mutation operators working on real-numbered representation create val
   # defs
   n.reps = 5L
 
-  available.mutators = c(setup(mutGauss, lower = rep(0, 5), upper = rep(1, 5)),
-    setup(mutUniform, lower = rep(0, 5), upper = rep(1, 5)))
+  available.mutators = c(ecr::setup(mutGauss, lower = rep(0, 5), upper = rep(1, 5)),
+    ecr::setup(mutUniform, lower = rep(0, 5), upper = rep(1, 5)))
 
   for (mutate in available.mutators) {
     test.ind = runif(5L)

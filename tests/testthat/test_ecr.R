@@ -34,7 +34,7 @@ test_that("real-valued smoof function optimization works", {
           survival.strategy = survival.strategy,
           mu = mu, lambda = lambda, n.elite = n.elite,
           terminators = list(stopOnIters(max.gens)),
-          mutator = setup(mutGauss, lower = getLowerBoxConstraints(fitness.fun),
+          mutator = ecr::setup(mutGauss, lower = getLowerBoxConstraints(fitness.fun),
             upper = getUpperBoxConstraints(fitness.fun)),
           representation = "float")
         expect_class(res, "ecr_result")
@@ -93,7 +93,7 @@ test_that("ecr works for maximization", {
   res = ecr(fitness.fun = fitness.fun,
     representation = "float",
     mu = 10L, lambda = 10L, survival.strategy = "plus",
-    mutator = setup(mutGauss, lower = getLowerBoxConstraints(fitness.fun),
+    mutator = ecr::setup(mutGauss, lower = getLowerBoxConstraints(fitness.fun),
       upper = getUpperBoxConstraints(fitness.fun)),
     terminators = list(stopOnIters(100L)))
 

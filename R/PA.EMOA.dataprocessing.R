@@ -2,9 +2,9 @@
 #'
 #' @description Given a data frame and a column name, function
 #' \code{explode} splits the content of a column by a specified
-#' delimter (thus exploded) into multiple columns. Function \code{implode}
+#' delimiter (thus exploded) into multiple columns. Function \code{implode}
 #' does vice versa, i.e., given a non-empty set of column names or
-#' number, the function glues together the columns. Hence, functions
+#' numbers, the function glues together the columns. Hence, functions
 #' \code{explode} and \code{implode} are kind of inverse to each other.
 #'
 #' @param df [\code{data.frame}]\cr
@@ -56,6 +56,7 @@ explode = function(df, col, by = ".", keep = FALSE, col.names = NULL) {
   assertCharacter(col.names, len = lengths[1L], any.missing = FALSE)
 
   df.new.cols = do.call(rbind, col.exploded)
+  df.new.cols = as.data.frame(df.new.cols, stringsAsFactors = FALSE)
   colnames(df.new.cols) = col.names
 
   # if (length(intersect(colnames(df), col.names)) > 0L)
@@ -83,8 +84,9 @@ implode = function(df, cols, by = ".", keep = FALSE, col.name) {
   sel.df = df[cols]
 
   # generate imploded column
+  #sel.df = vapply(sel.df, format, FUN.VALUE = character(nrow(sel.df)), trim = TRUE)
   imploded = apply(sel.df, 1L, BBmisc::collapse, sep = by)
-  imploded = data.frame(x = imploded)
+  imploded = data.frame(x = imploded, stringsAsFactors = FALSE)
   colnames(imploded) = col.name
 
   # and append
@@ -142,6 +144,7 @@ categorizeFactor = function(df, col, categories, cat.col, keep = TRUE, overwrite
 
   return(df)
 }
+
 
 addUnionGroup = function(df, col, group, factors) {
   assertDataFrame(df, min.cols = 1L, min.rows = 2L)

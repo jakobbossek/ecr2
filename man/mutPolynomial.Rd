@@ -31,7 +31,7 @@ Performs an polynomial mutation as used in the SMS-EMOA algorithm.
 \seealso{
 Other mutators: \code{\link{mutBitflip}},
   \code{\link{mutGauss}}, \code{\link{mutInsertion}},
-  \code{\link{mutScramble}}, \code{\link{mutSwap}},
-  \code{\link{mutUniform}}
+  \code{\link{mutInversion}}, \code{\link{mutScramble}},
+  \code{\link{mutSwap}}, \code{\link{mutUniform}}
 }
 \concept{mutators}

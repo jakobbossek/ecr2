@@ -24,8 +24,8 @@ of objectives.}
 Given a matrix with one point per column \code{which.dominated} returns the
 column numbers of the dominated points and \code{which.nondominated} the column
 numbers of the nondominated points. Function \code{isMaximallyDominated} returns
-a logical vector with \code{TRUE} for each point which does not dominate any
-other point.
+a logical vector with \code{TRUE} for each point which is located on the last
+non-domination level.
 }
 \examples{
   data(mtcars)

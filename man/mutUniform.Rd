@@ -31,7 +31,7 @@ necessary, this feature is disadvantegous.
 \seealso{
 Other mutators: \code{\link{mutBitflip}},
   \code{\link{mutGauss}}, \code{\link{mutInsertion}},
-  \code{\link{mutPolynomial}}, \code{\link{mutScramble}},
-  \code{\link{mutSwap}}
+  \code{\link{mutInversion}}, \code{\link{mutPolynomial}},
+  \code{\link{mutScramble}}, \code{\link{mutSwap}}
 }
 \concept{mutators}

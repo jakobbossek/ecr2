@@ -41,9 +41,9 @@ Name of new column.}
 \description{
 Given a data frame and a column name, function
 \code{explode} splits the content of a column by a specified
-delimter (thus exploded) into multiple columns. Function \code{implode}
+delimiter (thus exploded) into multiple columns. Function \code{implode}
 does vice versa, i.e., given a non-empty set of column names or
-number, the function glues together the columns. Hence, functions
+numbers, the function glues together the columns. Hence, functions
 \code{explode} and \code{implode} are kind of inverse to each other.
 }
 \examples{

@@ -2,9 +2,9 @@
 #'
 #' @description Given a data frame and a column name, function
 #' \code{explode} splits the content of a column by a specified
-#' delimter (thus exploded) into multiple columns. Function \code{implode}
+#' delimiter (thus exploded) into multiple columns. Function \code{implode}
 #' does vice versa, i.e., given a non-empty set of column names or
-#' number, the function glues together the columns. Hence, functions
+#' numbers, the function glues together the columns. Hence, functions
 #' \code{explode} and \code{implode} are kind of inverse to each other.
 #'
 #' @param df [\code{data.frame}]\cr
@@ -56,6 +56,7 @@ explode = function(df, col, by = ".", keep = FALSE, col.names = NULL) {
   assertCharacter(col.names, len = lengths[1L], any.missing = FALSE)
 
   df.new.cols = do.call(rbind, col.exploded)
+  df.new.cols = as.data.frame(df.new.cols, stringsAsFactors = FALSE)
   colnames(df.new.cols) = col.names
 
   # if (length(intersect(colnames(df), col.names)) > 0L)
@@ -83,8 +84,9 @@ implode = function(df, cols, by = ".", keep = FALSE, col.name) {
   sel.df = df[cols]
 
   # generate imploded column
+  #sel.df = vapply(sel.df, format, FUN.VALUE = character(nrow(sel.df)), trim = TRUE)
   imploded = apply(sel.df, 1L, BBmisc::collapse, sep = by)
-  imploded = data.frame(x = imploded)
+  imploded = data.frame(x = imploded, stringsAsFactors = FALSE)
   colnames(imploded) = col.name
 
   # and append
@@ -96,7 +98,35 @@ implode = function(df, cols, by = ".", keep = FALSE, col.name) {
   return(df)
 }
 
-categorizeFactor = function(df, col, categories, cat.col, keep = TRUE, overwrite = FALSE) {
+#' @title
+#' Assign group membership based on another group membership.
+#'
+#' @description
+#' Given a data frame and a grouping column of type factor or character this function
+#' generates a new grouping column which groups the groups.
+#'
+#' @param df [\code{data.frame}]\cr
+#'   Data frame.
+#' @param col [\code{character(1)}]\cr
+#'   Column name of group variable.
+#' @param categories [\code{list}]\cr
+#'   Named list. Names indicate the name of the category while the values are character vectors
+#'   of values within the range of the \code{col} column.
+#' @param cat.col [\code{character(1)}]\cr
+#'   Column name for categorization.
+#' @param keep [\code{logical(1)}]\cr
+#'   Keep the source column \code{col}?
+#'   Default is \code{TRUE}.
+#' @param overwrite [\code{logical(1)}]\cr
+#'   If \code{TRUE}, \code{cat.col} is set to \code{col}.
+#' @return [\code{data.frame}]
+#' df = data.frame(
+#'   group = c("A1", "A1", "A2", "A2", "B1", "B2")
+#'   perf = runif(6),
+#'   stringsAsFactors = FALSE)
+#' df2 = categorize(df, col = "group", categories = list(A = c("A1", "A2"), B = c("B1", "B2")), cat.col = "group2")
+#' @export
+categorize = function(df, col, categories, cat.col, keep = TRUE, overwrite = FALSE) {
   assertDataFrame(df, min.rows = 1L, min.cols = 1L)
   assertChoice(col, choices = colnames(df))
   assertFlag(overwrite)
@@ -143,33 +173,52 @@ categorizeFactor = function(df, col, categories, cat.col, keep = TRUE, overwrite
   return(df)
 }
 
-addUnionGroup = function(df, col, group, factors) {
+
+#' @title Grouping helpers
+#'
+#' @description
+#' Consider a data frame with results of multi-objective stochastic optimizers on
+#' a set of problems from different categories/groups (say indicated by column \dQuote{group}).
+#' Occasionally, it is useful to unite the results of several groups into a meta-group.
+#' The function \code{addUnionGroup} aids in generation of such a meta-group while
+#' function \code{addAllGroup} is a wrapper around the former which generates a
+#' union of all groups.
+#'
+#' @param df [\code{data.frame}]\cr
+#'   Data frame.
+#' @param col [\code{character(1)}]\cr
+#'   Column name of group-column.
+#' @param group [\code{character(1)}]\cr
+#'   Name for new group.
+#' @param values [\code{character(1)}]\cr
+#'   Subset of values within the value range of column \code{col}.
+#' @return [\code{data.frame}] Modified data frame.
+#' @examples
+#' df = data.frame(
+#'   group = c("A1", "A1", "A2", "A2", "B")
+#'   perf = runif(5),
+#'   stringsAsFactors = FALSE)
+#'
+#' df2 = addUnionGroup(df, col = "group", group = "A", values = c("A1", "A2"))
+#' df3 = addAllGroup(df, col = "group", group = "ALL")
+#' @name addUnionGroup
+#' @rdname addUnionGroup
+#' @export
+addUnionGroup = function(df, col, group, values) {
   assertDataFrame(df, min.cols = 1L, min.rows = 2L)
   assertChoice(col, choices = colnames(df))
   assertString(group)
 
-  values = df[[col]]
+  df.values = df[[col]]
 
-  tmp = df[values %in% factors, , drop = FALSE]
+  tmp = df[df.values %in% values, , drop = FALSE]
   tmp[[col]] = group
 
   return(rbind(df, tmp))
 }
 
-#' @title Generate a new group that gathers all other groups.
-#'
-#' @description Given a data frame and a column name all rows of the data frame
-#' are duplicated and stored under a new group with respect to the column.
-#'
-#' @param df [\code{data.frame}]\cr
-#'   Data frame.
-#' @param col [\code{character(1)}]\cr
-#'   Column (factor or character) used to generate \dQuote{all}-group.
-#' @param group [\code{character(1)}]\cr
-#'   New group name.
-#'   Default is \dQuote{all}.
-#' @return [\code{data.frame}] Modified input \code{df}
+#' @rdname addUnionGroup
 #' @export
 addAllGroup = function(df, col, group = "all") {
-  addUnionGroup(df, col, group, factors = unique(as.character(df[[col]])))
+  addUnionGroup(df, col, group, values = unique(as.character(df[[col]])))
 }

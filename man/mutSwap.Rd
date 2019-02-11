@@ -19,7 +19,7 @@ Chooses two positions at random and swaps the genes.
 \seealso{
 Other mutators: \code{\link{mutBitflip}},
   \code{\link{mutGauss}}, \code{\link{mutInsertion}},
-  \code{\link{mutPolynomial}}, \code{\link{mutScramble}},
-  \code{\link{mutUniform}}
+  \code{\link{mutInversion}}, \code{\link{mutPolynomial}},
+  \code{\link{mutScramble}}, \code{\link{mutUniform}}
 }
 \concept{mutators}

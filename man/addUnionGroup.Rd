@@ -35,7 +35,7 @@ union of all groups.
 }
 \examples{
 df = data.frame(
-  group = c("A1", "A1", "A2", "A2", "B")
+  group = c("A1", "A1", "A2", "A2", "B"),
   perf = runif(5),
   stringsAsFactors = FALSE)
 

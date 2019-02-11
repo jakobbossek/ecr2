@@ -17,7 +17,7 @@ toLatex(stats, stat.cols = NULL, probs = NULL, type = "by.instance",
 }
 \arguments{
 \item{stats}{[\code{list}]\cr
-Data frame (return value of \code{\link{computeIndicators}}) or named list of list as returned by \code{\link[ecr]{test}}.}
+Data frame (return value of \code{\link{computeIndicators}}) or named list of list as returned by \code{test}.}
 
 \item{stat.cols}{[\code{character}]\cr
 Names of the indicators to consider.
@@ -45,7 +45,7 @@ Ignored if \code{stats} is a data frame.}
 }
 \description{
 Returns high-quality LaTeX-tables of the test results of
-statistical tests performed with function \code{\link[ecr]{test}}
+statistical tests performed with function \code{test}
 on per-instance basis. I.e., a table is returned for each instances combining
 the results of different indicators.
 }

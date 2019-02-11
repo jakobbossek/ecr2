@@ -24,6 +24,7 @@ sample of \code{ncol(fitness)} indizes.
 \seealso{
 Other selectors: \code{\link{selDomHV}},
   \code{\link{selGreedy}}, \code{\link{selNondom}},
-  \code{\link{selRoulette}}, \code{\link{selTournament}}
+  \code{\link{selRanking}}, \code{\link{selRoulette}},
+  \code{\link{selTournament}}
 }
 \concept{selectors}

@@ -26,7 +26,8 @@ with minimal hypervolume contribution.
 }
 \seealso{
 Other selectors: \code{\link{selGreedy}},
-  \code{\link{selNondom}}, \code{\link{selRoulette}},
-  \code{\link{selSimple}}, \code{\link{selTournament}}
+  \code{\link{selNondom}}, \code{\link{selRanking}},
+  \code{\link{selRoulette}}, \code{\link{selSimple}},
+  \code{\link{selTournament}}
 }
 \concept{selectors}

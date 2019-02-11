@@ -31,7 +31,7 @@ If \code{TRUE}, \code{cat.col} is set to \code{col}.}
 \value{
 [\code{data.frame}]
 df = data.frame(
-  group = c("A1", "A1", "A2", "A2", "B1", "B2")
+  group = c("A1", "A1", "A2", "A2", "B1", "B2"),
   perf = runif(6),
   stringsAsFactors = FALSE)
 df2 = categorize(df, col = "group", categories = list(A = c("A1", "A2"), B = c("B1", "B2")), cat.col = "group2")

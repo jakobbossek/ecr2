@@ -121,7 +121,7 @@ implode = function(df, cols, by = ".", keep = FALSE, col.name) {
 #'   If \code{TRUE}, \code{cat.col} is set to \code{col}.
 #' @return [\code{data.frame}]
 #' df = data.frame(
-#'   group = c("A1", "A1", "A2", "A2", "B1", "B2")
+#'   group = c("A1", "A1", "A2", "A2", "B1", "B2"),
 #'   perf = runif(6),
 #'   stringsAsFactors = FALSE)
 #' df2 = categorize(df, col = "group", categories = list(A = c("A1", "A2"), B = c("B1", "B2")), cat.col = "group2")
@@ -195,7 +195,7 @@ categorize = function(df, col, categories, cat.col, keep = TRUE, overwrite = FAL
 #' @return [\code{data.frame}] Modified data frame.
 #' @examples
 #' df = data.frame(
-#'   group = c("A1", "A1", "A2", "A2", "B")
+#'   group = c("A1", "A1", "A2", "A2", "B"),
 #'   perf = runif(5),
 #'   stringsAsFactors = FALSE)
 #'

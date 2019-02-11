@@ -24,7 +24,8 @@ NSGA-II EMOA (see \code{\link{nsga2}}).
 }
 \seealso{
 Other selectors: \code{\link{selDomHV}},
-  \code{\link{selGreedy}}, \code{\link{selRoulette}},
-  \code{\link{selSimple}}, \code{\link{selTournament}}
+  \code{\link{selGreedy}}, \code{\link{selRanking}},
+  \code{\link{selRoulette}}, \code{\link{selSimple}},
+  \code{\link{selTournament}}
 }
 \concept{selectors}

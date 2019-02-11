@@ -23,7 +23,8 @@ and selects the best ones.
 }
 \seealso{
 Other selectors: \code{\link{selDomHV}},
-  \code{\link{selNondom}}, \code{\link{selRoulette}},
-  \code{\link{selSimple}}, \code{\link{selTournament}}
+  \code{\link{selNondom}}, \code{\link{selRanking}},
+  \code{\link{selRoulette}}, \code{\link{selSimple}},
+  \code{\link{selTournament}}
 }
 \concept{selectors}

@@ -8,6 +8,11 @@ os:
   - linux
 #  - osx
 
+before_install:
+  - sudo apt-get install xorg
+  - sudo apt-get install libx11-dev
+  - sudo apt-get install libglu1-mesa-dev
+
 r_github_packages:
   - jimhester/covr
   - berndbischl/ParamHelpers
@@ -22,3 +27,5 @@ notifications:
       - bossek@wi.uni-muenster.de
     on_success: change
     on_failure: always
+
+

@@ -25,6 +25,9 @@ selectForMating = function(control, fitness, n.select) {
   assertClass(control$selectForMating, "ecr_selector")
   assertMatrix(fitness, min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
   n.select = asInt(n.select, lower = 1L)
+    print(control)
+
+  checkIfSelectorMatchesObjectives(control$selectForMating, control, "selectForMating")
 
   fitness = transformFitness(fitness, control$task, control$selectForMating)
   control$selectForMating(fitness, n.select = n.select)
@@ -37,7 +40,16 @@ selectForSurvival = function(control, fitness, n.select) {
   assertClass(control$selectForSurvival, "ecr_selector")
   assertMatrix(fitness, min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
   n.select = asInt(n.select, lower = 1L)
-
+  checkIfSelectorMatchesObjectives(control$selectForSurvival, control, "selectForSurvival")
   fitness = transformFitness(fitness, control$task, control$selectForSurvival)
   control$selectForSurvival(fitness, n.select = n.select)
+}
+
+checkIfSelectorMatchesObjectives = function(selector, control, type) {
+  sup.obj = attr(selector, "supported.objectives")
+  n.objectives = control$task$n.objectives
+  if ((n.objectives == 1L & sup.obj == "multi-objective") | (n.objectives >= 2L & sup.obj == "single-objective")) {
+    BBmisc::stopf("[%s] Selector supports %s optimization, but the optimization problem has %i objective(s).",
+      type, sup.obj, n.objectives)
+  }
 }

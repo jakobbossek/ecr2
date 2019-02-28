@@ -48,8 +48,8 @@ selectForSurvival = function(control, fitness, n.select) {
 checkIfSelectorMatchesObjectives = function(selector, control, type) {
   sup.obj = attr(selector, "supported.objectives")
   n.objectives = control$task$n.objectives
-  if ((n.objectives == 1L & sup.obj == "multi-objective") | (n.objectives >= 2L & sup.obj == "single-objective")) {
+  if ((n.objectives == 1L & !("single-objective" %in% sup.obj)) | (n.objectives >= 2L & !("multi-objective" %in% sup.obj))) {
     BBmisc::stopf("[%s] Selector supports %s optimization, but the optimization problem has %i objective(s).",
-      type, sup.obj, n.objectives)
+      type, BBmisc::collapse(sup.obj, sep = " and "), n.objectives)
   }
 }

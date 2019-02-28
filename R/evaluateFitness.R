@@ -26,7 +26,7 @@ evaluateFitness = function(control, inds, ...) {
     if (isVectorized(fitness.fun)) {
       fitness = do.call(fitness.fun, c(list(do.call(cbind, inds)), ...))
     } else {
-      fitness = do.call(cbind, lapply(inds, fitness.fun, ...))
+      fitness = do.call(cbind, parallelLapply(inds, fitness.fun, ..., level = "ecr.evaluateFitness"))
     }
     if (!is.matrix(fitness))
       fitness = matrix(fitness, nrow = 1L)

@@ -25,10 +25,7 @@ selectForMating = function(control, fitness, n.select) {
   assertClass(control$selectForMating, "ecr_selector")
   assertMatrix(fitness, min.rows = 1L, any.missing = FALSE, all.missing = FALSE)
   n.select = asInt(n.select, lower = 1L)
-    print(control)
-
   checkIfSelectorMatchesObjectives(control$selectForMating, control, "selectForMating")
-
   fitness = transformFitness(fitness, control$task, control$selectForMating)
   control$selectForMating(fitness, n.select = n.select)
 }

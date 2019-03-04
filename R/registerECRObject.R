@@ -2,7 +2,7 @@
 #' Register operators to control object.
 #'
 #' @description In ecr the control object stores information on the fitness
-#' function and serves as a storage for evolutionary components used by your evluationary
+#' function and serves as a storage for evolutionary components used by your evolutionary
 #' algorithm. This function handles the registration process.
 #'
 #' @param control [\code{ecr_control}]\cr
@@ -15,7 +15,7 @@
 #'   be the individual to mutate, a list of individuals for recombination or a matrix
 #'   of fitness values for recombination. If one does not want to use the corresponding
 #'   helpers, e.g., \code{mutate}, the signature of the function does not matter. However,
-#'   in this case you are responsable to pass arguments correctly.
+#'   in this case you are responsible to pass arguments correctly.
 #' @param ... [any]\cr
 #'   Further arguments for \code{fun}. These arguments are stored in the control object
 #'   and passed on to \code{fun}.

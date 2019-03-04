@@ -2,9 +2,9 @@
 #' Non-dominated sorting selector.
 #'
 #' @description
-#' Applies nondominated sorting of the objective and subsequent crowding distance
-#' criterion to select a subset of individuals. This is the selector used by the
-#' NSGA-II EMOA (see \code{\link{nsga2}}).
+#' Applies non-dominated sorting of the objective vectors and subsequent crowding
+#' distance computation to select a subset of individuals. This is the selector used
+#' by the famous NSGA-II EMOA (see \code{\link{nsga2}}).
 #'
 #' @template arg_fitness
 #' @template arg_n_select

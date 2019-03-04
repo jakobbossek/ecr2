@@ -59,6 +59,8 @@ computeHV = function(x, ref.point = NULL, ...) {
 #' @export
 #' @rdname dominated_hypervolume
 computeHVContr = function(x, ref.point = NULL, offset = 1) {
+  if (ncol(x) == 1L)
+    BBmisc::stopf("[computeHVContr] Computation requires at least 2 points in x.")
   if (is.null(ref.point)) {
     ref.point = approximateNadirPoint(x) + offset
   }

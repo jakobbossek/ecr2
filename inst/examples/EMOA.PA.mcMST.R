@@ -83,9 +83,11 @@ unary.inds = list(
 )
 
 # compute inidcators
+parallelStartMulticore(cpus = 3L, level = "ecr.computeIndicators")
 inds = computeIndicators(
   mcMST, unary.inds = unary.inds
 )
+parallelStop()
 
 print(head(inds))
 

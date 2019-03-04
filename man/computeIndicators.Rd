@@ -70,6 +70,8 @@ approximation sets for each problem.}
 Given a data.frame of Pareto-front approximations for different
 sets of problems, algorithms and replications, the function computes sets
 of unary and binary EMOA performance indicators.
+This function makes use of \code{\link[parallelMap]{parallelMap}} to
+parallelize the computation of indicators.
 }
 \references{
 [1] Knowles, J., Thiele, L., & Zitzler, E. (2006). A Tutorial on the Performance Assessment

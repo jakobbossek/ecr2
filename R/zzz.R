@@ -15,5 +15,9 @@
 NULL
 
 .onAttach = function(libname, pkgname) {
-  parallelMap::parallelRegisterLevels(package = "ecr", levels = c("evaluateFitness", "generateOffspring", "computeDominanceRanking"))
+  parallelMap::parallelRegisterLevels(package = "ecr", 
+                                      levels = c("evaluateFitness", 
+                                                 "generateOffspring", 
+                                                 "computeDominanceRanking", 
+                                                 "computeIndicators"))
 }

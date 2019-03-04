@@ -3,6 +3,8 @@
 #' @description Given a data.frame of Pareto-front approximations for different
 #' sets of problems, algorithms and replications, the function computes sets
 #' of unary and binary EMOA performance indicators.
+#' This function makes use of \code{\link[parallelMap]{parallelMap}} to
+#' parallelize the computation of indicators.
 #'
 #' @references
 #' [1] Knowles, J., Thiele, L., & Zitzler, E. (2006). A Tutorial on the Performance Assessment
@@ -86,6 +88,10 @@ computeIndicators = function(df,
   n.probs = length(probs)
   n.obj   = length(obj.cols)
 
+  #setting progressbar
+  #pb = txtProgressBar(min = 0, max = nrow(df), style = 3)
+  
+  
   # normalize approximation sets
   if (normalize)
     df = ecr::normalize(df, obj.cols = obj.cols)
@@ -138,42 +144,47 @@ computeIndicators = function(df,
   unary.inds.names = sapply(unary.inds, function(x) attr(x$fun, "name"))
   names(unary.inds) = unary.inds.names
 
-  # split by algorithm x prob x repl combination
-  unary.indicators = by(df,
-    list(as.character(df$algorithm), as.character(df$prob), as.integer(df$repl)),
-    function(x) {
-      # all EMOA indicators expect a matrix of type n.obj x n.points
-      approx = t(x[, obj.cols, drop = FALSE])
-      mode(approx) = "double"
-
-      res = list(
-        algorithm = as.character(x$algorithm[1L]),
-        prob      = as.character(x$prob[1L]),
-        repl      = as.integer(x$repl[1L])
-      )
-
-      for (unary.ind.name in unary.inds.names) {
-        ind.fun = unary.inds[[unary.ind.name]][["fun"]]
-        ind.args = BBmisc::coalesce(unary.inds[[unary.ind.name]][["pars"]], list())
-        ind.args = BBmisc::insert(list(approx,
-          ref.point = ref.points[[as.character(x$prob[1L])]],
-          ref.points = ref.sets[[as.character(x$prob[1L])]]),
-          ind.args)
-        #print(ind.args)
-        res[[unary.ind.name]] = do.call(ind.fun, ind.args)
-        #print(res[[unary.ind.name]])
-      }
-
-      res = as.data.frame(res)
-      return(res)
+  computeUnaryIndicators = function(x){
+    # all EMOA indicators expect a matrix of type n.obj x n.points
+    approx = t(x[, obj.cols, drop = FALSE])
+    mode(approx) = "double"
+    
+    res = list(
+      algorithm = as.character(x$algorithm[1L]),
+      prob      = as.character(x$prob[1L]),
+      repl      = as.integer(x$repl[1L])
+    )
+    
+    for (unary.ind.name in unary.inds.names) {
+      ind.fun = unary.inds[[unary.ind.name]][["fun"]]
+      ind.args = BBmisc::coalesce(unary.inds[[unary.ind.name]][["pars"]], list())
+      ind.args = BBmisc::insert(list(approx,
+                                     ref.point = ref.points[[as.character(x$prob[1L])]],
+                                     ref.points = ref.sets[[as.character(x$prob[1L])]]),
+                                ind.args)
+      #print(ind.args)
+      res[[unary.ind.name]] = do.call(ind.fun, ind.args)
+      #print(res[[unary.ind.name]])
     }
-  )
+    
+    res = as.data.frame(res)
+    return(res)
+  }
+  # split by algorithm x prob x repl combination
+  listOfDfs = split(df, list(as.character(df$algorithm), as.character(df$prob), as.integer(df$repl)))
+  # compute Indicators
+  unary.indicators = parallelLapply(listOfDfs, computeUnaryIndicators, level="ecr.computeIndicators")
   unary.indicators = do.call(rbind, unary.indicators)
 
   # binary indicators
   binary.inds.names = names(binary.inds)
   binary.indicators = list()
+  
+  # reset progressbar
+  #pb = txtProgressBar(min = 0, max = length(binary.inds.names), style = 3)
+  
   for (binary.ind.name in binary.inds.names) {
+    #setTxtProgressBar(pb,getTxtProgressBar(pb)+1)
     for (prob in probs) {
       prob.ind = list()
       # filter data
@@ -197,7 +208,7 @@ computeIndicators = function(df,
       binary.indicators[[binary.ind.name]] = c(binary.indicators[[binary.ind.name]], prob.ind)
     }
   }
-
+  #close(pb)
   return(list(
     unary = BBmisc::setAttribute(unary.indicators, "unary.inds", unary.inds),
     binary = binary.indicators,

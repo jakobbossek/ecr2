@@ -21,13 +21,8 @@
 #' @export
 mutUniform = makeMutator(
   mutator = function(ind, lower, upper) {
-    assertNumeric(lower, any.missing = FALSE, all.missing = FALSE)
-    assertNumeric(upper, any.missing = FALSE, all.missing = FALSE)
-    if (length(lower) != length(upper)) {
-      stopf("Uniform mutator: length of lower and upper bounds need to be equal!")
-    }
-    n = length(ind)
-    idx = sample(n, size = 1L)
+    checkNumericMutatorArguments(ind, lower, upper, "mutUniform")
+    idx = sample(1:length(ind), size = 1L)
     ind[idx] = runif(1L, min = lower[idx], max = upper[idx])
     return(ind)
   },

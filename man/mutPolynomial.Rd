@@ -11,16 +11,20 @@ mutPolynomial(ind, p = 0.2, eta = 10, lower, upper)
 Numeric vector / individual to mutate.}
 
 \item{p}{[\code{numeric(1)}]\cr
-Probability of mutation of each gene.}
+Probability of mutation of each gene.
+Default is 0.2}
 
 \item{eta}{[\code{numeric(1)}\cr
-Distance parameter of the mutation distribution.}
+Distance parameter of the mutation distribution.
+Default is 10.}
 
 \item{lower}{[\code{numeric}]\cr
-Vector of minimal values for each parameter of the decision space.}
+Vector of minimal values for each parameter of the decision space.
+Must have the same length as \code{ind}.}
 
 \item{upper}{[\code{numeric}]\cr
-Vector of maximal values for each parameter of the decision space.}
+Vector of maximal values for each parameter of the decision space.
+Must have the same length as \code{ind}.}
 }
 \value{
 [\code{numeric}]

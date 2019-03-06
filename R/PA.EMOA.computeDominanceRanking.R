@@ -8,7 +8,8 @@
 #' Thus, each approximation set is reduced to a number -- its rank. This rank distribution
 #' may act for first comparrison of multi-objecitve stochastic optimizers.
 #' See [1] for more details.
-#'
+#' This function makes use of \code{\link[parallelMap]{parallelMap}} to
+#' parallelize the computation of dominance ranks.
 #' @note Since pairwise non-domination checks are performed over all algorithms and
 #' algorithm runs this function may take some time if the number of problems, algorithms
 #' and/or replications is high.
@@ -30,25 +31,21 @@ computeDominanceRanking = function(df, obj.cols) {
   assertDataFrame(df)
   assertCharacter(obj.cols, min.len = 2L)
 
-  # here we duplicate prob col, since application of by() function make these unavailable
-  df$prob2 = df$prob
-
-  warningf("Note that this may take some time if the number of problems, algorithms and/or replications is high.")
-
-  # now split by problem
-  res = by(df, list(df$prob2),
-  function(x) {
+  #warning
+  warningf("Note that this may take some time if the number of problems, algorithms and/or replications is high. \n The usage of parallelization is recommended.")
+  
+  magic = function(x) {
     # get grid the ugly way: now we need to iterate over the rows
     grid = dplyr::group_by_(x, "prob", "algorithm", "repl")
     grid = dplyr::summarize(grid, rank = NA)
     grid = dplyr::ungroup(grid)
-
+    
     n = nrow(grid)
     for (i in 1:n) {
       # Rank is rk(C_i) = 1 + |{C_j in C | C_j <= C_i}| (see Knowles et al.)
       rk = 1L
+      cat(".")
       for (j in 1:n) {
-        cat(".")
         # nothing to do here
         if (i == j)
           next
@@ -59,6 +56,10 @@ computeDominanceRanking = function(df, obj.cols) {
       grid[i, "rank"] = rk
     }
     return(grid)
-  })
+  }
+  # split by problems and compute rankings
+  listofDfs = split(df, df$prob)
+  res = parallelLapply(listofDfs, magic, level = "ecr.computeDominanceRanking")
   do.call(rbind, res)
 }
+

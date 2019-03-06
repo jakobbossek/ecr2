@@ -35,7 +35,9 @@ mcMST = ecr::normalize(mcMST, obj.cols = obj.cols, offset = 1)
 ## =======
 
 # compute and visualize ranks
+parallelStartMulticore(cpus = 3L, level = "ecr.computeDominanceRanking") # use 3 cpus
 ranks = computeDominanceRanking(mcMST, obj.cols = obj.cols)
+parallelStop()
 pl = plotDistribution(ranks) + ggplot2::theme(legend.position = "none")
 print(pl)
 
@@ -81,9 +83,11 @@ unary.inds = list(
 )
 
 # compute inidcators
+parallelStartMulticore(cpus = 3L, level = "ecr.computeIndicators")
 inds = computeIndicators(
   mcMST, unary.inds = unary.inds
 )
+parallelStop()
 
 print(head(inds))
 

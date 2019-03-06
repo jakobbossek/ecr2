@@ -5,6 +5,11 @@ warnings_are_errors: false
 
 cache: packages
 
+# runs rgl on a system where there is no graphics support
+# ensures that it will not fail in its attempt at initialization
+env:
+  RGL_USE_NULL=TRUE
+
 os:
   - linux
 #  - osx

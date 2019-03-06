@@ -27,6 +27,8 @@ exists a point in \eqn{y \in D} which weakly dominates \eqn{x}).
 Thus, each approximation set is reduced to a number -- its rank. This rank distribution
 may act for first comparrison of multi-objecitve stochastic optimizers.
 See [1] for more details.
+This function makes use of \code{\link[parallelMap]{parallelMap}} to
+parallelize the computation of dominance ranks.
 }
 \note{
 Since pairwise non-domination checks are performed over all algorithms and

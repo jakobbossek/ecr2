@@ -88,10 +88,6 @@ computeIndicators = function(df,
   n.probs = length(probs)
   n.obj   = length(obj.cols)
 
-  #setting progressbar
-  #pb = txtProgressBar(min = 0, max = nrow(df), style = 3)
-  
-  
   # normalize approximation sets
   if (normalize)
     df = ecr::normalize(df, obj.cols = obj.cols)
@@ -180,11 +176,7 @@ computeIndicators = function(df,
   binary.inds.names = names(binary.inds)
   binary.indicators = list()
   
-  # reset progressbar
-  #pb = txtProgressBar(min = 0, max = length(binary.inds.names), style = 3)
-  
   for (binary.ind.name in binary.inds.names) {
-    #setTxtProgressBar(pb,getTxtProgressBar(pb)+1)
     for (prob in probs) {
       prob.ind = list()
       # filter data
@@ -208,7 +200,6 @@ computeIndicators = function(df,
       binary.indicators[[binary.ind.name]] = c(binary.indicators[[binary.ind.name]], prob.ind)
     }
   }
-  #close(pb)
   return(list(
     unary = BBmisc::setAttribute(unary.indicators, "unary.inds", unary.inds),
     binary = binary.indicators,

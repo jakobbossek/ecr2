@@ -23,13 +23,9 @@
 #' @export
 mutGauss = makeMutator(
   mutator = function(ind, p = 1L, sdev = 0.05, lower, upper) {
-    assertNumber(p, lower = 0, finite = TRUE, na.ok = FALSE)
-    assertNumber(sdev, lower = 0, finite = TRUE, na.ok = FALSE)
-    assertNumeric(lower, any.missing = FALSE, all.missing = FALSE)
-    assertNumeric(lower, any.missing = FALSE, all.missing = FALSE)
-    if (length(lower) != length(upper)) {
-      stopf("Gauss mutator: length of lower and upper bounds need to be equal!")
-    }
+    checkNumericMutatorArguments(ind, lower, upper, "mutGauss")
+    checkmate::assertNumber(p, lower = 0, finite = TRUE, na.ok = FALSE)
+    checkmate::assertNumber(sdev, lower = 0, finite = TRUE, na.ok = FALSE)
 
     n = length(ind)
     mut.idx = runif(n) < p

@@ -21,8 +21,15 @@ Reference point for hypervolume computation.}
 [\code{integer}] Vector of survivor indizes.
 }
 \description{
-Performs nondominated sorting and drops the individual from the last front
-with minimal hypervolume contribution.
+Performs non-dominated sorting and drops the individual from the last front
+with minimal hypervolume contribution. This selector is the basis of the
+S-Metric Selection Evolutionary Multi-Objective Algorithm, termed SMS-EMOA
+(see \code{\link{smsemoa}}).
+}
+\note{
+Note that the current implementation expects \code{n.select = ncol(fitness) - 1}
+and the selection process quits with an error message if \code{n.select} is greater
+than 1.
 }
 \seealso{
 Other selectors: \code{\link{selGreedy}},

@@ -1,6 +1,7 @@
 # travis config
 
 language: r
+warnings_are_errors: false
 
 cache: packages
 

@@ -20,6 +20,7 @@
 #' @param eta [\code{numeric(1)}\cr
 #'   Distance parameter to control the shape of the mutation distribution. 
 #'   Larger values generate offspring closer to the parents.
+#'   Default is 10.
 #' @param lower [\code{numeric}]\cr
 #'   Vector of minimal values for each parameter of the decision space.
 #'   Must have the same length as \code{ind}.

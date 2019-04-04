@@ -15,7 +15,8 @@
 #' @param ind [\code{numeric}]\cr
 #'   Numeric vector / individual to mutate.
 #' @param p [\code{numeric(1)}]\cr
-#'   Probability of mutation of each gene.
+#'   Probability of mutation for each gene of an offspring. In other words, 
+#'   the probability that the value (allele) of a given gene will change.
 #'   Default is 0.2
 #' @param eta [\code{numeric(1)}\cr
 #'   Distance parameter to control the shape of the mutation distribution. 

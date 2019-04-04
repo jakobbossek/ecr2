@@ -11,12 +11,14 @@ mutPolynomial(ind, p = 0.2, eta = 10, lower, upper)
 Numeric vector / individual to mutate.}
 
 \item{p}{[\code{numeric(1)}]\cr
-Probability of mutation of each gene.
+Probability of mutation for each gene of an offspring. In other words, 
+the probability that the value (allele) of a given gene will change.
 Default is 0.2}
 
 \item{eta}{[\code{numeric(1)}\cr
 Distance parameter to control the shape of the mutation distribution. 
-Larger values generate offspring closer to the parents.}
+Larger values generate offspring closer to the parents.
+Default is 10.}
 
 \item{lower}{[\code{numeric}]\cr
 Vector of minimal values for each parameter of the decision space.

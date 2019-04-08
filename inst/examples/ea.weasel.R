@@ -1,6 +1,5 @@
 library(BBmisc)
 library(devtools)
-library(rpn)
 
 load_all(".")
 

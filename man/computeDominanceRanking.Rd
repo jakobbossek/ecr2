@@ -21,9 +21,9 @@ Column names in \code{df} which store the objective function values.}
 \description{
 Ranking is performed by merging all approximation sets over all
 algorithms and runs per instance. Next, each approximation set \eqn{C} is assigned a
-rank which is 1 plus the number of approximation sets, which are better than
-\eqn{C} (a set \eqn{D} is better than \eqn{C}, if for each point \eqn{x \in C} there
-exists a point in \eqn{y \in D} which weakly dominates \eqn{x}).
+rank which is 1 plus the number of approximation sets that are better than
+\eqn{C}. A set \eqn{D} is better than \eqn{C}, if for each point \eqn{x \in C}{x in C} there
+exists a point in \eqn{y \in D} which weakly dominates \eqn{x}.
 Thus, each approximation set is reduced to a number -- its rank. This rank distribution
 may act for first comparrison of multi-objecitve stochastic optimizers.
 See [1] for more details.

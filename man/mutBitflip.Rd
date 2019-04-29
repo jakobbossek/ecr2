@@ -23,6 +23,10 @@ with a given probability \eqn{p \in (0, 1)}. Usually it is recommended to
 set \eqn{p = \frac{1}{n}} where \eqn{n} is the number of bits in the
 representation.
 }
+\references{
+[1] Eiben, A. E. & Smith, James E. (2015). Introduction to Evolutionary
+Computing (2nd ed.). Springer Publishing Company, Incorporated. 52.
+}
 \seealso{
 Other mutators: \code{\link{mutGauss}},
   \code{\link{mutInsertion}}, \code{\link{mutInversion}},

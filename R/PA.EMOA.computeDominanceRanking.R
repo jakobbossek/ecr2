@@ -1,7 +1,7 @@
 #' @title Ranking of approximation sets.
 #'
 #' @description Ranking is performed by merging all approximation sets over all
-#' algorithms and runs per instance. Next, each approximation \eqn{C} set is assigned a
+#' algorithms and runs per instance. Next, each approximation set \eqn{C} is assigned a
 #' rank which is 1 plus the number of approximation sets, which are better than
 #' \eqn{C} (a set \eqn{D} is better than \eqn{C}, if for each point \eqn{x \in C} there
 #' exists a point in \eqn{y \in D} which weakly dominates \eqn{x}).

@@ -50,3 +50,8 @@ test_that("setDominates works as expected", {
   y = cbind(y, matrix(c(0.5, 0.5), ncol = 1L))
   expect_false(setDominates(x, y))
 })
+
+test_that("dominated returns FALSE for single-columned matrices", {
+  x = matrix(c(1,2,3), ncol = 1L)
+  expect_false(dominated(x))
+})

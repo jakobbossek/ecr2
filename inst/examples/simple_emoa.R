@@ -28,7 +28,7 @@ control = registerECROperator(control, "selectForMating", selSimple)
 # setup initial population
 population = genReal(mu, n.dim = getNumberOfParameters(fun),
   lower = getLowerBoxConstraints(fun), upper = getUpperBoxConstraints(fun))
-fitness = evaluateFitness(population, control)
+fitness = evaluateFitness(control, population)
 
 # initialize Pareto archive
 truncateByHVContr = function(inds, fitness, max.size, ...) {
@@ -46,7 +46,7 @@ for (iter in seq_len(max.iter)) {
   fitness.archive = getFront(archive)
   inds.archive = getIndividuals(archive)
   population = generateOffspring(control, inds.archive, fitness.archive, lambda = mu, p.recomb = 0, p.mut = 0.6)
-  fitness = evaluateFitness(population, control)
+  fitness = evaluateFitness(control, population)
 }
 
 pareto.front = getFront(archive)

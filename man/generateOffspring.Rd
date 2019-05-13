@@ -33,7 +33,9 @@ Probability of two parents to perform crossover.
 Default is 0.7.}
 
 \item{p.mut}{[\code{numeric(1)}]\cr
-Probability to apply mutation to a child.
+The probability that the mutation operator will be applied to a child. 
+Refers only to the application of the mutation operator, not to the 
+probability of mutating individual genes of the respective child.
 Default is 0.1.}
 
 \item{slot}{[\code{character(1)}]\cr

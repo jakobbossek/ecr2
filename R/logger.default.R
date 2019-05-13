@@ -224,7 +224,7 @@ updateLogger = function(log, population, fitness = NULL, n.evals, extras = NULL,
 
   # grow memory
   if (n.log < log$env$cur.line) {
-    #catf("increasing log size! Doubling size: %i -> %i", n.log, 2 * n.log)
+    catf("increasing log size! Doubling size: %i -> %i", n.log, 2 * n.log)
     log$env$stats = rbind(log$env$stats,
       makeDataFrame(ncol = ncol(log$env$stats),
       nrow = n.log * 2,
@@ -319,7 +319,7 @@ getStatistics = function(log, trim = TRUE) {
   assertClass(log, "ecr_logger")
   assertFlag(trim)
   stats = log$env$stats
-  if (trim & (log$env$cur.line < nrow(stats))) {
+  if (trim & (log$env$cur.line - 1 < nrow(stats))) {
     stats = stats[seq.int(log$env$cur.line - 1L), , drop = FALSE]
   }
   return(stats)
@@ -351,7 +351,7 @@ getPopulations = function(log, trim = TRUE) {
   if (is.null(pops))
     stopf("This should not happen. Populations should be saved, but not found.")
 
-  if (trim & (log$env$cur.line < length(pops))) {
+  if (trim & (log$env$cur.line - 1 < length(pops))) {
     pops = pops[seq.int(log$env$cur.line - 1L)]
   }
   return(pops)
@@ -382,7 +382,7 @@ getPopulationFitness = function(log, trim = TRUE) {
   if (is.null(pops))
     stopf("This should not happen. Populations should be saved, but not found.")
 
-  if (trim & (log$env$cur.line < length(pops))) {
+  if (trim & (log$env$cur.line - 1 < length(pops))) {
     pops = pops[seq.int(log$env$cur.line - 1L)]
   }
 

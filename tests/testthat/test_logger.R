@@ -19,11 +19,13 @@ test_that("logger keeps track the right way in single-objective case", {
     population = genBin(10L, evals.per.iter)
     #population = replicate(sample(c(0, 1), 10L, replace = TRUE), n = evals.per.iter, simplify = FALSE)
     fitness = matrix(sapply(population, sum), nrow = 1L)
-    for (i in seq_along(population)) {
-      attr(population[[i]], "fitness") = fitness[, i]
+    cat(i)
+    for (j in seq_along(population)) {
+      attr(population[[j]], "fitness") = fitness[, j]
     }
     extras = list(double = runif(1), number = sample(1:10, 1L), mutator = c("mut1", "mut2")[sample(1:2, 1L)])
     updateLogger(log, population, n.evals = evals.per.iter, extras = extras)
+    expect_true(nrow(getStatistics(log)) == i)
   }
 
   # now check that stuff
@@ -58,3 +60,4 @@ test_that("logger keeps track the right way in single-objective case", {
   expect_length(pops, n.iters)
   expect_true(!all(sapply(pops, is.null)))
 })
+

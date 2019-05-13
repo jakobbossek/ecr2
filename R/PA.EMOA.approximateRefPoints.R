@@ -3,7 +3,7 @@
 #' @description E.g., for calculation of dominated hypervolume.
 #'
 #' @param df [\code{data.frame}]\cr
-#'   Data frame with the required structure.
+#'   Data frame with the required structure, i.e. the data frame must contain a problem column "prob" as well as objective column(s).
 #' @param obj.cols [\code{character(>= 2)}]\cr
 #'   Column names of the objective functions.
 #'   Default is \code{c("f1", "f2")}, i.e., the bi-objective case is assumed.
@@ -15,8 +15,8 @@
 #'   Default is \code{FALSE}. In this case a named list is returned.
 #' @return [\code{list} | \code{data.frame}]
 #' @family EMOA performance assessment tools
-#' @export
-approximateRefPoints = function(df, obj.cols, offset = 0, as.df = FALSE) {
+#' @export
+approximateRefPoints = function(df, obj.cols = c("f1", "f2"), offset = 0, as.df = FALSE) {
   # split by prob(lem)
   ref.points = by(df, list(df$prob), function(x) {
     # get data points

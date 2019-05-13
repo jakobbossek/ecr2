@@ -58,6 +58,7 @@ replaceMuPlusLambda = function(control, population, offspring, fitness = NULL, f
 replaceMuCommaLambda = function(control, population, offspring, fitness = NULL, fitness.offspring = NULL, n.elite = base::max(ceiling(length(population) * 0.1), 1L)) {
   assertList(population)
   assertList(offspring)
+  
   mu = length(population)
 
   if (is.null(fitness))
@@ -69,10 +70,13 @@ replaceMuCommaLambda = function(control, population, offspring, fitness = NULL, 
   assertMatrix(fitness.offspring, ncols = length(offspring))
   n.elite = asInt(n.elite, lower = 0)
   # get elite individuals from current population
-  #FIXME: only if we are not multi-objective
+  # works only if we are not multi-objective
   surv = vector("list", mu)
   surv.fit = fitness
   if (n.elite > 0) {
+    if (control$task$n.objectives > 1L) stopf(paste("Incomparable solutions - no total order can be established among the individuals with respect to their fitness.\n",
+                                                    "Elitism via 'n.elite' is only supported for single-objective optimization tasks.\n"))
+    
     elite.idx = order(as.numeric(fitness), decreasing = !control$task$minimize)[1:n.elite]
     surv[1:n.elite] = population[elite.idx]
     surv.fit[, 1:n.elite] = fitness[, elite.idx, drop = FALSE]

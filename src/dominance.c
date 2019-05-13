@@ -50,7 +50,7 @@ static int getDominance(double *points, R_len_t col1, R_len_t col2, R_len_t dim)
 SEXP dominatedC(SEXP r_points) {
   // first unpack R structures
   EXTRACT_NUMERIC_MATRIX(r_points, c_points, dim, n_points);
-
+  
   // allocate memory for result vector
   // I.e., logical vector: component i is TRUE, if i is dominated by at least
   // one j != i
@@ -61,25 +61,28 @@ SEXP dominatedC(SEXP r_points) {
   for (int i = 0; i < n_points; ++i) {
     dominated[i] = FALSE;
   }
-
-  // now actually check for dominance
-  for (int i = 0; i < n_points; ++i) {
-    if (dominated[i]) {
-      continue;
-    }
-    for (int j = (i + 1); j < n_points; ++j) {
-      if (dominated[j]) {
+  
+  // single-column matrices always return FALSE
+  if(n_points > 1){
+    // now actually check for dominance
+    for (int i = 0; i < n_points; ++i) {
+      if (dominated[i]) {
         continue;
       }
-      // check if i dominates j or vice verca
-      int dominance = getDominance(c_points, i, j, dim);
-      if (dominance > 0) {
-        dominated[j] = TRUE;
-      } else if (dominance < 0) {
-        dominated[i] = TRUE;
+      for (int j = (i + 1); j < n_points; ++j) {
+        if (dominated[j]) {
+          continue;
+        }
+        // check if i dominates j or vice verca
+        int dominance = getDominance(c_points, i, j, dim);
+        if (dominance > 0) {
+          dominated[j] = TRUE;
+        } else if (dominance < 0) {
+          dominated[i] = TRUE;
+        }
       }
     }
-  }
+  } 
 
   UNPROTECT(1);
   return(r_res);

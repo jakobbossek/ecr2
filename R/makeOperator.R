@@ -49,7 +49,7 @@ print.ecr_operator = function(x, ...) {
 #' @export
 print.ecr_recombinator = function(x, ...) {
   print.ecr_operator(x)
-  catf("Number of returned children: %i", attr(x, "n.parents"))
+  catf("Number of returned children: %i", attr(x, "n.children"))
 }
 
 #' @export

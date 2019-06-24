@@ -15,7 +15,7 @@ Authors@R: c(
     person("Eckart", "Zitzler", role = c("ctb", "cph")),
     person("Olaf", "Mersmann", role = "ctb"))
 Maintainer: Jakob Bossek <j.bossek@gmail.com>
-License: GPL-3
+License: GPL-3 | file LICENSE
 URL: https://github.com/jakobbossek/ecr2
 BugReports: https://github.com/jakobbossek/ecr2/issues
 Depends:

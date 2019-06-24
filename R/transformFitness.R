@@ -12,8 +12,8 @@
 #'   column.
 #' @param task [ecr_optimization_task]
 #'   Optimization task.
-#' @param control [ecr_control] #FIXME its the selector 
-#'   Control object.
+#' @param selector [ecr_selector] 
+#'   Selector object.
 #' @return [matrix] Transformed / scaled fitness matrix.
 transformFitness = function(fitness, task, selector) {
   # logical vector of opt directions

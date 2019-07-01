@@ -30,9 +30,9 @@ Different objectives can also mean different optimization goals: When buying a n
 
 In the following, we will look at the example of Feature Selection to see how multiobjective problems can be solved with **ecr**.
 
-For this purpose, we will iteratively train a RandomForest-Classifier on the Wisconsin Breast Cancer data set and analyze the effect on the accuracy of prediction by including or omitting features of the data set in the training. The goal is to achieve high accuracy along with a minimum number of features. To train the RandomForest-Classifier we use the R-Package mlr. The BreastCancer data set is taken from the package mlbench.
+For this purpose, we will iteratively train a RandomForest-Classifier on the Wisconsin Breast Cancer data set and analyze the effect on the prediction accurancy by including or omitting features of the data set in the training. The goal is to achieve high accuracy along while using a minimum number of features. To train the RandomForest-Classifier we use the R-Package *mlr*. The BreastCancer data set is taken from the package *mlbench*.
 
-```{r breastCancer, message=FALSE}
+```{r breastCancer, message=FALSE, echo=FALSE}
 library(mlr)
 library(mlbench)
 library(randomForest)
@@ -40,7 +40,7 @@ data("BreastCancer")
 summary(BreastCancer)
 ```
 
-First we remove the observations with missing data (see Bare.nuclei's 16 NA entries) and the Id column which is irrelevant for the training of the model. The data set is then divided into a feature data set and a target data set. The prediction target is the column "Class".
+First, we remove the observations with missing data (see Bare.nuclei's 16 NA entries) along with the Id column which is irrelevant for the training of the model. The data set is then divided into a feature data set and a target data set. The prediction target is the column "Class".
 
 ```{r}
 cancer = BreastCancer[,2:11]
@@ -74,9 +74,9 @@ Next, we define the fitness function. First a few conceptual considerations: The
 ```
 
 ## Black-box approach 
-Since ecr supports multiobjective optimization as a standard task, we can use the black-box function ecr() to execute the feature selection. We decide to use an evolutionary $(5 + 10)$-strategy, i.e., an algorithm that keeps a population of size mu = 5, in each generation creates lambda = 10 offspring by variation and selects the best mu out of mu + lambda individuals to survive. In the context of our multiobjective optimization problem, two important arguments should be noticed. First, *n.objectives* has to reflect the number of objectives and *minimize* has to be a vector of length = n.objectives, indicating for each objective as to whether it should be minimized or maximised. For the problem at hand, our two objectives (Accurancy, Number of Features) are to be maximised and minimized respectively. 
+Since ecr supports multiobjective optimization as a standard task, we can use the black-box function ecr() to execute the feature selection. We decide to use an evolutionary $(5 + 10)$-strategy, i.e., an algorithm that keeps a population of size mu = 5, in each generation creates lambda = 10 offspring by variation and selects the best mu out of mu + lambda individuals to survive. In the context of our multiobjective optimization problem, two important arguments should be noticed. First, *n.objectives* has to reflect the number of objectives and *minimize* has to be a vector of *length = n.objectives*, indicating for each objective as to whether it should be minimized or maximised. For the problem at hand, our two objectives (accurancy, number of features) are to be maximised and minimized respectively. 
 ```{r}
-MU = 5; LAMBDA = 8; MAX.ITER = 10; N.BITS = ncol(cancerFeatures);
+MU = 5; LAMBDA = 10; MAX.ITER = 5; N.BITS = ncol(cancerFeatures);
 res = ecr(fitness.fun = fitness.fun, 
             n.objectives = 2L, 
             minimize = c(FALSE, TRUE), 

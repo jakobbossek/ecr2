@@ -79,9 +79,12 @@ updateParetoArchive = function(archive, inds, fitness, ...) {
   n = archive$env$size
   # get union of fitness values
   fitness.union = cbind(archive$env$fitness, fitness)
+  # FIXME: How to solve selector problem? 
+  #fitness.union = transformFitness(fitness.union, archive$env$task, control$selectForMating)
   element.union = c(archive$env$individuals, inds)
 
   # now determine indizes of non-dominated points
+  # FIXME: Does not recognize different objective directions (i.e. maximise, minimize)
   idx.nondom = if (ncol(fitness.union) <= 1) 1L else which.nondominated(fitness.union)
 
   newfitness = fitness.union[, idx.nondom, drop = FALSE]

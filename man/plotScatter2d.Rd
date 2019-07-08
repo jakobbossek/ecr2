@@ -86,6 +86,7 @@ pl = plotFronts(mcMST, title = "Pareto-approximations",
 }
 \seealso{
 Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
+  \code{\link{approximateRefPoints}},
   \code{\link{computeDominanceRanking}},
   \code{\link{emoaIndEps}},
   \code{\link{makeEMOAIndicator}},

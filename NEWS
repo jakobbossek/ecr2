@@ -1,3 +1,14 @@
+ecr 2.2.0
+=========
+
+Fixes
+
+* Fixed bug in mutPolynomial where parameter lower was sanity-checked twice and upper not at all
+
+New features
+
+* Performance assessment for stochastic multi-objective optimization algorithms
+
 ecr 2.1.1
 =========
 

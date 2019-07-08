@@ -94,6 +94,7 @@ point r (\code{ref.point}) it is defined as Hyp(X, R, r) = HV(R, r) - HV(X, r).
 }
 \seealso{
 Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
+  \code{\link{approximateRefPoints}},
   \code{\link{computeDominanceRanking}},
   \code{\link{makeEMOAIndicator}},
   \code{\link{niceCellFormater}}, \code{\link{normalize}},

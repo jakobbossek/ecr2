@@ -4,11 +4,12 @@
 \alias{approximateRefPoints}
 \title{Helper function to estimate reference points.}
 \usage{
-approximateRefPoints(df, obj.cols, offset = 0, as.df = FALSE)
+approximateRefPoints(df, obj.cols = c("f1", "f2"), offset = 0,
+  as.df = FALSE)
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr
-Data frame with the required structure.}
+Data frame with the required structure, i.e. the data frame must contain a problem column "prob" as well as objective column(s).}
 
 \item{obj.cols}{[\code{character(>= 2)}]\cr
 Column names of the objective functions.
@@ -29,8 +30,13 @@ Default is \code{FALSE}. In this case a named list is returned.}
 E.g., for calculation of dominated hypervolume.
 }
 \seealso{
-Other EMOA performance assessment tools
- @export: \code{\link{approximateRefSets}}
+Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
+  \code{\link{computeDominanceRanking}},
+  \code{\link{emoaIndEps}},
+  \code{\link{makeEMOAIndicator}},
+  \code{\link{niceCellFormater}}, \code{\link{normalize}},
+  \code{\link{plotDistribution}}, \code{\link{plotFront}},
+  \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
+  \code{\link{toLatex}}
 }
-\concept{EMOA performance assessment tools
- @export}
+\concept{EMOA performance assessment tools}

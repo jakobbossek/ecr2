@@ -40,7 +40,10 @@ Imports:
     lazyeval
 Suggests:
     testthat (>= 0.9.1),
-    rmarkdown
+    rmarkdown,
+    mlr,
+    mlbench,
+    randomForest
 ByteCompile: yes
 LinkingTo: Rcpp
 LazyData: yes

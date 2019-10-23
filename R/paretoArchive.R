@@ -77,31 +77,38 @@ updateParetoArchive = function(archive, inds, fitness, ...) {
   assertList(inds)
   assertMatrix(fitness, nrows = nrow(archive$env$fitness))
   n = archive$env$size
+
   # get union of fitness values
   fitness.union = cbind(archive$env$fitness, fitness)
-  # FIXME: How to solve selector problem? 
-  #fitness.union = transformFitness(fitness.union, archive$env$task, control$selectForMating)
+  # What follows is an ugly hack to make transformFitness work
+  # ===
+  # Here we imitate a selector (actual function is irelevant)
+  dummy.selector = identity
+  # ... and we tell it to support minimization since we used which.nondominated later on
+  attr(dummy.selector, "supported.opt.direction") = "minimize"
+  fitness.union.transformed = transformFitness(fitness.union, archive$env$task, dummy.selector)
+
   element.union = c(archive$env$individuals, inds)
 
   # now determine indizes of non-dominated points
-  # FIXME: Does not recognize different objective directions (i.e. maximise, minimize)
-  idx.nondom = if (ncol(fitness.union) <= 1) 1L else which.nondominated(fitness.union)
+  idx.nondom = if (ncol(fitness.union.transformed) <= 1) 1L else which.nondominated(fitness.union.transformed)
 
-  newfitness = fitness.union[, idx.nondom, drop = FALSE]
-  newindividuals = element.union[idx.nondom]
+  # use above indizes to select from the original fitness values
+  new.fitness = fitness.union[, idx.nondom, drop = FALSE]
+  new.individuals = element.union[idx.nondom]
 
-  size = ncol(newfitness)
+  size = ncol(new.fitness)
   archive$env$size = size
 
   if (!is.infinite(archive$env$max.size)) {
     if (size > archive$env$max.size) {
       #warningf("Archive overflow! Dropping individuals by means of trunc.fun.")
-      trunc.res = archive$env$trunc.fun(newindividuals, newfitness, archive$env$max.size, ...)
-      newfitness = trunc.res$fitness
-      newindividuals = trunc.res$individuals
-      archive$env$size = ncol(newfitness)
+      trunc.res = archive$env$trunc.fun(new.individuals, new.fitness, archive$env$max.size, ...)
+      new.fitness = trunc.res$fitness
+      new.individuals = trunc.res$individuals
+      archive$env$size = ncol(new.fitness)
     }
   }
-  archive$env$fitness = newfitness
-  archive$env$individuals = newindividuals
+  archive$env$fitness = new.fitness
+  archive$env$individuals = new.individuals
 }

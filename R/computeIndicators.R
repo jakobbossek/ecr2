@@ -97,8 +97,8 @@ computeIndicators = function(df,
     unary.inds = list(HV = list(fun = emoaIndHV))
 
   # check list of binary indicators
-  if (is.null(binary.inds))
-    binary.inds = list(EPS = list(fun = emoaIndEps))
+  # if (is.null(binary.inds))
+  #   binary.inds = list(EPS = list(fun = emoaIndEps))
 
   # check reference points
   if (!is.null(ref.points)) {
@@ -140,17 +140,17 @@ computeIndicators = function(df,
   unary.inds.names = sapply(unary.inds, function(x) attr(x$fun, "name"))
   names(unary.inds) = unary.inds.names
 
-  computeUnaryIndicators = function(x){
+  computeUnaryIndicators = function(x) {
     # all EMOA indicators expect a matrix of type n.obj x n.points
     approx = t(x[, obj.cols, drop = FALSE])
     mode(approx) = "double"
-    
+
     res = list(
       algorithm = as.character(x$algorithm[1L]),
       prob      = as.character(x$prob[1L]),
       repl      = as.integer(x$repl[1L])
     )
-    
+
     for (unary.ind.name in unary.inds.names) {
       ind.fun = unary.inds[[unary.ind.name]][["fun"]]
       ind.args = BBmisc::coalesce(unary.inds[[unary.ind.name]][["pars"]], list())
@@ -159,10 +159,11 @@ computeIndicators = function(df,
                                      ref.points = ref.sets[[as.character(x$prob[1L])]]),
                                 ind.args)
       #print(ind.args)
-      res[[unary.ind.name]] = do.call(ind.fun, ind.args)
+      res[[unary.ind.name]] = if (!is.null(ind.args$ref.point) & !is.null(ind.args$ref.points))
+        do.call(ind.fun, ind.args) else NA
       #print(res[[unary.ind.name]])
     }
-    
+
     res = as.data.frame(res)
     return(res)
   }
@@ -175,7 +176,7 @@ computeIndicators = function(df,
   # binary indicators
   binary.inds.names = names(binary.inds)
   binary.indicators = list()
-  
+
   for (binary.ind.name in binary.inds.names) {
     for (prob in probs) {
       prob.ind = list()

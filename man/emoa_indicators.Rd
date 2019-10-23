@@ -7,9 +7,12 @@
 \alias{emoaIndR2}
 \alias{emoaIndR3}
 \alias{emoaIndMD}
+\alias{emoaIndC}
 \alias{emoaIndM1}
 \alias{emoaIndONVG}
 \alias{emoaIndGD}
+\alias{emoaIndSP}
+\alias{emoaIndDelta}
 \title{EMOA performance indicators}
 \usage{
 emoaIndEps(points, ref.points, ...)
@@ -27,12 +30,18 @@ emoaIndR3(points, ref.points, ideal.point = NULL, nadir.point = NULL,
 
 emoaIndMD(points, ...)
 
+emoaIndC(points, ref.points, ...)
+
 emoaIndM1(points, ref.points, ...)
 
 emoaIndONVG(points, ...)
 
 emoaIndGD(points, ref.points, p = 1, normalize = FALSE,
   dist.fun = computeEuclideanDistance, ...)
+
+emoaIndSP(points, ...)
+
+emoaIndDelta(points, ...)
 }
 \arguments{
 \item{points}{[\code{matrix}]\cr
@@ -88,9 +97,31 @@ Given a set of points \code{points}, \code{emoaIndEps} computes the
 unary epsilon-indicator provided a set of reference points \code{ref.points}.
 
 The \code{emoaIndHV} function computes the hypervolume indicator
-Hyp(X, R, r). Given a set of point X (\code{points}), another set of reference
+Hyp(X, R, r). Given a set of points X (\code{points}), another set of reference
 points R (\code{ref.points}) (which maybe the true Pareto front) and a reference
 point r (\code{ref.point}) it is defined as Hyp(X, R, r) = HV(R, r) - HV(X, r).
+
+Function \code{emoaIndR1}, \code{emoaIndR2} and \code{emoaIndR3} calculate the
+R1, R2 and R3 indicator respectively.
+
+Function \code{emoaIndMD} computes the minimum distance indicator, i.e., the minimum
+Euclidean distance between two points of the set \code{points} while function
+\code{emoaIndM1} determines the mean Euclidean distance between \code{points}
+and points from a reference set \code{ref.points}.
+
+Function \code{emoaIndC} calculates the coverage of the sets \code{points} (A) and
+\code{ref.points} (B). This is the ratio of points in B which are dominated by
+at least one solution in A.
+
+\code{emoaIndONVG} calculates the \dQuote{Overall Non-dominated Vector Generation}
+indicator. Despite its complicated name it is just the number of non-dominated points
+in \code{points}.
+
+Functions \code{emoaIndSP} and \code{emoaIndDelta} calculate spacing indicators.
+The former was proposed by Schott: first calculate the sum of squared distances
+between minimal distancesof points to all other points and the mean of these minimal
+distance. Next, normalize by the number of points minus 1 and finally calculate the
+square root. In contrast, Delta-indicator
 }
 \seealso{
 Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},

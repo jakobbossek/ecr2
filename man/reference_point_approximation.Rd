@@ -25,7 +25,8 @@ Helper functions to compute nadir or ideal point from sets of
 points, e.g., multiple approximation sets.
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{computeDominanceRanking}},
+Other EMOA performance assessment tools: \code{\link{approximateRefPoints}},
+  \code{\link{computeDominanceRanking}},
   \code{\link{emoaIndEps}},
   \code{\link{makeEMOAIndicator}},
   \code{\link{niceCellFormater}}, \code{\link{normalize}},

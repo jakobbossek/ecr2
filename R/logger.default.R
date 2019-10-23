@@ -135,9 +135,9 @@ initLogger = function(
 
   env = new.env()
   env$stats = BBmisc::makeDataFrame(
-    ncol = 1L + n.stats + n.extras, nrow = init.size,
-    col.types = c("integer", stat.types, extra.types),
-    col.names = c("gen", stat.names, extra.names))
+    ncol = 2L + n.stats + n.extras, nrow = init.size,
+    col.types = c("integer", "numeric", stat.types, extra.types),
+    col.names = c("gen", "time.passed", stat.names, extra.names))
 
   env$stats = addClasses(env$stats, "ecr_statistics")
   env$cur.line = 1L
@@ -272,7 +272,7 @@ updateLogger = function(log, population, fitness = NULL, n.evals, extras = NULL,
   #   return(stat.fun(fitness))
   # })
 
-  log$env$stats[log$env$cur.line, ] = c(list(gen = log$env$n.gens), cur.stats, extras)
+  log$env$stats[log$env$cur.line, ] = c(list(gen = log$env$n.gens, time.passed = as.numeric(log$env$time.passed)), cur.stats, extras)
 
   # store population if requested
   if (log$env$log.pop) {

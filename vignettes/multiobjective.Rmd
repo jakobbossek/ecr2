@@ -1,0 +1,134 @@
+---
+title: "Multi-Objective Evolutionary Algorithms"
+author: "Thorben Hellweg"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Multi-Objective Evolutionary Algorithms}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Multiobjective Optimization Problems
+
+With **ecr**, both single- and multi-objective optimization problems can be addressed. In the former, an attempt is made to find to find a single solution that maximizes a fitness value corresponding directly to a single underlying measure of quality. Often, however, we look at problems in which we try to optimize different (conflicting) goals at the same time. Examples of these so-called multi-objective problems (MOPs) include:
+
+* Hotel search: Close to the beach and at the same time reasonably priced
+* Feature Selection in Machine Learning: Few features with high accuracy
+* Real estate purchase: location, price, number of rooms, square meter, ...
+
+Different objectives can also mean different optimization goals: When buying a new apartment, one hopes for a low price (minimization problem) and a large living space (maximization problem).
+
+In the following, we will look at the example of Feature Selection to see how multi-objective problems can be solved with **ecr**.
+
+For this purpose, we will iteratively train a RandomForest-Classifier on the Wisconsin Breast Cancer data set and analyze the effect on the prediction accuracy by including or omitting features of the data set in the training. The goal is to achieve high accuracy along while using a minimum number of features. To train the RandomForest-Classifier we use the R-Package *mlr*. The BreastCancer data set is taken from the package *mlbench*.
+
+```{r breastCancer, message=FALSE, echo=FALSE}
+library(ecr)
+library(mlr)
+library(mlbench)
+library(randomForest)
+data("BreastCancer")
+summary(BreastCancer)
+```
+
+First, we remove the observations with missing data (see Bare.nuclei's 16 NA entries) along with the Id column which is irrelevant for the training of the model. The data set is then divided into a feature data set and a target data set. The prediction target is the column "Class".
+
+```{r}
+cancer = BreastCancer[, 2:11]
+cancer = cancer[!(rowSums(is.na(cancer)) > 0),]
+cancer.features = cancer[, 1:9]
+cancer.target = cancer[, 10]
+```
+
+Next, we define the fitness function. First a few conceptual considerations: The fitness of an individual results from the number of features used for prediction and the accuracy of the prediction. In order to determine the accuracy, the model must be trained on the features encoded in the individual. Consequently, each time the fitness function is called, the model is first trained and then the fitness is determined. We use a resampling strategy to determine the performance of the learning algorithm on the selected features. The fitness corresponds to the average accuracy of the individual samples.
+
+```{r}
+  fitness.fun = function(ind) {
+    ind = as.logical(ind)
+    # all features deselected is not a supported solution.
+    # Thus, we set the accuracy to 0 and number of features to its maximum.
+    if (!any(ind))
+      return(c(0, length(ind)))
+    # add target column to individual
+    task = makeClassifTask(data = cancer[, c(ind, TRUE)],
+                           target = "Class",
+                           id = "Cancer")
+    # Subsampling with 5 iterations and default split ratio 2/3
+    rdesc = makeResampleDesc("Subsample", iters = 2)
+    # Classification tree
+    lrn = makeLearner("classif.randomForest")
+    r = do.call(resample, list(lrn, task, rdesc, list(acc), show.info = FALSE))
+    measure = r$aggr[[1]]
+    nFeatures = sum(ind)
+    return(c(measure, nFeatures))
+  }
+```
+
+## Black-box approach
+
+Since **ecr** supports multi-objective optimization as a standard task, we can use the black-box function ecr() to execute the feature selection. We decide to use an evolutionary $(5 + 10)$-strategy, i.e., an algorithm that keeps a population of size mu = 5, in each generation creates lambda = 10 offspring by variation and selects the best mu out of mu + lambda individuals to survive. In the context of our multi-objective optimization problem, two important arguments should be noticed. First, *n.objectives* has to reflect the number of objectives and *minimize* has to be a vector of *length = n.objectives*, indicating for each objective as to whether it should be minimized or maximized. For the problem at hand, our two objectives (accuracy, number of features) are to be maximized and minimized respectively.
+```{r}
+MU = 5; LAMBDA = 1L; MAX.ITER = 25; N.BITS = ncol(cancer.features);
+res = ecr(fitness.fun = fitness.fun,
+            n.objectives = 2L,
+            minimize = c(FALSE, TRUE),
+            representation = "binary",
+            n.bits = N.BITS,
+            mu = MU,
+            lambda = LAMBDA,
+            survival.strategy = "plus",
+            mutator = setup(mutBitflip, p = 1 / N.BITS),
+            p.mut = 0.3,
+            p.recomb = 0.7,
+            terminators = list(stopOnIters(MAX.ITER)),
+            log.pop = TRUE,
+            initial.solutions = list(rep(1,N.BITS)))
+```
+
+The resulting Pareto-set consists of all non-dominated solutions and can be plotted by using *plotFront*.
+```{r, message = FALSE, fig.cap = "Pareto front on multi-objective optimization problem", fig.width = 6, fig.height = 4}
+plotFront(res$pareto.front)
+```
+
+## White-box approach
+
+Writing the evolutionary loop by hand, we first create a *control object* that stores the information about the target function and the evolutionary operators. Note that the number of objectives is passed explicit.
+```{r, echo = TRUE}
+control = initECRControl(fitness.fun, n.objectives = 2L, minimize = c(FALSE, TRUE))
+control = registerECROperator(control, "mutate", mutBitflip, p = 0.3)
+control = registerECROperator(control, "selectForSurvival", selNondom)
+```
+Here, we decide to perform mutation only. The best mu individuals (regarding fitness values) are going to be selected to build up the next generation. However, as we are looking at a multi-objective optimization problem, the "best mu individuals" must be determined by applying non-dominated sorting of the objective vectors and subsequent computation of the crowding distance. An alternative multi-objective ecr selection operator is the `selDomHV`. Furthermore, you can write your own selector via `makeSelector`. Now, an initial population is sampled, their respective fitness evaluated and a Pareto-archive initialized. A Pareto-archive is usually used to store all or a part of the non-dominated points during a run of an multi-objective evolutionary algorithm.
+
+```{r, echo = TRUE}
+  population = genBin(MU, N.BITS)
+  fitness = evaluateFitness(control, population)
+  archive = initParetoArchive(control)
+```
+Finally, the evolutionary loop is implemented. In each iteration, the Pareto-set is updated in the Pareto-archive via the function `updateParetoArchive`.
+```{r, echo = TRUE}
+  for (i in seq_len(MAX.ITER)) {
+      # sample lambda individuals at random
+      idx = sample(1:MU, LAMBDA, replace = TRUE)
+      # generate offspring by mutation and evaluate their fitness
+      offspring = mutate(control, population[idx], p.mut = 1)
+      fitness.o = evaluateFitness(control, offspring)
+      # now select the best out of the union of population and offspring
+      sel = replaceMuPlusLambda(control, population, offspring, fitness, fitness.o)
+      population = sel$population
+      fitness = sel$fitness
+      updateParetoArchive(archive, population,fitness)
+  }
+```
+Let's have a look at our Pareto-front:
+```{r, echo = TRUE, fig.cap = "Pareto front on multi-objective optimization problem", fig.width = 6, fig.height = 4}
+pareto.front = getFront(archive)
+plotFront(pareto.front)
+```

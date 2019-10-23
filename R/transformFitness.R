@@ -1,20 +1,20 @@
-# @title
-# Fitness transformation / scaling.
-#
-# @description
-# Some selectors support maximization only, e.g., roulette wheel selector, or
-# minimization (most others). This function computes a factor from {-1, 1} for
-# each objective to match supported selector optimization directions and
-# the actual objectives of the task.
-#
-# @param fitness [matrix]
-#   Matrix of fitness values with the fitness vector of individual i in the i-th
-#   column.
-# @param task [ecr_optimization_task]
-#   Optimization task.
-# @param control [ecr_control]
-#   Control object.
-# @return [matrix] Transformed / scaled fitness matrix.
+#' @title
+#' Fitness transformation / scaling.
+#'
+#' @description
+#' Some selectors support maximization only, e.g., roulette wheel selector, or
+#' minimization (most others). This function computes a factor from {-1, 1} for
+#' each objective to match supported selector optimization directions and
+#' the actual objectives of the task.
+#'
+#' @param fitness [matrix]
+#'   Matrix of fitness values with the fitness vector of individual i in the i-th
+#'   column.
+#' @param task [ecr_optimization_task]
+#'   Optimization task.
+#' @param selector [ecr_selector] 
+#'   Selector object.
+#' @return [matrix] Transformed / scaled fitness matrix.
 transformFitness = function(fitness, task, selector) {
   # logical vector of opt directions
   task.dir = task$minimize

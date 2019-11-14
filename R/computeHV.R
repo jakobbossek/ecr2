@@ -68,5 +68,6 @@ computeHVContr = function(x, ref.point = NULL, offset = 1) {
   assertNumeric(ref.point, any.missing = FALSE)
   assertNumber(offset, finite = TRUE, lower = 0)
 
-  return(.Call("computeHVContributionC", x, ref.point))
+  # NOTE: we pass  a copy of x here, since otherwise the C-code changes x in place
+  return(.Call("computeHVContributionC", x[,], ref.point))
 }

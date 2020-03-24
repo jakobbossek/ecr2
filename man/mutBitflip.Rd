@@ -30,7 +30,8 @@ Computing (2nd ed.). Springer Publishing Company, Incorporated. 52.
 \seealso{
 Other mutators: \code{\link{mutGauss}},
   \code{\link{mutInsertion}}, \code{\link{mutInversion}},
-  \code{\link{mutPolynomial}}, \code{\link{mutScramble}},
-  \code{\link{mutSwap}}, \code{\link{mutUniform}}
+  \code{\link{mutJump}}, \code{\link{mutPolynomial}},
+  \code{\link{mutScramble}}, \code{\link{mutSwap}},
+  \code{\link{mutUniform}}
 }
 \concept{mutators}

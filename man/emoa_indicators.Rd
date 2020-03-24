@@ -11,6 +11,8 @@
 \alias{emoaIndM1}
 \alias{emoaIndONVG}
 \alias{emoaIndGD}
+\alias{emoaIndIGD}
+\alias{emoaIndDeltap}
 \alias{emoaIndSP}
 \alias{emoaIndDelta}
 \title{EMOA performance indicators}
@@ -37,6 +39,12 @@ emoaIndM1(points, ref.points, ...)
 emoaIndONVG(points, ...)
 
 emoaIndGD(points, ref.points, p = 1, normalize = FALSE,
+  dist.fun = computeEuclideanDistance, ...)
+
+emoaIndIGD(points, ref.points, p = 1, normalize = FALSE,
+  dist.fun = computeEuclideanDistance, ...)
+
+emoaIndDeltap(points, ref.points, p = 1, normalize = FALSE,
   dist.fun = computeEuclideanDistance, ...)
 
 emoaIndSP(points, ...)

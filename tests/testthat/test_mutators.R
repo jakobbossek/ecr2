@@ -7,7 +7,7 @@ test_that("mutation operators working on permutation genes create valid offsprin
 
   # gather all mutators for permutation representation
   available.mutators = c(
-    mutSwap, mutInversion, mutInsertion, mutScramble
+    mutSwap, mutInversion, mutInsertion, mutScramble, mutJump
   )
 
   test.ind = letters[3:13]

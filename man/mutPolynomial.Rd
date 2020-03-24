@@ -45,7 +45,8 @@ Retrieved from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.27.767&r
 \seealso{
 Other mutators: \code{\link{mutBitflip}},
   \code{\link{mutGauss}}, \code{\link{mutInsertion}},
-  \code{\link{mutInversion}}, \code{\link{mutScramble}},
-  \code{\link{mutSwap}}, \code{\link{mutUniform}}
+  \code{\link{mutInversion}}, \code{\link{mutJump}},
+  \code{\link{mutScramble}}, \code{\link{mutSwap}},
+  \code{\link{mutUniform}}
 }
 \concept{mutators}

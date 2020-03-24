@@ -20,7 +20,8 @@ a random position.
 \seealso{
 Other mutators: \code{\link{mutBitflip}},
   \code{\link{mutGauss}}, \code{\link{mutInversion}},
-  \code{\link{mutPolynomial}}, \code{\link{mutScramble}},
-  \code{\link{mutSwap}}, \code{\link{mutUniform}}
+  \code{\link{mutJump}}, \code{\link{mutPolynomial}},
+  \code{\link{mutScramble}}, \code{\link{mutSwap}},
+  \code{\link{mutUniform}}
 }
 \concept{mutators}

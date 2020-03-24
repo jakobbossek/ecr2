@@ -291,6 +291,30 @@ emoaIndGD = makeEMOAIndicator(
   minimize = TRUE
 )
 
+#' @inheritParams computeGenerationalDistance
+#' @rdname emoa_indicators
+#' @export
+emoaIndIGD = makeEMOAIndicator(
+  fun = function(points, ref.points, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance, ...) {
+    computeInvertedGenerationalDistance(points, ref.points, p = p, normalize = normalize, dist.fun = dist.fun)
+  },
+  name = "IGD",
+  latex.name = "I_{IGD}",
+  minimize = TRUE
+)
+
+#' @inheritParams computeGenerationalDistance
+#' @rdname emoa_indicators
+#' @export
+emoaIndDeltap = makeEMOAIndicator(
+  fun = function(points, ref.points, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance, ...) {
+    computeAverageHausdorffDistance(points, ref.points, p = p, normalize = normalize, dist.fun = dist.fun)
+  },
+  name = "DeltaP",
+  latex.name = "I_{\\\\Delta(p)}",
+  minimize = TRUE
+)
+
 # Spacing as proposed by Sch95
 #' @rdname emoa_indicators
 #' @export

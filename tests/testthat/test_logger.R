@@ -32,11 +32,11 @@ test_that("logger keeps track the right way in single-objective case", {
   stats = getStatistics(log)
 
   # check that stats is a data.frame
-  assertDataFrame(stats, nrows = n.iters, ncols = 8L,
+  assertDataFrame(stats, nrows = n.iters, ncols = 9L,
     any.missing = FALSE, all.missing = FALSE)
 
   # check for logged stats
-  expected.stats = c("gen", "fitness.min", "fitness.median", "fitness.ncol", "fitness.myRange", "double", "number", "mutator")
+  expected.stats = c("gen", "time.passed", "fitness.min", "fitness.median", "fitness.ncol", "fitness.myRange", "double", "number", "mutator")
   expect_set_equal(colnames(stats), expected.stats)
 
   # check stats df to ggplot-friendly df helpers
@@ -53,7 +53,7 @@ test_that("logger keeps track the right way in single-objective case", {
   # now with dropping of stats
   stats.gg = toGG(log, drop.stats = c("fitness.ncol", "fitness.myRange"))
   expect_set_equal(colnames(stats.gg), c("gen", "stat", "value"))
-  expect_set_equal(as.character(unique(stats.gg$stat)), expected.stats[-c(1, 4, 5)])
+  expect_set_equal(as.character(unique(stats.gg$stat)), expected.stats[-c(1, 5, 6)])
 
   # check logged populations
   pops  = getPopulations(log)

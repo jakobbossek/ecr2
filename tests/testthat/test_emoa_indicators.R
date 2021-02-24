@@ -54,7 +54,7 @@ test_that("calculation of dominated hypervolume works as expected", {
 })
 
 test_that("assertions on hypervolume (contribution)", {
-  n.points = 50L
+  n.points = 100L
   n.reps = 5L
   ref.point = c(11, 11)
   for (i in seq(n.reps)) {

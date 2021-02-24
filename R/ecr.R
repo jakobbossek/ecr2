@@ -104,7 +104,6 @@ ecr = function(
   # init logger
   log = initLogger(control,
     log.stats = log.stats,
-    #, "hv" = list(fun = computeHV, pars = list(ref.point = rep(11, 2L)))),
     log.pop = log.pop, init.size = 1000L)
 
   # generate population (depends on representation)
@@ -134,6 +133,8 @@ ecr = function(
   for (i in seq_along(population)) {
     attr(population[[i]], "fitness") = fitness[, i]
   }
+
+  updateLogger(log, population, fitness = fitness, n.evals = mu)
 
   repeat {
     # generate offspring

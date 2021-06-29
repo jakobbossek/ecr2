@@ -17,3 +17,7 @@ cran-comments.md
 ^docs$
 bottleneck
 data-raw
+^codecov\.yml$
+^\.github$
+^_pkgdown\.yml$
+^pkgdown$

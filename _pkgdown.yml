@@ -1,0 +1,12 @@
+template:
+    params:
+        bootswatch: flatly
+        #bootswatch: Solar
+
+authors:
+  Jakob Bossek:
+    href: https://www.jakobbossek.de
+
+development:
+  mode: auto
+

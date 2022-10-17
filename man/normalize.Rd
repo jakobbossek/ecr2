@@ -4,8 +4,7 @@
 \alias{normalize}
 \title{Normalize approximations set(s).}
 \usage{
-normalize(x, obj.cols, min.value = NULL, max.value = NULL,
-  offset = NULL)
+normalize(x, obj.cols, min.value = NULL, max.value = NULL, offset = NULL)
 }
 \arguments{
 \item{x}{[\code{matrix} | \code{data.frame}]\cr
@@ -44,14 +43,17 @@ is performed for each unique element of the \dQuote{prob} column independently (
 existent).
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
-  \code{\link{approximateRefPoints}},
-  \code{\link{computeDominanceRanking}},
-  \code{\link{emoaIndEps}},
-  \code{\link{makeEMOAIndicator}},
-  \code{\link{niceCellFormater}},
-  \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
-  \code{\link{toLatex}}
+Other EMOA performance assessment tools: 
+\code{\link{approximateNadirPoint}()},
+\code{\link{approximateRefPoints}()},
+\code{\link{computeDominanceRanking}()},
+\code{\link{emoaIndEps}()},
+\code{\link{makeEMOAIndicator}()},
+\code{\link{niceCellFormater}()},
+\code{\link{plotDistribution}()},
+\code{\link{plotFront}()},
+\code{\link{plotScatter2d}()},
+\code{\link{plotScatter3d}()},
+\code{\link{toLatex}()}
 }
 \concept{EMOA performance assessment tools}

@@ -4,8 +4,7 @@
 \alias{updateLogger}
 \title{Update the log.}
 \usage{
-updateLogger(log, population, fitness = NULL, n.evals, extras = NULL,
-  ...)
+updateLogger(log, population, fitness = NULL, n.evals, extras = NULL, ...)
 }
 \arguments{
 \item{log}{[\code{ecr_logger}]\cr
@@ -34,8 +33,10 @@ This function modifies the log in-place, i.e., without making
 copies.
 }
 \seealso{
-Other logging: \code{\link{getPopulationFitness}},
-  \code{\link{getPopulations}},
-  \code{\link{getStatistics}}, \code{\link{initLogger}}
+Other logging: 
+\code{\link{getPopulationFitness}()},
+\code{\link{getPopulations}()},
+\code{\link{getStatistics}()},
+\code{\link{initLogger}()}
 }
 \concept{logging}

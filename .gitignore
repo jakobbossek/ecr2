@@ -10,3 +10,4 @@ Rplots.pdf
 *.o
 *.so
 inst/doc
+docs

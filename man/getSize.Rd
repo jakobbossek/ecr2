@@ -17,8 +17,9 @@ Pareto archive.}
 Returns the number of stored individuals in Pareto archive.
 }
 \seealso{
-Other ParetoArchive: \code{\link{getIndividuals}},
-  \code{\link{initParetoArchive}},
-  \code{\link{updateParetoArchive}}
+Other ParetoArchive: 
+\code{\link{getIndividuals}()},
+\code{\link{initParetoArchive}()},
+\code{\link{updateParetoArchive}()}
 }
 \concept{ParetoArchive}

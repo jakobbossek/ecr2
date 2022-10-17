@@ -5,6 +5,7 @@ test.R
 .gitignore
 .gitmodules
 README.md
+README.Rmd
 test_all.R
 .travis.yml
 appveyor.yml

@@ -43,10 +43,14 @@ Search (GeneAS) for Engineering Design. Computer Science and Informatics. 26.
 Retrieved from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.27.767&rep=rep1&type=pdf
 }
 \seealso{
-Other mutators: \code{\link{mutBitflip}},
-  \code{\link{mutGauss}}, \code{\link{mutInsertion}},
-  \code{\link{mutInversion}}, \code{\link{mutJump}},
-  \code{\link{mutScramble}}, \code{\link{mutSwap}},
-  \code{\link{mutUniform}}
+Other mutators: 
+\code{\link{mutBitflip}()},
+\code{\link{mutGauss}()},
+\code{\link{mutInsertion}()},
+\code{\link{mutInversion}()},
+\code{\link{mutJump}()},
+\code{\link{mutScramble}()},
+\code{\link{mutSwap}()},
+\code{\link{mutUniform}()}
 }
 \concept{mutators}

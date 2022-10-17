@@ -6,13 +6,19 @@
 \alias{recombinate}
 \title{Helper functions for offspring generation}
 \usage{
-generateOffspring(control, inds, fitness, lambda, p.recomb = 0.7,
-  p.mut = 0.1)
+generateOffspring(control, inds, fitness, lambda, p.recomb = 0.7, p.mut = 0.1)
 
 mutate(control, inds, p.mut = 0.1, slot = "mutate", ...)
 
-recombinate(control, inds, fitness, lambda = length(inds),
-  p.recomb = 0.7, slot = "recombine", ...)
+recombinate(
+  control,
+  inds,
+  fitness,
+  lambda = length(inds),
+  p.recomb = 0.7,
+  slot = "recombine",
+  ...
+)
 }
 \arguments{
 \item{control}{[\code{ecr_control}]\cr

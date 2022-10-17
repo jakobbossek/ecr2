@@ -32,7 +32,9 @@ the archive is limited in capacity (argument \code{max.size} of
 all non-dominated points to determine which points should be dropped.
 }
 \seealso{
-Other ParetoArchive: \code{\link{getIndividuals}},
-  \code{\link{getSize}}, \code{\link{initParetoArchive}}
+Other ParetoArchive: 
+\code{\link{getIndividuals}()},
+\code{\link{getSize}()},
+\code{\link{initParetoArchive}()}
 }
 \concept{ParetoArchive}

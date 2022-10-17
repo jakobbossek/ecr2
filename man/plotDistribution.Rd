@@ -4,8 +4,14 @@
 \alias{plotDistribution}
 \title{Plot distribution of EMOA indicators.}
 \usage{
-plotDistribution(inds, plot.type = "boxplot", fill = "algorithm",
-  facet.type = "grid", facet.args = list(), logscale = character())
+plotDistribution(
+  inds,
+  plot.type = "boxplot",
+  fill = "algorithm",
+  facet.type = "grid",
+  facet.args = list(),
+  logscale = character()
+)
 }
 \arguments{
 \item{inds}{[\code{data.frame}]\cr
@@ -44,13 +50,17 @@ Visualizes of empirical distributions of unary EMOA indicator
 based on the results of \code{\link{computeIndicators}}.
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
-  \code{\link{approximateRefPoints}},
-  \code{\link{computeDominanceRanking}},
-  \code{\link{emoaIndEps}},
-  \code{\link{makeEMOAIndicator}},
-  \code{\link{niceCellFormater}}, \code{\link{normalize}},
-  \code{\link{plotFront}}, \code{\link{plotScatter2d}},
-  \code{\link{plotScatter3d}}, \code{\link{toLatex}}
+Other EMOA performance assessment tools: 
+\code{\link{approximateNadirPoint}()},
+\code{\link{approximateRefPoints}()},
+\code{\link{computeDominanceRanking}()},
+\code{\link{emoaIndEps}()},
+\code{\link{makeEMOAIndicator}()},
+\code{\link{niceCellFormater}()},
+\code{\link{normalize}()},
+\code{\link{plotFront}()},
+\code{\link{plotScatter2d}()},
+\code{\link{plotScatter3d}()},
+\code{\link{toLatex}()}
 }
 \concept{EMOA performance assessment tools}

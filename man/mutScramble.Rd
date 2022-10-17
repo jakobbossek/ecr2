@@ -18,10 +18,14 @@ The Scramble mutation operator selects two positions within the chromosome at
 random and randomly intermixes the subsequence between these positions.
 }
 \seealso{
-Other mutators: \code{\link{mutBitflip}},
-  \code{\link{mutGauss}}, \code{\link{mutInsertion}},
-  \code{\link{mutInversion}}, \code{\link{mutJump}},
-  \code{\link{mutPolynomial}}, \code{\link{mutSwap}},
-  \code{\link{mutUniform}}
+Other mutators: 
+\code{\link{mutBitflip}()},
+\code{\link{mutGauss}()},
+\code{\link{mutInsertion}()},
+\code{\link{mutInversion}()},
+\code{\link{mutJump}()},
+\code{\link{mutPolynomial}()},
+\code{\link{mutSwap}()},
+\code{\link{mutUniform}()}
 }
 \concept{mutators}

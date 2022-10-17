@@ -22,9 +22,12 @@ Just for testing. Actually does not really select, but instead returns a random
 sample of \code{ncol(fitness)} indizes.
 }
 \seealso{
-Other selectors: \code{\link{selDomHV}},
-  \code{\link{selGreedy}}, \code{\link{selNondom}},
-  \code{\link{selRanking}}, \code{\link{selRoulette}},
-  \code{\link{selTournament}}
+Other selectors: 
+\code{\link{selDomHV}()},
+\code{\link{selGreedy}()},
+\code{\link{selNondom}()},
+\code{\link{selRanking}()},
+\code{\link{selRoulette}()},
+\code{\link{selTournament}()}
 }
 \concept{selectors}

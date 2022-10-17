@@ -4,8 +4,12 @@
 \alias{makeSelector}
 \title{Construct a selection operator.}
 \usage{
-makeSelector(selector, supported = getAvailableRepresentations(),
-  supported.objectives, supported.opt.direction = "minimize")
+makeSelector(
+  selector,
+  supported = getAvailableRepresentations(),
+  supported.objectives,
+  supported.opt.direction = "minimize"
+)
 }
 \arguments{
 \item{selector}{[\code{function}]\cr

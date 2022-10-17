@@ -4,8 +4,13 @@
 \alias{initLogger}
 \title{Initialize a log object.}
 \usage{
-initLogger(control, log.stats = list(fitness = list("min", "mean",
-  "max")), log.extras = NULL, log.pop = FALSE, init.size = 1000L)
+initLogger(
+  control,
+  log.stats = list(fitness = list("min", "mean", "max")),
+  log.extras = NULL,
+  log.pop = FALSE,
+  init.size = 1000L
+)
 }
 \arguments{
 \item{control}{[\code{ecr_control}]\cr
@@ -112,8 +117,10 @@ for (iter in seq_len(10)) {
 head(getStatistics(log))
 }
 \seealso{
-Other logging: \code{\link{getPopulationFitness}},
-  \code{\link{getPopulations}},
-  \code{\link{getStatistics}}, \code{\link{updateLogger}}
+Other logging: 
+\code{\link{getPopulationFitness}()},
+\code{\link{getPopulations}()},
+\code{\link{getStatistics}()},
+\code{\link{updateLogger}()}
 }
 \concept{logging}

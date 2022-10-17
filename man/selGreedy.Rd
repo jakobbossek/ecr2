@@ -22,9 +22,12 @@ Sorts the individuals according to their fitness value in increasing order
 and selects the best ones.
 }
 \seealso{
-Other selectors: \code{\link{selDomHV}},
-  \code{\link{selNondom}}, \code{\link{selRanking}},
-  \code{\link{selRoulette}}, \code{\link{selSimple}},
-  \code{\link{selTournament}}
+Other selectors: 
+\code{\link{selDomHV}()},
+\code{\link{selNondom}()},
+\code{\link{selRanking}()},
+\code{\link{selRoulette}()},
+\code{\link{selSimple}()},
+\code{\link{selTournament}()}
 }
 \concept{selectors}

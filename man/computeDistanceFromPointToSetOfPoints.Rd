@@ -4,8 +4,11 @@
 \alias{computeDistanceFromPointToSetOfPoints}
 \title{Computes distance between a single point and set of points.}
 \usage{
-computeDistanceFromPointToSetOfPoints(a, B,
-  dist.fun = computeEuclideanDistance)
+computeDistanceFromPointToSetOfPoints(
+  a,
+  B,
+  dist.fun = computeEuclideanDistance
+)
 }
 \arguments{
 \item{a}{[\code{numeric(1)}]\cr

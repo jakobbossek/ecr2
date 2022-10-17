@@ -6,14 +6,29 @@
 \alias{toLatex.data.frame}
 \title{Export results of statistical tests to LaTeX table(s).}
 \usage{
-toLatex(stats, stat.cols = NULL, probs = NULL, type = "by.instance",
-  cell.formatter = NULL)
+toLatex(
+  stats,
+  stat.cols = NULL,
+  probs = NULL,
+  type = "by.instance",
+  cell.formatter = NULL
+)
 
-\method{toLatex}{list}(stats, stat.cols = NULL, probs = NULL,
-  type = "by.instance", cell.formatter = NULL)
+\method{toLatex}{list}(
+  stats,
+  stat.cols = NULL,
+  probs = NULL,
+  type = "by.instance",
+  cell.formatter = NULL
+)
 
-\method{toLatex}{data.frame}(stats, stat.cols = NULL, probs = NULL,
-  type = "by.instance", cell.formatter = NULL)
+\method{toLatex}{data.frame}(
+  stats,
+  stat.cols = NULL,
+  probs = NULL,
+  type = "by.instance",
+  cell.formatter = NULL
+)
 }
 \arguments{
 \item{stats}{[\code{list}]\cr
@@ -50,13 +65,17 @@ on per-instance basis. I.e., a table is returned for each instances combining
 the results of different indicators.
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
-  \code{\link{approximateRefPoints}},
-  \code{\link{computeDominanceRanking}},
-  \code{\link{emoaIndEps}},
-  \code{\link{makeEMOAIndicator}},
-  \code{\link{niceCellFormater}}, \code{\link{normalize}},
-  \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}}
+Other EMOA performance assessment tools: 
+\code{\link{approximateNadirPoint}()},
+\code{\link{approximateRefPoints}()},
+\code{\link{computeDominanceRanking}()},
+\code{\link{emoaIndEps}()},
+\code{\link{makeEMOAIndicator}()},
+\code{\link{niceCellFormater}()},
+\code{\link{normalize}()},
+\code{\link{plotDistribution}()},
+\code{\link{plotFront}()},
+\code{\link{plotScatter2d}()},
+\code{\link{plotScatter3d}()}
 }
 \concept{EMOA performance assessment tools}

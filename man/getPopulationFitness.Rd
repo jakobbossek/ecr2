@@ -24,8 +24,10 @@ with columns f1, ..., fo, where o is the number of objectives and column
 \dQuote{gen} for generation.
 }
 \seealso{
-Other logging: \code{\link{getPopulations}},
-  \code{\link{getStatistics}}, \code{\link{initLogger}},
-  \code{\link{updateLogger}}
+Other logging: 
+\code{\link{getPopulations}()},
+\code{\link{getStatistics}()},
+\code{\link{initLogger}()},
+\code{\link{updateLogger}()}
 }
 \concept{logging}

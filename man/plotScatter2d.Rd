@@ -4,10 +4,18 @@
 \alias{plotScatter2d}
 \title{Visualize bi-objective Pareto-front approximations.}
 \usage{
-plotScatter2d(df, obj.cols = c("f1", "f2"), shape = "algorithm",
-  colour = NULL, highlight.algos = NULL, offset.highlighted = 0,
-  title = NULL, subtitle = NULL, facet.type = "wrap",
-  facet.args = list())
+plotScatter2d(
+  df,
+  obj.cols = c("f1", "f2"),
+  shape = "algorithm",
+  colour = NULL,
+  highlight.algos = NULL,
+  offset.highlighted = 0,
+  title = NULL,
+  subtitle = NULL,
+  facet.type = "wrap",
+  facet.args = list()
+)
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr
@@ -85,13 +93,17 @@ pl = plotFronts(mcMST, title = "Pareto-approximations",
 }
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
-  \code{\link{approximateRefPoints}},
-  \code{\link{computeDominanceRanking}},
-  \code{\link{emoaIndEps}},
-  \code{\link{makeEMOAIndicator}},
-  \code{\link{niceCellFormater}}, \code{\link{normalize}},
-  \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter3d}}, \code{\link{toLatex}}
+Other EMOA performance assessment tools: 
+\code{\link{approximateNadirPoint}()},
+\code{\link{approximateRefPoints}()},
+\code{\link{computeDominanceRanking}()},
+\code{\link{emoaIndEps}()},
+\code{\link{makeEMOAIndicator}()},
+\code{\link{niceCellFormater}()},
+\code{\link{normalize}()},
+\code{\link{plotDistribution}()},
+\code{\link{plotFront}()},
+\code{\link{plotScatter3d}()},
+\code{\link{toLatex}()}
 }
 \concept{EMOA performance assessment tools}

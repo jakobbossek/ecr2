@@ -4,7 +4,8 @@
 \name{mcMST}
 \alias{mcMST}
 \title{mcMST}
-\format{A data frame with four variables:
+\format{
+A data frame with four variables:
 \describe{
  \item{\code{f1}}{First objective (to be minimized).}
  \item{\code{f2}}{Second objective (to be minimized).}
@@ -13,7 +14,8 @@
  \item{\code{repl}}{Algorithm run.}
 }
 
-The data is based on the \pkg{mcMST} package.}
+The data is based on the \pkg{mcMST} package.
+}
 \usage{
 mcMST
 }

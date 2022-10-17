@@ -21,8 +21,11 @@ node indizes from the entire sequence of the second parent from the sescond
 cut point and b) fill the remaining gaps with this trimmed sequence.
 }
 \seealso{
-Other recombinators: \code{\link{recCrossover}},
-  \code{\link{recIntermediate}}, \code{\link{recPMX}},
-  \code{\link{recSBX}}, \code{\link{recUnifCrossover}}
+Other recombinators: 
+\code{\link{recCrossover}()},
+\code{\link{recIntermediate}()},
+\code{\link{recPMX}()},
+\code{\link{recSBX}()},
+\code{\link{recUnifCrossover}()}
 }
 \concept{recombinators}

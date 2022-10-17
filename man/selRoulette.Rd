@@ -41,9 +41,12 @@ value to be zero and thus have a zero probability of being selected an additiona
 positive constant \code{offset} is added (see parameters).
 }
 \seealso{
-Other selectors: \code{\link{selDomHV}},
-  \code{\link{selGreedy}}, \code{\link{selNondom}},
-  \code{\link{selRanking}}, \code{\link{selSimple}},
-  \code{\link{selTournament}}
+Other selectors: 
+\code{\link{selDomHV}()},
+\code{\link{selGreedy}()},
+\code{\link{selNondom}()},
+\code{\link{selRanking}()},
+\code{\link{selSimple}()},
+\code{\link{selTournament}()}
 }
 \concept{selectors}

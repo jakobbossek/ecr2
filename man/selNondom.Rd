@@ -23,9 +23,12 @@ distance computation to select a subset of individuals. This is the selector use
 by the famous NSGA-II EMOA (see \code{\link{nsga2}}).
 }
 \seealso{
-Other selectors: \code{\link{selDomHV}},
-  \code{\link{selGreedy}}, \code{\link{selRanking}},
-  \code{\link{selRoulette}}, \code{\link{selSimple}},
-  \code{\link{selTournament}}
+Other selectors: 
+\code{\link{selDomHV}()},
+\code{\link{selGreedy}()},
+\code{\link{selRanking}()},
+\code{\link{selRoulette}()},
+\code{\link{selSimple}()},
+\code{\link{selTournament}()}
 }
 \concept{selectors}

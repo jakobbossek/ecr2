@@ -4,8 +4,12 @@
 \alias{makeRecombinator}
 \title{Construct a recombination operator.}
 \usage{
-makeRecombinator(recombinator, supported = getAvailableRepresentations(),
-  n.parents = 2L, n.children = NULL)
+makeRecombinator(
+  recombinator,
+  supported = getAvailableRepresentations(),
+  n.parents = 2L,
+  n.children = NULL
+)
 }
 \arguments{
 \item{recombinator}{[\code{function}]\cr

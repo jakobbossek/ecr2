@@ -37,9 +37,12 @@ Eiben, A. E., & Smith, J. E. (2007). Introduction to evolutionary computing.
 Berlin: Springer.
 }
 \seealso{
-Other selectors: \code{\link{selDomHV}},
-  \code{\link{selGreedy}}, \code{\link{selNondom}},
-  \code{\link{selRoulette}}, \code{\link{selSimple}},
-  \code{\link{selTournament}}
+Other selectors: 
+\code{\link{selDomHV}()},
+\code{\link{selGreedy}()},
+\code{\link{selNondom}()},
+\code{\link{selRoulette}()},
+\code{\link{selSimple}()},
+\code{\link{selTournament}()}
 }
 \concept{selectors}

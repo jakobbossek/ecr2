@@ -17,10 +17,14 @@ Permutation of integers, i.e., vector of integer values.}
 Chooses two positions at random and swaps the genes.
 }
 \seealso{
-Other mutators: \code{\link{mutBitflip}},
-  \code{\link{mutGauss}}, \code{\link{mutInsertion}},
-  \code{\link{mutInversion}}, \code{\link{mutJump}},
-  \code{\link{mutPolynomial}}, \code{\link{mutScramble}},
-  \code{\link{mutUniform}}
+Other mutators: 
+\code{\link{mutBitflip}()},
+\code{\link{mutGauss}()},
+\code{\link{mutInsertion}()},
+\code{\link{mutInversion}()},
+\code{\link{mutJump}()},
+\code{\link{mutPolynomial}()},
+\code{\link{mutScramble}()},
+\code{\link{mutUniform}()}
 }
 \concept{mutators}

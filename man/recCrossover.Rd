@@ -25,8 +25,11 @@ If the parents are list of real-valued/binary vectors, the procedure described
 above is applied to each element of the list.
 }
 \seealso{
-Other recombinators: \code{\link{recIntermediate}},
-  \code{\link{recOX}}, \code{\link{recPMX}},
-  \code{\link{recSBX}}, \code{\link{recUnifCrossover}}
+Other recombinators: 
+\code{\link{recIntermediate}()},
+\code{\link{recOX}()},
+\code{\link{recPMX}()},
+\code{\link{recSBX}()},
+\code{\link{recUnifCrossover}()}
 }
 \concept{recombinators}

@@ -17,8 +17,9 @@ Pareto archive.}
 Get the non-dominated individuals logged in the Pareto archive.
 }
 \seealso{
-Other ParetoArchive: \code{\link{getSize}},
-  \code{\link{initParetoArchive}},
-  \code{\link{updateParetoArchive}}
+Other ParetoArchive: 
+\code{\link{getSize}()},
+\code{\link{initParetoArchive}()},
+\code{\link{updateParetoArchive}()}
 }
 \concept{ParetoArchive}

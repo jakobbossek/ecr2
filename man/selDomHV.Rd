@@ -32,9 +32,12 @@ and the selection process quits with an error message if \code{n.select} is grea
 than 1.
 }
 \seealso{
-Other selectors: \code{\link{selGreedy}},
-  \code{\link{selNondom}}, \code{\link{selRanking}},
-  \code{\link{selRoulette}}, \code{\link{selSimple}},
-  \code{\link{selTournament}}
+Other selectors: 
+\code{\link{selGreedy}()},
+\code{\link{selNondom}()},
+\code{\link{selRanking}()},
+\code{\link{selRoulette}()},
+\code{\link{selSimple}()},
+\code{\link{selTournament}()}
 }
 \concept{selectors}

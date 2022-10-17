@@ -20,6 +20,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,16 +41,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -68,7 +64,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jakobbossek/ecr2/">
+  <a href="https://github.com/jakobbossek/ecr2/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -87,121 +83,121 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Brief introduction to ecr</h1>
-                        <h4 class="author">Jakob Bossek</h4>
+                        <h4 data-toc-skip class="author">Jakob Bossek</h4>
             
-            <h4 class="date">2021-06-29</h4>
+            <h4 data-toc-skip class="date">2022-10-17</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/jakobbossek/ecr2/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jakobbossek/ecr2/blob/HEAD/vignettes/introduction.Rmd" class="external-link"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
 
     </div>
 
     
     
-<div id="a-gentle-introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#a-gentle-introduction" class="anchor"></a>A gentle introduction</h1>
-<p>The <strong>ecr</strong> package, <em>Evolutionary Computation in R (2nd version)</em>, is conceived as a “white-box” framework for single- and multi-objective optimization strongly inspired by the awesome <a href="https://github.com/DEAP/deap">Evolutionary Computation (EC) framework DEAP</a> for the Python programming language. In contrast to black-box frameworks, which usually try to hide as much of internal complexity (e.g., data structures) in opaque high-level EC components, <strong>ecr</strong> makes the development of evolutionary algorithms (EA) - as DEAP does - transparent: the evolutionary loop is written by hand sticking to few conventions, utilizing few simple utility functions and controlling everything. We believe, that this is the most flexible way in evolutionary algorithm design. On top <strong>ecr</strong> ships with a black-box for <em>standard tasks</em>, e.g., optimization of a continuous function, as well. The core features of <strong>ecr</strong> are the following</p>
+<div class="section level2">
+<h2 id="a-gentle-introduction">A gentle introduction<a class="anchor" aria-label="anchor" href="#a-gentle-introduction"></a>
+</h2>
+<p>The <strong>ecr</strong> package, <em>Evolutionary Computation in R (2nd version)</em>, is conceived as a “white-box” framework for single- and multi-objective optimization strongly inspired by the awesome <a href="https://github.com/DEAP/deap" class="external-link">Evolutionary Computation (EC) framework DEAP</a> for the Python programming language. In contrast to black-box frameworks, which usually try to hide as much of internal complexity (e.g., data structures) in opaque high-level EC components, <strong>ecr</strong> makes the development of evolutionary algorithms (EA) - as DEAP does - transparent: the evolutionary loop is written by hand sticking to few conventions, utilizing few simple utility functions and controlling everything. We believe, that this is the most flexible way in evolutionary algorithm design. On top <strong>ecr</strong> ships with a black-box for <em>standard tasks</em>, e.g., optimization of a continuous function, as well. The core features of <strong>ecr</strong> are the following</p>
 <ul>
 <li>Flexible <em>white-box</em> approach to EA design and implementation.</li>
 <li>A lot of predefined EA operators for standard representations, i.e., permutations, binary strings and real-values vectors.</li>
 <li>Powerful logging mechanism.</li>
 <li>Possibility to use custom representations/genotypes.</li>
 <li>Possibility to define custom EA operators, i.e., mutation, variation and selection operators.</li>
-<li>Easy parallelization via <a href="https://cran.r-project.org/package=parallelMap">parallelMap</a>
+<li>Easy parallelization via <a href="https://cran.r-project.org/package=parallelMap" class="external-link">parallelMap</a>
 </li>
 <li>Black-box approach for standard tasks.</li>
 <li>Single- and multi-objective optimization.</li>
 <li>Implementations of some popular performance indicators in Evolutionary Multi-Objective Optimization (EMOA), e.g., hyper-volume-indicator, epsilon indicator as well as R1, R2 and R3 indicator.</li>
 <li>Predefined state-of-the-art EMOA algorithms NSGA-II, SMS-EMOA and AS-EMOA.</li>
 </ul>
-<p>The best way to illustrate the process of algorithm design in <strong>ecr</strong> is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package <a href="https://cran.r-project.org/package=smoof">smoof</a> and may be initialized as follows:</p>
+<p>The best way to illustrate the process of algorithm design in <strong>ecr</strong> is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package <a href="https://cran.r-project.org/package=smoof" class="external-link">smoof</a> and may be initialized as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jakobbossek/ecr2">ecr</a></span><span class="op">)</span>
-<span class="co">#&gt; Loading required package: BBmisc</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'BBmisc'</span>
-<span class="co">#&gt; The following object is masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     isFALSE</span>
-<span class="co">#&gt; Loading required package: smoof</span>
-<span class="co">#&gt; Loading required package: ParamHelpers</span>
-<span class="co">#&gt; Loading required package: checkmate</span>
-<span class="co">#&gt; Warning in fun(libname, pkgname): no display name and no $DISPLAY environment</span>
-<span class="co">#&gt; variable</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'ecr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:BBmisc':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     explode, normalize</span>
-<span class="co">#&gt; The following object is masked from 'package:utils':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     toLatex</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jakobbossek/smoof">smoof</a></span><span class="op">)</span>
-<span class="va">fn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/makeAckleyFunction.html">makeAckleyFunction</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span>
-<span class="va">pl</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">fn</span>, show.optimum<span class="op">=</span><span class="cn">TRUE</span>, length.out <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">pl</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jakobbossek/ecr2" class="external-link">ecr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: BBmisc</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'BBmisc'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     isFALSE</span></span>
+<span><span class="co">#&gt; Loading required package: smoof</span></span>
+<span><span class="co">#&gt; Loading required package: ParamHelpers</span></span>
+<span><span class="co">#&gt; Loading required package: checkmate</span></span>
+<span><span class="co">#&gt; Warning in fun(libname, pkgname): no display name and no $DISPLAY environment</span></span>
+<span><span class="co">#&gt; variable</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'ecr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:BBmisc':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     explode, normalize</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:utils':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     toLatex</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jakobbossek/smoof" class="external-link">smoof</a></span><span class="op">)</span></span>
+<span><span class="va">fn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/makeAckleyFunction.html" class="external-link">makeAckleyFunction</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span>
+<span><span class="va">pl</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">fn</span>, show.optimum<span class="op">=</span><span class="cn">TRUE</span>, length.out <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pl</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="introduction_files/figure-html/unnamed-chunk-2-1.png" alt="One-dimensional Ackley test function." width="576"><p class="caption">
 One-dimensional Ackley test function.
 </p>
 </div>
-<div id="writing-the-evolutionary-loop-by-hand" class="section level2">
-<h2 class="hasAnchor">
-<a href="#writing-the-evolutionary-loop-by-hand" class="anchor"></a>Writing the evolutionary loop by hand</h2>
+<div class="section level3">
+<h3 id="writing-the-evolutionary-loop-by-hand">Writing the evolutionary loop by hand<a class="anchor" aria-label="anchor" href="#writing-the-evolutionary-loop-by-hand"></a>
+</h3>
 <p>We decide to use an evolutionary <span class="math inline">\((30 + 5)\)</span>-strategy, i.e., an algorithm that keeps a population of size mu = 30, in each generation creates lambda = 5 offspring by variation and selects the best mu out of mu + lambda individuals to survive. First, we define some variables.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">MU</span> <span class="op">=</span> <span class="fl">30L</span>; <span class="va">LAMBDA</span> <span class="op">=</span> <span class="fl">5L</span>; <span class="va">MAX.ITER</span> <span class="op">=</span> <span class="fl">200L</span>
-<span class="va">lower</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/getLowerBoxConstraints.html">getLowerBoxConstraints</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span>
-<span class="va">upper</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/getUpperBoxConstraints.html">getUpperBoxConstraints</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">MU</span> <span class="op">=</span> <span class="fl">30L</span>; <span class="va">LAMBDA</span> <span class="op">=</span> <span class="fl">5L</span>; <span class="va">MAX.ITER</span> <span class="op">=</span> <span class="fl">200L</span></span>
+<span><span class="va">lower</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/getLowerBoxConstraints.html" class="external-link">getLowerBoxConstraints</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></span>
+<span><span class="va">upper</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/getUpperBoxConstraints.html" class="external-link">getUpperBoxConstraints</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></span></code></pre></div>
 <p>In order to implement this algorithm the first step is to define a <em>control object</em>, which stores information on the objective function and a set of evolutionary operators.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">control</span> <span class="op">=</span> <span class="fu"><a href="../reference/initECRControl.html">initECRControl</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span>
-<span class="va">control</span> <span class="op">=</span> <span class="fu"><a href="../reference/registerECROperator.html">registerECROperator</a></span><span class="op">(</span><span class="va">control</span>, <span class="st">"mutate"</span>, <span class="va">mutGauss</span>, sdev <span class="op">=</span> <span class="fl">2</span>, lower <span class="op">=</span> <span class="va">lower</span>, upper <span class="op">=</span> <span class="va">upper</span><span class="op">)</span>
-<span class="va">control</span> <span class="op">=</span> <span class="fu"><a href="../reference/registerECROperator.html">registerECROperator</a></span><span class="op">(</span><span class="va">control</span>, <span class="st">"selectForSurvival"</span>, <span class="va">selGreedy</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">control</span> <span class="op">=</span> <span class="fu"><a href="../reference/initECRControl.html">initECRControl</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></span>
+<span><span class="va">control</span> <span class="op">=</span> <span class="fu"><a href="../reference/registerECROperator.html">registerECROperator</a></span><span class="op">(</span><span class="va">control</span>, <span class="st">"mutate"</span>, <span class="va">mutGauss</span>, sdev <span class="op">=</span> <span class="fl">2</span>, lower <span class="op">=</span> <span class="va">lower</span>, upper <span class="op">=</span> <span class="va">upper</span><span class="op">)</span></span>
+<span><span class="va">control</span> <span class="op">=</span> <span class="fu"><a href="../reference/registerECROperator.html">registerECROperator</a></span><span class="op">(</span><span class="va">control</span>, <span class="st">"selectForSurvival"</span>, <span class="va">selGreedy</span><span class="op">)</span></span></code></pre></div>
 <p>Here, we decide to perform mutation only. The best mu individuals (regarding fitness values) are going to be selected to build up the next generation.</p>
 <p>Finally, the evolutionary loop is implemented.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">population</span> <span class="op">=</span> <span class="fu"><a href="../reference/generators.html">genReal</a></span><span class="op">(</span><span class="va">MU</span>, <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/getNumberOfParameters.html">getNumberOfParameters</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span>, <span class="va">lower</span>, <span class="va">upper</span><span class="op">)</span>
-<span class="va">fitness</span> <span class="op">=</span> <span class="fu"><a href="../reference/evaluateFitness.html">evaluateFitness</a></span><span class="op">(</span><span class="va">control</span>, <span class="va">population</span><span class="op">)</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">MAX.ITER</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># sample lambda individuals at random</span>
-    <span class="va">idx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">MU</span>, <span class="va">LAMBDA</span><span class="op">)</span>
-    <span class="co"># generate offspring by mutation and evaluate their fitness</span>
-    <span class="va">offspring</span> <span class="op">=</span> <span class="fu"><a href="../reference/generateOffspring.html">mutate</a></span><span class="op">(</span><span class="va">control</span>, <span class="va">population</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span>, p.mut <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-    <span class="va">fitness.o</span> <span class="op">=</span> <span class="fu"><a href="../reference/evaluateFitness.html">evaluateFitness</a></span><span class="op">(</span><span class="va">control</span>, <span class="va">offspring</span><span class="op">)</span>
-
-    <span class="co"># now select the best out of the union of population and offspring</span>
-    <span class="va">sel</span> <span class="op">=</span> <span class="fu"><a href="../reference/replace.html">replaceMuPlusLambda</a></span><span class="op">(</span><span class="va">control</span>, <span class="va">population</span>, <span class="va">offspring</span>, <span class="va">fitness</span>, <span class="va">fitness.o</span><span class="op">)</span>
-    <span class="va">population</span> <span class="op">=</span> <span class="va">sel</span><span class="op">$</span><span class="va">population</span>
-    <span class="va">fitness</span> <span class="op">=</span> <span class="va">sel</span><span class="op">$</span><span class="va">fitness</span>
-<span class="op">}</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">fitness</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.02800801</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">population</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">fitness</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;            x </span>
-<span class="co">#&gt; -0.006448636</span></code></pre></div>
-<div id="black-box-approach" class="section level3">
-<h3 class="hasAnchor">
-<a href="#black-box-approach" class="anchor"></a>Black-box approach</h3>
-<p>Since the optimization of a continuous numeric function is a standard task in EC, <strong>ecr</strong> ships with a black-box function <code><a href="../reference/ecr.html">ecr(...)</a></code> which basically is a customizable wrapper around the loop above. A lot of tasks can be accomplished by utlizing this single entry point. However, often EA design requires small tweaks, changes and adaptations which are simply impossible to realize with a black box regardless of their flexebility.</p>
-<p>The optimization of our 1D Ackley-function via <code><a href="../reference/ecr.html">ecr(...)</a></code> might look like this:</p>
+<code class="sourceCode R"><span><span class="va">population</span> <span class="op">=</span> <span class="fu"><a href="../reference/generators.html">genReal</a></span><span class="op">(</span><span class="va">MU</span>, <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/getNumberOfParameters.html" class="external-link">getNumberOfParameters</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span>, <span class="va">lower</span>, <span class="va">upper</span><span class="op">)</span></span>
+<span><span class="va">fitness</span> <span class="op">=</span> <span class="fu"><a href="../reference/evaluateFitness.html">evaluateFitness</a></span><span class="op">(</span><span class="va">control</span>, <span class="va">population</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">MAX.ITER</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># sample lambda individuals at random</span></span>
+<span>    <span class="va">idx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">MU</span>, <span class="va">LAMBDA</span><span class="op">)</span></span>
+<span>    <span class="co"># generate offspring by mutation and evaluate their fitness</span></span>
+<span>    <span class="va">offspring</span> <span class="op">=</span> <span class="fu"><a href="../reference/generateOffspring.html">mutate</a></span><span class="op">(</span><span class="va">control</span>, <span class="va">population</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span>, p.mut <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="va">fitness.o</span> <span class="op">=</span> <span class="fu"><a href="../reference/evaluateFitness.html">evaluateFitness</a></span><span class="op">(</span><span class="va">control</span>, <span class="va">offspring</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># now select the best out of the union of population and offspring</span></span>
+<span>    <span class="va">sel</span> <span class="op">=</span> <span class="fu"><a href="../reference/replace.html">replaceMuPlusLambda</a></span><span class="op">(</span><span class="va">control</span>, <span class="va">population</span>, <span class="va">offspring</span>, <span class="va">fitness</span>, <span class="va">fitness.o</span><span class="op">)</span></span>
+<span>    <span class="va">population</span> <span class="op">=</span> <span class="va">sel</span><span class="op">$</span><span class="va">population</span></span>
+<span>    <span class="va">fitness</span> <span class="op">=</span> <span class="va">sel</span><span class="op">$</span><span class="va">fitness</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">fitness</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.0007944598</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">population</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="va">fitness</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            x </span></span>
+<span><span class="co">#&gt; 0.0001980925</span></span></code></pre></div>
+<div class="section level4">
+<h4 id="black-box-approach">Black-box approach<a class="anchor" aria-label="anchor" href="#black-box-approach"></a>
+</h4>
+<p>Since the optimization of a continuous numeric function is a standard task in EC, <strong>ecr</strong> ships with a black-box function <code>ecr(...)</code> which basically is a customizable wrapper around the loop above. A lot of tasks can be accomplished by utlizing this single entry point. However, often EA design requires small tweaks, changes and adaptations which are simply impossible to realize with a black box regardless of their flexebility.</p>
+<p>The optimization of our 1D Ackley-function via <code>ecr(...)</code> might look like this:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="../reference/ecr.html">ecr</a></span><span class="op">(</span>fitness.fun <span class="op">=</span> <span class="va">fn</span>, representation <span class="op">=</span> <span class="st">"float"</span>,
-  n.dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/getNumberOfParameters.html">getNumberOfParameters</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span>, survival.strategy <span class="op">=</span> <span class="st">"plus"</span>,
-  lower <span class="op">=</span> <span class="va">lower</span>, upper <span class="op">=</span> <span class="va">upper</span>,
-  mu <span class="op">=</span> <span class="va">MU</span>, lambda <span class="op">=</span> <span class="va">LAMBDA</span>,
-  mutator <span class="op">=</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span><span class="va">mutGauss</span>, sdev <span class="op">=</span> <span class="fl">2</span>, lower <span class="op">=</span> <span class="va">lower</span>, upper <span class="op">=</span> <span class="va">upper</span><span class="op">)</span>,
-  terminators <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/stoppingConditions.html">stopOnIters</a></span><span class="op">(</span><span class="va">MAX.ITER</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">best.y</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.001075769</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">best.x</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt;            x </span>
-<span class="co">#&gt; -0.000267986 </span>
-<span class="co">#&gt; attr(,"fitness")</span>
-<span class="co">#&gt; [1] 0.001075769</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="../reference/ecr.html">ecr</a></span><span class="op">(</span>fitness.fun <span class="op">=</span> <span class="va">fn</span>, representation <span class="op">=</span> <span class="st">"float"</span>,</span>
+<span>  n.dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/smoof/man/getNumberOfParameters.html" class="external-link">getNumberOfParameters</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span>, survival.strategy <span class="op">=</span> <span class="st">"plus"</span>,</span>
+<span>  lower <span class="op">=</span> <span class="va">lower</span>, upper <span class="op">=</span> <span class="va">upper</span>,</span>
+<span>  mu <span class="op">=</span> <span class="va">MU</span>, lambda <span class="op">=</span> <span class="va">LAMBDA</span>,</span>
+<span>  mutator <span class="op">=</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span><span class="va">mutGauss</span>, sdev <span class="op">=</span> <span class="fl">2</span>, lower <span class="op">=</span> <span class="va">lower</span>, upper <span class="op">=</span> <span class="va">upper</span><span class="op">)</span>,</span>
+<span>  terminators <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/stoppingConditions.html">stopOnIters</a></span><span class="op">(</span><span class="va">MAX.ITER</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">best.y</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.005514439</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">best.x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt;            x </span></span>
+<span><span class="co">#&gt; -0.001354194 </span></span>
+<span><span class="co">#&gt; attr(,"fitness")</span></span>
+<span><span class="co">#&gt; [1] 0.005514439</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -218,11 +214,13 @@ One-dimensional Ackley test function.
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.jakobbossek.de">Jakob Bossek</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.jakobbossek.de" class="external-link">Jakob Bossek</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -230,6 +228,8 @@ One-dimensional Ackley test function.
 
   
 
+
+  
 
   </body>
 </html>

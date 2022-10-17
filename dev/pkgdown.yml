@@ -1,8 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   introduction: introduction.html
   multiobjective: multiobjective.html
-last_built: 2021-06-29T18:10Z
+last_built: 2022-10-17T10:46Z
 

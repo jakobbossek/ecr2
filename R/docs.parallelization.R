@@ -4,7 +4,7 @@
 #' In ecr it is possible to parallelize the fitness function evaluation
 #' to make use, e.g., of multiple CP cores or nodes in a HPC cluster.
 #' For maximal flexibility this is realized by means of the \pkg{parallelMap} package
-#' (see the \href{https://github.com/berndbischl/parallelMap}{official
+#' (see the \href{https://github.com/mlr-org/parallelMap}{official
 #' GitHub page} for instructions on how to set up parallelization).
 #' The different levels of parallelization can be specified in the
 #' \code{parallelStart*} function. At them moment only the level

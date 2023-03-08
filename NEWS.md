@@ -1,4 +1,34 @@
-# ecr 2.1.1 (upcoming)
+# ecr 2.2.1
+
+## Fixes
+
+* Fixed warnings raised by r-devel versions
+* Fixed typo in the docs of approximateRefSets yielding the function not being exported
+
+
+# ecr 2.2.0
+
+## Fixes
+
+* Fixed bug in mutPolynomial where parameter lower was sanity-checked twice and upper not at all
+* Fixed some typos in function documentations
+* Fixed bug in updateParetoArchive: optimization direction, e.g., minimize first, maximize second objective are now respected
+
+## Added
+
+* More literature references in documentation
+
+## New features
+
+* Performance assessment for stochastic multi-objective optimization algorithms (very powerful tool)
+  * Flexible scatterplots in 2D and 3D
+  * Function to calculate a set of unary and binary performance indicators for a set of problems and algorithms
+  * Function to visualize indicator distrbutions
+  * Functions to perform statistical tests and output results as well-formatted LaTeX tables
+* Exported helper functions getNumberOfChildren, getNumberOfParentsNeededForMating and generatesMultipleChildren
+
+
+# ecr 2.1.1
 
 ## Fixes
 

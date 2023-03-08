@@ -4,16 +4,14 @@
 <!-- badges: start -->
 
 [![CRAN Status
-Badge](http://www.r-pkg.org/badges/version/ecr)](http://cran.r-project.org/web/packages/ecr)
+Badge](http://www.r-pkg.org/badges/version/ecr)](https://cran.r-project.org/package=ecr)
 [![CRAN
-Downloads](http://cranlogs.r-pkg.org/badges/ecr)](http://cran.rstudio.com/web/packages/ecr/index.html)
+Downloads](http://cranlogs.r-pkg.org/badges/ecr)](https://cran.r-project.org/package=ecr)
 [![CRAN
-Downloads](http://cranlogs.r-pkg.org/badges/grand-total/ecr?color=orange)](http://cran.rstudio.com/web/packages/ecr/index.html)
+Downloads](http://cranlogs.r-pkg.org/badges/grand-total/ecr?color=orange)](https://cran.r-project.org/package=ecr)
 [![R-CMD-check](https://github.com/jakobbossek/ecr2/workflows/R-CMD-check/badge.svg)](https://github.com/jakobbossek/ecr2/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/jakobbossek/ecr2/branch/master/graph/badge.svg)](https://codecov.io/gh/jakobbossek/ecr2?branch=master)
-[![Research software
-impact](http://depsy.org/api/package/cran/ecr/badge.svg)](http://depsy.org/package/r/ecr)
+coverage](https://codecov.io/gh/jakobbossek/ecr2/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jakobbossek/ecr2?branch=master)
 <!-- badges: end -->
 
 **NOTE:** The **ecr package v2** is the official follow-up package to my
@@ -67,7 +65,7 @@ of ecr are the following
 -   Possibility to define custom EA operators, i.e., mutation, variation
     and selection operators.
 -   Easy parallelization via
-    [parallelMap](https://cran.r-project.org/web/packages/parallelMap/index.html)
+    [parallelMap](https://cran.r-project.org/package=parallelMap)
 -   Black-box approach for standard tasks.
 -   Single- and multi-objective optimization.
 -   Implementations of some popular performance indicators in
@@ -80,9 +78,8 @@ of ecr are the following
 The best way to illustrate the process of algorithm design in **ecr** is
 by example. Assume we aim to find the global minimum of the highly
 multimodal one-dimensional Ackley-Function. The function is available in
-the R package
-[smoof](https://cran.r-project.org/web/packages/smoof/index.html) and
-may be initialized as follows:
+the R package [smoof](https://cran.r-project.org/package=smoof) and may
+be initialized as follows:
 
 ``` r
 library(ecr)
@@ -171,8 +168,9 @@ print(res$best.x)
 
 ## Installation Instructions
 
-The package will be available at [CRAN](http://cran.r-project.org) soon.
-Install the release version via:
+The package is available at
+[CRAN](https://cran.r-project.org/package=ecr). Install the release
+version via:
 
 ``` r
 install.packages("ecr")
@@ -180,7 +178,7 @@ install.packages("ecr")
 
 If you are interested in trying out and playing around with the current
 github developer version use the
-[devtools](https://github.com/hadley/devtools) package and type the
+[devtools](https://github.com/r-lib/devtools) package and type the
 following command in R:
 
 ``` r
@@ -193,14 +191,14 @@ To cite **ecr** please use: \> Bossek, J. (2017). Ecr 2.0: A Modular
 Framework for Evolutionary Computation \> in R. In Proceedings of the
 Genetic and Evolutionary Computation Conference \> (GECCO) Companion
 (pp. 1187–1193). Berlin, Germany: \> ACM.
-<http://doi.org/10.1145/3067695.3082470>
+<https://doi.org/10.1145/3067695.3082470>
 
 In case you made use of **ecr**’s performance assessment tools please
 cite: \> Bossek, J. (2018). Performance Assessment of Multi-objective
 Evolutionary \> Algorithms with the R Package Ecr. In Proceedings of the
 Genetic and \> Evolutionary Computation Conference Companion
 (pp. 1350–1356). Kyoto, Japan: \> ACM.
-<http://doi.org/10.1145/3205651.3208312>
+<https://doi.org/10.1145/3205651.3208312>
 
 BibTeX entries for LaTeX users:
 
@@ -213,7 +211,7 @@ BibTeX entries for LaTeX users:
       address = {Kyoto, Japan},
       series = {GECCO '18},
       title = {{Performance Assessment of Multi-objective Evolutionary Algorithms with the R Package Ecr}},
-      url = {http://doi.acm.org/10.1145/3205651.3208312},
+      url = {https://doi.acm.org/10.1145/3205651.3208312},
       year = {2018}
     }
     @inproceedings{B2017ecr,
@@ -225,7 +223,7 @@ BibTeX entries for LaTeX users:
       series = {GECCO '18},
       address = {Berlin, Germany},
       title = {{Ecr 2.0: A Modular Framework for Evolutionary Computation in R}},
-      url = {http://doi.acm.org/10.1145/3067695.3082470},
+      url = {https://doi.acm.org/10.1145/3067695.3082470},
       year = {2017}
     }
 

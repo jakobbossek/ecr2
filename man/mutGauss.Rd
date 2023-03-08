@@ -41,10 +41,14 @@ on a Pareto ranking for multi-objective evolutionary algorithms.
 Springer Science+Business Meda. 57.
 }
 \seealso{
-Other mutators: \code{\link{mutBitflip}},
-  \code{\link{mutInsertion}}, \code{\link{mutInversion}},
-  \code{\link{mutJump}}, \code{\link{mutPolynomial}},
-  \code{\link{mutScramble}}, \code{\link{mutSwap}},
-  \code{\link{mutUniform}}
+Other mutators: 
+\code{\link{mutBitflip}()},
+\code{\link{mutInsertion}()},
+\code{\link{mutInversion}()},
+\code{\link{mutJump}()},
+\code{\link{mutPolynomial}()},
+\code{\link{mutScramble}()},
+\code{\link{mutSwap}()},
+\code{\link{mutUniform}()}
 }
 \concept{mutators}

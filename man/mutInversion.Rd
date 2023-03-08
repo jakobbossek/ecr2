@@ -18,10 +18,14 @@ The Inversion mutation operator selects two positions within the chromosome at
 random and inverts the elements inbetween.
 }
 \seealso{
-Other mutators: \code{\link{mutBitflip}},
-  \code{\link{mutGauss}}, \code{\link{mutInsertion}},
-  \code{\link{mutJump}}, \code{\link{mutPolynomial}},
-  \code{\link{mutScramble}}, \code{\link{mutSwap}},
-  \code{\link{mutUniform}}
+Other mutators: 
+\code{\link{mutBitflip}()},
+\code{\link{mutGauss}()},
+\code{\link{mutInsertion}()},
+\code{\link{mutJump}()},
+\code{\link{mutPolynomial}()},
+\code{\link{mutScramble}()},
+\code{\link{mutSwap}()},
+\code{\link{mutUniform}()}
 }
 \concept{mutators}

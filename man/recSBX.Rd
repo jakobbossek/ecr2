@@ -40,8 +40,11 @@ This is the default recombination operator used in the NSGA-II EMOA (see \code{\
 search space. Complex Systems 9(2), 115-148.
 }
 \seealso{
-Other recombinators: \code{\link{recCrossover}},
-  \code{\link{recIntermediate}}, \code{\link{recOX}},
-  \code{\link{recPMX}}, \code{\link{recUnifCrossover}}
+Other recombinators: 
+\code{\link{recCrossover}()},
+\code{\link{recIntermediate}()},
+\code{\link{recOX}()},
+\code{\link{recPMX}()},
+\code{\link{recUnifCrossover}()}
 }
 \concept{recombinators}

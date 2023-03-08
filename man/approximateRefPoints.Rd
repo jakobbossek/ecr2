@@ -4,8 +4,7 @@
 \alias{approximateRefPoints}
 \title{Helper function to estimate reference points.}
 \usage{
-approximateRefPoints(df, obj.cols = c("f1", "f2"), offset = 0,
-  as.df = FALSE)
+approximateRefPoints(df, obj.cols = c("f1", "f2"), offset = 0, as.df = FALSE)
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr
@@ -30,13 +29,17 @@ Default is \code{FALSE}. In this case a named list is returned.}
 E.g., for calculation of dominated hypervolume.
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
-  \code{\link{computeDominanceRanking}},
-  \code{\link{emoaIndEps}},
-  \code{\link{makeEMOAIndicator}},
-  \code{\link{niceCellFormater}}, \code{\link{normalize}},
-  \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
-  \code{\link{toLatex}}
+Other EMOA performance assessment tools: 
+\code{\link{approximateNadirPoint}()},
+\code{\link{computeDominanceRanking}()},
+\code{\link{emoaIndEps}()},
+\code{\link{makeEMOAIndicator}()},
+\code{\link{niceCellFormater}()},
+\code{\link{normalize}()},
+\code{\link{plotDistribution}()},
+\code{\link{plotFront}()},
+\code{\link{plotScatter2d}()},
+\code{\link{plotScatter3d}()},
+\code{\link{toLatex}()}
 }
 \concept{EMOA performance assessment tools}

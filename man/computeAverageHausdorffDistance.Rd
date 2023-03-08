@@ -4,8 +4,13 @@
 \alias{computeAverageHausdorffDistance}
 \title{Average Hausdorff Distance computation.}
 \usage{
-computeAverageHausdorffDistance(A, B, p = 1, normalize = FALSE,
-  dist.fun = computeEuclideanDistance)
+computeAverageHausdorffDistance(
+  A,
+  B,
+  p = 1,
+  normalize = FALSE,
+  dist.fun = computeEuclideanDistance
+)
 }
 \arguments{
 \item{A}{[\code{matrix}]\cr

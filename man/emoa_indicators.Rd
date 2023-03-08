@@ -21,14 +21,35 @@ emoaIndEps(points, ref.points, ...)
 
 emoaIndHV(points, ref.points, ref.point = NULL, ...)
 
-emoaIndR1(points, ref.points, ideal.point = NULL, nadir.point = NULL,
-  lambda = NULL, utility = "tschebycheff", ...)
+emoaIndR1(
+  points,
+  ref.points,
+  ideal.point = NULL,
+  nadir.point = NULL,
+  lambda = NULL,
+  utility = "tschebycheff",
+  ...
+)
 
-emoaIndR2(points, ref.points, ideal.point = NULL, nadir.point = NULL,
-  lambda = NULL, utility = "tschebycheff", ...)
+emoaIndR2(
+  points,
+  ref.points,
+  ideal.point = NULL,
+  nadir.point = NULL,
+  lambda = NULL,
+  utility = "tschebycheff",
+  ...
+)
 
-emoaIndR3(points, ref.points, ideal.point = NULL, nadir.point = NULL,
-  lambda = NULL, utility = "tschebycheff", ...)
+emoaIndR3(
+  points,
+  ref.points,
+  ideal.point = NULL,
+  nadir.point = NULL,
+  lambda = NULL,
+  utility = "tschebycheff",
+  ...
+)
 
 emoaIndMD(points, ...)
 
@@ -38,14 +59,32 @@ emoaIndM1(points, ref.points, ...)
 
 emoaIndONVG(points, ...)
 
-emoaIndGD(points, ref.points, p = 1, normalize = FALSE,
-  dist.fun = computeEuclideanDistance, ...)
+emoaIndGD(
+  points,
+  ref.points,
+  p = 1,
+  normalize = FALSE,
+  dist.fun = computeEuclideanDistance,
+  ...
+)
 
-emoaIndIGD(points, ref.points, p = 1, normalize = FALSE,
-  dist.fun = computeEuclideanDistance, ...)
+emoaIndIGD(
+  points,
+  ref.points,
+  p = 1,
+  normalize = FALSE,
+  dist.fun = computeEuclideanDistance,
+  ...
+)
 
-emoaIndDeltap(points, ref.points, p = 1, normalize = FALSE,
-  dist.fun = computeEuclideanDistance, ...)
+emoaIndDeltap(
+  points,
+  ref.points,
+  p = 1,
+  normalize = FALSE,
+  dist.fun = computeEuclideanDistance,
+  ...
+)
 
 emoaIndSP(points, ...)
 
@@ -132,13 +171,17 @@ distance. Next, normalize by the number of points minus 1 and finally calculate 
 square root. In contrast, Delta-indicator
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
-  \code{\link{approximateRefPoints}},
-  \code{\link{computeDominanceRanking}},
-  \code{\link{makeEMOAIndicator}},
-  \code{\link{niceCellFormater}}, \code{\link{normalize}},
-  \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
-  \code{\link{toLatex}}
+Other EMOA performance assessment tools: 
+\code{\link{approximateNadirPoint}()},
+\code{\link{approximateRefPoints}()},
+\code{\link{computeDominanceRanking}()},
+\code{\link{makeEMOAIndicator}()},
+\code{\link{niceCellFormater}()},
+\code{\link{normalize}()},
+\code{\link{plotDistribution}()},
+\code{\link{plotFront}()},
+\code{\link{plotScatter2d}()},
+\code{\link{plotScatter3d}()},
+\code{\link{toLatex}()}
 }
 \concept{EMOA performance assessment tools}

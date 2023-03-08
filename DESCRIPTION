@@ -1,9 +1,9 @@
 Package: ecr
 Title: Evolutionary Computation in R
 Description: Framework for building evolutionary algorithms for both single- and multi-objective continuous or discrete optimization problems. A set of predefined evolutionary building blocks and operators is included. Moreover, the user can easily set up custom objective functions, operators, building blocks and representations sticking to few conventions. The package allows both a black-box approach for standard tasks (plug-and-play style) and a much more flexible white-box approach where the evolutionary cycle is written by hand.
-Version: 2.1.0.9000
+Version: 2.1.1
 Encoding: UTF-8
-Date: 2017-07-09
+Date: 2023-03-08
 Authors@R: c(
     person("Jakob", "Bossek", email = "j.bossek@gmail.com", role = c("aut", "cre", "cph")),
     person("Michael H.", "Buselli", role = c("ctb", "cph")),
@@ -15,7 +15,7 @@ Authors@R: c(
     person("Eckart", "Zitzler", role = c("ctb", "cph")),
     person("Olaf", "Mersmann", role = "ctb"))
 Maintainer: Jakob Bossek <j.bossek@gmail.com>
-License: GPL-3 | file LICENSE
+License: GPL-3
 URL: https://github.com/jakobbossek/ecr2
 BugReports: https://github.com/jakobbossek/ecr2/issues
 Depends:
@@ -43,9 +43,8 @@ Suggests:
     rmarkdown,
     mlr,
     mlbench,
-    randomForest
+    randomForest,
+    covr
 ByteCompile: yes
 LinkingTo: Rcpp
-LazyData: yes
-RoxygenNote: 6.1.1
 VignetteBuilder: knitr

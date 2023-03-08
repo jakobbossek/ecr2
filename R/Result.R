@@ -44,7 +44,7 @@ NULL
 # @param control [\code{ecr_control}]\cr
 #   Control object.
 # @return [\code{ecr_single_objective_result} | \code{ecr_multi_objective_result}]
-setupResult = function(population, fitness, control) {
+setupResult = function(population, fitness, control, log, stop.object) {
   UseMethod("setupResult")
 }
 

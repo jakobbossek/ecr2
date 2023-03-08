@@ -26,9 +26,12 @@ selected to be included into the mating pool. This process is repeated until
 the desired number of individuals for the mating pool is reached.
 }
 \seealso{
-Other selectors: \code{\link{selDomHV}},
-  \code{\link{selGreedy}}, \code{\link{selNondom}},
-  \code{\link{selRanking}}, \code{\link{selRoulette}},
-  \code{\link{selSimple}}
+Other selectors: 
+\code{\link{selDomHV}()},
+\code{\link{selGreedy}()},
+\code{\link{selNondom}()},
+\code{\link{selRanking}()},
+\code{\link{selRoulette}()},
+\code{\link{selSimple}()}
 }
 \concept{selectors}

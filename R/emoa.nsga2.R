@@ -62,6 +62,6 @@ nsga2 = function(
     mutator = mutator,
     recombinator = recombinator,
     survival.selector = selNondom,
-    terminators = terminators)
+    terminators = terminators, ...)
   return(res)
 }

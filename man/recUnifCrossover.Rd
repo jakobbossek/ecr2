@@ -21,8 +21,11 @@ Produces two child individuals. The i-th gene is from parent1 with probability
 \code{p} and from parent2 with probability \code{1-p}.
 }
 \seealso{
-Other recombinators: \code{\link{recCrossover}},
-  \code{\link{recIntermediate}}, \code{\link{recOX}},
-  \code{\link{recPMX}}, \code{\link{recSBX}}
+Other recombinators: 
+\code{\link{recCrossover}()},
+\code{\link{recIntermediate}()},
+\code{\link{recOX}()},
+\code{\link{recPMX}()},
+\code{\link{recSBX}()}
 }
 \concept{recombinators}

@@ -20,10 +20,14 @@ positions \eqn{b-1, b-2, ..., a} are shifted to the right by one position
 and finally the element at position \eqn{b} is assigned at position \eqn{a}.
 }
 \seealso{
-Other mutators: \code{\link{mutBitflip}},
-  \code{\link{mutGauss}}, \code{\link{mutInsertion}},
-  \code{\link{mutInversion}}, \code{\link{mutPolynomial}},
-  \code{\link{mutScramble}}, \code{\link{mutSwap}},
-  \code{\link{mutUniform}}
+Other mutators: 
+\code{\link{mutBitflip}()},
+\code{\link{mutGauss}()},
+\code{\link{mutInsertion}()},
+\code{\link{mutInversion}()},
+\code{\link{mutPolynomial}()},
+\code{\link{mutScramble}()},
+\code{\link{mutSwap}()},
+\code{\link{mutUniform}()}
 }
 \concept{mutators}

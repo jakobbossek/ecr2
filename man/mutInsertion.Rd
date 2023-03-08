@@ -18,10 +18,14 @@ The Insertion mutation operator selects a position random and inserts it at
 a random position.
 }
 \seealso{
-Other mutators: \code{\link{mutBitflip}},
-  \code{\link{mutGauss}}, \code{\link{mutInversion}},
-  \code{\link{mutJump}}, \code{\link{mutPolynomial}},
-  \code{\link{mutScramble}}, \code{\link{mutSwap}},
-  \code{\link{mutUniform}}
+Other mutators: 
+\code{\link{mutBitflip}()},
+\code{\link{mutGauss}()},
+\code{\link{mutInversion}()},
+\code{\link{mutJump}()},
+\code{\link{mutPolynomial}()},
+\code{\link{mutScramble}()},
+\code{\link{mutSwap}()},
+\code{\link{mutUniform}()}
 }
 \concept{mutators}

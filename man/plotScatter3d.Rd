@@ -4,8 +4,13 @@
 \alias{plotScatter3d}
 \title{Visualize three-objective Pareto-front approximations.}
 \usage{
-plotScatter3d(df, obj.cols = c("f1", "f2", "f3"), max.in.row = 4L,
-  package = "scatterplot3d", ...)
+plotScatter3d(
+  df,
+  obj.cols = c("f1", "f2", "f3"),
+  max.in.row = 4L,
+  package = "scatterplot3d",
+  ...
+)
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr
@@ -37,13 +42,17 @@ different three-objective optimization algorithms on (multiple) problem instance
 the function generates 3D scatterplots of the obtained Pareto-front approximations.
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
-  \code{\link{approximateRefPoints}},
-  \code{\link{computeDominanceRanking}},
-  \code{\link{emoaIndEps}},
-  \code{\link{makeEMOAIndicator}},
-  \code{\link{niceCellFormater}}, \code{\link{normalize}},
-  \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter2d}}, \code{\link{toLatex}}
+Other EMOA performance assessment tools: 
+\code{\link{approximateNadirPoint}()},
+\code{\link{approximateRefPoints}()},
+\code{\link{computeDominanceRanking}()},
+\code{\link{emoaIndEps}()},
+\code{\link{makeEMOAIndicator}()},
+\code{\link{niceCellFormater}()},
+\code{\link{normalize}()},
+\code{\link{plotDistribution}()},
+\code{\link{plotFront}()},
+\code{\link{plotScatter2d}()},
+\code{\link{toLatex}()}
 }
 \concept{EMOA performance assessment tools}

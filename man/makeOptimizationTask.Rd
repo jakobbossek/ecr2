@@ -4,8 +4,12 @@
 \alias{makeOptimizationTask}
 \title{Creates an optimization task.}
 \usage{
-makeOptimizationTask(fun, n.objectives = NULL, minimize = NULL,
-  objective.names = NULL)
+makeOptimizationTask(
+  fun,
+  n.objectives = NULL,
+  minimize = NULL,
+  objective.names = NULL
+)
 }
 \arguments{
 \item{fun}{[\code{function} | \code{smoof_function}]\cr

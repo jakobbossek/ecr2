@@ -40,13 +40,17 @@ and/or replications is high.
 of Stochastic Multiobjective Optimizers. Retrieved from https://sop.tik.ee.ethz.ch/KTZ2005a.pdf
 }
 \seealso{
-Other EMOA performance assessment tools: \code{\link{approximateNadirPoint}},
-  \code{\link{approximateRefPoints}},
-  \code{\link{emoaIndEps}},
-  \code{\link{makeEMOAIndicator}},
-  \code{\link{niceCellFormater}}, \code{\link{normalize}},
-  \code{\link{plotDistribution}}, \code{\link{plotFront}},
-  \code{\link{plotScatter2d}}, \code{\link{plotScatter3d}},
-  \code{\link{toLatex}}
+Other EMOA performance assessment tools: 
+\code{\link{approximateNadirPoint}()},
+\code{\link{approximateRefPoints}()},
+\code{\link{emoaIndEps}()},
+\code{\link{makeEMOAIndicator}()},
+\code{\link{niceCellFormater}()},
+\code{\link{normalize}()},
+\code{\link{plotDistribution}()},
+\code{\link{plotFront}()},
+\code{\link{plotScatter2d}()},
+\code{\link{plotScatter3d}()},
+\code{\link{toLatex}()}
 }
 \concept{EMOA performance assessment tools}

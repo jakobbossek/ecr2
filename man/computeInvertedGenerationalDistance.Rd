@@ -4,8 +4,13 @@
 \alias{computeInvertedGenerationalDistance}
 \title{Computes Inverted Generational Distance.}
 \usage{
-computeInvertedGenerationalDistance(A, B, p = 1, normalize = FALSE,
-  dist.fun = computeEuclideanDistance)
+computeInvertedGenerationalDistance(
+  A,
+  B,
+  p = 1,
+  normalize = FALSE,
+  dist.fun = computeEuclideanDistance
+)
 }
 \arguments{
 \item{A}{[\code{matrix}]\cr

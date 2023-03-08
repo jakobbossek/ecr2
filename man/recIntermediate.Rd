@@ -18,8 +18,11 @@ Intermediate recombination computes the component-wise mean value of the
 \code{k} given parents. It is applicable only for float representation.
 }
 \seealso{
-Other recombinators: \code{\link{recCrossover}},
-  \code{\link{recOX}}, \code{\link{recPMX}},
-  \code{\link{recSBX}}, \code{\link{recUnifCrossover}}
+Other recombinators: 
+\code{\link{recCrossover}()},
+\code{\link{recOX}()},
+\code{\link{recPMX}()},
+\code{\link{recSBX}()},
+\code{\link{recUnifCrossover}()}
 }
 \concept{recombinators}

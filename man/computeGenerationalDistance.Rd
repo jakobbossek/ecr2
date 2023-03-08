@@ -4,8 +4,13 @@
 \alias{computeGenerationalDistance}
 \title{Computes Generational Distance.}
 \usage{
-computeGenerationalDistance(A, B, p = 1, normalize = FALSE,
-  dist.fun = computeEuclideanDistance)
+computeGenerationalDistance(
+  A,
+  B,
+  p = 1,
+  normalize = FALSE,
+  dist.fun = computeEuclideanDistance
+)
 }
 \arguments{
 \item{A}{[\code{matrix}]\cr

@@ -26,8 +26,10 @@ This functions throws an error if the logger was initialized with
 \code{log.pop = FALSE} (see \code{initLogger}).
 }
 \seealso{
-Other logging: \code{\link{getPopulationFitness}},
-  \code{\link{getStatistics}}, \code{\link{initLogger}},
-  \code{\link{updateLogger}}
+Other logging: 
+\code{\link{getPopulationFitness}()},
+\code{\link{getStatistics}()},
+\code{\link{initLogger}()},
+\code{\link{updateLogger}()}
 }
 \concept{logging}

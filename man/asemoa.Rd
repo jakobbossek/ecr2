@@ -4,14 +4,23 @@
 \alias{asemoa}
 \title{Implementation of the NSGA-II EMOA algorithm by Deb.}
 \usage{
-asemoa(fitness.fun, n.objectives = NULL, minimize = NULL,
-  n.dim = NULL, lower = NULL, upper = NULL, mu = 10L,
-  aspiration.set = NULL, normalize.fun = NULL,
-  dist.fun = ecr:::computeEuclideanDistance, p = 1,
-  parent.selector = setup(selSimple), mutator = setup(mutPolynomial,
-  eta = 25, p = 0.2, lower = lower, upper = upper),
-  recombinator = setup(recSBX, eta = 15, p = 0.7, lower = lower, upper =
-  upper), terminators = list(stopOnIters(100L)))
+asemoa(
+  fitness.fun,
+  n.objectives = NULL,
+  minimize = NULL,
+  n.dim = NULL,
+  lower = NULL,
+  upper = NULL,
+  mu = 10L,
+  aspiration.set = NULL,
+  normalize.fun = NULL,
+  dist.fun = computeEuclideanDistance,
+  p = 1,
+  parent.selector = setup(selSimple),
+  mutator = setup(mutPolynomial, eta = 25, p = 0.2, lower = lower, upper = upper),
+  recombinator = setup(recSBX, eta = 15, p = 0.7, lower = lower, upper = upper),
+  terminators = list(stopOnIters(100L))
+)
 }
 \arguments{
 \item{fitness.fun}{[\code{function}]\cr

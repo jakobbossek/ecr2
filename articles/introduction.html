@@ -173,10 +173,10 @@ One-dimensional Ackley test function.
 <span>    <span class="va">fitness</span> <span class="op">=</span> <span class="va">sel</span><span class="op">$</span><span class="va">fitness</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">fitness</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.08728538</span></span>
+<span><span class="co">#&gt; [1] 0.01240345</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">population</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="va">fitness</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           x </span></span>
-<span><span class="co">#&gt; -0.01767777</span></span></code></pre></div>
+<span><span class="co">#&gt;            x </span></span>
+<span><span class="co">#&gt; -0.002982448</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="black-box-approach">Black-box approach<a class="anchor" aria-label="anchor" href="#black-box-approach"></a>
 </h4>
@@ -190,13 +190,13 @@ One-dimensional Ackley test function.
 <span>  mutator <span class="op">=</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span><span class="va">mutGauss</span>, sdev <span class="op">=</span> <span class="fl">2</span>, lower <span class="op">=</span> <span class="va">lower</span>, upper <span class="op">=</span> <span class="va">upper</span><span class="op">)</span>,</span>
 <span>  terminators <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/stoppingConditions.html">stopOnIters</a></span><span class="op">(</span><span class="va">MAX.ITER</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">best.y</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1.254583e-06</span></span>
+<span><span class="co">#&gt; [1] 0.002467699</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">best.x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt;            x </span></span>
-<span><span class="co">#&gt; 3.136444e-07 </span></span>
+<span><span class="co">#&gt;           x </span></span>
+<span><span class="co">#&gt; 0.000611939 </span></span>
 <span><span class="co">#&gt; attr(,"fitness")</span></span>
-<span><span class="co">#&gt; [1] 1.254583e-06</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.002467699</span></span></code></pre></div>
 </div>
 </div>
 </div>

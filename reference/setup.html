@@ -114,16 +114,16 @@ Furhter parameters for <code>operator</code>.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># apply preinitialized function</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">bf</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 1 0 1 0 0 1 1 1 0 1 1 1 0 1 0 1 1 1 0 0 0 1 1 1 0 1 0 1 1 1 1 1 1 1 0 1 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] 0 1 1 0 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 1 0 1 0 1 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] 0 1 0 0 1 1 0 1 0 0 0 0 1 1 1 0 0 1 0 1 0 1 1 0 1 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 1 0 1 0 0 0 1 0 1 0 1 1 0 1 0 0 1 0 0 1 1 1 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] 1 1 0 1 0 0 1 0 0 0 0 1 0 0 1 0 1 0 1 1 1 1 1 1 0 0 1 0 1 0 0 1 0 0 1 0 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] 1 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># apply raw function</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="mutBitflip.html">mutBitflip</a></span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 1 0 1 0 0 1 1 1 0 1 1 1 0 1 0 1 1 1 0 0 0 1 1 1 0 1 0 1 1 1 1 1 1 1 0 1 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] 0 1 1 0 1 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 1 0 1 0 1 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] 0 1 0 0 1 1 0 1 0 0 0 0 1 1 1 0 0 1 0 1 0 1 1 0 1 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 1 0 1 0 0 0 1 0 1 0 1 1 0 1 0 0 1 0 0 1 1 1 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] 1 1 0 1 0 0 1 0 0 0 0 1 0 0 1 0 1 0 1 1 1 1 1 1 0 0 1 0 1 0 0 1 0 0 1 0 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] 1 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># overwrite preinitialized values with mutate</span></span></span>
 <span class="r-in"><span><span class="va">ctrl</span> <span class="op">=</span> <span class="fu"><a href="initECRControl.html">initECRControl</a></span><span class="op">(</span>fitness.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, n.objectives <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></span>
@@ -131,13 +131,13 @@ Furhter parameters for <code>operator</code>.</p></dd>
 <span class="r-in"><span><span class="va">ctrl</span> <span class="op">=</span> <span class="fu"><a href="registerECROperator.html">registerECROperator</a></span><span class="op">(</span><span class="va">ctrl</span>, <span class="st">"mutate"</span>, <span class="fu">setup</span><span class="op">(</span><span class="va">mutBitflip</span>, p <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># here we overwrite with 1, i.e., each bit is flipped</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0 0 1 0 1 1 1 1 0 0 0 0 0 1 0 1 1 1 0 0 0 0 1 0 1 1 1 1 1 1 1 1 1 0 0 1 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] 1 1 1 0 1 1 0 0 0 1 0 0 0 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 0 0 0 1 0 1 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0 1 1 0 0 1 0 1 1 0 1 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0 0 1 0 1 0 1 0 1 1 0 0 0 1 0 0 1 0 0 1 1 0 0 1 1 0 1 0 1 1 1 0 0 1 0 0 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] 0 1 0 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 0 1 1 1 1 1 1 0 1 0 0 0 0 0 0 0 1 0 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] 1 0 0 1 1 1 0 0 0 0 0 1 0 1 1 1 1 0 0 0 1 0 0 0 0 0</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="generateOffspring.html">mutate</a></span><span class="op">(</span><span class="va">ctrl</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, p.mut <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 1 1 0 1 0 0 0 0 1 1 1 1 1 0 1 0 0 0 1 1 1 1 0 1 0 0 0 0 0 0 0 0 0 1 1 0 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] 0 0 0 1 0 0 1 1 1 0 1 1 1 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 1 1 1 0 1 0 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] 1 0 1 1 0 0 1 0 1 1 1 0 0 1 1 0 0 1 1 0 1 0 0 1 0 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 1 1 0 1 0 1 0 1 0 0 1 1 1 0 1 1 0 1 1 0 0 1 1 0 0 1 0 1 0 0 0 1 1 0 1 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] 1 0 1 0 1 1 0 1 1 0 1 0 1 1 0 1 1 0 1 0 0 0 0 0 0 1 0 1 1 1 1 1 1 1 0 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] 0 1 1 0 0 0 1 1 1 1 1 0 1 0 0 0 0 1 1 1 0 1 1 1 1 1</span>
 </code></pre></div>
     </div>
   </div>

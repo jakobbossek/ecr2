@@ -106,14 +106,14 @@
 <li>Powerful logging mechanism.</li>
 <li>Possibility to use custom representations/genotypes.</li>
 <li>Possibility to define custom EA operators, i.e., mutation, variation and selection operators.</li>
-<li>Easy parallelization via <a href="https://cran.r-project.org/web/packages/parallelMap/index.html" class="external-link">parallelMap</a>
+<li>Easy parallelization via <a href="https://cran.r-project.org/package=parallelMap" class="external-link">parallelMap</a>
 </li>
 <li>Black-box approach for standard tasks.</li>
 <li>Single- and multi-objective optimization.</li>
 <li>Implementations of some popular performance indicators in Evolutionary Multi-Objective Optimization (EMOA), e.g., hyper-volume-indicator, epsilon indicator as well as R1, R2 and R3 indicator.</li>
 <li>Predefined state-of-the-art EMOA algorithms NSGA-II, SMS-EMOA and AS-EMOA.</li>
 </ul>
-<p>The best way to illustrate the process of algorithm design in <strong>ecr</strong> is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package <a href="https://cran.r-project.org/web/packages/smoof/index.html" class="external-link">smoof</a> and may be initialized as follows:</p>
+<p>The best way to illustrate the process of algorithm design in <strong>ecr</strong> is by example. Assume we aim to find the global minimum of the highly multimodal one-dimensional Ackley-Function. The function is available in the R package <a href="https://cran.r-project.org/package=smoof" class="external-link">smoof</a> and may be initialized as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jakobbossek/ecr2" class="external-link">ecr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -177,18 +177,18 @@
 <div class="section level2">
 <h2 id="installation-instructions">Installation Instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
-<p>The package will be available at <a href="http://cran.r-project.org" class="external-link">CRAN</a> soon. Install the release version via:</p>
+<p>The package is available at <a href="https://cran.r-project.org/package=ecr" class="external-link">CRAN</a>. Install the release version via:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ecr"</span><span class="op">)</span></span></code></pre></div>
-<p>If you are interested in trying out and playing around with the current github developer version use the <a href="https://github.com/hadley/devtools" class="external-link">devtools</a> package and type the following command in R:</p>
+<p>If you are interested in trying out and playing around with the current github developer version use the <a href="https://github.com/r-lib/devtools" class="external-link">devtools</a> package and type the following command in R:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"jakobbossek/ecr2"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>To cite <strong>ecr</strong> please use: &gt; Bossek, J. (2017). Ecr 2.0: A Modular Framework for Evolutionary Computation &gt; in R. In Proceedings of the Genetic and Evolutionary Computation Conference &gt; (GECCO) Companion (pp. 1187–1193). Berlin, Germany: &gt; ACM. <a href="http://doi.org/10.1145/3067695.3082470" class="external-link uri">http://doi.org/10.1145/3067695.3082470</a></p>
-<p>In case you made use of <strong>ecr</strong>’s performance assessment tools please cite: &gt; Bossek, J. (2018). Performance Assessment of Multi-objective Evolutionary &gt; Algorithms with the R Package Ecr. In Proceedings of the Genetic and &gt; Evolutionary Computation Conference Companion (pp. 1350–1356). Kyoto, Japan: &gt; ACM. <a href="http://doi.org/10.1145/3205651.3208312" class="external-link uri">http://doi.org/10.1145/3205651.3208312</a></p>
+<p>To cite <strong>ecr</strong> please use: &gt; Bossek, J. (2017). Ecr 2.0: A Modular Framework for Evolutionary Computation &gt; in R. In Proceedings of the Genetic and Evolutionary Computation Conference &gt; (GECCO) Companion (pp. 1187–1193). Berlin, Germany: &gt; ACM. <a href="https://doi.org/10.1145/3067695.3082470" class="external-link uri">https://doi.org/10.1145/3067695.3082470</a></p>
+<p>In case you made use of <strong>ecr</strong>’s performance assessment tools please cite: &gt; Bossek, J. (2018). Performance Assessment of Multi-objective Evolutionary &gt; Algorithms with the R Package Ecr. In Proceedings of the Genetic and &gt; Evolutionary Computation Conference Companion (pp. 1350–1356). Kyoto, Japan: &gt; ACM. <a href="https://doi.org/10.1145/3205651.3208312" class="external-link uri">https://doi.org/10.1145/3205651.3208312</a></p>
 <p>BibTeX entries for LaTeX users:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="op">@</span>inproceedings{Bossek2018PerformanceAssessment,</span>
 <span id="cb8-2"><a href="#cb8-2"></a>  author =<span class="st"> </span>{Bossek, Jakob},</span>
@@ -199,7 +199,7 @@
 <span id="cb8-7"><a href="#cb8-7"></a>  address =<span class="st"> </span>{Kyoto, Japan},</span>
 <span id="cb8-8"><a href="#cb8-8"></a>  series =<span class="st"> </span>{GECCO <span class="st">'18},</span></span>
 <span id="cb8-9"><a href="#cb8-9"></a><span class="st">  title = {{Performance Assessment of Multi-objective Evolutionary Algorithms with the R Package Ecr}},</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="st">  url = {http://doi.acm.org/10.1145/3205651.3208312},</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="st">  url = {https://doi.acm.org/10.1145/3205651.3208312},</span></span>
 <span id="cb8-11"><a href="#cb8-11"></a><span class="st">  year = {2018}</span></span>
 <span id="cb8-12"><a href="#cb8-12"></a><span class="st">}</span></span>
 <span id="cb8-13"><a href="#cb8-13"></a><span class="st">@inproceedings{B2017ecr,</span></span>
@@ -211,7 +211,7 @@
 <span id="cb8-19"><a href="#cb8-19"></a><span class="st">  series = {GECCO '</span><span class="dv">18</span>},</span>
 <span id="cb8-20"><a href="#cb8-20"></a>  address =<span class="st"> </span>{Berlin, Germany},</span>
 <span id="cb8-21"><a href="#cb8-21"></a>  title =<span class="st"> </span>{{Ecr <span class="fl">2.0</span><span class="op">:</span><span class="st"> </span>A Modular Framework <span class="cf">for</span> Evolutionary Computation <span class="cf">in</span> R}},</span>
-<span id="cb8-22"><a href="#cb8-22"></a>  url =<span class="st"> </span>{http<span class="op">:</span><span class="er">//</span>doi.acm.org<span class="op">/</span><span class="fl">10.1145</span><span class="op">/</span><span class="fl">3067695.3082470</span>},</span>
+<span id="cb8-22"><a href="#cb8-22"></a>  url =<span class="st"> </span>{https<span class="op">:</span><span class="er">//</span>doi.acm.org<span class="op">/</span><span class="fl">10.1145</span><span class="op">/</span><span class="fl">3067695.3082470</span>},</span>
 <span id="cb8-23"><a href="#cb8-23"></a>  year =<span class="st"> </span>{<span class="dv">2017</span>}</span>
 <span id="cb8-24"><a href="#cb8-24"></a>}</span></code></pre></div>
 </div>

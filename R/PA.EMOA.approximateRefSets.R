@@ -16,7 +16,7 @@
 #' @return [\code{list} | \code{data.frame}] Named list of matrizes
 #' (names are the problems) or data frame with columns \code{obj.cols} and \dQuote{prob}.
 #' @family EMOA performance assessment tools
-#' @export
+#' @export
 approximateRefSets = function(df, obj.cols, as.df = FALSE) {
   assertDataFrame(df, min.cols = 3L)
   assertCharacter(obj.cols, min.len = 2L)

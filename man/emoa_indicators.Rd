@@ -174,6 +174,7 @@ square root. In contrast, Delta-indicator
 Other EMOA performance assessment tools: 
 \code{\link{approximateNadirPoint}()},
 \code{\link{approximateRefPoints}()},
+\code{\link{approximateRefSets}()},
 \code{\link{computeDominanceRanking}()},
 \code{\link{makeEMOAIndicator}()},
 \code{\link{niceCellFormater}()},

@@ -31,6 +31,7 @@ E.g., for calculation of dominated hypervolume.
 \seealso{
 Other EMOA performance assessment tools: 
 \code{\link{approximateNadirPoint}()},
+\code{\link{approximateRefSets}()},
 \code{\link{computeDominanceRanking}()},
 \code{\link{emoaIndEps}()},
 \code{\link{makeEMOAIndicator}()},

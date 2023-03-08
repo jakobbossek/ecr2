@@ -68,6 +68,7 @@ the results of different indicators.
 Other EMOA performance assessment tools: 
 \code{\link{approximateNadirPoint}()},
 \code{\link{approximateRefPoints}()},
+\code{\link{approximateRefSets}()},
 \code{\link{computeDominanceRanking}()},
 \code{\link{emoaIndEps}()},
 \code{\link{makeEMOAIndicator}()},

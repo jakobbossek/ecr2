@@ -27,6 +27,7 @@ points, e.g., multiple approximation sets.
 \seealso{
 Other EMOA performance assessment tools: 
 \code{\link{approximateRefPoints}()},
+\code{\link{approximateRefSets}()},
 \code{\link{computeDominanceRanking}()},
 \code{\link{emoaIndEps}()},
 \code{\link{makeEMOAIndicator}()},

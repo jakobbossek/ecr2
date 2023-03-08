@@ -48,3 +48,5 @@ Suggests:
 ByteCompile: yes
 LinkingTo: Rcpp
 VignetteBuilder: knitr
+LazyData: true
+RoxygenNote: 7.2.3

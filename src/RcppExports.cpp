@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // computeGenerationalDistanceC
 double computeGenerationalDistanceC(NumericMatrix points, NumericMatrix refPoints, double p);
 RcppExport SEXP _ecr_computeGenerationalDistanceC(SEXP pointsSEXP, SEXP refPointsSEXP, SEXP pSEXP) {
@@ -19,15 +24,15 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP computeCrowdingDistanceC(SEXP);
-RcppExport SEXP computeHVC(SEXP, SEXP);
-RcppExport SEXP computeHVContributionC(SEXP, SEXP);
-RcppExport SEXP computeRIndicatorC(SEXP, SEXP, SEXP, SEXP, SEXP);
-RcppExport SEXP dominatedC(SEXP);
-RcppExport SEXP doNondominatedSortingC(SEXP);
-RcppExport SEXP emoaIndEpsC(SEXP, SEXP);
-RcppExport SEXP polynomialMutationC(SEXP, SEXP, SEXP, SEXP, SEXP);
-RcppExport SEXP simulatedBinaryCrossoverC(SEXP, SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP computeCrowdingDistanceC(void *);
+RcppExport SEXP computeHVC(void *, void *);
+RcppExport SEXP computeHVContributionC(void *, void *);
+RcppExport SEXP computeRIndicatorC(void *, void *, void *, void *, void *);
+RcppExport SEXP dominatedC(void *);
+RcppExport SEXP doNondominatedSortingC(void *);
+RcppExport SEXP emoaIndEpsC(void *, void *);
+RcppExport SEXP polynomialMutationC(void *, void *, void *, void *, void *);
+RcppExport SEXP simulatedBinaryCrossoverC(void *, void *, void *, void *, void *);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ecr_computeGenerationalDistanceC", (DL_FUNC) &_ecr_computeGenerationalDistanceC, 3},

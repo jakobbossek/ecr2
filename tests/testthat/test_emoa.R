@@ -13,8 +13,8 @@ test_that("preimplemented EMOAs work well", {
     for (fn in names(fns)) {
       res = nsga2(
         fitness.fun = fns[[fn]],
-        n.population = mu,
-        n.offspring = 5L,
+        mu = mu,
+        lambda = 5L,
         lower = getLowerBoxConstraints(fns[[fn]]),
         upper = getUpperBoxConstraints(fns[[fn]]),
         terminators = list(stopOnEvals(max.evals))

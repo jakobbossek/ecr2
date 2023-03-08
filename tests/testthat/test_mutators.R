@@ -34,7 +34,7 @@ test_that("mutation operators working on real-numbered representation create val
     test.ind = runif(5L)
     for (i in seq(n.reps)) {
       child = mutate(test.ind)
-      expect_true(all(child >= 0 && child <= 1), info = sprintf("Mutator '%s' did not stick to the
+      expect_true(all((child >= 0) & (child <= 1)), info = sprintf("Mutator '%s' did not stick to the
         box constraints! Input: (%s), Output: (%s)", "mutate", collapse(test.ind), collapse(child)))
     }
   }

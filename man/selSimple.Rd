@@ -24,6 +24,7 @@ sample of \code{ncol(fitness)} indizes.
 \seealso{
 Other selectors: 
 \code{\link{selDomHV}()},
+\code{\link{selDomNumberPlusHV}()},
 \code{\link{selGreedy}()},
 \code{\link{selNondom}()},
 \code{\link{selRanking}()},

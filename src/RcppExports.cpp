@@ -24,15 +24,15 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP computeCrowdingDistanceC(void *);
-RcppExport SEXP computeHVC(void *, void *);
-RcppExport SEXP computeHVContributionC(void *, void *);
-RcppExport SEXP computeRIndicatorC(void *, void *, void *, void *, void *);
-RcppExport SEXP dominatedC(void *);
-RcppExport SEXP doNondominatedSortingC(void *);
-RcppExport SEXP emoaIndEpsC(void *, void *);
-RcppExport SEXP polynomialMutationC(void *, void *, void *, void *, void *);
-RcppExport SEXP simulatedBinaryCrossoverC(void *, void *, void *, void *, void *);
+RcppExport SEXP computeCrowdingDistanceC(SEXP);
+RcppExport SEXP computeHVC(SEXP, SEXP);
+RcppExport SEXP computeHVContributionC(SEXP, SEXP);
+RcppExport SEXP computeRIndicatorC(SEXP, SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP doNondominatedSortingC(SEXP);
+RcppExport SEXP dominatedC(SEXP);
+RcppExport SEXP emoaIndEpsC(SEXP, SEXP);
+RcppExport SEXP polynomialMutationC(SEXP, SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP simulatedBinaryCrossoverC(SEXP, SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ecr_computeGenerationalDistanceC", (DL_FUNC) &_ecr_computeGenerationalDistanceC, 3},
@@ -40,8 +40,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"computeHVC",                        (DL_FUNC) &computeHVC,                        2},
     {"computeHVContributionC",            (DL_FUNC) &computeHVContributionC,            2},
     {"computeRIndicatorC",                (DL_FUNC) &computeRIndicatorC,                5},
-    {"dominatedC",                        (DL_FUNC) &dominatedC,                        1},
     {"doNondominatedSortingC",            (DL_FUNC) &doNondominatedSortingC,            1},
+    {"dominatedC",                        (DL_FUNC) &dominatedC,                        1},
     {"emoaIndEpsC",                       (DL_FUNC) &emoaIndEpsC,                       2},
     {"polynomialMutationC",               (DL_FUNC) &polynomialMutationC,               5},
     {"simulatedBinaryCrossoverC",         (DL_FUNC) &simulatedBinaryCrossoverC,         5},

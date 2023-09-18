@@ -24,6 +24,7 @@ and selects the best ones.
 \seealso{
 Other selectors: 
 \code{\link{selDomHV}()},
+\code{\link{selDomNumberPlusHV}()},
 \code{\link{selNondom}()},
 \code{\link{selRanking}()},
 \code{\link{selRoulette}()},

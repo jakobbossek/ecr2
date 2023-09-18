@@ -39,6 +39,7 @@ Berlin: Springer.
 \seealso{
 Other selectors: 
 \code{\link{selDomHV}()},
+\code{\link{selDomNumberPlusHV}()},
 \code{\link{selGreedy}()},
 \code{\link{selNondom}()},
 \code{\link{selRoulette}()},

@@ -25,6 +25,7 @@ by the famous NSGA-II EMOA (see \code{\link{nsga2}}).
 \seealso{
 Other selectors: 
 \code{\link{selDomHV}()},
+\code{\link{selDomNumberPlusHV}()},
 \code{\link{selGreedy}()},
 \code{\link{selRanking}()},
 \code{\link{selRoulette}()},

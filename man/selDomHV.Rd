@@ -33,6 +33,7 @@ than 1.
 }
 \seealso{
 Other selectors: 
+\code{\link{selDomNumberPlusHV}()},
 \code{\link{selGreedy}()},
 \code{\link{selNondom}()},
 \code{\link{selRanking}()},

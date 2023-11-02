@@ -187,6 +187,7 @@ updateLogger = function(log, population, fitness = NULL, n.evals, extras = NULL,
   log$env$n.gens = log$env$n.gens + 1L
   log$env$n.evals = log$env$n.evals + n.evals
 
+  if(FALSE) {
   if (is.null(fitness))
     fitness = do.call(cbind, lapply(population, function(ind) attr(ind, "fitness")))
 
@@ -273,14 +274,14 @@ updateLogger = function(log, population, fitness = NULL, n.evals, extras = NULL,
   # })
 
   log$env$stats[log$env$cur.line, ] = c(list(gen = log$env$n.gens, time.passed = as.numeric(log$env$time.passed)), cur.stats, extras)
-
+  }
   # store population if requested
   if (log$env$log.pop) {
     fitdim = dim(fitness)
     attributes(fitness) = NULL
     dim(fitness) = fitdim
     log$env$pop[[log$env$cur.line]] = list(population = population, fitness = fitness)
-  }
+  } # if (FALSE)
   log$env$cur.line = log$env$cur.line + 1L
 }
 

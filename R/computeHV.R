@@ -64,9 +64,9 @@ computeHVContr = function(x, ref.point = NULL, offset = 1) {
   if (is.null(ref.point)) {
     ref.point = approximateNadirPoint(x) + offset
   }
-  assertMatrix(x, mode = "numeric", any.missing = FALSE)
-  assertNumeric(ref.point, any.missing = FALSE)
-  assertNumber(offset, finite = TRUE, lower = 0)
+  # assertMatrix(x, mode = "numeric", any.missing = FALSE)
+  # assertNumeric(ref.point, any.missing = FALSE)
+  # assertNumber(offset, finite = TRUE, lower = 0)
 
   # NOTE: we pass  a copy of x here, since otherwise the C-code changes x in place
   return(.Call("computeHVContributionC", x[,], ref.point))

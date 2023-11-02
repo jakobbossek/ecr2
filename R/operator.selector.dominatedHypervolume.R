@@ -20,8 +20,8 @@
 #' @export
 selDomHV = makeSelector(
   selector = function(fitness, n.select, ref.point) {
-    checkmate::assertMatrix(fitness, mode = "numeric", min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE)
-    checkmate::assertNumeric(ref.point, any.missing = FALSE, all.missing = FALSE)
+    # checkmate::assertMatrix(fitness, mode = "numeric", min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE)
+    # checkmate::assertNumeric(ref.point, any.missing = FALSE, all.missing = FALSE)
 
     n = ncol(fitness)
     if (n.select != (n - 1)) {

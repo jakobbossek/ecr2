@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.selector.greedy.R
 \name{selGreedy}
 \alias{selGreedy}
-\title{Simple selector.}
+\title{Simple selector}
 \usage{
 selGreedy(fitness, n.select)
 }

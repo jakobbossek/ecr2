@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.dataprocessing.R
 \name{categorize}
 \alias{categorize}
-\title{Assign group membership based on another group membership.}
+\title{Assign group membership based on another group membership}
 \usage{
 categorize(df, col, categories, cat.col, keep = TRUE, overwrite = FALSE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeSelector.R
 \name{makeSelector}
 \alias{makeSelector}
-\title{Construct a selection operator.}
+\title{Construct a selection operator}
 \usage{
 makeSelector(
   selector,

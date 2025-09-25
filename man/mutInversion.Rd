@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.inversion.R
 \name{mutInversion}
 \alias{mutInversion}
-\title{Inversion mutator.}
+\title{Inversion mutator}
 \usage{
 mutInversion(ind)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.insertion.R
 \name{mutInsertion}
 \alias{mutInsertion}
-\title{Insertion mutator.}
+\title{Insertion mutator}
 \usage{
 mutInsertion(ind)
 }

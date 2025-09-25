@@ -2,7 +2,7 @@
 % Please edit documentation in R/getters.R
 \name{getIndividuals}
 \alias{getIndividuals}
-\title{Extract individuals from Pareto archive.}
+\title{Extract individuals from Pareto archive}
 \usage{
 getIndividuals(x)
 }

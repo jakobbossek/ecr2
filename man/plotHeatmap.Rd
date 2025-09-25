@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotHeatmap.R
 \name{plotHeatmap}
 \alias{plotHeatmap}
-\title{Plot heatmap.}
+\title{Plot heatmap}
 \usage{
 plotHeatmap(x, value.name = "Value", show.values = FALSE)
 }

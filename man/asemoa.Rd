@@ -2,7 +2,7 @@
 % Please edit documentation in R/emoa.as-emoa.R
 \name{asemoa}
 \alias{asemoa}
-\title{Implementation of the NSGA-II EMOA algorithm by Deb.}
+\title{Implementation of the NSGA-II EMOA algorithm by Deb}
 \usage{
 asemoa(
   fitness.fun,

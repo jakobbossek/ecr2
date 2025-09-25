@@ -3,7 +3,7 @@
 \name{computeHV}
 \alias{computeHV}
 \alias{computeHVContr}
-\title{Functions for the calculation of the dominated hypervolume (contribution).}
+\title{Functions for the calculation of the dominated hypervolume (contribution)}
 \usage{
 computeHV(x, ref.point = NULL, ...)
 

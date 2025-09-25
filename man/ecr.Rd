@@ -2,7 +2,7 @@
 % Please edit documentation in R/ecr.R
 \name{ecr}
 \alias{ecr}
-\title{Interface to ecr similar to the optim function.}
+\title{Interface to ecr similar to the optim function}
 \usage{
 ecr(
   fitness.fun,

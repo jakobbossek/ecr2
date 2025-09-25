@@ -2,7 +2,7 @@
 % Please edit documentation in R/initPopulation.R
 \name{initPopulation}
 \alias{initPopulation}
-\title{Helper function to build initial population.}
+\title{Helper function to build initial population}
 \usage{
 initPopulation(mu, gen.fun, initial.solutions = NULL, ...)
 }

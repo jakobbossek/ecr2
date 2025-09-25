@@ -2,7 +2,7 @@
 % Please edit documentation in R/computeAverageHausdorffDistance.R
 \name{computeInvertedGenerationalDistance}
 \alias{computeInvertedGenerationalDistance}
-\title{Computes Inverted Generational Distance.}
+\title{Computes Inverted Generational Distance}
 \usage{
 computeInvertedGenerationalDistance(
   A,

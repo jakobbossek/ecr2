@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.selector.dominatedHypervolume.R
 \name{selDomHV}
 \alias{selDomHV}
-\title{Dominated Hypervolume selector.}
+\title{Dominated Hypervolume selector}
 \usage{
 selDomHV(fitness, n.select, ref.point)
 }

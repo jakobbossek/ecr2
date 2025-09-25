@@ -2,7 +2,7 @@
 % Please edit documentation in R/setup.R
 \name{setup}
 \alias{setup}
-\title{Set up parameters for evolutionary operator.}
+\title{Set up parameters for evolutionary operator}
 \usage{
 setup(operator, ...)
 }

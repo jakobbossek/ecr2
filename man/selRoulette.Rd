@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.selector.roulettewheel.R
 \name{selRoulette}
 \alias{selRoulette}
-\title{Roulette-wheel / fitness-proportional selector.}
+\title{Roulette-wheel / fitness-proportional selector}
 \usage{
 selRoulette(fitness, n.select, offset = 0.1)
 }

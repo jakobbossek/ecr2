@@ -2,7 +2,7 @@
 % Please edit documentation in R/logger.default.R
 \name{initLogger}
 \alias{initLogger}
-\title{Initialize a log object.}
+\title{Initialize a log object}
 \usage{
 initLogger(
   control,

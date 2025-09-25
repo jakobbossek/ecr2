@@ -2,7 +2,7 @@
 % Please edit documentation in R/paretoArchive.R
 \name{updateParetoArchive}
 \alias{updateParetoArchive}
-\title{Update Pareto Archive.}
+\title{Update Pareto Archive}
 \usage{
 updateParetoArchive(archive, inds, fitness, ...)
 }

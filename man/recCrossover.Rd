@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.recombinator.crossover.R
 \name{recCrossover}
 \alias{recCrossover}
-\title{One-point crossover recombinator.}
+\title{One-point crossover recombinator}
 \usage{
 recCrossover(inds)
 }

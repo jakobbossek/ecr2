@@ -2,7 +2,7 @@
 % Please edit documentation in R/paretoArchive.R
 \name{initParetoArchive}
 \alias{initParetoArchive}
-\title{Initialize Pareto Archive.}
+\title{Initialize Pareto Archive}
 \usage{
 initParetoArchive(control, max.size = Inf, trunc.fun = NULL)
 }

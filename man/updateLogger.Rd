@@ -2,7 +2,7 @@
 % Please edit documentation in R/logger.default.R
 \name{updateLogger}
 \alias{updateLogger}
-\title{Update the log.}
+\title{Update the log}
 \usage{
 updateLogger(log, population, fitness = NULL, n.evals, extras = NULL, ...)
 }

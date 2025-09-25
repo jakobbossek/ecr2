@@ -2,7 +2,7 @@
 % Please edit documentation in R/registerECRObject.R
 \name{registerECROperator}
 \alias{registerECROperator}
-\title{Register operators to control object.}
+\title{Register operators to control object}
 \usage{
 registerECROperator(control, slot, fun, ...)
 }

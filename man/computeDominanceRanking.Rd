@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.computeDominanceRanking.R
 \name{computeDominanceRanking}
 \alias{computeDominanceRanking}
-\title{Ranking of approximation sets.}
+\title{Ranking of approximation sets}
 \usage{
 computeDominanceRanking(df, obj.cols)
 }

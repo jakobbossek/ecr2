@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeMonitor.R
 \name{makeECRMonitor}
 \alias{makeECRMonitor}
-\title{Factory method for monitor objects.}
+\title{Factory method for monitor objects}
 \usage{
 makeECRMonitor(before = NULL, step = NULL, after = NULL, ...)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOptimizationTask.R
 \name{makeOptimizationTask}
 \alias{makeOptimizationTask}
-\title{Creates an optimization task.}
+\title{Creates an optimization task}
 \usage{
 makeOptimizationTask(
   fun,

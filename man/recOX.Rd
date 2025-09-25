@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.recombinator.ox.R
 \name{recOX}
 \alias{recOX}
-\title{Ordered-Crossover (OX) recombinator.}
+\title{Ordered-Crossover (OX) recombinator}
 \usage{
 recOX(inds)
 }

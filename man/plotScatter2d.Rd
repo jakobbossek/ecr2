@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.plotScatter2d.R
 \name{plotScatter2d}
 \alias{plotScatter2d}
-\title{Visualize bi-objective Pareto-front approximations.}
+\title{Visualize bi-objective Pareto-front approximations}
 \usage{
 plotScatter2d(
   df,

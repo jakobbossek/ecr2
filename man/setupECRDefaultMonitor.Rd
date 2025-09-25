@@ -2,7 +2,7 @@
 % Please edit documentation in R/monitor.default.R
 \name{setupECRDefaultMonitor}
 \alias{setupECRDefaultMonitor}
-\title{Default monitor.}
+\title{Default monitor}
 \usage{
 setupECRDefaultMonitor(step = 10L)
 }

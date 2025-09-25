@@ -2,7 +2,7 @@
 % Please edit documentation in R/emoa.nsga2.R
 \name{nsga2}
 \alias{nsga2}
-\title{Implementation of the NSGA-II EMOA algorithm by Deb.}
+\title{Implementation of the NSGA-II EMOA algorithm by Deb}
 \usage{
 nsga2(
   fitness.fun,

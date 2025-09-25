@@ -2,7 +2,7 @@
 % Please edit documentation in R/logger.default.R
 \name{toGG}
 \alias{toGG}
-\title{Transform to long format.}
+\title{Transform to long format}
 \usage{
 toGG(x, drop.stats = character(0L))
 }

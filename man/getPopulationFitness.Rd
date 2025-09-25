@@ -2,7 +2,7 @@
 % Please edit documentation in R/logger.default.R
 \name{getPopulationFitness}
 \alias{getPopulationFitness}
-\title{Access to logged population fitness.}
+\title{Access to logged population fitness}
 \usage{
 getPopulationFitness(log, trim = TRUE)
 }

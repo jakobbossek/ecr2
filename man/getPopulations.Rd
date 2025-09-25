@@ -2,7 +2,7 @@
 % Please edit documentation in R/logger.default.R
 \name{getPopulations}
 \alias{getPopulations}
-\title{Access to logged populations.}
+\title{Access to logged populations}
 \usage{
 getPopulations(log, trim = TRUE)
 }

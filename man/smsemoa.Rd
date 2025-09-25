@@ -2,7 +2,7 @@
 % Please edit documentation in R/emoa.sms-emoa.R
 \name{smsemoa}
 \alias{smsemoa}
-\title{Implementation of the SMS-EMOA by Emmerich et al.}
+\title{Implementation of the SMS-EMOA by Emmerich et al}
 \usage{
 smsemoa(
   fitness.fun,

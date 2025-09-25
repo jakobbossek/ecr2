@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.recombinator.intermediate.R
 \name{recIntermediate}
 \alias{recIntermediate}
-\title{Indermediate recombinator.}
+\title{Indermediate recombinator}
 \usage{
 recIntermediate(inds)
 }

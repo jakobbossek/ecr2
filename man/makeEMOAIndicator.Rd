@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.makeEMOAIndicator.R
 \name{makeEMOAIndicator}
 \alias{makeEMOAIndicator}
-\title{Constructor for EMOA indicators.}
+\title{Constructor for EMOA indicators}
 \usage{
 makeEMOAIndicator(fun, minimize, name, latex.name)
 }

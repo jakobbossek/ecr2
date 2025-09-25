@@ -2,7 +2,7 @@
 % Please edit documentation in R/logger.default.R
 \name{getStatistics}
 \alias{getStatistics}
-\title{Access the logged statistics.}
+\title{Access the logged statistics}
 \usage{
 getStatistics(log, trim = TRUE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.recombinator.sbx.R
 \name{recSBX}
 \alias{recSBX}
-\title{Simulated Binary Crossover (SBX) recombinator.}
+\title{Simulated Binary Crossover (SBX) recombinator}
 \usage{
 recSBX(inds, eta = 5, p = 1, lower, upper)
 }

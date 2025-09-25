@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.scramble.R
 \name{mutScramble}
 \alias{mutScramble}
-\title{Scramble mutator.}
+\title{Scramble mutator}
 \usage{
 mutScramble(ind)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.gauss.R
 \name{mutGauss}
 \alias{mutGauss}
-\title{Gaussian mutator.}
+\title{Gaussian mutator}
 \usage{
 mutGauss(ind, p = 1L, sdev = 0.05, lower, upper)
 }

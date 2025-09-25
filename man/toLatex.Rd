@@ -4,7 +4,7 @@
 \alias{toLatex}
 \alias{toLatex.list}
 \alias{toLatex.data.frame}
-\title{Export results of statistical tests to LaTeX table(s).}
+\title{Export results of statistical tests to LaTeX table(s)}
 \usage{
 toLatex(
   stats,

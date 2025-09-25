@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.selector.domNumberPlusHV.R
 \name{selDomNumberPlusHV}
 \alias{selDomNumberPlusHV}
-\title{Modified dominated Hypervolume selector.}
+\title{Modified dominated Hypervolume selector}
 \usage{
 selDomNumberPlusHV(fitness, n.select, ref.point)
 }
@@ -36,8 +36,8 @@ and the selection process quits with an error message if \code{n.select} is grea
 than 1.
 }
 \references{
-[1] Beume, Nicola, Boris Naujoks and M. Emmerich. SMS-EMOA: Multiobjective selection
-based on dominated hypervolume.” European Journal of Operational Research. 181 (2007): 1653-1669.
+[1] Beume, Nicola, Boris Naujoks and M. Emmerich. _SMS-EMOA: Multiobjective selection
+based on dominated hypervolume._ European Journal of Operational Research. 181 (2007): 1653-1669.
 }
 \seealso{
 Other selectors: 

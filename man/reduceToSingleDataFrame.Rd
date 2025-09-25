@@ -2,7 +2,7 @@
 % Please edit documentation in R/pareto.utils.R
 \name{reduceToSingleDataFrame}
 \alias{reduceToSingleDataFrame}
-\title{Combine multiple data frames into a single data.frame.}
+\title{Combine multiple data frames into a single data.frame}
 \usage{
 reduceToSingleDataFrame(res = list(), what = NULL, group.col.name)
 }
@@ -21,5 +21,5 @@ Which component of each list element in \code{res} to choose. Set this to
 Name for the grouping column.}
 }
 \description{
-Combine multiple data frames into a single data.frame.
+Combine multiple data frames into a single data.frame
 }

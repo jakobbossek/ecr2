@@ -2,7 +2,7 @@
 % Please edit documentation in R/computeAverageHausdorffDistance.R
 \name{computeAverageHausdorffDistance}
 \alias{computeAverageHausdorffDistance}
-\title{Average Hausdorff Distance computation.}
+\title{Average Hausdorff Distance computation}
 \usage{
 computeAverageHausdorffDistance(
   A,

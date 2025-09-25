@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOperator.R
 \name{getSupportedRepresentations}
 \alias{getSupportedRepresentations}
-\title{Get supported representations.}
+\title{Get supported representations}
 \usage{
 getSupportedRepresentations(operator)
 }

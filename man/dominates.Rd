@@ -5,7 +5,7 @@
 \alias{isDominated}
 \alias{\%dominates\%}
 \alias{\%isDominatedBy\%}
-\title{Dominance relation check.}
+\title{Dominance relation check}
 \usage{
 dominates(x, y)
 

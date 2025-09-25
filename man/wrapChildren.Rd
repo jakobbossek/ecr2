@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilities.R
 \name{wrapChildren}
 \alias{wrapChildren}
-\title{Wrap the individuals constructed by a recombination operator.}
+\title{Wrap the individuals constructed by a recombination operator}
 \usage{
 wrapChildren(...)
 }

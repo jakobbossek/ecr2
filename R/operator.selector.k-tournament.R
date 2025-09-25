@@ -1,5 +1,5 @@
 #' @title
-#' k-Tournament selector.
+#' k-Tournament selector
 #'
 #' @description
 #' k individuals from the population are chosen randomly and the best one is

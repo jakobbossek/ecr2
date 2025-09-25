@@ -1,4 +1,4 @@
-#' @title Explode/implode data frame column(s).
+#' @title Explode/implode data frame column(s)
 #'
 #' @description Given a data frame and a column name, function
 #' \code{explode} splits the content of a column by a specified
@@ -99,7 +99,7 @@ implode = function(df, cols, by = ".", keep = FALSE, col.name) {
 }
 
 #' @title
-#' Assign group membership based on another group membership.
+#' Assign group membership based on another group membership
 #'
 #' @description
 #' Given a data frame and a grouping column of type factor or character this function

@@ -1,9 +1,9 @@
 #' @title
-#' Fitness transformation / scaling.
+#' Fitness transformation / scaling
 #'
 #' @description
 #' Some selectors support maximization only, e.g., roulette wheel selector, or
-#' minimization (most others). This function computes a factor from {-1, 1} for
+#' minimization (most others). This function computes a factor from \code{{-1, 1}} for
 #' each objective to match supported selector optimization directions and
 #' the actual objectives of the task.
 #'

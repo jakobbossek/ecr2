@@ -1,5 +1,5 @@
 #' @title
-#' Simple (naive) selector.
+#' Simple (naive) selector
 #'
 #' @description
 #' Just for testing. Actually does not really select, but instead returns a random

@@ -1,4 +1,4 @@
-#' @title Constructor for EMOA indicators.
+#' @title Constructor for EMOA indicators
 #'
 #' @description Simple wrapper for function which compute
 #' performance indicators for multi-objective stochastic algorithm.

@@ -1,5 +1,5 @@
 #' @title
-#' Register operators to control object.
+#' Register operators to control object
 #'
 #' @description In ecr the control object stores information on the fitness
 #' function and serves as a storage for evolutionary components used by your evolutionary

@@ -1,5 +1,5 @@
 #' @title
-#' Result object.
+#' Result object
 #'
 #' @description S3 object returned by \code{\link{ecr}} containing the best found
 #' parameter setting and value in the single-objective case and the Pareto-front/-set

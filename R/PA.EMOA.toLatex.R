@@ -1,4 +1,4 @@
-#' @title Export results of statistical tests to LaTeX table(s).
+#' @title Export results of statistical tests to LaTeX table(s)
 #'
 #' @description Returns high-quality LaTeX-tables of the test results of
 #' statistical tests performed with function \code{test}

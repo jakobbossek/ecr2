@@ -1,5 +1,5 @@
 #' @title
-#' Scramble mutator.
+#' Scramble mutator
 #'
 #' @description
 #' The Scramble mutation operator selects two positions within the chromosome at

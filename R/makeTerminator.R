@@ -1,5 +1,5 @@
 #' @title
-#' Generate stopping condition.
+#' Generate stopping condition
 #'
 #' @description Wrap a function within a stopping condition object.
 #'

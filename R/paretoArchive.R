@@ -1,5 +1,5 @@
 #' @title
-#' Initialize Pareto Archive.
+#' Initialize Pareto Archive
 #'
 #' @description A Pareto archive is usually used to store all / a part of the
 #' non-dominated points stored during a run of an multi-objective evolutionary
@@ -50,7 +50,7 @@ initParetoArchive = function(control, max.size = Inf, trunc.fun = NULL) {
   makeS3Obj("ecr_pareto_archive", env = env)
 }
 
-#' @title Update Pareto Archive.
+#' @title Update Pareto Archive
 #'
 #' @description This function updates a Pareto archive, i.e., an archive of non-dominated
 #' points. It expects the archive, a set of individuals, a matrix of fitness values

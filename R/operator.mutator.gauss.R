@@ -1,5 +1,5 @@
 #' @title
-#' Gaussian mutator.
+#' Gaussian mutator
 #'
 #' @description
 #' Default Gaussian mutation operator known from Evolutionary Algorithms.

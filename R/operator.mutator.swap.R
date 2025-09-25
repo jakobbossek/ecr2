@@ -1,5 +1,5 @@
 #' @title
-#' Swap mutator.
+#' Swap mutator
 #'
 #' @description
 #' Chooses two positions at random and swaps the genes.

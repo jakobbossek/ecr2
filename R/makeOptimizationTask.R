@@ -1,5 +1,5 @@
 #' @title
-#' Creates an optimization task.
+#' Creates an optimization task
 #'
 #' @description
 #' An optimization task consists of the fitness/objective function, the

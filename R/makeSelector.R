@@ -1,5 +1,5 @@
 #' @title
-#' Construct a selection operator.
+#' Construct a selection operator
 #'
 #' @description
 #' Helper function which defines a selector method, i. e., an operator which

@@ -1,5 +1,5 @@
 #' @title
-#' Control object generator.
+#' Control object generator
 #'
 #' @description
 #' The control object keeps information on the objective function and a set of

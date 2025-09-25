@@ -1,4 +1,4 @@
-#' @title Ranking of approximation sets.
+#' @title Ranking of approximation sets
 #'
 #' @description Ranking is performed by merging all approximation sets over all
 #' algorithms and runs per instance. Next, each approximation set \eqn{C} is assigned a

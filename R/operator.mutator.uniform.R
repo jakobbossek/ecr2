@@ -1,5 +1,5 @@
 #' @title
-#' Uniform mutator.
+#' Uniform mutator
 #'
 #' @description
 #' This mutation operator works on real-valued genotypes only. It selects a position

@@ -1,4 +1,4 @@
-#' @title Plot heatmap.
+#' @title Plot heatmap
 #'
 #' @description Given a matrix or list of matrizes \code{x} this function
 #' visualizes each matrix with a heatmap.

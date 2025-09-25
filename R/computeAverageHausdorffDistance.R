@@ -1,5 +1,5 @@
 #' @title
-#' Average Hausdorff Distance computation.
+#' Average Hausdorff Distance computation
 #'
 #' @description
 #' Computes the average Hausdroff distance measure between two point sets.
@@ -37,7 +37,7 @@ computeEuclideanDistance = function(x) {
 }
 
 #' @title
-#' Computes Generational Distance.
+#' Computes Generational Distance
 #'
 #' @description
 #' Helper to compute the Generational Distance (GD) between two sets of points.
@@ -69,7 +69,7 @@ computeGenerationalDistance = function(A, B, p = 1, normalize = FALSE, dist.fun 
 }
 
 #' @title
-#' Computes Inverted Generational Distance.
+#' Computes Inverted Generational Distance
 #'
 #' @description
 #' Helper to compute the Inverted Generational Distance (IGD) between two sets
@@ -83,7 +83,7 @@ computeInvertedGenerationalDistance = function(A, B, p = 1, normalize = FALSE, d
 }
 
 #' @title
-#' Computes distance between a single point and set of points.
+#' Computes distance between a single point and set of points
 #'
 #' @description
 #' Helper to compute distance between a single point and a point set.

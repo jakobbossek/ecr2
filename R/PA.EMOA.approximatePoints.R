@@ -1,5 +1,5 @@
 #' @title
-#' Reference point approximations.
+#' Reference point approximations
 #'
 #' @description
 #' Helper functions to compute nadir or ideal point from sets of

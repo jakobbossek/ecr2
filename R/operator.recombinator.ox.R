@@ -1,5 +1,5 @@
 #' @title
-#' Ordered-Crossover (OX) recombinator.
+#' Ordered-Crossover (OX) recombinator
 #'
 #' @description
 #' This recombination operator is specifically designed for permutations.

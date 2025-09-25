@@ -1,5 +1,5 @@
 #' @title
-#' Uniform crossover recombinator.
+#' Uniform crossover recombinator
 #'
 #' @description
 #' Produces two child individuals. The i-th gene is from parent1 with probability

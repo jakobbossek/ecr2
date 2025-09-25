@@ -1,4 +1,4 @@
-#' @title Plot distribution of EMOA indicators.
+#' @title Plot distribution of EMOA indicators
 #'
 #' @description Visualizes of empirical distributions of unary EMOA indicator
 #' based on the results of \code{\link{computeIndicators}}.

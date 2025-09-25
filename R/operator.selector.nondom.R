@@ -1,5 +1,5 @@
 #' @title
-#' Non-dominated sorting selector.
+#' Non-dominated sorting selector
 #'
 #' @description
 #' Applies non-dominated sorting of the objective vectors and subsequent crowding

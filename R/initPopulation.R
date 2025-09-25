@@ -1,5 +1,5 @@
 #' @title
-#' Helper function to build initial population.
+#' Helper function to build initial population
 #'
 #' @description
 #' Generates the initial population. Optionally a set of initial solutions

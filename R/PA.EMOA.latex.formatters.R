@@ -1,4 +1,4 @@
-#' @title Formatter for table cells of LaTeX tables.
+#' @title Formatter for table cells of LaTeX tables
 #'
 #' @description This formatter function should be applied to
 #' tables where each table cell contains a \eqn{p}-value of

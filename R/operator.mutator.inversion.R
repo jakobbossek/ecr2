@@ -1,5 +1,5 @@
 #' @title
-#' Inversion mutator.
+#' Inversion mutator
 #'
 #' @description
 #' The Inversion mutation operator selects two positions within the chromosome at

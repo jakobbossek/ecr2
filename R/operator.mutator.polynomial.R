@@ -1,5 +1,5 @@
 #' @title
-#' Polynomial mutation.
+#' Polynomial mutation
 #'
 #' @description
 #' Performs an polynomial mutation as used in the SMS-EMOA algorithm.

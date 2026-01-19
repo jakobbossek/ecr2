@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.uniform.R
 \name{mutUniform}
 \alias{mutUniform}
-\title{Uniform mutator.}
+\title{Uniform mutator}
 \usage{
 mutUniform(ind, lower, upper)
 }

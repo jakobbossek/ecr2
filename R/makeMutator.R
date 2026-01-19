@@ -1,5 +1,5 @@
 #' @title
-#' Construct a mutation operator.
+#' Construct a mutation operator
 #'
 #' @description
 #' Helper function which constructs a mutator, i. e., a mutation operator.

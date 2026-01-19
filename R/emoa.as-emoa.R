@@ -1,5 +1,5 @@
 #' @title
-#' Implementation of the NSGA-II EMOA algorithm by Deb.
+#' Implementation of the NSGA-II EMOA algorithm by Deb
 #'
 #' @description
 #' The AS-EMOA, short for aspiration set evolutionary multi-objective

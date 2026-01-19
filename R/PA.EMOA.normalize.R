@@ -1,5 +1,5 @@
 #' @title
-#' Normalize approximations set(s).
+#' Normalize approximations set(s)
 #'
 #' @description
 #' Normalization is done by subtracting the \code{min.value} for each dimension

@@ -1,5 +1,5 @@
 #' @title
-#' Bitplip mutator.
+#' Bitplip mutator
 #'
 #' @description
 #' This operator works only on binary representation and flips each bit

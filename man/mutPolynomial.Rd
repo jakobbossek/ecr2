@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.polynomial.R
 \name{mutPolynomial}
 \alias{mutPolynomial}
-\title{Polynomial mutation.}
+\title{Polynomial mutation}
 \usage{
 mutPolynomial(ind, p = 0.2, eta = 10, lower, upper)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOperator.R
 \name{is.supported}
 \alias{is.supported}
-\title{Check if ecr operator supports given representation.}
+\title{Check if ecr operator supports given representation}
 \usage{
 is.supported(operator, representation)
 }

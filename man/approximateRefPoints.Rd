@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.approximateRefPoints.R
 \name{approximateRefPoints}
 \alias{approximateRefPoints}
-\title{Helper function to estimate reference points.}
+\title{Helper function to estimate reference points}
 \usage{
 approximateRefPoints(df, obj.cols = c("f1", "f2"), offset = 0, as.df = FALSE)
 }

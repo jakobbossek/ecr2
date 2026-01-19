@@ -1,4 +1,4 @@
-#' @title Visualize bi-objective Pareto-front approximations.
+#' @title Visualize bi-objective Pareto-front approximations
 #'
 #' @description Given a data frame with the results of (multiple) runs of (multiple)
 #' different multi-objective optimization algorithms on (multiple) problem instances

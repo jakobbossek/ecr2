@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.selector.simple.R
 \name{selSimple}
 \alias{selSimple}
-\title{Simple (naive) selector.}
+\title{Simple (naive) selector}
 \usage{
 selSimple(fitness, n.select)
 }

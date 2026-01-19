@@ -2,7 +2,7 @@
 % Please edit documentation in R/initECRControl.R
 \name{initECRControl}
 \alias{initECRControl}
-\title{Control object generator.}
+\title{Control object generator}
 \usage{
 initECRControl(fitness.fun, n.objectives = NULL, minimize = NULL)
 }

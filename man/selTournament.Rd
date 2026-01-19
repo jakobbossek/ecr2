@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.selector.k-tournament.R
 \name{selTournament}
 \alias{selTournament}
-\title{k-Tournament selector.}
+\title{k-Tournament selector}
 \usage{
 selTournament(fitness, n.select, k = 3L)
 }

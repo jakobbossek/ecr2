@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.bitflip.R
 \name{mutBitflip}
 \alias{mutBitflip}
-\title{Bitplip mutator.}
+\title{Bitplip mutator}
 \usage{
 mutBitflip(ind, p = 0.1)
 }

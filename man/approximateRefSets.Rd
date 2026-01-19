@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.approximateRefSets.R
 \name{approximateRefSets}
 \alias{approximateRefSets}
-\title{Helper function to estimate reference set(s).}
+\title{Helper function to estimate reference set(s)}
 \usage{
 approximateRefSets(df, obj.cols, as.df = FALSE)
 }

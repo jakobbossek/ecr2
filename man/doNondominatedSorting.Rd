@@ -2,7 +2,7 @@
 % Please edit documentation in R/doNondominatedSorting.R
 \name{doNondominatedSorting}
 \alias{doNondominatedSorting}
-\title{Fast non-dominated sorting algorithm.}
+\title{Fast non-dominated sorting algorithm}
 \usage{
 doNondominatedSorting(x)
 }

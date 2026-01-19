@@ -2,7 +2,7 @@
 % Please edit documentation in R/dominates.R
 \name{setDominates}
 \alias{setDominates}
-\title{Check if one set is better than another.}
+\title{Check if one set is better than another}
 \usage{
 setDominates(x, y)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/logger.default.R
 \name{plotStatistics}
 \alias{plotStatistics}
-\title{Generate line plot of logged statistics.}
+\title{Generate line plot of logged statistics}
 \usage{
 plotStatistics(x, drop.stats = character(0L))
 }

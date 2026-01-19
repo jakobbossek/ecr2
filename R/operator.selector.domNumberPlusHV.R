@@ -1,5 +1,5 @@
 #' @title
-#' Modified dominated Hypervolume selector.
+#' Modified dominated Hypervolume selector
 #'
 #' @description
 #' Alternative SMS-EMOA survival selection as proposed in Algorithm 3 of [1]. Performs non-dominated
@@ -12,8 +12,8 @@
 #' (see \code{\link{smsemoa}}).
 #'
 #' @references
-#' [1] Beume, Nicola, Boris Naujoks and M. Emmerich. SMS-EMOA: Multiobjective selection
-#' based on dominated hypervolume.” European Journal of Operational Research. 181 (2007): 1653-1669.
+#' [1] Beume, Nicola, Boris Naujoks and M. Emmerich. _SMS-EMOA: Multiobjective selection
+#' based on dominated hypervolume._ European Journal of Operational Research. 181 (2007): 1653-1669.
 #'
 #' @note Note that the current implementation expects \code{n.select = ncol(fitness) - 1}
 #' and the selection process quits with an error message if \code{n.select} is greater

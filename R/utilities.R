@@ -1,5 +1,5 @@
 # @title
-#  Assert same dimensions.
+#  Assert same dimensions
 #
 # @description
 #   We frequently need to check whether the dimension of an approximation set is
@@ -31,7 +31,7 @@ hasAllEqualElements = function(x) {
 }
 
 #' @title
-#' Wrap the individuals constructed by a recombination operator.
+#' Wrap the individuals constructed by a recombination operator
 #'
 #' @description
 #' Should be used if the recombinator returns multiple children.

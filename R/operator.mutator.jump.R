@@ -1,5 +1,5 @@
 #' @title
-#' Jump mutator.
+#' Jump mutator
 #'
 #' @description
 #' The jump mutation operator selects two positions within the chromosome at

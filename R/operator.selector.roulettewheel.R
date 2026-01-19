@@ -1,5 +1,5 @@
 #' @title
-#' Roulette-wheel / fitness-proportional selector.
+#' Roulette-wheel / fitness-proportional selector
 #'
 #' @description
 #' The chance of an individual to get selected is proportional to its fitness,

@@ -1,5 +1,5 @@
 #' @title
-#' Functions for the calculation of the dominated hypervolume (contribution).
+#' Functions for the calculation of the dominated hypervolume (contribution)
 #'
 #' @description
 #' The function \code{computeHV} computes the dominated

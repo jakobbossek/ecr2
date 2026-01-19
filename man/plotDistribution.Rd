@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.plotDistribution.R
 \name{plotDistribution}
 \alias{plotDistribution}
-\title{Plot distribution of EMOA indicators.}
+\title{Plot distribution of EMOA indicators}
 \usage{
 plotDistribution(
   inds,

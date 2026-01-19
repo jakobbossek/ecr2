@@ -1,5 +1,5 @@
 #' @title
-#' Dominance relation check.
+#' Dominance relation check
 #'
 #' @description
 #' Check if a vector dominates another (\code{dominates}) or is
@@ -39,7 +39,7 @@ isDominated = function(x, y) {
 }
 
 #' @title
-#' Check for pareto dominance.
+#' Check for pareto dominance
 #'
 #' @description
 #' These functions take a numeric matrix \code{x} where each column corresponds to
@@ -67,7 +67,7 @@ nondominated = function(x) {
 }
 
 #' @title
-#' Determine which points of a set are (non)dominated.
+#' Determine which points of a set are (non)dominated
 #'
 #' @description
 #' Given a matrix with one point per column \code{which.dominated} returns the
@@ -110,7 +110,7 @@ isMaximallyDominated = function(x) {
 }
 
 #' @title
-#' Check if one set is better than another.
+#' Check if one set is better than another
 #'
 #' @description
 #' The function checks, whether each points of the second set of points

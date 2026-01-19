@@ -2,7 +2,7 @@
 % Please edit documentation in R/getters.R
 \name{getSize}
 \alias{getSize}
-\title{Get size of Pareto-archive.}
+\title{Get size of Pareto-archive}
 \usage{
 getSize(x)
 }

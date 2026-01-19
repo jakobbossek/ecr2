@@ -1,5 +1,5 @@
 #' @title
-#' Compute the crowding distance of a set of points.
+#' Compute the crowding distance of a set of points
 #'
 #' @description
 #' The crowding distance is a measure of spread of solutions in the

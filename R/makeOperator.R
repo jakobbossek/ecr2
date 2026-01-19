@@ -1,5 +1,5 @@
 #' @title
-#' Construct evolutionary operator.
+#' Construct evolutionary operator
 #'
 #' @description
 #' Helper function which constructs an evolutionary operator.
@@ -27,7 +27,7 @@ makeOperator = function(
 }
 
 #' @title
-#' Check if given function is an ecr operator.
+#' Check if given function is an ecr operator
 #'
 #' @description
 #' Checks if the passed object is of type \code{ecr_operator}.
@@ -59,7 +59,7 @@ print.ecr_selector = function(x, ...) {
 }
 
 #' @title
-#' Get supported representations.
+#' Get supported representations
 #'
 #' @description
 #' Returns the character vector of representation which the operator supports.
@@ -80,7 +80,7 @@ getSupportedRepresentations.ecr_operator = function(operator) {
 }
 
 #' @title
-#' Check if ecr operator supports given representation.
+#' Check if ecr operator supports given representation
 #'
 #' @description
 #' Check if the given operator supportds a certain representation, e.g., \dQuote{float}.

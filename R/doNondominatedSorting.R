@@ -1,5 +1,5 @@
 #' @title
-#' Fast non-dominated sorting algorithm.
+#' Fast non-dominated sorting algorithm
 #'
 #' @description
 #' Fast non-dominated sorting algorithm proposed by Deb. Non-dominated sorting

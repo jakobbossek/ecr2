@@ -6,7 +6,7 @@
 \alias{sortByObjective.matrix}
 \alias{sortByObjective.ecr_multi_objective_result}
 \alias{sortByObjective.list}
-\title{Sort Pareto-front approximation by objective.}
+\title{Sort Pareto-front approximation by objective}
 \usage{
 sortByObjective(x, obj = 1L, ...)
 
@@ -34,5 +34,5 @@ Further arguments passed down to \code{\link[base]{order}}.}
 Modified object.
 }
 \description{
-Sort Pareto-front approximation by objective.
+Sort Pareto-front approximation by objective
 }

@@ -1,5 +1,5 @@
 #' @title
-#' Dominated Hypervolume selector.
+#' Dominated Hypervolume selector
 #'
 #' @description
 #' Performs non-dominated sorting and drops the individual from the last front

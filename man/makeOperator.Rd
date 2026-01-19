@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOperator.R
 \name{makeOperator}
 \alias{makeOperator}
-\title{Construct evolutionary operator.}
+\title{Construct evolutionary operator}
 \usage{
 makeOperator(operator, supported = getAvailableRepresentations())
 }

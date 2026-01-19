@@ -1,5 +1,5 @@
 #' @title
-#' Indermediate recombinator.
+#' Indermediate recombinator
 #'
 #' @description
 #' Intermediate recombination computes the component-wise mean value of the

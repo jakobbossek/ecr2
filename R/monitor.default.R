@@ -1,5 +1,5 @@
 #' @title
-#' Default monitor.
+#' Default monitor
 #'
 #' @description Default monitor object that outputs messages to the console
 #' based on a default logger (see \code{initLogger}).

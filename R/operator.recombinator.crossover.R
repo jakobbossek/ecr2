@@ -1,5 +1,5 @@
 #' @title
-#' One-point crossover recombinator.
+#' One-point crossover recombinator
 #'
 #' @description
 #' The one-point crossover recombinator is defined for float and binary

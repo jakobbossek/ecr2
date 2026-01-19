@@ -2,7 +2,7 @@
 % Please edit documentation in R/Result.R
 \name{ecr_result}
 \alias{ecr_result}
-\title{Result object.}
+\title{Result object}
 \description{
 S3 object returned by \code{\link{ecr}} containing the best found
 parameter setting and value in the single-objective case and the Pareto-front/-set

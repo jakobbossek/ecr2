@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.recombinator.uniform.R
 \name{recUnifCrossover}
 \alias{recUnifCrossover}
-\title{Uniform crossover recombinator.}
+\title{Uniform crossover recombinator}
 \usage{
 recUnifCrossover(inds, p = 0.5)
 }

@@ -1,4 +1,4 @@
-#' @title Helper function to estimate reference points.
+#' @title Helper function to estimate reference points
 #'
 #' @description E.g., for calculation of dominated hypervolume.
 #'

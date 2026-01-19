@@ -2,7 +2,7 @@
 % Please edit documentation in R/getters.R
 \name{getFront}
 \alias{getFront}
-\title{Extract fitness values from Pareto archive.}
+\title{Extract fitness values from Pareto archive}
 \usage{
 getFront(x)
 }

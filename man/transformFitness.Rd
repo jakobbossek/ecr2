@@ -2,7 +2,7 @@
 % Please edit documentation in R/transformFitness.R
 \name{transformFitness}
 \alias{transformFitness}
-\title{Fitness transformation / scaling.}
+\title{Fitness transformation / scaling}
 \usage{
 transformFitness(fitness, task, selector)
 }
@@ -22,7 +22,7 @@ Selector object.}
 }
 \description{
 Some selectors support maximization only, e.g., roulette wheel selector, or
-minimization (most others). This function computes a factor from {-1, 1} for
+minimization (most others). This function computes a factor from \code{{-1, 1}} for
 each objective to match supported selector optimization directions and
 the actual objectives of the task.
 }

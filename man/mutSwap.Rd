@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.swap.R
 \name{mutSwap}
 \alias{mutSwap}
-\title{Swap mutator.}
+\title{Swap mutator}
 \usage{
 mutSwap(ind)
 }

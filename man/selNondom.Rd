@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.selector.nondom.R
 \name{selNondom}
 \alias{selNondom}
-\title{Non-dominated sorting selector.}
+\title{Non-dominated sorting selector}
 \usage{
 selNondom(fitness, n.select)
 }

@@ -1,5 +1,5 @@
 #' @title
-#' Implementation of the SMS-EMOA by Emmerich et al.
+#' Implementation of the SMS-EMOA by Emmerich et al
 #'
 #' @description
 #' Pure R implementation of the SMS-EMOA. This algorithm belongs to the group

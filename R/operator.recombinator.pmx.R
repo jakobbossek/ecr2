@@ -1,5 +1,5 @@
 #' @title
-#' Partially-Mapped-Crossover (PMX) recombinator.
+#' Partially-Mapped-Crossover (PMX) recombinator
 #'
 #' @description
 #' This recombination operator is specifically designed for permutations.

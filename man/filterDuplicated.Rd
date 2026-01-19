@@ -6,7 +6,7 @@
 \alias{filterDuplicated.matrix}
 \alias{filterDuplicated.ecr_multi_objective_result}
 \alias{filterDuplicated.list}
-\title{Filter approximation sets by duplicate objective vectors.}
+\title{Filter approximation sets by duplicate objective vectors}
 \usage{
 filterDuplicated(x, ...)
 
@@ -31,7 +31,7 @@ Not used at the moment}
 [\code{object}] Modified input \code{x}.
 }
 \description{
-Filter approximation sets by duplicate objective vectors.
+Filter approximation sets by duplicate objective vectors
 }
 \note{
 Note that this may be misleading if there can be solutions with identical

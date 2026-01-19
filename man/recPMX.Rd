@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.recombinator.pmx.R
 \name{recPMX}
 \alias{recPMX}
-\title{Partially-Mapped-Crossover (PMX) recombinator.}
+\title{Partially-Mapped-Crossover (PMX) recombinator}
 \usage{
 recPMX(inds)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/pareto.utils.R
 \name{toParetoDf}
 \alias{toParetoDf}
-\title{Convert matrix to Pareto front data frame.}
+\title{Convert matrix to Pareto front data frame}
 \usage{
 toParetoDf(x, filter.dups = FALSE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.jump.R
 \name{mutJump}
 \alias{mutJump}
-\title{Jump mutator.}
+\title{Jump mutator}
 \usage{
 mutJump(ind)
 }

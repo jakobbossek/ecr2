@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.latex.formatters.R
 \name{niceCellFormater}
 \alias{niceCellFormater}
-\title{Formatter for table cells of LaTeX tables.}
+\title{Formatter for table cells of LaTeX tables}
 \usage{
 niceCellFormater(cell, alpha = 0.05)
 }

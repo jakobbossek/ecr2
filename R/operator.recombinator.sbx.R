@@ -1,5 +1,5 @@
 #' @title
-#' Simulated Binary Crossover (SBX) recombinator.
+#' Simulated Binary Crossover (SBX) recombinator
 #'
 #' @description
 #' The Simulated Binary Crossover was first proposed by [1]. It i suited for

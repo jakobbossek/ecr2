@@ -2,7 +2,7 @@
 % Please edit documentation in R/computeCrowdingDistance.R
 \name{computeCrowdingDistance}
 \alias{computeCrowdingDistance}
-\title{Compute the crowding distance of a set of points.}
+\title{Compute the crowding distance of a set of points}
 \usage{
 computeCrowdingDistance(x)
 }

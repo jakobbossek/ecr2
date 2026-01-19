@@ -4,7 +4,7 @@
 \alias{select}
 \alias{selectForMating}
 \alias{selectForSurvival}
-\title{Select individuals.}
+\title{Select individuals}
 \usage{
 selectForMating(control, fitness, n.select)
 

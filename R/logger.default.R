@@ -1,5 +1,5 @@
 #' @title
-#' Initialize a log object.
+#' Initialize a log object
 #'
 #' @description Logging is a central aspect of each EA. Besides the final solution(s)
 #' especially in research often we need to keep track of different aspects of the
@@ -159,7 +159,7 @@ initLogger = function(
     env = env)
 }
 
-#' @title Update the log.
+#' @title Update the log
 #'
 #' @description This function modifies the log in-place, i.e., without making
 #' copies.
@@ -302,7 +302,7 @@ ensureNamedStats = function(stats) {
   return(stats)
 }
 
-#' @title Access the logged statistics.
+#' @title Access the logged statistics
 #'
 #' @description Simple getter for the logged fitness statistics.
 #'
@@ -325,7 +325,7 @@ getStatistics = function(log, trim = TRUE) {
   return(stats)
 }
 
-#' @title Access to logged populations.
+#' @title Access to logged populations
 #'
 #' @description Simple getter for the logged populations.
 #'
@@ -357,7 +357,7 @@ getPopulations = function(log, trim = TRUE) {
   return(pops)
 }
 
-#' @title Access to logged population fitness.
+#' @title Access to logged population fitness
 #'
 #' @description Returns the fitness values of all individuals as a data.frame
 #' with columns f1, ..., fo, where o is the number of objectives and column
@@ -395,7 +395,7 @@ getPopulationFitness = function(log, trim = TRUE) {
 
 
 
-#' @title Transform to long format.
+#' @title Transform to long format
 #'
 #' @description Transform the data.frame of logged statistics from wide to
 #' \pkg{ggplot2}-friendly long format.
@@ -424,7 +424,7 @@ toGG.ecr_logger = function(x, drop.stats = character(0L)) {
   toGG(getStatistics(x), drop.stats = drop.stats)
 }
 
-#' @title Generate line plot of logged statistics.
+#' @title Generate line plot of logged statistics
 #'
 #' @description Expects a data.frame of logged statistics, e.g., extracted from
 #' a logger object by calling \code{\link{getStatistics}}, and generates a basic

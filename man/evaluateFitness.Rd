@@ -2,7 +2,7 @@
 % Please edit documentation in R/evaluateFitness.R
 \name{evaluateFitness}
 \alias{evaluateFitness}
-\title{Computes the fitness value(s) for each individual of a given set.}
+\title{Computes the fitness value(s) for each individual of a given set}
 \usage{
 evaluateFitness(control, inds, ...)
 }

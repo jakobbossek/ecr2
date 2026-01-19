@@ -3,7 +3,7 @@
 \name{approximateNadirPoint}
 \alias{approximateNadirPoint}
 \alias{approximateIdealPoint}
-\title{Reference point approximations.}
+\title{Reference point approximations}
 \usage{
 approximateNadirPoint(..., sets = NULL)
 

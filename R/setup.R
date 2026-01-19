@@ -1,5 +1,5 @@
 #' @title
-#' Set up parameters for evolutionary operator.
+#' Set up parameters for evolutionary operator
 #'
 #' @description
 #' This function builds a simple wrapper around an evolutionary operator, i.e.,

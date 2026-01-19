@@ -3,7 +3,7 @@
 \name{explode}
 \alias{explode}
 \alias{implode}
-\title{Explode/implode data frame column(s).}
+\title{Explode/implode data frame column(s)}
 \usage{
 explode(df, col, by = ".", keep = FALSE, col.names = NULL)
 

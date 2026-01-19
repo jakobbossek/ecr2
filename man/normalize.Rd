@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.normalize.R
 \name{normalize}
 \alias{normalize}
-\title{Normalize approximations set(s).}
+\title{Normalize approximations set(s)}
 \usage{
 normalize(x, obj.cols, min.value = NULL, max.value = NULL, offset = NULL)
 }

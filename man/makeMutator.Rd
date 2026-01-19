@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeMutator.R
 \name{makeMutator}
 \alias{makeMutator}
-\title{Construct a mutation operator.}
+\title{Construct a mutation operator}
 \usage{
 makeMutator(mutator, supported = getAvailableRepresentations())
 }

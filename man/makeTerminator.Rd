@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeTerminator.R
 \name{makeTerminator}
 \alias{makeTerminator}
-\title{Generate stopping condition.}
+\title{Generate stopping condition}
 \usage{
 makeTerminator(condition.fun, name, message)
 }

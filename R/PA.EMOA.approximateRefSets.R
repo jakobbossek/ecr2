@@ -1,4 +1,4 @@
-#' @title Helper function to estimate reference set(s).
+#' @title Helper function to estimate reference set(s)
 #'
 #' @description The function takes an data frame with columns at least
 #' specified by \code{obj.cols} and \dQuote{prob}. The reference set for

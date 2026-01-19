@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA.EMOA.plotScatter3d.R
 \name{plotScatter3d}
 \alias{plotScatter3d}
-\title{Visualize three-objective Pareto-front approximations.}
+\title{Visualize three-objective Pareto-front approximations}
 \usage{
 plotScatter3d(
   df,

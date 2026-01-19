@@ -1,4 +1,4 @@
-#' Filter approximation sets by duplicate objective vectors.
+#' Filter approximation sets by duplicate objective vectors
 #'
 #' @note Note that this may be misleading if there can be solutions with identical
 #' objective function values but different values in decision space.
@@ -48,7 +48,7 @@ filterDuplicated.list = function(x, ...) {
   filterDuplicated.ecr_multi_objective_result(x)
 }
 
-#' Sort Pareto-front approximation by objective.
+#' Sort Pareto-front approximation by objective
 #'
 #' @param x [\code{object}]\cr
 #'   Object of type data frame (objectives column-wise), matrix (objectives row-wise),
@@ -97,7 +97,7 @@ sortByObjective.list = function(x, obj = 1L, ...) {
   sortByObjective.ecr_multi_objective_result(x)
 }
 
-#' Combine multiple data frames into a single data.frame.
+#' Combine multiple data frames into a single data.frame
 #'
 #' @param res [\code{list}]\cr
 #'   List of data frames or other lists which contain a data frame as one of the
@@ -134,7 +134,7 @@ reduceToSingleDataFrame = function(res = list(), what = NULL, group.col.name) {
   return(resdf)
 }
 
-#' Convert matrix to Pareto front data frame.
+#' Convert matrix to Pareto front data frame
 #'
 #' Inside ecr EMOA algorithms the fitness is maintained in an \eqn{(o, n)} matrix
 #' where \eqn{o} is the number of objectives and \eqn{n} is the number of individuals.

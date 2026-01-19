@@ -1,5 +1,5 @@
 #' @title
-#' Computes the fitness value(s) for each individual of a given set.
+#' Computes the fitness value(s) for each individual of a given set
 #'
 #' @description
 #' This function expects a list of individuals, computes the fitness and always

@@ -2,7 +2,7 @@
 % Please edit documentation in R/computeAverageHausdorffDistance.R
 \name{computeDistanceFromPointToSetOfPoints}
 \alias{computeDistanceFromPointToSetOfPoints}
-\title{Computes distance between a single point and set of points.}
+\title{Computes distance between a single point and set of points}
 \usage{
 computeDistanceFromPointToSetOfPoints(
   a,

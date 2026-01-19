@@ -1,5 +1,5 @@
 #' @title
-#' Interface to ecr similar to the optim function.
+#' Interface to ecr similar to the optim function
 #'
 #' @description
 #' The most flexible way to setup evolutionary algorithms with ecr is by

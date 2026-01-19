@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeRecombinator.R
 \name{makeRecombinator}
 \alias{makeRecombinator}
-\title{Construct a recombination operator.}
+\title{Construct a recombination operator}
 \usage{
 makeRecombinator(
   recombinator,

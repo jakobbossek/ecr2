@@ -1,5 +1,5 @@
 #' @title
-#' Factory method for monitor objects.
+#' Factory method for monitor objects
 #'
 #' @description
 #' Monitor objects serve for monitoring the optimization process, e.g., printing
